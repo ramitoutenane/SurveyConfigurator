@@ -1,3 +1,35 @@
 To Do:
+    * Create SQL-Server database.
+    * Database tables design.
+    * Create SQL DDL.
+    * Insert initial data to database.
+    * Create mockup data to test database.
+    
+
+    * Create question enums.
+    * Create initial question classes.
+    * Create initial database comunication classes.
+    * Connect to database.
+    * Design "Main" form.
+    * Design "Add" and "Edit" form for Smiley faces question.
+    * Design "Add" and "Edit" form for Slider question.
+    * Design "Add" and "Edit" form for Stars question.
+    * Write "Main" form logic.
+    * Write "Add" button logic.
+    * Write "Edit" button logic.
+    * Write "Delete" button logic.
+    * Write "Add" and "Edit" Smiley faces question form logic.
+    * Write "Add" and "Edit" Slider question form logic.
+    * Write "Add" and "Edit" Stars  question form logic.
+
+
+    * Testing and refactoring.
+
+
+    * Write user manual for end-user.
+    * Write installition documentation for administrator.
+    * Write technical documentation for developer.
+
 In Progress:
+
 Done:
