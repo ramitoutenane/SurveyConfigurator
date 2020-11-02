@@ -1,8 +1,4 @@
 To Do:
-    * Insert initial data to database.
-    * Create mockup data to test database.
-    
-
     * Create question enums.
     * Create initial question classes.
     * Create initial database comunication classes.
@@ -33,3 +29,4 @@ Done:
     * Create SQL-Server database.
     * Database tables design.
     * Create SQL DDL.
+    * Insert initial data to database.
