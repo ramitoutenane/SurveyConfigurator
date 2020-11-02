@@ -1,7 +1,4 @@
 To Do:
-    * Create SQL-Server database.
-    * Database tables design.
-    * Create SQL DDL.
     * Insert initial data to database.
     * Create mockup data to test database.
     
@@ -33,3 +30,6 @@ To Do:
 In Progress:
 
 Done:
+    * Create SQL-Server database.
+    * Database tables design.
+    * Create SQL DDL.
