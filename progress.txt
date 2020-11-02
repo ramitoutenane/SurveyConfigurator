@@ -1,3 +1,4 @@
+Project Start : Monday, 2/Nov/2020 
 To Do:
 
     * Create initial database comunication classes.
@@ -23,11 +24,17 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Create question enums.
-    * Create initial question classes.
+
+    * Create initial database comunication classes.
 
 Done:
-    * Create SQL-Server database.
-    * Database tables design.
-    * Create SQL DDL.
-    * Insert initial data to database.
+    
+    - 2/Nov 10:00 AM:
+        * Create SQL-Server database.
+        * Database tables design.
+        * Create SQL DDL.
+        * Insert initial data to database.
+
+    - 2/Nov 5:30 PM
+        * Create question enums.
+        * Create initial question classes.

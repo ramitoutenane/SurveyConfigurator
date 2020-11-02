@@ -1,0 +1,10 @@
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.exe.config
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.exe
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Form1.resources
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.GenerateResource.cache
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CoreCompileInputs.cache
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
