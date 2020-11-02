@@ -1,6 +1,5 @@
 To Do:
-    * Create question enums.
-    * Create initial question classes.
+
     * Create initial database comunication classes.
     * Connect to database.
     * Design "Main" form.
@@ -24,6 +23,8 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
+    * Create question enums.
+    * Create initial question classes.
 
 Done:
     * Create SQL-Server database.
