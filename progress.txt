@@ -1,7 +1,5 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-
-    * Create initial database comunication classes.
     * Connect to database.
     * Design "Main" form.
     * Design "Add" and "Edit" form for Smiley faces question.
@@ -25,7 +23,7 @@ To Do:
 
 In Progress:
 
-    * Create initial database comunication classes.
+    * Write queries for all database comunication classes (4 classes) for operations (SelectALL, Select, Insert, Update, Delete).
 
 Done:
     
@@ -38,3 +36,6 @@ Done:
     - 2/Nov 5:30 PM
         * Create question enums.
         * Create initial question classes.
+
+    -2/Nov 11:00 AM 
+        * Create initial database comunication classes.
