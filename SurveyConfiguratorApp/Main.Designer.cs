@@ -1,6 +1,6 @@
 ﻿namespace SurveyConfiguratorApp
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
