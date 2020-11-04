@@ -11,7 +11,7 @@ namespace SurveyConfiguratorApp
         private string startValueCaption;
         private string endValueCaption;
 
-        public SliderQuestion(string text, int order, int startValue, int endValue, string startValueCaption, string endValueCaption, int id =-1) : base(text, order, QuestionType.Slider, id)
+        public SliderQuestion(string text, int order, int startValue, int endValue, string startValueCaption, string endValueCaption, int id = -1) : base(text, order, QuestionType.Slider, id)
         {
             if (startValue > endValue)
                 throw new ArgumentOutOfRangeException($"Start value must be less than end value");

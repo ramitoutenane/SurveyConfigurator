@@ -4,31 +4,67 @@ using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
 {
-    public class QuestionDatabaseOperations : IRepository<Question, SqlConnection>
+    public class QuestionDatabaseOperations : ICUDable<Question, SqlConnection>
     {
-        public bool Delete(SqlConnection connection, int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public bool Insert(SqlConnection connection, Question data)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Question Select(SqlConnection connection)
+        public int Insert(SqlConnection connection, Question data)
         {
-            throw new NotImplementedException();
-        }
+            string commandString = "INSERT INTO question (question_text, question_order, type_id) OUTPUT INSERTED.question_id VALUES (@text, @order, @type)";
+            try
+            {
+                using (SqlCommand command = new SqlCommand(commandString, connection))
+                {
+                    command.Parameters.AddWithValue("@text", data.Text);
+                    command.Parameters.AddWithValue("@order", data.Order);
+                    command.Parameters.AddWithValue("@type", (int)data.type);
+                    connection.Open();
+                    return (int)command.ExecuteScalar();
+                }
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
 
-        public List<Question> SelectAll(SqlConnection connection)
-        {
-            throw new NotImplementedException();
         }
 
         public bool Update(SqlConnection connection, Question data)
         {
-            throw new NotImplementedException();
+            string commandString = "UPDATE question SET question_text = @text , question_order = @order WHERE question_id = @id ";
+            try
+            {
+                using (SqlCommand command = new SqlCommand(commandString, connection))
+                {
+                    command.Parameters.AddWithValue("@text", data.Text);
+                    command.Parameters.AddWithValue("@order", data.Order);
+                    command.Parameters.AddWithValue("@id", data.ID);
+                    connection.Open();
+                    return command.ExecuteNonQuery() > 0;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool Delete(SqlConnection connection, int id)
+        {
+            string commandString = "DELETE FROM question WHERE question_id = @id";
+            try
+            {
+                using (SqlCommand command = new SqlCommand(commandString, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    connection.Open();
+                    return command.ExecuteNonQuery() > 0;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
     }
 }

@@ -1,7 +1,7 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
     * Connect to database.
-    * Design "Main" form.
+   
     * Design "Add" and "Edit" form for Smiley faces question.
     * Design "Add" and "Edit" form for Slider question.
     * Design "Add" and "Edit" form for Stars question.
@@ -23,7 +23,7 @@ To Do:
 
 In Progress:
 
-    * Write queries for all database comunication classes (4 classes) for operations (SelectALL, Select, Insert, Update, Delete).
+ * Design "Main" form.
 
 Done:
     
@@ -37,5 +37,8 @@ Done:
         * Create question enums.
         * Create initial question classes.
 
-    -2/Nov 11:00 AM 
+    -3/Nov 11:00 AM 
         * Create initial database comunication classes.
+
+    -4/Nov 4:30
+        * Write queries for all database comunication classes (4 classes) for operations (SelectALL, Select, Insert, Update, Delete).
