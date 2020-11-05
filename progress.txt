@@ -1,17 +1,15 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
     * Connect to database.
-   
-    * Design "Add" and "Edit" form for Smiley faces question.
-    * Design "Add" and "Edit" form for Slider question.
-    * Design "Add" and "Edit" form for Stars question.
+    * Design "Main" form.
+    * Design "Add" and "Edit" form
     * Write "Main" form logic.
     * Write "Add" button logic.
     * Write "Edit" button logic.
     * Write "Delete" button logic.
-    * Write "Add" and "Edit" Smiley faces question form logic.
-    * Write "Add" and "Edit" Slider question form logic.
-    * Write "Add" and "Edit" Stars  question form logic.
+    * Write "Add" and "Edit" Smiley faces question logic.
+    * Write "Add" and "Edit" Slider question logic.
+    * Write "Add" and "Edit" Stars  question logic.
 
 
     * Testing and refactoring.
@@ -22,11 +20,9 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-
- * Design "Main" form.
+    * Implement Question Manager
 
 Done:
-    
     - 2/Nov 10:00 AM:
         * Create SQL-Server database.
         * Database tables design.
@@ -42,3 +38,7 @@ Done:
 
     -4/Nov 4:30
         * Write queries for all database comunication classes (4 classes) for operations (SelectALL, Select, Insert, Update, Delete).
+
+    -5/Nov 10:45
+        * Design Question manager to reduce connection to Database
+        * Create question manager initial class structure.

@@ -7,7 +7,7 @@ namespace SurveyConfiguratorApp
     class SmileyQuestionDatabaseOperations : ICUDable<SmileyQuestion, SqlConnection>, IQueryable<SmileyQuestion, SqlConnection>
     {
         private QuestionDatabaseOperations qda;
-        SmileyQuestionDatabaseOperations()
+        public SmileyQuestionDatabaseOperations()
         {
             qda = new QuestionDatabaseOperations();
         }
@@ -29,10 +29,10 @@ namespace SurveyConfiguratorApp
                     return (int)command.ExecuteScalar();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 qda.Delete(connection, questionID);
-                return -1;
+                throw ex;
             }
         }
         public bool Update(SqlConnection connection, SmileyQuestion data)
@@ -42,20 +42,15 @@ namespace SurveyConfiguratorApp
                 return false;
             }
             string commandString = "UPDATE smiley_question SET num_of_faces = @numOfFaces WHERE question_id = @id ";
-            try
+
+            using (SqlCommand command = new SqlCommand(commandString, connection))
             {
-                using (SqlCommand command = new SqlCommand(commandString, connection))
-                {
-                    command.Parameters.AddWithValue("@id", data.ID);
-                    command.Parameters.AddWithValue("@numOfFaces", data.NumberOfFaces);
-                    connection.Open();
-                    return command.ExecuteNonQuery() > 0;
-                }
+                command.Parameters.AddWithValue("@id", data.ID);
+                command.Parameters.AddWithValue("@numOfFaces", data.NumberOfFaces);
+                connection.Open();
+                return command.ExecuteNonQuery() > 0;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+
         }
         public bool Delete(SqlConnection connection, int id) => qda.Delete(connection, id);
 
@@ -64,28 +59,21 @@ namespace SurveyConfiguratorApp
             string queryString = "SELECT question_text, question_order, num_of_faces, question.question_id, type_id " +
                 "FROM question, smiley_question WHERE question.question_id = @id AND question.question_id = smiley_question.question_id";
 
-            try
+            using (SqlCommand command = new SqlCommand(queryString, connection))
             {
-                using (SqlCommand command = new SqlCommand(queryString, connection))
+                command.Parameters.AddWithValue("id", id);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    command.Parameters.AddWithValue("id", id);
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    if (reader.HasRows && reader.Read())
                     {
-                        if (reader.HasRows && reader.Read())
-                        {
-                            return new SmileyQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3]);
-                        }
-                        else
-                        {
-                            return null;
-                        }
+                        return new SmileyQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3]);
+                    }
+                    else
+                    {
+                        return null;
                     }
                 }
-            }
-            catch
-            {
-                return null;
             }
         }
 
@@ -95,29 +83,23 @@ namespace SurveyConfiguratorApp
                 "FROM question, smiley_question WHERE question.question_id = smiley_question.question_id" +
                 "ORDER BY question.question_id OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
 
-            try
+
+            using (SqlCommand command = new SqlCommand(queryString, connection))
             {
-                using (SqlCommand command = new SqlCommand(queryString, connection))
+                command.Parameters.AddWithValue("@offset", offsit);
+                command.Parameters.AddWithValue("@limit", limit);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    command.Parameters.AddWithValue("@offset", offsit);
-                    command.Parameters.AddWithValue("@limit", limit);
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    List<SmileyQuestion> tempList = new List<SmileyQuestion>();
+
+                    while (reader.Read())
                     {
-                        List<SmileyQuestion> tempList = new List<SmileyQuestion>();
-
-                        while (reader.Read())
-                        {
-                            tempList.Add(new SmileyQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3]));
-                        }
-                        return tempList;
-
+                        tempList.Add(new SmileyQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3]));
                     }
+                    return tempList;
+
                 }
-            }
-            catch
-            {
-                return null;
             }
         }
 
