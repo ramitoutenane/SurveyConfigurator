@@ -82,7 +82,9 @@ namespace SurveyConfiguratorApp
         {
             string queryString = "question_text, question_order, num_of_stars, question.question_id, type_id " +
                 "FROM question, star_question WHERE question.question_id = star_question.question_id " +
-                "ORDER BY question.question_id OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
+                "ORDER BY question.question_id OFFSET @offset";
+            if (limit > 0)
+                queryString += " ROWS FETCH NEXT @limit ROWS ONLY";
 
             using (SqlCommand command = new SqlCommand(queryString, connection))
             {

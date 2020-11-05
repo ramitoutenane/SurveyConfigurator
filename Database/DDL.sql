@@ -5,7 +5,7 @@ CREATE TABLE question_type (
 
 CREATE TABLE question (
     question_id int IDENTITY (1, 1) PRIMARY KEY,
-    question_text nvarchar(4000) NOT NULL,
+    question_text nvarchar(255) NOT NULL,
     question_order int NOT NULL CHECK (question_order >= 1),
     type_id tinyint NOT NULL FOREIGN KEY REFERENCES question_type (type_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

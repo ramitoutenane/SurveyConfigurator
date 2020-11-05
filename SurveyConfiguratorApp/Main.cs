@@ -16,15 +16,17 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["surveyConnection"].ConnectionString);
-                con.Open();
-                MessageBox.Show("open");
-                con.Close();
+                //ConfigurationManager.ConnectionStrings["surveyConnection"].ConnectionString;
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

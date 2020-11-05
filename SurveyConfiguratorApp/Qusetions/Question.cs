@@ -36,8 +36,8 @@ namespace SurveyConfiguratorApp
                     throw new ArgumentException($"Question text cannot be null or empty");
 
                 value = value.Trim();
-                if (value.Length < 1 || value.Length > 4000)
-                    throw new ArgumentOutOfRangeException("Question length must be between 1 and 4000");
+                if (value.Length < 1 || value.Length > 255)
+                    throw new ArgumentOutOfRangeException("Question length must be between 1 and 255");
 
                 text = value;
             }

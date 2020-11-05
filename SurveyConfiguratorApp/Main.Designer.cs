@@ -36,11 +36,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 511);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(450, 550);
             this.MinimumSize = new System.Drawing.Size(450, 550);
             this.Name = "Main";
             this.Text = "Survey Configurator";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
 
         }
