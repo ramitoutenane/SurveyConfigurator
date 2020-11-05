@@ -47,24 +47,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IQueryable.cs" />
-    <Compile Include="SliderQuestionDatabaseOperations.cs" />
-    <Compile Include="SmileyQuestionDatabaseOperations.cs" />
-    <Compile Include="StarsQuestionDatabaseOperations.cs" />
+    <Compile Include="Interfaces\IQueryable.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="QustionExceptions\QuestionListRefreshException.cs" />
+    <Compile Include="QustionExceptions\QuestionSelectException .cs" />
+    <Compile Include="QustionExceptions\QuestionDeleteException.cs" />
+    <Compile Include="QustionExceptions\QuestionUpdateException.cs" />
+    <Compile Include="QustionExceptions\QuestionInsertException.cs" />
+    <Compile Include="QustionExceptions\QuestionOperationException.cs" />
+    <Compile Include="QuestionManager.cs" />
+    <Compile Include="DatabaseOperations\SliderQuestionDatabaseOperations.cs" />
+    <Compile Include="DatabaseOperations\SmileyQuestionDatabaseOperations.cs" />
+    <Compile Include="DatabaseOperations\StarsQuestionDatabaseOperations.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="ICUDable.cs" />
+    <Compile Include="Interfaces\ICUDable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question.cs" />
-    <Compile Include="QuestionDatabaseOperations.cs" />
-    <Compile Include="SliderQuestion.cs" />
-    <Compile Include="StarsQuestion.cs" />
-    <Compile Include="SmileyQuestion.cs" />
+    <Compile Include="Qusetions\Question.cs" />
+    <Compile Include="DatabaseOperations\QuestionDatabaseOperations.cs" />
+    <Compile Include="Qusetions\SliderQuestion.cs" />
+    <Compile Include="Qusetions\StarsQuestion.cs" />
+    <Compile Include="Qusetions\SmileyQuestion.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,5 +98,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

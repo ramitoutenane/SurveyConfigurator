@@ -16,7 +16,7 @@ To Do:
 
 
     * Write user manual for end-user.
-    * Write installition documentation for administrator.
+    * Write installation documentation for administrator.
     * Write technical documentation for developer.
 
 In Progress:
@@ -34,11 +34,15 @@ Done:
         * Create initial question classes.
 
     -3/Nov 11:00 AM 
-        * Create initial database comunication classes.
+        * Create initial database communication classes.
 
     -4/Nov 4:30
-        * Write queries for all database comunication classes (4 classes) for operations (SelectALL, Select, Insert, Update, Delete).
+        * Write queries for all database communication classes (4 classes) for operations (SelectALL, Select, Insert, Update, Delete).
 
     -5/Nov 10:45
-        * Design Question manager to reduce connection to Database
+        * Design question manager to reduce connection to Database.
         * Create question manager initial class structure.
+
+    -5/Nov 1:25
+        * Create question exceptions classes.
+        * Organize project files into folders.

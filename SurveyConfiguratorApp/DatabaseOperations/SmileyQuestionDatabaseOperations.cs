@@ -80,7 +80,7 @@ namespace SurveyConfiguratorApp
         public List<SmileyQuestion> SelectAll(SqlConnection connection, int offsit = 0, int limit = 0)
         {
             string queryString = "question_text, question_order, num_of_faces, question.question_id, type_id " +
-                "FROM question, smiley_question WHERE question.question_id = smiley_question.question_id" +
+                "FROM question, smiley_question WHERE question.question_id = smiley_question.question_id " +
                 "ORDER BY question.question_id OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
 
 

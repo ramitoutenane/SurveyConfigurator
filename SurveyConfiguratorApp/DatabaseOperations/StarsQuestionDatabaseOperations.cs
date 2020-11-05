@@ -81,7 +81,7 @@ namespace SurveyConfiguratorApp
         public List<StarsQuestion> SelectAll(SqlConnection connection, int offsit = 0, int limit = 0)
         {
             string queryString = "question_text, question_order, num_of_stars, question.question_id, type_id " +
-                "FROM question, star_question WHERE question.question_id = star_question.question_id" +
+                "FROM question, star_question WHERE question.question_id = star_question.question_id " +
                 "ORDER BY question.question_id OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
 
             using (SqlCommand command = new SqlCommand(queryString, connection))

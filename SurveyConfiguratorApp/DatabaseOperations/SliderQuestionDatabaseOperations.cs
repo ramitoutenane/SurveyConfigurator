@@ -17,7 +17,8 @@ namespace SurveyConfiguratorApp
             int questionID = qda.Insert(connection, data);
             if (questionID < 1)
                 return questionID;
-            string commandString = "INSERT INTO slider_question (question_id, start_value, end_value, start_value_caption, end_value_caption) OUTPUT INSERTED.question_id VALUES (@id, @startValue, @endValue, @startCaption, @endCaption)";
+            string commandString = "INSERT INTO slider_question (question_id, start_value, end_value, start_value_caption, end_value_caption) " +
+                "OUTPUT INSERTED.question_id VALUES (@id, @startValue, @endValue, @startCaption, @endCaption)";
             try
             {
                 using (SqlCommand command = new SqlCommand(commandString, connection))
@@ -60,7 +61,7 @@ namespace SurveyConfiguratorApp
         public bool Delete(SqlConnection connection, int id) => qda.Delete(connection, id);
         public SliderQuestion Select(SqlConnection connection, int id)
         {
-            string queryString = "SELECT  question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id" +
+            string queryString = "SELECT  question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id " +
                 "FROM question, slider_question WHERE question.question_id = @id AND question.question_id = slider_question.question_id";
 
             using (SqlCommand command = new SqlCommand(queryString, connection))
@@ -84,8 +85,8 @@ namespace SurveyConfiguratorApp
 
         public List<SliderQuestion> SelectAll(SqlConnection connection, int offsit = 0, int limit = 0)
         {
-            string queryString = "SELECT question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id" + 
-               "FROM question, slider_question WHERE question.question_id = slider_question.question_id" +
+            string queryString = "SELECT question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id " +
+               "FROM question, slider_question WHERE question.question_id = slider_question.question_id " +
                "ORDER BY question.question_id OFFSET @offset ROWS FETCH NEXT @limit ROWS ONLY";
 
             using (SqlCommand command = new SqlCommand(queryString, connection))
