@@ -11,6 +11,7 @@ namespace SurveyConfiguratorApp
         {
             NumberOfStars = numberOfStars;
         }
+        public StarsQuestion(StarsQuestion other, int id) : this(other.Text, other.Order, other.NumberOfStars, id) { }
 
         public int NumberOfStars
         {

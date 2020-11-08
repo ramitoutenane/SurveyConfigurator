@@ -1,7 +1,6 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
     * Connect to database.
-    * Design "Main" form.
     * Design "Add" and "Edit" form
     * Write "Main" form logic.
     * Write "Add" button logic.
@@ -20,8 +19,8 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Implement Question Manager
-
+    * Design "Main" form.
+    
 Done:
     - 2/Nov 10:00 AM:
         * Create SQL-Server database.
@@ -46,3 +45,6 @@ Done:
     -5/Nov 1:25
         * Create question exceptions classes.
         * Organize project files into folders.
+
+    -8/Nov 11:15
+        * Implement Question Manager

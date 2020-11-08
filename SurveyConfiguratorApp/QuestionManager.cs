@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -65,31 +64,57 @@ namespace SurveyConfiguratorApp
                     return Items[index];
             }
             return null;
-
         }
         public void Insert(Question item)
         {
             try
             {
+                int id = -1;
+                Question question = null;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    switch (item)
+                    if (item is null)
                     {
-                        case SliderQuestion slider:
-                            break;
-                        case SmileyQuestion smiley:
-                            break;
-                        case StarsQuestion stars:
-                            break;
-                        case null:
-                            throw new ArgumentNullException("Trying to add invalid (null) Question");
-                        default:
-                            throw new ArgumentException("Question type is not recognized");
+                        throw new ArgumentNullException("Trying to add invalid (null) Question");
                     }
+                    else if (item is SliderQuestion slider)
+                    {
+
+                        id = sliderSQL.Insert(connection, slider);
+                        question = new SliderQuestion(slider, id);
+                    }
+                    else if (item is SmileyQuestion smiley)
+                    {
+                        id = smileySQL.Insert(connection, smiley);
+                        question = new SmileyQuestion(smiley, id);
+                    }
+                    else if (item is StarsQuestion stars)
+                    {
+                        id = starsSQL.Insert(connection, stars);
+                        question = new StarsQuestion(stars, id);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Question type is not recognized");
+
+                    }
+
+                }
+                if (id >= 1 && question != null)
+                {
+                    for (int i = Items.Count - 1; i >= 0; i--)
+                    {
+                        if (Items[i].ID < id)
+                            Items.Insert(i, question);
+                    }
+                }
+                else
+                {
+                    throw new QuestionInsertException("couldn't insert question to database");
                 }
 
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 throw ex;
             }
@@ -107,11 +132,119 @@ namespace SurveyConfiguratorApp
         }
         public void Update(Question item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (item is null)
+                {
+                    throw new ArgumentNullException("Trying to update invalid (null) Question");
+                }
+
+                int index = SearchByID(0, Items.Count, item.ID);
+                if (index < 0)
+                {
+                    throw new QuestionUpdateException("Couldn't find an item with given id");
+                }
+                bool updated = false;
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    if (item is SliderQuestion slider)
+                    {
+                        updated = sliderSQL.Update(connection, slider);
+
+                    }
+                    else if (item is SmileyQuestion smiley)
+                    {
+                        updated = smileySQL.Update(connection, smiley);
+
+                    }
+                    else if (item is StarsQuestion stars)
+                    {
+                        updated = starsSQL.Update(connection, stars);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Question type is not recognized");
+
+                    }
+
+                }
+                if (updated)
+                {
+                    Items[index] = item;
+                }
+                else
+                {
+                    throw new QuestionUpdateException("couldn't update question");
+                }
+            }
+
+            catch (ArgumentNullException ex)
+            {
+                throw ex;
+            }
+            catch
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    if (IsAvailable(connection))
+                        throw new QuestionUpdateException("An Error occurred while updating question, Please try again");
+                    else
+                        throw new Exception("Connection to Database is not Available");
+                }
+
+            }
         }
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                int index = SearchByID(0, Items.Count, id);
+                if (index < 0)
+                {
+                    throw new QuestionDeleteException("Couldn't find an item with given id");
+                }
+                bool deleted = false;
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    if (Items[index] is SliderQuestion slider)
+                    {
+                        deleted = sliderSQL.Delete(connection, id);
+                    }
+                    else if (Items[index] is SmileyQuestion smiley)
+                    {
+                        deleted = smileySQL.Delete(connection, id);
+
+                    }
+                    else if (Items[index] is StarsQuestion stars)
+                    {
+                        deleted = starsSQL.Delete(connection, id);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Question type is not recognized");
+                    }
+
+                }
+                if (deleted)
+                {
+                    Items.RemoveAt(index);
+                }
+                else
+                {
+                    throw new QuestionDeleteException("couldn't delete question");
+                }
+            }
+            catch
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    if (IsAvailable(connection))
+                        throw new QuestionDeleteException("An Error occurred while deleting question, Please try again");
+                    else
+                        throw new Exception("Connection to Database is not Available");
+                }
+
+            }
         }
 
         private bool IsAvailable(SqlConnection connection)

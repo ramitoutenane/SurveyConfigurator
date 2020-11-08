@@ -20,6 +20,7 @@ namespace SurveyConfiguratorApp
             StartValueCaption = startValueCaption;
             EndValueCaption = endValueCaption;
         }
+        public SliderQuestion(SliderQuestion other, int id): this(other.Text, other.Order, other.StartValue, other.EndValue, other.StartValueCaption, other.EndValueCaption, id){ }
 
         public int StartValue
         {

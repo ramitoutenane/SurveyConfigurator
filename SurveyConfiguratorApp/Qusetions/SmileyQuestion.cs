@@ -11,7 +11,7 @@ namespace SurveyConfiguratorApp
         {
             NumberOfFaces = numberOfFaces;
         }
-
+        public SmileyQuestion(SmileyQuestion other, int id): this(other.Text, other.Order, other.NumberOfFaces, id) { }
         public int NumberOfFaces
         {
             get => numberOfFaces;
