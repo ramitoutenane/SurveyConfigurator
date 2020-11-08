@@ -8,3 +8,4 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\De
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.resources
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.QuestionProperties.resources

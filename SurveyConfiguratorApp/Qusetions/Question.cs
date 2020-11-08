@@ -1,16 +1,7 @@
 ﻿using System;
 
 namespace SurveyConfiguratorApp
-{
-    public enum QuestionType
-    {
-        //Enumeration to define types of questions provided by the system
-
-        Smiley = 1,
-        Slider = 2,
-        Stars = 3
-    }
-
+{ 
     public abstract class Question
     {
         //Abstract class to represent General question with required attributes
@@ -36,7 +27,7 @@ namespace SurveyConfiguratorApp
                     throw new ArgumentException($"Question text cannot be null or empty");
 
                 value = value.Trim();
-                if (value.Length < 1 || value.Length > 255)
+                if (value.Length < 1 || value.Length > 100)
                     throw new ArgumentOutOfRangeException("Question length must be between 1 and 255");
 
                 text = value;
@@ -56,6 +47,10 @@ namespace SurveyConfiguratorApp
 
         public int ID { get; set; }
 
+        public string Type
+        {
+            get => type.ToString();
+        }
         public override string ToString() => $"ID: {ID}\nType: {type}\nQuestion: {Text}\nOrder: {Order}";
     }
 }

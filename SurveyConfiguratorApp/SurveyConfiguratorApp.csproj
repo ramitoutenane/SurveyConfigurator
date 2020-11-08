@@ -47,8 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\OrderingMethod.cs" />
+    <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Interfaces\IQueryable.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="QuestionComparers\QuestionOrderComparer.cs" />
+    <Compile Include="QuestionComparers\QuestionIDComparer .cs" />
+    <Compile Include="QuestionComparers\QuestionTypeComparer .cs" />
+    <Compile Include="QuestionComparers\QuestionTextComparer.cs" />
+    <Compile Include="QuestionProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestionProperties.Designer.cs">
+      <DependentUpon>QuestionProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="QustionExceptions\QuestionListRefreshException.cs" />
     <Compile Include="QustionExceptions\QuestionSelectException .cs" />
     <Compile Include="QustionExceptions\QuestionDeleteException.cs" />
@@ -85,6 +97,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="QuestionProperties.resx">
+      <DependentUpon>QuestionProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\Question.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
