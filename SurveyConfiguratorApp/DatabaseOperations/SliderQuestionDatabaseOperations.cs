@@ -61,7 +61,7 @@ namespace SurveyConfiguratorApp
         public bool Delete(SqlConnection connection, int id) => qda.Delete(connection, id);
         public SliderQuestion Select(SqlConnection connection, int id)
         {
-            string queryString = "SELECT  question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id " +
+            string queryString = "SELECT question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id " +
                 "FROM question, slider_question WHERE question.question_id = @id AND question.question_id = slider_question.question_id";
 
             using (SqlCommand command = new SqlCommand(queryString, connection))
@@ -72,7 +72,7 @@ namespace SurveyConfiguratorApp
                 {
                     if (reader.HasRows && reader.Read())
                     {
-                        return new SliderQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3], reader[4].ToString(), reader[5].ToString(), (int)reader[6]);
+                        return new SliderQuestion(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetString(4), reader.GetString(5), reader.GetInt32(6));
                     }
                     else
                     {
@@ -87,9 +87,9 @@ namespace SurveyConfiguratorApp
         {
             string queryString = "SELECT question_text, question_order, start_value, end_value, start_value_caption, end_value_caption, question.question_id,type_id " +
                "FROM question, slider_question WHERE question.question_id = slider_question.question_id " +
-                "ORDER BY question.question_id OFFSET @offset";
+                "ORDER BY question.question_id OFFSET @offset ROWS";
             if (limit > 0)
-                queryString += " ROWS FETCH NEXT @limit ROWS ONLY";
+                queryString += " FETCH NEXT @limit ROWS ONLY";
 
             using (SqlCommand command = new SqlCommand(queryString, connection))
             {
@@ -99,10 +99,10 @@ namespace SurveyConfiguratorApp
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     List<SliderQuestion> tempList = new List<SliderQuestion>();
-
                     while (reader.Read())
                     {
-                        tempList.Add(new SliderQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3], reader[4].ToString(), reader[5].ToString(), (int)reader[6]));
+
+                        tempList.Add(new SliderQuestion(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3),reader.GetString(4), reader.GetString(5), reader.GetInt32(6)));
                     }
                     return tempList;
 

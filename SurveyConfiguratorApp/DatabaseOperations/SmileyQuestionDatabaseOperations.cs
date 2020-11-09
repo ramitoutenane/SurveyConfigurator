@@ -67,7 +67,7 @@ namespace SurveyConfiguratorApp
                 {
                     if (reader.HasRows && reader.Read())
                     {
-                        return new SmileyQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3]);
+                        return new SmileyQuestion(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3));
                     }
                     else
                     {
@@ -79,11 +79,11 @@ namespace SurveyConfiguratorApp
 
         public List<SmileyQuestion> SelectAll(SqlConnection connection, int offsit = 0, int limit = 0)
         {
-            string queryString = "question_text, question_order, num_of_faces, question.question_id, type_id " +
+            string queryString = "SELECT question_text, question_order, num_of_faces, question.question_id, type_id " +
                 "FROM question, smiley_question WHERE question.question_id = smiley_question.question_id " +
-                "ORDER BY question.question_id OFFSET @offset";
+                "ORDER BY question.question_id OFFSET @offset ROWS";
             if (limit > 0)
-                queryString += " ROWS FETCH NEXT @limit ROWS ONLY";
+                queryString += " FETCH NEXT @limit ROWS ONLY";
 
 
             using (SqlCommand command = new SqlCommand(queryString, connection))
@@ -97,7 +97,7 @@ namespace SurveyConfiguratorApp
 
                     while (reader.Read())
                     {
-                        tempList.Add(new SmileyQuestion(reader[0].ToString(), (int)reader[1], (int)reader[2], (int)reader[3]));
+                        tempList.Add(new SmileyQuestion(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3)));
                     }
                     return tempList;
 

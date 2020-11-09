@@ -32,19 +32,27 @@ namespace SurveyConfiguratorApp
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     slider = sliderSQL.SelectAll(connection);
+                   
+                }
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
                     smiley = smileySQL.SelectAll(connection);
+                }
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
                     stars = starsSQL.SelectAll(connection);
                 }
                 List<Question> allQuestion = new List<Question>(slider.Count + smiley.Count + stars.Count);
                 allQuestion.AddRange(slider);
                 allQuestion.AddRange(smiley);
                 allQuestion.AddRange(stars);
-
+                Items = allQuestion;
                 OrderList(orderingMethod, sortOrder);
                 return Items;
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e.StackTrace);
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     if (IsAvailable(connection))
@@ -269,6 +277,14 @@ namespace SurveyConfiguratorApp
                 orderedList.Reverse();
             }
             Items = orderedList;
+        }
+
+        public bool isConnectedToDB()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                return IsAvailable(connection);
+            }
         }
 
         private bool IsAvailable(SqlConnection connection)

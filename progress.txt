@@ -1,9 +1,5 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-
-    * Write "Add" button logic.
-    * Write "Edit" button logic.
-    * Write "Delete" button logic.
     * Write "Add" and "Edit" Smiley faces question logic.
     * Write "Add" and "Edit" Slider question logic.
     * Write "Add" and "Edit" Stars  question logic.
@@ -17,8 +13,8 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Connect to database.
-    * Write "Main" form logic.
+    * Write "Add" button logic.
+    * Write "Edit" button logic.
 
 Done:
     - 2/Nov 10:00 AM:
@@ -51,3 +47,10 @@ Done:
     -9/11 10:40
         * Design "Main" form.
         * Design "Add" and "Edit" form
+
+    -9/11 6:15
+        * Connect to database.
+        * Write "Main" form logic.
+        * Retrieve data from Database
+        * Write "Delete" button logic.
+        * Redesign "Add" and "Edit" form.

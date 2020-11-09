@@ -15,6 +15,11 @@ namespace SurveyConfiguratorApp
         public QuestionProperties()
         {
             InitializeComponent();
+
+        }
+        public QuestionProperties(Question question):this()
+        {
+            MessageBox.Show($"Edit Form: question_id =  {question.ID}");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -33,20 +38,20 @@ namespace SurveyConfiguratorApp
             sliderGroupBox.Visible = false;
             smileyGroupBox.Visible = false;
             starsGroupBox.Visible = false;
-
+            Point groupBoxLocation = new Point(10, 195);
             switch (typeComboBox.SelectedIndex)
             {
                 case 0:
                     smileyGroupBox.Visible = true;
-                    smileyGroupBox.Location = new Point(8, 230);
+                    smileyGroupBox.Location = groupBoxLocation;
                     break;
                 case 1:
                     sliderGroupBox.Visible = true;
-                    sliderGroupBox.Location = new Point(8, 230);
+                    sliderGroupBox.Location = groupBoxLocation;
                     break;
                 case 2:
                     starsGroupBox.Visible = true;
-                    starsGroupBox.Location = new Point(8, 230);
+                    starsGroupBox.Location = groupBoxLocation;
                     break;
             }
         }

@@ -38,9 +38,9 @@ namespace SurveyConfiguratorApp
         {
             get => endValue; set
             {
-                if (value < 0 || value > 99)
+                if (value < 1 || value > 100)
                     throw new ArgumentOutOfRangeException("End Value must be between 1 and 100");
-                if (value < EndValue)
+                if (value < startValue)
                     throw new ArgumentOutOfRangeException($"End value must be less than start value ({StartValue})");
                 endValue = value;
             }
