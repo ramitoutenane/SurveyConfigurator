@@ -30,7 +30,6 @@ namespace SurveyConfiguratorApp
 
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageBox.Show(typeComboBox.SelectedIndex.ToString());
             sliderGroupBox.Visible = false;
             smileyGroupBox.Visible = false;
             starsGroupBox.Visible = false;
@@ -39,17 +38,40 @@ namespace SurveyConfiguratorApp
             {
                 case 0:
                     smileyGroupBox.Visible = true;
-                    smileyGroupBox.Location = new Point(8, 225);
+                    smileyGroupBox.Location = new Point(8, 230);
                     break;
                 case 1:
                     sliderGroupBox.Visible = true;
-                    sliderGroupBox.Location = new Point(8, 225);
+                    sliderGroupBox.Location = new Point(8, 230);
                     break;
                 case 2:
                     starsGroupBox.Visible = true;
-                    starsGroupBox.Location = new Point(8, 225);
+                    starsGroupBox.Location = new Point(8, 230);
                     break;
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void startValueNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            endValueNumericUpDown.Minimum = startValueNumericUpDown.Value + 1;
+        }
+
+        private void endValueNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            startValueNumericUpDown.Maximum = endValueNumericUpDown.Value - 1;
+        }
+
+        private void questionTextBox_TextChanged(object sender, EventArgs e)
+        {
+            questionTextBox.Text = questionTextBox.Text.TrimStart();
+            questionTextBox.SelectionStart = questionTextBox.Text.Length;
+            questionTextBox.SelectionLength = 0;
+            currentCharCount.Text = questionTextBox.Text.Length.ToString();
         }
     }
 }

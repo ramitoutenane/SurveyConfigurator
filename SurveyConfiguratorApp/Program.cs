@@ -14,8 +14,8 @@ namespace SurveyConfiguratorApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Main());
-            Application.Run(new QuestionProperties());
+            Application.Run(new Main());
+            //Application.Run(new QuestionProperties());
 
         }
     }

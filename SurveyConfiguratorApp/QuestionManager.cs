@@ -288,19 +288,11 @@ namespace SurveyConfiguratorApp
 
         private int SearchByID(int start, int end, int id)
         {
-            if (end >= start)
+            for(int i = start; i<end; i++)
             {
-                int mid = start + (end - start) / 2;
-
-                if (Items[mid].ID == id)
-                    return mid;
-
-                if (Items[mid].ID > id)
-                    return SearchByID(start, mid - 1, id);
-
-                return SearchByID(mid + 1, end, id);
+                if (Items[i].ID == id)
+                    return i;
             }
-
             return -1;
         }
     }
