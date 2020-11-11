@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
@@ -25,7 +26,8 @@ namespace SurveyConfiguratorApp
                 {
                     command.Parameters.AddWithValue("@id", questionID);
                     command.Parameters.AddWithValue("@NumberOfStars", data.NumberOfStars);
-                    connection.Open();
+                    if (connection.State != ConnectionState.Open)
+                        connection.Open();
                     return (int)command.ExecuteScalar();
                 }
             }
@@ -47,7 +49,8 @@ namespace SurveyConfiguratorApp
             {
                 command.Parameters.AddWithValue("@id", data.ID);
                 command.Parameters.AddWithValue("@NumberOfStars", data.NumberOfStars);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 return command.ExecuteNonQuery() > 0;
             }
 
@@ -62,7 +65,8 @@ namespace SurveyConfiguratorApp
             using (SqlCommand command = new SqlCommand(queryString, connection))
             {
                 command.Parameters.AddWithValue("id", id);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows && reader.Read())
@@ -90,7 +94,8 @@ namespace SurveyConfiguratorApp
             {
                 command.Parameters.AddWithValue("@offset", offsit);
                 command.Parameters.AddWithValue("@limit", limit);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     List<StarsQuestion> tempList = new List<StarsQuestion>();

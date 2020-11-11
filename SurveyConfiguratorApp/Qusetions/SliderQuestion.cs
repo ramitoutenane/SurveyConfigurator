@@ -20,7 +20,7 @@ namespace SurveyConfiguratorApp
             StartValueCaption = startValueCaption;
             EndValueCaption = endValueCaption;
         }
-        public SliderQuestion(SliderQuestion other, int id): this(other.Text, other.Order, other.StartValue, other.EndValue, other.StartValueCaption, other.EndValueCaption, id){ }
+        public SliderQuestion(SliderQuestion other, int id) : this(other.Text, other.Order, other.StartValue, other.EndValue, other.StartValueCaption, other.EndValueCaption, id) { }
 
         public int StartValue
         {
@@ -53,9 +53,9 @@ namespace SurveyConfiguratorApp
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException($"Caption cannot be null or empty");
 
-                value = value.Trim();
-                if (value.Length < 1 || value.Length > 255)
-                    throw new ArgumentOutOfRangeException("Caption length must be between 1 and 255");
+                value = value.TrimEnd();
+                if (value.Length < 1 || value.Length > 25)
+                    throw new ArgumentOutOfRangeException("Caption length must be between 1 and 25");
 
                 startValueCaption = value;
             }
@@ -69,9 +69,9 @@ namespace SurveyConfiguratorApp
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException($"Caption cannot be null or empty");
 
-                value = value.Trim();
-                if (value.Length < 1 || value.Length > 255)
-                    throw new ArgumentOutOfRangeException("Caption length must be between 1 and 255");
+                value = value.TrimEnd();
+                if (value.Length < 1 || value.Length > 25)
+                    throw new ArgumentOutOfRangeException("Caption length must be between 1 and 25");
 
                 endValueCaption = value;
             }

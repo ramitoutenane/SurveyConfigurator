@@ -1,21 +1,13 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-    * Write "Add" and "Edit" Smiley faces question logic.
-    * Write "Add" and "Edit" Slider question logic.
-    * Write "Add" and "Edit" Stars  question logic.
-
-
     * Testing and refactoring.
-
 
     * Write user manual for end-user.
     * Write installation documentation for administrator.
     * Write technical documentation for developer.
 
 In Progress:
-    * Write "Add" button logic.
-    * Write "Edit" button logic.
-
+    * Write Error logging code
 Done:
     - 2/Nov 10:00 AM:
         * Create SQL-Server database.
@@ -54,3 +46,8 @@ Done:
         * Retrieve data from Database
         * Write "Delete" button logic.
         * Redesign "Add" and "Edit" form.
+
+    -11/11 2:45
+        * Write "Add" and "Edit" form logic.
+        * Write "Add" button logic.
+        * Write "Edit" button logic.

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
@@ -28,7 +29,8 @@ namespace SurveyConfiguratorApp
                     command.Parameters.AddWithValue("@endValue", data.EndValue);
                     command.Parameters.AddWithValue("@startCaption", data.StartValueCaption);
                     command.Parameters.AddWithValue("@endCaption", data.EndValueCaption);
-                    connection.Open();
+                    if(connection.State != ConnectionState.Open)
+                        connection.Open();
                     return (int)command.ExecuteScalar();
                 }
             }
@@ -53,7 +55,8 @@ namespace SurveyConfiguratorApp
                 command.Parameters.AddWithValue("@endValue", data.EndValue);
                 command.Parameters.AddWithValue("@startCaption", data.StartValueCaption);
                 command.Parameters.AddWithValue("@endCaption", data.EndValueCaption);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 return command.ExecuteNonQuery() > 0;
             }
 
@@ -67,7 +70,8 @@ namespace SurveyConfiguratorApp
             using (SqlCommand command = new SqlCommand(queryString, connection))
             {
                 command.Parameters.AddWithValue("id", id);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.HasRows && reader.Read())
@@ -95,14 +99,15 @@ namespace SurveyConfiguratorApp
             {
                 command.Parameters.AddWithValue("@offset", offsit);
                 command.Parameters.AddWithValue("@limit", limit);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     List<SliderQuestion> tempList = new List<SliderQuestion>();
                     while (reader.Read())
                     {
 
-                        tempList.Add(new SliderQuestion(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3),reader.GetString(4), reader.GetString(5), reader.GetInt32(6)));
+                        tempList.Add(new SliderQuestion(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetString(4), reader.GetString(5), reader.GetInt32(6)));
                     }
                     return tempList;
 

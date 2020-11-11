@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace SurveyConfiguratorApp
-{ 
+{
     public abstract class Question
     {
         //Abstract class to represent General question with required attributes
@@ -26,9 +26,9 @@ namespace SurveyConfiguratorApp
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException($"Question text cannot be null or empty");
 
-                value = value.Trim();
+                value = value.TrimEnd() ;
                 if (value.Length < 1 || value.Length > 100)
-                    throw new ArgumentOutOfRangeException("Question length must be between 1 and 255");
+                    throw new ArgumentOutOfRangeException("Question length must be between 1 and 100");
 
                 text = value;
             }

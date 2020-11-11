@@ -7,32 +7,37 @@ namespace SurveyConfiguratorApp
 {
     public class QuestionManager : IRepository<Question>
     {
-        private readonly SliderQuestionDatabaseOperations sliderSQL = new SliderQuestionDatabaseOperations();
-        private readonly SmileyQuestionDatabaseOperations smileySQL = new SmileyQuestionDatabaseOperations();
-        private readonly StarsQuestionDatabaseOperations starsSQL = new StarsQuestionDatabaseOperations();
-        private readonly string connectionString;
         public List<Question> Items { get; private set; }
-        private SortOrder sortOrder = SortOrder.Ascending;
-        private OrderingMethod orderingMethod = OrderingMethod.ByID;
+        public SortOrder SortOrder { get; private set; }
+        public SortMethod OrderingMethod { get; private set; }
+        private readonly string connectionString;
+        private readonly SliderQuestionDatabaseOperations sliderSQL;
+        private readonly SmileyQuestionDatabaseOperations smileySQL;
+        private readonly StarsQuestionDatabaseOperations starsSQL;
+
 
         public QuestionManager(string connectionString)
         {
             Items = new List<Question>();
             this.connectionString = connectionString;
+            sliderSQL = new SliderQuestionDatabaseOperations();
+            smileySQL = new SmileyQuestionDatabaseOperations();
+            starsSQL = new StarsQuestionDatabaseOperations();
+            SortOrder = SortOrder.Ascending;
+            OrderingMethod = SortMethod.ByID;
         }
 
         public List<Question> Refresh()
         {
             try
             {
-
                 List<SliderQuestion> slider;
                 List<SmileyQuestion> smiley;
                 List<StarsQuestion> stars;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     slider = sliderSQL.SelectAll(connection);
-                   
+
                 }
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -47,10 +52,10 @@ namespace SurveyConfiguratorApp
                 allQuestion.AddRange(smiley);
                 allQuestion.AddRange(stars);
                 Items = allQuestion;
-                OrderList(orderingMethod, sortOrder);
+                OrderList(OrderingMethod, SortOrder);
                 return Items;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -111,7 +116,7 @@ namespace SurveyConfiguratorApp
                 if (id >= 1 && question != null)
                 {
                     Items.Add(question);
-                    OrderList(orderingMethod, sortOrder);
+                    OrderList(OrderingMethod, SortOrder);
                 }
                 else
                 {
@@ -252,34 +257,34 @@ namespace SurveyConfiguratorApp
             }
         }
 
-        public void OrderList(OrderingMethod orderingMethod, SortOrder sortOrder)
+        public void OrderList(SortMethod orderingMethod, SortOrder sortOrder)
         {
-            this.sortOrder = sortOrder;
-            this.orderingMethod = orderingMethod;
+            this.SortOrder = sortOrder;
+            this.OrderingMethod = orderingMethod;
             List<Question> orderedList = new List<Question>(Items.Count);
-            switch (this.orderingMethod)
+            switch (this.OrderingMethod)
             {
-                case OrderingMethod.ByID:
+                case SortMethod.ByID:
                     orderedList = Items.OrderBy(Item => Item.ID).ToList();
                     break;
-                case OrderingMethod.ByOrder:
+                case SortMethod.ByOrder:
                     orderedList = Items.OrderBy(Item => Item.Order).ToList();
                     break;
-                case OrderingMethod.ByQuestionText:
+                case SortMethod.ByQuestionText:
                     orderedList = Items.OrderBy(Item => Item.Text).ToList();
                     break;
-                case OrderingMethod.ByType:
+                case SortMethod.ByType:
                     orderedList = Items.OrderBy(Item => Item.Type).ToList();
                     break;
             }
-            if(this.sortOrder == SortOrder.Descending)
+            if (this.SortOrder == SortOrder.Descending)
             {
                 orderedList.Reverse();
             }
             Items = orderedList;
         }
 
-        public bool isConnectedToDB()
+        public bool IsConnected()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -304,7 +309,7 @@ namespace SurveyConfiguratorApp
 
         private int SearchByID(int start, int end, int id)
         {
-            for(int i = start; i<end; i++)
+            for (int i = start; i < end; i++)
             {
                 if (Items[i].ID == id)
                     return i;

@@ -1,36 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp
 {
     public partial class QuestionProperties : Form
     {
+        public Question question { get; private set; }
         public QuestionProperties()
         {
             InitializeComponent();
-
-        }
-        public QuestionProperties(Question question):this()
-        {
-            MessageBox.Show($"Edit Form: question_id =  {question.ID}");
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void QuestionProperties_Load(object sender, EventArgs e)
-        {
             typeComboBox.DataSource = Enum.GetValues(typeof(QuestionType));
-            typeComboBox.BackColor = Color.White;
+        }
+        public QuestionProperties(Question question) : this()
+        {
+            if (question != null)
+            {
+                this.question = question;
+                questionTextBox.Text = question.Text;
+                orderNumericUpDown.Value = question.Order;
+                typeComboBox.SelectedIndex = (int)question.type - 1;
+                typeComboBox.Enabled = false;
+
+                if (question is SliderQuestion slider)
+                {
+                    startCaptionTextBox.Text = slider.StartValueCaption;
+                    startValueNumericUpDown.Value = slider.StartValue;
+                    endCaptionTextBox.Text = slider.EndValueCaption;
+                    endValueNumericUpDown.Value = slider.EndValue;
+                }
+                else if (question is SmileyQuestion smiley)
+                {
+                    smileyNumericUpDown.Value = smiley.NumberOfFaces;
+                }
+                else if (question is StarsQuestion stars)
+                {
+                    starsNumericUpDown.Value = stars.NumberOfStars;
+                }
+            }
+            else
+            {
+                Main.showError("Invalid Question Type");
+            }
         }
 
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,11 +67,6 @@ namespace SurveyConfiguratorApp
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void startValueNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             endValueNumericUpDown.Minimum = startValueNumericUpDown.Value + 1;
@@ -73,10 +79,67 @@ namespace SurveyConfiguratorApp
 
         private void questionTextBox_TextChanged(object sender, EventArgs e)
         {
-            questionTextBox.Text = questionTextBox.Text.TrimStart();
-            questionTextBox.SelectionStart = questionTextBox.Text.Length;
-            questionTextBox.SelectionLength = 0;
             currentCharCount.Text = questionTextBox.Text.Length.ToString();
+        }
+        private bool isValidQuestion()
+        {
+            if (questionTextBox.Text.TrimEnd().Length == 0)
+            {
+                Main.showError("Question text can't be empty");
+                questionTextBox.Focus();
+                return false;
+            }
+            if (typeComboBox.SelectedIndex == 1)
+            {
+                if (startCaptionTextBox.Text.TrimEnd().Length == 0)
+                {
+                    Main.showError("Start caption text can't be empty");
+                    startCaptionTextBox.Focus();
+                    return false;
+                }
+                if (endCaptionTextBox.Text.TrimEnd().Length == 0)
+                {
+                    Main.showError("End caption text can't be empty");
+                    endCaptionTextBox.Focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            if (isValidQuestion())
+            {
+                string questionText = questionTextBox.Text.TrimEnd();
+                int questionOrder = (int)orderNumericUpDown.Value;
+                int id = -1;
+                if (question != null && question.ID > 0)
+                {
+                    id = question.ID;
+                }
+                try
+                {
+                    switch (typeComboBox.SelectedIndex)
+                    {
+                        case 0:
+                            question = new SmileyQuestion(questionText, questionOrder, (int)smileyNumericUpDown.Value, id);
+                            break;
+                        case 1:
+                            question = new SliderQuestion(questionText, questionOrder, (int)startValueNumericUpDown.Value,
+                                (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), id);
+                            break;
+                        case 2:
+                            question = new StarsQuestion(questionText, questionOrder, (int)starsNumericUpDown.Value, id);
+                            break;
+                    }
+                    DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    Main.showError(ex.Message);
+                }
+            }
         }
     }
 }

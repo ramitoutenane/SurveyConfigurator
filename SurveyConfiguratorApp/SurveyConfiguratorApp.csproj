@@ -47,14 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\OrderingMethod.cs" />
+    <Compile Include="Enums\SortMethod.cs" />
     <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Interfaces\IQueryable.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="QuestionComparers\QuestionOrderComparer.cs" />
-    <Compile Include="QuestionComparers\QuestionIDComparer .cs" />
-    <Compile Include="QuestionComparers\QuestionTypeComparer .cs" />
-    <Compile Include="QuestionComparers\QuestionTextComparer.cs" />
     <Compile Include="QuestionProperties.cs">
       <SubType>Form</SubType>
     </Compile>

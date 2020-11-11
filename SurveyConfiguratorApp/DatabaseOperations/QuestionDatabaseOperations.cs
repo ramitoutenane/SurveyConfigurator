@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
@@ -17,7 +18,8 @@ namespace SurveyConfiguratorApp
                 command.Parameters.AddWithValue("@text", data.Text);
                 command.Parameters.AddWithValue("@order", data.Order);
                 command.Parameters.AddWithValue("@type", (int)data.type);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 return (int)command.ExecuteScalar();
             }
 
@@ -32,7 +34,8 @@ namespace SurveyConfiguratorApp
                 command.Parameters.AddWithValue("@text", data.Text);
                 command.Parameters.AddWithValue("@order", data.Order);
                 command.Parameters.AddWithValue("@id", data.ID);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 return command.ExecuteNonQuery() > 0;
             }
 
@@ -44,7 +47,8 @@ namespace SurveyConfiguratorApp
             using (SqlCommand command = new SqlCommand(commandString, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
                 return command.ExecuteNonQuery() > 0;
             }
         }
