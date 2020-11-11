@@ -408,7 +408,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(442, 371);
+            this.ClientSize = new System.Drawing.Size(442, 373);
             this.Controls.Add(this.currentCharCount);
             this.Controls.Add(this.maxCharLabel);
             this.Controls.Add(this.saveButton);
@@ -425,9 +425,10 @@
             this.Controls.Add(this.titleLabel);
             this.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximumSize = new System.Drawing.Size(1000, 435);
-            this.MinimumSize = new System.Drawing.Size(450, 400);
+            this.MaximumSize = new System.Drawing.Size(460, 420);
+            this.MinimumSize = new System.Drawing.Size(460, 420);
             this.Name = "QuestionProperties";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Question Properties";
             ((System.ComponentModel.ISupportInitialize)(this.orderNumericUpDown)).EndInit();
             this.sliderGroupBox.ResumeLayout(false);

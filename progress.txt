@@ -1,5 +1,7 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
+    * Write Error logging code
+
     * Testing and refactoring.
 
     * Write user manual for end-user.
@@ -7,7 +9,9 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Write Error logging code
+    * Write Error logging initial class
+    * Refactor code according to Majd's notes
+
 Done:
     - 2/Nov 10:00 AM:
         * Create SQL-Server database.
