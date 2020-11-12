@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-
 namespace SurveyConfiguratorApp
 {
     /// <summary>

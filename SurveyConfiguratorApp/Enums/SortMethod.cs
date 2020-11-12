@@ -1,9 +1,10 @@
-﻿
-namespace SurveyConfiguratorApp
+﻿namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Enumeration to define types of sorting methods provided by the system
+    /// </summary>
     public enum SortMethod
     {
-        //Enumeration to define types of sorting methods provided by the system
         ByID,
         ByOrder,
         ByType,
