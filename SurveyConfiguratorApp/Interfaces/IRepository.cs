@@ -1,24 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Interface to support repository maintaining behavior
+    /// </summary>
+    /// <typeparam name="T">The object to be managed</typeparam>
     interface IRepository<T> where T : class
     {
-        //an interface to support Repository behavior
+        /// <summary>
+        /// List of objects to be maintained 
+        /// </summary>
         List<T> Items { get; }
-        SortOrder SortOrder { get; }
-        SortMethod OrderingMethod { get; }
+        /// <summary>
+        /// Insert object into repository
+        /// </summary>
+        /// <param name="item">Object to be inserted</param>
         void Insert(T item);
+        /// <summary>
+        /// Update object on repository
+        /// </summary>
+        /// <param name="item">The new object to be update</param>
         void Update(T item);
+        /// <summary>
+        /// Delete object from repository
+        /// </summary>
+        /// <param name="id">The id of object to be deleted</param>
         void Delete(int id);
+        /// <summary>
+        /// Select specific object from the repository
+        /// </summary>
+        /// <param name="id">Id of object to be selected</param>
+        /// <returns>The selected object if exist, null otherwise</returns>
         T Select(int id);
+        /// <summary>
+        /// Synchronize local list with latest version from source
+        /// </summary>
+        /// <returns>The new refreshed List </returns>
         List<T> Refresh();
-        void OrderList(SortMethod OrderingMethod, SortOrder SortOrder);
-        bool IsConnected();
+        /// <summary>
+        /// Sort the maintained list
+        /// </summary>
+        void OrderList();
     }
 }

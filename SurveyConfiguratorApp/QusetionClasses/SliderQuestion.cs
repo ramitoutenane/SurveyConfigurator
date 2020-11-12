@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace SurveyConfiguratorApp
+﻿namespace SurveyConfiguratorApp
 {
     /// <summary>
-    /// Slider question class that extends general question and adds Slider question properties 
+    /// Slider question class that extends general question and adds slider question properties 
     /// </summary>
     public class SliderQuestion : Question
     {
@@ -39,23 +37,23 @@ namespace SurveyConfiguratorApp
         public int StartValue
         {
             get => mStartValue;
-            set {mStartValue = value; }
+            set { mStartValue = value; }
         }
         public int EndValue
         {
-            get => mEndValue; 
-            set{mEndValue = value;}
+            get => mEndValue;
+            set { mEndValue = value; }
         }
         public string StartValueCaption
         {
             get => mStartValueCaption;
-            set {mStartValueCaption = value; }
+            set { mStartValueCaption = value; }
         }
 
         public string EndValueCaption
         {
             get => mEndValueCaption;
-            set{ mEndValueCaption = value;}
+            set { mEndValueCaption = value; }
         }
 
         public override string ToString() => $"{base.ToString()}\n{StartValueCaption}: {StartValue}\n{EndValueCaption}:{EndValue}";

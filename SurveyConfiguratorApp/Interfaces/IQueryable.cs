@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Common;
-
-
 namespace SurveyConfiguratorApp
 {
-    interface IQueryable<T, K> where T : class where K : DbConnection
+    /// <summary>
+    /// Interface to support query behavior on repository 
+    /// </summary>
+    /// <typeparam name="T">The object to be managed</typeparam>
+    interface IQueryable<T> where T : class
     {
-        //an interface to support retrieve behavior on database
-        List<T> SelectAll(K connection, int offsit = 0, int limit = 0);
-        T Select(K connection, int id);
+        /// <summary>
+        /// Select all objects in given range from repository
+        /// </summary>
+        /// <param name="offset">Number of objects to skip before starting to return objects from the repository</param>
+        /// <param name="limit">Number of objects to return after the offset has been processed</param>
+        /// <returns>List that contains the retrieved objects</returns>
+        List<T> SelectAll(int offset = 0, int limit = 0);
+        /// <summary>
+        /// Select specific object from the repository
+        /// </summary>
+        /// <param name="id">Id of object to be selected</param>
+        /// <returns>The selected object if exist, null otherwise</returns>
+        T Select(int id);
     }
 }
