@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace SurveyConfiguratorApp
+﻿namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Stars question class that extends general question and adds Stars question properties 
+    /// </summary>
     public class StarsQuestion : Question
     {
-        //Stars question class that extends general question and adds Stars question properties 
 
-        private int numberOfStars;
+        private int nNumberOfStars;
         public StarsQuestion(string text, int order, int numberOfStars, int id = -1) : base(text, order, QuestionType.Stars, id)
         {
             NumberOfStars = numberOfStars;
@@ -15,13 +15,8 @@ namespace SurveyConfiguratorApp
 
         public int NumberOfStars
         {
-            get => numberOfStars;
-            set
-            {
-                if (value < 1 || value > 10)
-                    throw new ArgumentOutOfRangeException("Number of Faces must be between 1 and 10");
-                numberOfStars = value;
-            }
+            get => nNumberOfStars;
+            set{nNumberOfStars = value;}
         }
         public override string ToString() => $"{base.ToString()}\nNumber of Stars: {NumberOfStars}";
     }

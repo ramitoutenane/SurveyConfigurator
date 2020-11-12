@@ -19,7 +19,7 @@ namespace SurveyConfiguratorApp
                 this.question = question;
                 questionTextBox.Text = question.Text;
                 orderNumericUpDown.Value = question.Order;
-                typeComboBox.SelectedIndex = (int)question.type - 1;
+                typeComboBox.SelectedIndex = (int)question.Type - 1;
                 typeComboBox.Enabled = false;
 
                 if (question is SliderQuestion slider)
@@ -114,9 +114,9 @@ namespace SurveyConfiguratorApp
                 string questionText = questionTextBox.Text.TrimEnd();
                 int questionOrder = (int)orderNumericUpDown.Value;
                 int id = -1;
-                if (question != null && question.ID > 0)
+                if (question != null && question.Id > 0)
                 {
-                    id = question.ID;
+                    id = question.Id;
                 }
                 try
                 {

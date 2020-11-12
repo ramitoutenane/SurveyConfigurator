@@ -149,7 +149,7 @@ namespace SurveyConfiguratorApp
                     throw new ArgumentNullException("Trying to update invalid (null) Question");
                 }
 
-                int index = SearchByID(0, Items.Count, item.ID);
+                int index = SearchByID(0, Items.Count, item.Id);
                 if (index < 0)
                 {
                     throw new QuestionUpdateException("Couldn't find an item with given id");
@@ -265,7 +265,7 @@ namespace SurveyConfiguratorApp
             switch (this.OrderingMethod)
             {
                 case SortMethod.ByID:
-                    orderedList = Items.OrderBy(Item => Item.ID).ToList();
+                    orderedList = Items.OrderBy(Item => Item.Id).ToList();
                     break;
                 case SortMethod.ByOrder:
                     orderedList = Items.OrderBy(Item => Item.Order).ToList();
@@ -311,7 +311,7 @@ namespace SurveyConfiguratorApp
         {
             for (int i = start; i < end; i++)
             {
-                if (Items[i].ID == id)
+                if (Items[i].Id == id)
                     return i;
             }
             return -1;

@@ -17,7 +17,7 @@ namespace SurveyConfiguratorApp
             {
                 command.Parameters.AddWithValue("@text", data.Text);
                 command.Parameters.AddWithValue("@order", data.Order);
-                command.Parameters.AddWithValue("@type", (int)data.type);
+                command.Parameters.AddWithValue("@type", (int)data.Type);
                 if (connection.State != ConnectionState.Open)
                     connection.Open();
                 return (int)command.ExecuteScalar();
@@ -33,7 +33,7 @@ namespace SurveyConfiguratorApp
             {
                 command.Parameters.AddWithValue("@text", data.Text);
                 command.Parameters.AddWithValue("@order", data.Order);
-                command.Parameters.AddWithValue("@id", data.ID);
+                command.Parameters.AddWithValue("@id", data.Id);
                 if (connection.State != ConnectionState.Open)
                     connection.Open();
                 return command.ExecuteNonQuery() > 0;

@@ -47,7 +47,7 @@ namespace SurveyConfiguratorApp
 
             using (SqlCommand command = new SqlCommand(commandString, connection))
             {
-                command.Parameters.AddWithValue("@id", data.ID);
+                command.Parameters.AddWithValue("@id", data.Id);
                 command.Parameters.AddWithValue("@NumberOfStars", data.NumberOfStars);
                 if (connection.State != ConnectionState.Open)
                     connection.Open();

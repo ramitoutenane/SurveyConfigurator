@@ -1,56 +1,44 @@
-﻿using System;
-
-namespace SurveyConfiguratorApp
-{
+﻿namespace SurveyConfiguratorApp
+{/// <summary>
+ /// Abstract class to represent General question with required attributes
+ /// </summary>
     public abstract class Question
     {
-        //Abstract class to represent General question with required attributes
 
-        private string text;
-        private int order;
-        public readonly QuestionType type;
+        private string mText;
+        private int mOrder;
+        private readonly int mId;
 
+        public readonly QuestionType Type;
+        /// <summary>
+        /// Question constructor to initialize common data between question types
+        /// </summary>
+        /// <param name="text">Question text</param>
+        /// <param name="order">Question order</param>
+        /// <param name="type">Question type</param>
+        /// <param name="id">Question id</param>
         protected Question(string text, int order, QuestionType type, int id)
         {
             Text = text;
             Order = order;
-            this.type = type;
-            ID = id;
+            Type = type;
+            mId = id;
         }
 
         public string Text
         {
-            get => text;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Question text cannot be null or empty");
-
-                value = value.TrimEnd() ;
-                if (value.Length < 1 || value.Length > 100)
-                    throw new ArgumentOutOfRangeException("Question length must be between 1 and 100");
-
-                text = value;
-            }
+            get => mText;
+            set { mText = value; }
         }
 
         public int Order
         {
-            get => order;
-            set
-            {
-                if (value < 1)
-                    throw new ArgumentOutOfRangeException("Question order must be larger than 0");
-                order = value;
-            }
+            get => mOrder;
+            set { mOrder = value; }
         }
 
-        public int ID { get; set; }
+        public int Id { get => mId; }
 
-        public string Type
-        {
-            get => type.ToString();
-        }
-        public override string ToString() => $"ID: {ID}\nType: {type}\nQuestion: {Text}\nOrder: {Order}";
+        public override string ToString() => $"Id: {Id}\nType: {Type}\nQuestion: {Text}\nOrder: {Order}";
     }
 }

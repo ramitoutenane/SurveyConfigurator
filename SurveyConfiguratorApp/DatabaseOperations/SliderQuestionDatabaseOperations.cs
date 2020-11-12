@@ -50,7 +50,7 @@ namespace SurveyConfiguratorApp
 
             using (SqlCommand command = new SqlCommand(commandString, connection))
             {
-                command.Parameters.AddWithValue("@id", data.ID);
+                command.Parameters.AddWithValue("@id", data.Id);
                 command.Parameters.AddWithValue("@startValue", data.StartValue);
                 command.Parameters.AddWithValue("@endValue", data.EndValue);
                 command.Parameters.AddWithValue("@startCaption", data.StartValueCaption);

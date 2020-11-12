@@ -2,79 +2,60 @@
 
 namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Slider question class that extends general question and adds Slider question properties 
+    /// </summary>
     public class SliderQuestion : Question
     {
-        //Slider question class that extends general question and adds Slider question properties 
 
-        private int startValue = 0;
-        private int endValue = 100;
-        private string startValueCaption;
-        private string endValueCaption;
-
+        private int mStartValue;
+        private int mEndValue;
+        private string mStartValueCaption;
+        private string mEndValueCaption;
+        /// <summary>
+        /// Slider question constructor to initialize new slider question
+        /// </summary>
+        /// <param name="text">Question text</param>
+        /// <param name="order">Question order</param>
+        /// <param name="startValue">Slider start value</param>
+        /// <param name="endValue">Slider end value</param>
+        /// <param name="startValueCaption">Slider start value caption</param>
+        /// <param name="endValueCaption">Slider end value caption</param>
+        /// <param name="id">Question id</param>
         public SliderQuestion(string text, int order, int startValue, int endValue, string startValueCaption, string endValueCaption, int id = -1) : base(text, order, QuestionType.Slider, id)
         {
-            if (startValue > endValue)
-                throw new ArgumentOutOfRangeException($"Start value must be less than end value");
             StartValue = startValue;
             EndValue = endValue;
             StartValueCaption = startValueCaption;
             EndValueCaption = endValueCaption;
         }
+        /// <summary>
+        /// Slider question constructor to initialize new slider question
+        /// </summary>
+        /// <param name="other">Slider question object to copy it's properties</param>
+        /// <param name="id">New question id</param>
         public SliderQuestion(SliderQuestion other, int id) : this(other.Text, other.Order, other.StartValue, other.EndValue, other.StartValueCaption, other.EndValueCaption, id) { }
 
         public int StartValue
         {
-            get => startValue;
-            set
-            {
-                if (value < 0 || value > 99)
-                    throw new ArgumentOutOfRangeException("Start value must be between 0 and 99");
-                if (value > EndValue)
-                    throw new ArgumentOutOfRangeException($"Start value must be less than end value ({EndValue})");
-                startValue = value;
-            }
+            get => mStartValue;
+            set {mStartValue = value; }
         }
         public int EndValue
         {
-            get => endValue; set
-            {
-                if (value < 1 || value > 100)
-                    throw new ArgumentOutOfRangeException("End Value must be between 1 and 100");
-                if (value < startValue)
-                    throw new ArgumentOutOfRangeException($"End value must be less than start value ({StartValue})");
-                endValue = value;
-            }
+            get => mEndValue; 
+            set{mEndValue = value;}
         }
         public string StartValueCaption
         {
-            get => startValueCaption;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Caption cannot be null or empty");
-
-                value = value.TrimEnd();
-                if (value.Length < 1 || value.Length > 25)
-                    throw new ArgumentOutOfRangeException("Caption length must be between 1 and 25");
-
-                startValueCaption = value;
-            }
+            get => mStartValueCaption;
+            set {mStartValueCaption = value; }
         }
 
         public string EndValueCaption
         {
-            get => endValueCaption;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Caption cannot be null or empty");
-
-                value = value.TrimEnd();
-                if (value.Length < 1 || value.Length > 25)
-                    throw new ArgumentOutOfRangeException("Caption length must be between 1 and 25");
-
-                endValueCaption = value;
-            }
+            get => mEndValueCaption;
+            set{ mEndValueCaption = value;}
         }
 
         public override string ToString() => $"{base.ToString()}\n{StartValueCaption}: {StartValue}\n{EndValueCaption}:{EndValue}";

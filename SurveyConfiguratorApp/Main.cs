@@ -97,7 +97,7 @@ namespace SurveyConfiguratorApp
                 {
                     try
                     {
-                        questionManager.Delete(questionManager.Items[selectedRow].ID);
+                        questionManager.Delete(questionManager.Items[selectedRow].Id);
                         refreshList();
                     }
                     catch (Exception ex)
