@@ -84,6 +84,7 @@
     <Compile Include="QusetionClasses\SmileyQuestion.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -96,6 +97,7 @@
     </Compile>
     <EmbeddedResource Include="QuestionProperties.resx">
       <DependentUpon>QuestionProperties.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Question.datasource" />
     <None Include="Properties\Settings.settings">

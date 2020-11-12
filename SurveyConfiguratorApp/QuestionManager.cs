@@ -7,116 +7,125 @@ namespace SurveyConfiguratorApp
 {
     public class QuestionManager : IRepository<Question>
     {
+        /// <summary>
+        /// List of questions to be maintained 
+        /// </summary>
         public List<Question> Items { get; private set; }
+        /// <summary>
+        /// The direction of list sorting (Ascending, Descending)
+        /// </summary>
         public SortOrder SortOrder { get; private set; }
+        /// <summary>
+        /// The ordering criteria of the list By(ID, Type, Text, Order)
+        /// </summary>
         public SortMethod OrderingMethod { get; private set; }
-        private readonly string connectionString;
-        private readonly SliderQuestionDatabaseOperations sliderSQL;
-        private readonly SmileyQuestionDatabaseOperations smileySQL;
-        private readonly StarsQuestionDatabaseOperations starsSQL;
+        private readonly string mConnectionString;
+        private readonly SliderQuestionDatabaseOperations mSliderSQL;
+        private readonly SmileyQuestionDatabaseOperations mSmileySQL;
+        private readonly StarsQuestionDatabaseOperations mStarsSQL;
 
-
+        /// <summary>
+        /// QuestionManager constructor to initialize new QuestionManager object
+        /// </summary>
+        /// <param name="connectionString">Database connection string</param>
         public QuestionManager(string connectionString)
         {
             Items = new List<Question>();
-            this.connectionString = connectionString;
-            sliderSQL = new SliderQuestionDatabaseOperations();
-            smileySQL = new SmileyQuestionDatabaseOperations();
-            starsSQL = new StarsQuestionDatabaseOperations();
+            mConnectionString = connectionString;
+            mSliderSQL = new SliderQuestionDatabaseOperations(mConnectionString);
+            mSmileySQL = new SmileyQuestionDatabaseOperations(mConnectionString);
+            mStarsSQL = new StarsQuestionDatabaseOperations(mConnectionString);
             SortOrder = SortOrder.Ascending;
             OrderingMethod = SortMethod.ByID;
         }
-
+        /// <summary>
+        /// Synchronize local Items list with latest version of questions from database
+        /// </summary>
+        /// <returns>The new refreshed Items List</returns>
         public List<Question> Refresh()
         {
             try
             {
-                List<SliderQuestion> slider;
-                List<SmileyQuestion> smiley;
-                List<StarsQuestion> stars;
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    slider = sliderSQL.SelectAll(connection);
-
-                }
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    smiley = smileySQL.SelectAll(connection);
-                }
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    stars = starsSQL.SelectAll(connection);
-                }
-                List<Question> allQuestion = new List<Question>(slider.Count + smiley.Count + stars.Count);
-                allQuestion.AddRange(slider);
-                allQuestion.AddRange(smiley);
-                allQuestion.AddRange(stars);
-                Items = allQuestion;
-                OrderList(OrderingMethod, SortOrder);
+                // select all questions of each question type from database
+                List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
+                List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
+                List<StarsQuestion> tStarsList = mStarsSQL.SelectAll();
+                // create new temporary list to merge previous lists,it's initial capacity is equal to the sum of all question lists 
+                List<Question> tAllQuestion = new List<Question>(tSliderList.Count + tSmileyList.Count + tStarsList.Count);
+                // add all question lists to the temporary list that contains all questions 
+                tAllQuestion.AddRange(tSliderList);
+                tAllQuestion.AddRange(tSmileyList);
+                tAllQuestion.AddRange(tStarsList);
+                // set the value of Items list to the new created list
+                Items = tAllQuestion;
+                // sort the Items list and return it
+                SortList(OrderingMethod, SortOrder);
                 return Items;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.StackTrace);
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    if (IsAvailable(connection))
-                        throw new QuestionListRefreshException("An Error occurred while refreshing list, Please try again");
-                    else
-                        throw new Exception("Connection to Database is not Available");
-                }
-
+                if (IsConnected())
+                    throw new QuestionListRefreshException("An Error occurred while refreshing list, Please try again");
+                else
+                    throw new Exception("Connection to Database is not Available");
             }
         }
+        /// <summary>
+        /// Select specific question from the questions list
+        /// </summary>
+        /// <param name="id">Id of question to be selected</param>
+        /// <returns>The selected question if exist, null otherwise</returns>
         public Question Select(int id)
         {
-            if (Items.Count > 0)
-            {
-                int index = SearchByID(0, Items.Count, id);
-                if (index != -1)
-                    return Items[index];
-            }
+            int tIndex = SearchByID(id);
+            // SearchByID method returns the index of item if it exist, -1 otherwise
+            if (tIndex != -1)
+                return Items[tIndex];
             return null;
         }
+        /// <summary>
+        /// Insert question to database and local questions list
+        /// </summary>
+        /// <param name="item">The new question to be inserted</param>
         public void Insert(Question item)
         {
             try
             {
-                int id = -1;
-                Question question = null;
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                // create temporary id variable and question object reference
+                int tID = -1;
+                Question tQuestion = null;
+                //check question type then add it to database and get it's primary key from SQL insert method, set the new id to question object add it to local list.
+                if (item is null)
                 {
-                    if (item is null)
-                    {
-                        throw new ArgumentNullException("Trying to add invalid (null) Question");
-                    }
-                    else if (item is SliderQuestion slider)
-                    {
+                    throw new ArgumentNullException("Trying to add invalid (null) Question");
+                }
+                else if (item is SliderQuestion slider)
+                {
 
-                        id = sliderSQL.Insert(connection, slider);
-                        question = new SliderQuestion(slider, id);
-                    }
-                    else if (item is SmileyQuestion smiley)
-                    {
-                        id = smileySQL.Insert(connection, smiley);
-                        question = new SmileyQuestion(smiley, id);
-                    }
-                    else if (item is StarsQuestion stars)
-                    {
-                        id = starsSQL.Insert(connection, stars);
-                        question = new StarsQuestion(stars, id);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Question type is not recognized");
-
-                    }
+                    tID = mSliderSQL.Insert(slider);
+                    tQuestion = new SliderQuestion(slider, tID);
+                }
+                else if (item is SmileyQuestion smiley)
+                {
+                    tID = mSmileySQL.Insert(smiley);
+                    tQuestion = new SmileyQuestion(smiley, tID);
+                }
+                else if (item is StarsQuestion stars)
+                {
+                    tID = mStarsSQL.Insert(stars);
+                    tQuestion = new StarsQuestion(stars, tID);
+                }
+                else
+                {
+                    throw new ArgumentException("Question type is not recognized");
 
                 }
-                if (id >= 1 && question != null)
+                // if the question inserted to database successfully the temporary id variable should change from -1 and temporary question reference should point to new question object 
+                if (tID >= 1 && tQuestion != null)
                 {
-                    Items.Add(question);
-                    OrderList(OrderingMethod, SortOrder);
+                    // add item to local questions list and reorder the list 
+                    Items.Add(tQuestion);
+                    SortList(OrderingMethod, SortOrder);
                 }
                 else
                 {
@@ -130,114 +139,110 @@ namespace SurveyConfiguratorApp
             }
             catch
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    if (IsAvailable(connection))
-                        throw new QuestionInsertException("An Error occurred while inserting question, Please try again");
-                    else
-                        throw new Exception("Connection to Database is not Available");
-                }
-
+                if (IsConnected())
+                    throw new QuestionInsertException("An Error occurred while inserting question, Please try again");
+                else
+                    throw new Exception("Connection to Database is not Available");
             }
         }
+        /// <summary>
+        /// Update question in database and local questions list
+        /// </summary>
+        /// <param name="item">The new question to be updated</param>
         public void Update(Question item)
         {
             try
             {
+                // check question type then update it in database, if updated successfully in database then update it in local list.
                 if (item is null)
                 {
                     throw new ArgumentNullException("Trying to update invalid (null) Question");
                 }
-
-                int index = SearchByID(0, Items.Count, item.Id);
-                if (index < 0)
+                // search for the question in local list 
+                int tIndex = SearchByID(item.Id);
+                bool tUpdated = false;
+                if (tIndex < 0)
                 {
                     throw new QuestionUpdateException("Couldn't find an item with given id");
                 }
-                bool updated = false;
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (item is SliderQuestion slider)
                 {
-                    if (item is SliderQuestion slider)
-                    {
-                        updated = sliderSQL.Update(connection, slider);
-
-                    }
-                    else if (item is SmileyQuestion smiley)
-                    {
-                        updated = smileySQL.Update(connection, smiley);
-
-                    }
-                    else if (item is StarsQuestion stars)
-                    {
-                        updated = starsSQL.Update(connection, stars);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Question type is not recognized");
-
-                    }
+                    tUpdated = mSliderSQL.Update(slider);
+                }
+                else if (item is SmileyQuestion smiley)
+                {
+                    tUpdated = mSmileySQL.Update(smiley);
 
                 }
-                if (updated)
+                else if (item is StarsQuestion stars)
                 {
-                    Items[index] = item;
+                    tUpdated = mStarsSQL.Update(stars);
+                }
+                else
+                {
+                    throw new ArgumentException("Question type is not recognized");
+
+                }
+                // if updated successfully in database update it in local list.
+                if (tUpdated)
+                {
+                    Items[tIndex] = item;
                 }
                 else
                 {
                     throw new QuestionUpdateException("couldn't update question");
                 }
             }
-
             catch (ArgumentNullException ex)
             {
                 throw ex;
             }
             catch
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    if (IsAvailable(connection))
-                        throw new QuestionUpdateException("An Error occurred while updating question, Please try again");
-                    else
-                        throw new Exception("Connection to Database is not Available");
-                }
+                if (IsConnected())
+                    throw new QuestionUpdateException("An Error occurred while updating question, Please try again");
+                else
+                    throw new Exception("Connection to Database is not Available");
 
             }
         }
+        /// <summary>
+        /// Delete question from database and local list
+        /// </summary>
+        /// <param name="id">The id of question to be deleted</param>
         public void Delete(int id)
         {
             try
             {
-                int index = SearchByID(0, Items.Count, id);
-                if (index < 0)
+                // check question type then delete it from database, if deleted successfully from database then delete it in local list.
+                // search for the question in local list 
+                int tIndex = SearchByID(id);
+                bool tDeleted = false;
+                if (tIndex < 0)
                 {
                     throw new QuestionDeleteException("Couldn't find an item with given id");
                 }
-                bool deleted = false;
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (Items[tIndex] is SliderQuestion slider)
                 {
-                    if (Items[index] is SliderQuestion slider)
-                    {
-                        deleted = sliderSQL.Delete(connection, id);
-                    }
-                    else if (Items[index] is SmileyQuestion smiley)
-                    {
-                        deleted = smileySQL.Delete(connection, id);
-
-                    }
-                    else if (Items[index] is StarsQuestion stars)
-                    {
-                        deleted = starsSQL.Delete(connection, id);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Question type is not recognized");
-                    }
+                    tDeleted = mSliderSQL.Delete(id);
+                }
+                else if (Items[tIndex] is SmileyQuestion smiley)
+                {
+                    tDeleted = mSmileySQL.Delete(id);
 
                 }
-                if (deleted)
+                else if (Items[tIndex] is StarsQuestion stars)
                 {
-                    Items.RemoveAt(index);
+                    tDeleted = mStarsSQL.Delete(id);
+                }
+                else
+                {
+                    throw new ArgumentException("Question type is not recognized");
+                }
+                // if deleted successfully from database then delete it in local list.
+                if (tDeleted)
+                {
+                    Items.RemoveAt(tIndex);
                 }
                 else
                 {
@@ -246,74 +251,84 @@ namespace SurveyConfiguratorApp
             }
             catch
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    if (IsAvailable(connection))
-                        throw new QuestionDeleteException("An Error occurred while deleting question, Please try again");
-                    else
-                        throw new Exception("Connection to Database is not Available");
-                }
+                if (IsConnected())
+                    throw new QuestionDeleteException("An Error occurred while deleting question, Please try again");
+                else
+                    throw new Exception("Connection to Database is not Available");
 
             }
         }
-
-        public void OrderList(SortMethod orderingMethod, SortOrder sortOrder)
+        /// <summary>
+        ///  Sort Items list according to given order and method
+        /// </summary>
+        /// <param name="orderingMethod">The ordering criteria of the list By(ID, Type, Text, Order)</param>
+        /// <param name="sortOrder">The direction of list sorting (Ascending, Descending)</param>
+        public void SortList(SortMethod orderingMethod, SortOrder sortOrder)
         {
-            this.SortOrder = sortOrder;
-            this.OrderingMethod = orderingMethod;
-            List<Question> orderedList = new List<Question>(Items.Count);
-            switch (this.OrderingMethod)
+            SortOrder = sortOrder;
+            OrderingMethod = orderingMethod;
+            // initialize temporary list with old list capacity to avoid list resizing.
+            List<Question> tSortedList = new List<Question>(Items.Count);
+            //Sort Items list according to given ordering method using linq
+            switch (OrderingMethod)
             {
                 case SortMethod.ByID:
-                    orderedList = Items.OrderBy(Item => Item.Id).ToList();
+                    tSortedList = Items.OrderBy(Item => Item.Id).ToList();
                     break;
                 case SortMethod.ByOrder:
-                    orderedList = Items.OrderBy(Item => Item.Order).ToList();
+                    tSortedList = Items.OrderBy(Item => Item.Order).ToList();
                     break;
                 case SortMethod.ByQuestionText:
-                    orderedList = Items.OrderBy(Item => Item.Text).ToList();
+                    tSortedList = Items.OrderBy(Item => Item.Text).ToList();
                     break;
                 case SortMethod.ByType:
-                    orderedList = Items.OrderBy(Item => Item.Type).ToList();
+                    tSortedList = Items.OrderBy(Item => Item.Type).ToList();
                     break;
             }
-            if (this.SortOrder == SortOrder.Descending)
+            // temporary ordered list is sorted in ascending order, if the required order is descending then reverse it
+            if (SortOrder == SortOrder.Descending)
             {
-                orderedList.Reverse();
+                tSortedList.Reverse();
             }
-            Items = orderedList;
+            // set local Items list to the new sorted list
+            Items = tSortedList;
         }
-
+        /// <summary>
+        /// Check if database of given connection string is connected
+        /// </summary>
+        /// <returns>true if database is connected, false otherwise</returns>
         public bool IsConnected()
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection tConnection = new SqlConnection(mConnectionString))
             {
-                return IsAvailable(connection);
+                try
+                {
+                    // if data base is connected, no SqlException will be raised and true is returned
+                    tConnection.Open();
+                    tConnection.Close();
+                }
+                catch (SqlException)
+                {
+                    // if database is disconnected, SqlException will be raised and false is returned
+                    return false;
+                }
+                return true;
             }
         }
-
-        private bool IsAvailable(SqlConnection connection)
+        /// <summary>
+        /// Search for question by it's id
+        /// </summary>
+        /// <param name="id">Id of question to search for</param>
+        /// <returns>Index of question if found, -1 otherwise</returns>
+        private int SearchByID(int id)
         {
-            try
-            {
-                connection.Open();
-                connection.Close();
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private int SearchByID(int start, int end, int id)
-        {
-            for (int i = start; i < end; i++)
-            {
-                if (Items[i].Id == id)
-                    return i;
-            }
+            if (Items != null && Items.Count > 0)
+                // loop through all question and check if question id is equal to search id
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    if (Items[i].Id == id)
+                        return i;
+                }
             return -1;
         }
     }

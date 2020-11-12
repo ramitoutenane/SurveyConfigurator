@@ -37,9 +37,5 @@ namespace SurveyConfiguratorApp
         /// </summary>
         /// <returns>The new refreshed List </returns>
         List<T> Refresh();
-        /// <summary>
-        /// Sort the maintained list
-        /// </summary>
-        void OrderList();
     }
 }

@@ -8,7 +8,7 @@ namespace SurveyConfiguratorApp
 {
     public partial class Main : Form
     {
-        IRepository<Question> questionManager;
+        private readonly QuestionManager mQuestionManager;
         SortMethod sortMethod;
         SortOrder sortOrder;
 
@@ -21,7 +21,7 @@ namespace SurveyConfiguratorApp
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["surveyConnection"].ConnectionString;
                 if (connectionString != null)
-                    questionManager = new QuestionManager(connectionString);
+                    mQuestionManager = new QuestionManager(connectionString);
 
             }
             catch (Exception ex)
@@ -32,7 +32,7 @@ namespace SurveyConfiguratorApp
 
         private void Main_Load(object sender, EventArgs e)
         {
-            if (questionManager != null)
+            if (mQuestionManager != null)
                 refreshButton.PerformClick();
             else
                 Application.Exit();
@@ -52,7 +52,7 @@ namespace SurveyConfiguratorApp
                     setSortMethod(SortMethod.ByOrder);
                     break;
             }
-            questionManager.OrderList(sortMethod, sortOrder);
+            mQuestionManager.SortList(sortMethod, sortOrder);
             refreshList();
 
         }
@@ -61,7 +61,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                questionManager.Refresh();
+                mQuestionManager.Refresh();
                 refreshList();
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace SurveyConfiguratorApp
                 {
                     try
                     {
-                        questionManager.Delete(questionManager.Items[selectedRow].Id);
+                        mQuestionManager.Delete(mQuestionManager.Items[selectedRow].Id);
                         refreshList();
                     }
                     catch (Exception ex)
@@ -117,7 +117,7 @@ namespace SurveyConfiguratorApp
             {
                 try
                 {
-                    questionManager.Insert(propertiesDialog.question);
+                    mQuestionManager.Insert(propertiesDialog.question);
                     refreshList();
                 }
                 catch (Exception ex)
@@ -136,12 +136,12 @@ namespace SurveyConfiguratorApp
 
             if (selectedRow >= 0)
             {
-                QuestionProperties propertiesDialog = new QuestionProperties(questionManager.Items[selectedRow]);
+                QuestionProperties propertiesDialog = new QuestionProperties(mQuestionManager.Items[selectedRow]);
                 if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
                 {
                     try
                     {
-                        questionManager.Update(propertiesDialog.question);
+                        mQuestionManager.Update(propertiesDialog.question);
                         refreshList();
                     }
                     catch (Exception ex)
@@ -157,12 +157,12 @@ namespace SurveyConfiguratorApp
 
         private void refreshList()
         {
-            if (questionManager.IsConnected())
+            if (mQuestionManager.IsConnected())
             {
                 try
                 {
-                    questionDataGridView.DataSource = questionManager.Items;
-                    CurrencyManager currencyManager = (CurrencyManager)questionDataGridView.BindingContext[questionManager.Items];
+                    questionDataGridView.DataSource = mQuestionManager.Items;
+                    CurrencyManager currencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionManager.Items];
                     if (currencyManager != null)
                     {
                         currencyManager.Refresh();
