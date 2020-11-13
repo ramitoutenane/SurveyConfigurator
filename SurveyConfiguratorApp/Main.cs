@@ -136,20 +136,7 @@ namespace SurveyConfiguratorApp
 
             if (selectedRow >= 0)
             {
-                QuestionProperties propertiesDialog = new QuestionProperties(mQuestionManager.Items[selectedRow]);
-                if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    try
-                    {
-                        mQuestionManager.Update(propertiesDialog.question);
-                        refreshList();
-                    }
-                    catch (Exception ex)
-                    {
-                        showError(ex.Message);
-                    }
-                }
-                propertiesDialog.Dispose();
+                ShowEditForm(questionDataGridView.Rows[selectedRow].DataBoundItem as Question);
             }
             else
                 showError("No question is Selected");
@@ -182,6 +169,23 @@ namespace SurveyConfiguratorApp
             }
 
         }
+        private void ShowEditForm(Question question)
+        {
+            QuestionProperties propertiesDialog = new QuestionProperties(question);
+            if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+                    mQuestionManager.Update(propertiesDialog.question);
+                    refreshList();
+                }
+                catch (Exception ex)
+                {
+                    showError(ex.Message);
+                }
+            }
+            propertiesDialog.Dispose();
+        }
         public static void showError(string errorMessage)
         {
             MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -200,6 +204,12 @@ namespace SurveyConfiguratorApp
                 toggleSortOrder();
             else
                 sortMethod = newSortMethod;
+        }
+
+        private void questionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex != -1)
+                ShowEditForm(questionDataGridView.Rows[e.RowIndex].DataBoundItem as Question);
         }
     }
 }

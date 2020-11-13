@@ -67,16 +67,6 @@ namespace SurveyConfiguratorApp
             }
         }
 
-        private void startValueNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            endValueNumericUpDown.Minimum = startValueNumericUpDown.Value + 1;
-        }
-
-        private void endValueNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            startValueNumericUpDown.Maximum = endValueNumericUpDown.Value - 1;
-        }
-
         private void questionTextBox_TextChanged(object sender, EventArgs e)
         {
             currentCharCount.Text = questionTextBox.Text.Length.ToString();

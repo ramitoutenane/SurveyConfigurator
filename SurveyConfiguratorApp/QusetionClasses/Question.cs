@@ -38,7 +38,7 @@
         }
 
         public int Id { get => mId; }
-
-        public override string ToString() => $"Id: {Id}\nType: {Type}\nQuestion: {Text}\nOrder: {Order}";
+        public string TypeString { get => Type.ToString(); }
+        public override string ToString() => $"Id: {Id}\nType: {TypeString}\nQuestion: {Text}\nOrder: {Order}";
     }
 }

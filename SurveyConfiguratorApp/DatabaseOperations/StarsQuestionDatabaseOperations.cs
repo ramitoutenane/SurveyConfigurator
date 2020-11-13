@@ -37,15 +37,17 @@ namespace SurveyConfiguratorApp
             // if id is less than 1 exit insert method to avoid foreign key reference error
             if (tQuestionId < 1)
                 return tQuestionId;
-            string tCommandString = $"INSERT INTO star_question (question_id, num_of_stars) OUTPUT INSERTED.question_id VALUES ({SQLStringResources.QuestionId}, {SQLStringResources.QuestionStarsNumber})";
+            string tCommandString = $"INSERT INTO {SQLStringResources.cTABLE_STARS_QUESTION} ({SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_STARS_NUMBER}) OUTPUT INSERTED.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
+                $"VALUES ({SQLStringResources.cPARAMETER_QUESTION_ID}, {SQLStringResources.cPARAMETER_QUESTION_STARS_NUMBER})";
             try
             {
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.QuestionId}", tQuestionId);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.QuestionStarsNumber}", data.NumberOfStars);
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", tQuestionId);
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_STARS_NUMBER}", data.NumberOfStars);
+                        tConnection.Open();
                         return (int)tCommand.ExecuteScalar();
                     }
                 }
@@ -69,14 +71,14 @@ namespace SurveyConfiguratorApp
             {
                 return false;
             }
-            string tCommandString = $"UPDATE star_question SET num_of_stars = {SQLStringResources.QuestionStarsNumber} WHERE question_id = {SQLStringResources.QuestionId} ";
-
+            string tCommandString = $"UPDATE {SQLStringResources.cTABLE_STARS_QUESTION} SET {SQLStringResources.cCOLUMN_STARS_NUMBER} = {SQLStringResources.cPARAMETER_QUESTION_STARS_NUMBER} WHERE {SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} ";
             using (SqlConnection tConnection = new SqlConnection(mConnectionString))
             {
                 using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                 {
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.QuestionId}", data.Id);
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.QuestionStarsNumber}", data.NumberOfStars);
+                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", data.Id);
+                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_STARS_NUMBER}", data.NumberOfStars);
+                    tConnection.Open();
                     return tCommand.ExecuteNonQuery() > 0;
                 }
             }
@@ -96,13 +98,14 @@ namespace SurveyConfiguratorApp
         /// <returns>The selected question if exist, null otherwise</returns>
         public StarsQuestion Select(int id)
         {
-            string tQueryString = $"SELECT question_text, question_order, num_of_stars, question.question_id, type_id " +
-                $"FROM question, star_question WHERE question.question_id = {SQLStringResources.QuestionId} AND question.question_id = star_question.question_id";
+            string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_STARS_NUMBER}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_TYPE_ID} " +
+                $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_STARS_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} AND {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_STARS_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}";
             using (SqlConnection tConnection = new SqlConnection(mConnectionString))
             {
                 using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                 {
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.QuestionId}", id);
+                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", id);
+                    tConnection.Open();
                     using (SqlDataReader tReader = tCommand.ExecuteReader())
                     {
                         if (tReader.HasRows && tReader.Read())
@@ -125,18 +128,19 @@ namespace SurveyConfiguratorApp
         /// <returns>List that contains the retrieved questions</returns>
         public List<StarsQuestion> SelectAll(int offset = 0, int limit = 0)
         {
-            string tQueryString = $"SELECT question_text, question_order, num_of_stars, question.question_id, type_id " +
-                $"FROM question, star_question WHERE question.question_id = star_question.question_id " +
-                $"ORDER BY question.question_id OFFSET {SQLStringResources.Offset} ROWS";
+            string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_STARS_NUMBER}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_TYPE_ID} " +
+                $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_STARS_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_STARS_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
+                $"ORDER BY {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} OFFSET {SQLStringResources.cOFFSET} ROWS";
             // add Fetch clause if limit is larger than 0 which is default value
             if (limit > 0)
-                tQueryString += $" FETCH NEXT {SQLStringResources.Limit} ROWS ONLY";
+                tQueryString += $" FETCH NEXT {SQLStringResources.cLIMIT} ROWS ONLY";
             using (SqlConnection tConnection = new SqlConnection(mConnectionString))
             {
                 using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                 {
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.Offset} ", offset);
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.Limit}", limit);
+                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cOFFSET} ", offset);
+                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cLIMIT}", limit);
+                    tConnection.Open();
                     using (SqlDataReader tReader = tCommand.ExecuteReader())
                     {
                         List<StarsQuestion> tList = new List<StarsQuestion>();

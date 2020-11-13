@@ -211,7 +211,6 @@
             this.startValueNumericUpDown.Name = "startValueNumericUpDown";
             this.startValueNumericUpDown.Size = new System.Drawing.Size(76, 29);
             this.startValueNumericUpDown.TabIndex = 2;
-            this.startValueNumericUpDown.ValueChanged += new System.EventHandler(this.startValueNumericUpDown_ValueChanged);
             // 
             // endValueLabel
             // 
@@ -246,7 +245,6 @@
             0,
             0,
             0});
-            this.endValueNumericUpDown.ValueChanged += new System.EventHandler(this.endValueNumericUpDown_ValueChanged);
             // 
             // startCaptionTextBox
             // 
@@ -338,9 +336,9 @@
             this.starsLabel.Location = new System.Drawing.Point(7, 32);
             this.starsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.starsLabel.Name = "starsLabel";
-            this.starsLabel.Size = new System.Drawing.Size(204, 21);
+            this.starsLabel.Size = new System.Drawing.Size(143, 21);
             this.starsLabel.TabIndex = 18;
-            this.starsLabel.Text = "Number of Smiley Faces :";
+            this.starsLabel.Text = "Number of Stars :";
             // 
             // starsNumericUpDown
             // 
@@ -424,11 +422,14 @@
             this.Controls.Add(this.questionLabel);
             this.Controls.Add(this.titleLabel);
             this.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(460, 420);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(460, 420);
             this.Name = "QuestionProperties";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Question Properties";
             ((System.ComponentModel.ISupportInitialize)(this.orderNumericUpDown)).EndInit();
             this.sliderGroupBox.ResumeLayout(false);

@@ -12,7 +12,6 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\De
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.exe.config
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.exe
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.pdb
-C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.QuestionProperties.resources
@@ -20,3 +19,4 @@ C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\o
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CoreCompileInputs.cache
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache

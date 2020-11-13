@@ -36,7 +36,7 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
@@ -46,7 +46,8 @@
             // titleLabel
             // 
             this.titleLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.titleLabel.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold);
+            this.titleLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.titleLabel.Location = new System.Drawing.Point(0, 0);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(734, 41);
@@ -64,7 +65,7 @@
             this.questionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.textDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
+            this.typeStringDataGridViewTextBoxColumn,
             this.orderDataGridViewTextBoxColumn});
             this.questionDataGridView.DataSource = this.questionBindingSource;
             this.questionDataGridView.Location = new System.Drawing.Point(12, 41);
@@ -75,12 +76,14 @@
             this.questionDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.questionDataGridView.Size = new System.Drawing.Size(710, 375);
             this.questionDataGridView.TabIndex = 1;
+            this.questionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionDataGridView_CellDoubleClick);
             this.questionDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.questionDataGridView_ColumnHeaderMouseClick_1);
             this.questionDataGridView.SelectionChanged += new System.EventHandler(this.questionDataGridView_SelectionChanged);
             // 
             // addButton
             // 
             this.addButton.Enabled = false;
+            this.addButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.addButton.Location = new System.Drawing.Point(12, 422);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(94, 27);
@@ -92,6 +95,7 @@
             // editButton
             // 
             this.editButton.Enabled = false;
+            this.editButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.editButton.Location = new System.Drawing.Point(112, 422);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(99, 27);
@@ -103,6 +107,7 @@
             // deleteButton
             // 
             this.deleteButton.Enabled = false;
+            this.deleteButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.deleteButton.Location = new System.Drawing.Point(217, 422);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(96, 27);
@@ -113,6 +118,7 @@
             // 
             // refreshButton
             // 
+            this.refreshButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.refreshButton.Location = new System.Drawing.Point(626, 422);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(96, 27);
@@ -125,33 +131,40 @@
             // 
             this.textDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
-            this.textDataGridViewTextBoxColumn.FillWeight = 60F;
+            this.textDataGridViewTextBoxColumn.FillWeight = 70F;
             this.textDataGridViewTextBoxColumn.HeaderText = "Question";
+            this.textDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
             this.textDataGridViewTextBoxColumn.ReadOnly = true;
-            this.textDataGridViewTextBoxColumn.ToolTipText = "Question";
+            this.textDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.textDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // typeDataGridViewTextBoxColumn
+            // typeStringDataGridViewTextBoxColumn
             // 
-            this.typeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.FillWeight = 25F;
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.typeStringDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.typeStringDataGridViewTextBoxColumn.DataPropertyName = "TypeString";
+            this.typeStringDataGridViewTextBoxColumn.FillWeight = 20F;
+            this.typeStringDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeStringDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.typeStringDataGridViewTextBoxColumn.Name = "typeStringDataGridViewTextBoxColumn";
+            this.typeStringDataGridViewTextBoxColumn.ReadOnly = true;
+            this.typeStringDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.typeStringDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // orderDataGridViewTextBoxColumn
             // 
             this.orderDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.orderDataGridViewTextBoxColumn.DataPropertyName = "Order";
-            this.orderDataGridViewTextBoxColumn.FillWeight = 15F;
+            this.orderDataGridViewTextBoxColumn.FillWeight = 10F;
             this.orderDataGridViewTextBoxColumn.HeaderText = "Order";
+            this.orderDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.orderDataGridViewTextBoxColumn.Name = "orderDataGridViewTextBoxColumn";
             this.orderDataGridViewTextBoxColumn.ReadOnly = true;
+            this.orderDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.orderDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // questionBindingSource
             // 
-            this.questionBindingSource.AllowNew = false;
             this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
             // 
             // Main
@@ -166,9 +179,12 @@
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.questionDataGridView);
             this.Controls.Add(this.titleLabel);
-            this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Times New Roman", 12F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(750, 500);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(750, 500);
             this.Name = "Main";
             this.Text = "Survey Configurator";
@@ -186,11 +202,11 @@
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button deleteButton;
-        public System.Windows.Forms.BindingSource questionBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.BindingSource questionBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeStringDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orderDataGridViewTextBoxColumn;
     }
 }
 
