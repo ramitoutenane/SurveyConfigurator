@@ -31,16 +31,18 @@ namespace SurveyConfiguratorApp
         /// <returns>inserted question id</returns>
         public int Insert(SmileyQuestion data)
         {
-            // insert general question into question table and get question id to be used as foreign key
-            int tQuestionId = mQuestionDatabaseOperation.Insert(data);
-            // question id is auto increment key that starts from 1, if question is inserted successfully the returned id is larger than 1
-            // if id is less than 1 exit insert method to avoid foreign key reference error
-            if (tQuestionId < 1)
-                return tQuestionId;
-            string tCommandString = $"INSERT INTO {SQLStringResources.cTABLE_SMILEY_QUESTION} ({SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_FACES_NUMBER}) OUTPUT INSERTED.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
-                $"VALUES ({SQLStringResources.cPARAMETER_QUESTION_ID}, {SQLStringResources.cPARAMETER_QUESTION_FACES_NUMBER})";
+            int tQuestionId = -1;
             try
             {
+                // insert general question into question table and get question id to be used as foreign key
+                tQuestionId = mQuestionDatabaseOperation.Insert(data);
+                // question id is auto increment key that starts from 1, if question is inserted successfully the returned id is larger than 1
+                // if id is less than 1 exit insert method to avoid foreign key reference error
+                if (tQuestionId < 1)
+                    return tQuestionId;
+                string tCommandString = $"INSERT INTO {SQLStringResources.cTABLE_SMILEY_QUESTION} ({SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_FACES_NUMBER}) OUTPUT INSERTED.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
+                    $"VALUES ({SQLStringResources.cPARAMETER_QUESTION_ID}, {SQLStringResources.cPARAMETER_QUESTION_FACES_NUMBER})";
+
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
@@ -52,13 +54,16 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception error)
             {
                 // if exception raises on specific question data insertion then delete inserted general question from question table
-                mQuestionDatabaseOperation.Delete(tQuestionId);
-                throw ex;
+                if (tQuestionId != -1)
+                    mQuestionDatabaseOperation.Delete(tQuestionId);
+                ErrorLogger.Log(error);
+                return -1;
             }
         }
+
         /// <summary>
         /// update smiley question in database smiley question table
         /// </summary>
@@ -66,22 +71,30 @@ namespace SurveyConfiguratorApp
         /// <returns>true if question updated, false otherwise</returns>
         public bool Update(SmileyQuestion data)
         {
-            // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
-            if (!mQuestionDatabaseOperation.Update(data))
+            try
             {
-                return false;
-            }
-            string tCommandString = $"UPDATE {SQLStringResources.cTABLE_SMILEY_QUESTION} SET {SQLStringResources.cCOLUMN_FACES_NUMBER} = {SQLStringResources.cPARAMETER_QUESTION_FACES_NUMBER} WHERE {SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} ";
-
-            using (SqlConnection tConnection = new SqlConnection(mConnectionString))
-            {
-                using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
+                // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
+                if (!mQuestionDatabaseOperation.Update(data))
                 {
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", data.Id);
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_FACES_NUMBER}", data.NumberOfFaces);
-                    tConnection.Open();
-                    return tCommand.ExecuteNonQuery() > 0;
+                    return false;
                 }
+                string tCommandString = $"UPDATE {SQLStringResources.cTABLE_SMILEY_QUESTION} SET {SQLStringResources.cCOLUMN_FACES_NUMBER} = {SQLStringResources.cPARAMETER_QUESTION_FACES_NUMBER} WHERE {SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} ";
+
+                using (SqlConnection tConnection = new SqlConnection(mConnectionString))
+                {
+                    using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
+                    {
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", data.Id);
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_FACES_NUMBER}", data.NumberOfFaces);
+                        tConnection.Open();
+                        return tCommand.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return false;
             }
         }
         /// <summary>
@@ -98,27 +111,35 @@ namespace SurveyConfiguratorApp
         /// <returns>The selected question if exist, null otherwise</returns>
         public SmileyQuestion Select(int id)
         {
-            string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_FACES_NUMBER}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_TYPE_ID} " +
-                $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_SMILEY_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} AND {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_SMILEY_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}";
-
-            using (SqlConnection tConnection = new SqlConnection(mConnectionString))
+            try
             {
-                using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
+                string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_FACES_NUMBER}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_TYPE_ID} " +
+                    $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_SMILEY_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} AND {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_SMILEY_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}";
+
+                using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", id);
-                    tConnection.Open();
-                    using (SqlDataReader tReader = tCommand.ExecuteReader())
+                    using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        if (tReader.HasRows && tReader.Read())
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", id);
+                        tConnection.Open();
+                        using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
-                            return new SmileyQuestion(tReader.GetString(0), tReader.GetInt32(1), tReader.GetInt32(2), tReader.GetInt32(3));
-                        }
-                        else
-                        {
-                            return null;
+                            if (tReader.HasRows && tReader.Read())
+                            {
+                                return new SmileyQuestion(tReader.GetString(0), tReader.GetInt32(1), tReader.GetInt32(2), tReader.GetInt32(3));
+                            }
+                            else
+                            {
+                                return null;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return null;
             }
         }
         /// <summary>
@@ -129,31 +150,39 @@ namespace SurveyConfiguratorApp
         /// <returns>List that contains the retrieved questions</returns>
         public List<SmileyQuestion> SelectAll(int offset = 0, int limit = 0)
         {
-            string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_FACES_NUMBER}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_TYPE_ID} " +
-                $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_SMILEY_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_SMILEY_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
-                $"ORDER BY {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} OFFSET {SQLStringResources.cOFFSET} ROWS";
-            // add Fetch clause if limit is larger than 0 which is default value
-            if (limit > 0)
-                tQueryString += $" FETCH NEXT {SQLStringResources.cLIMIT} ROWS ONLY";
-
-            using (SqlConnection tConnection = new SqlConnection(mConnectionString))
+            try
             {
-                using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
+                string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_FACES_NUMBER}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_TYPE_ID} " +
+                    $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_SMILEY_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_SMILEY_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
+                    $"ORDER BY {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} OFFSET {SQLStringResources.cOFFSET} ROWS";
+                // add Fetch clause if limit is larger than 0 which is default value
+                if (limit > 0)
+                    tQueryString += $" FETCH NEXT {SQLStringResources.cLIMIT} ROWS ONLY";
+
+                using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cOFFSET}", offset);
-                    tCommand.Parameters.AddWithValue($"{SQLStringResources.cLIMIT}", limit);
-                    tConnection.Open();
-                    using (SqlDataReader tReader = tCommand.ExecuteReader())
+                    using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        List<SmileyQuestion> tList = new List<SmileyQuestion>();
-                        // loop over retrieved data, create question object on each loop and add it to list
-                        while (tReader.Read())
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cOFFSET}", offset);
+                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cLIMIT}", limit);
+                        tConnection.Open();
+                        using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
-                            tList.Add(new SmileyQuestion(tReader.GetString(0), tReader.GetInt32(1), tReader.GetInt32(2), tReader.GetInt32(3)));
+                            List<SmileyQuestion> tList = new List<SmileyQuestion>();
+                            // loop over retrieved data, create question object on each loop and add it to list
+                            while (tReader.Read())
+                            {
+                                tList.Add(new SmileyQuestion(tReader.GetString(0), tReader.GetInt32(1), tReader.GetInt32(2), tReader.GetInt32(3)));
+                            }
+                            return tList;
                         }
-                        return tList;
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return null;
             }
         }
     }
