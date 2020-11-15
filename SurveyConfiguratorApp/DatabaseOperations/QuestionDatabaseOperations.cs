@@ -1,5 +1,4 @@
-﻿using SurveyConfiguratorApp.DatabaseOperations;
-using System;
+﻿using System;
 using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
@@ -16,14 +15,21 @@ namespace SurveyConfiguratorApp
         /// <param name="connectionString">SQL database connection string</param>
         public QuestionDatabaseOperations(string connectionString)
         {
-            mConnectionString = connectionString;
+            try
+            {
+                mConnectionString = connectionString;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
         }
         /// <summary>
         /// Insert question into database question table
         /// </summary>
         /// <param name="data">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public int Insert(Question data)
+        public int Create(Question data)
         {
             try
             {

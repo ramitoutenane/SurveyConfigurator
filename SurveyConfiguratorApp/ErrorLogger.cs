@@ -12,7 +12,6 @@ namespace SurveyConfiguratorApp
         /// <param name="message">Error message to be logged</param>
         public static void Log(string message)
         {
-
         }
         /// <summary>
         /// Log exception to log file
@@ -20,7 +19,6 @@ namespace SurveyConfiguratorApp
         /// <param name="error">Exception to be logged</param>
         public static void Log(Exception error)
         {
-
         }
     }
 }

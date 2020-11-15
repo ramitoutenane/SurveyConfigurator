@@ -73,7 +73,7 @@
             this.titleLabel.Location = new System.Drawing.Point(0, 0);
             this.titleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(442, 54);
+            this.titleLabel.Size = new System.Drawing.Size(444, 54);
             this.titleLabel.TabIndex = 1;
             this.titleLabel.Text = "Question Properties";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -85,7 +85,7 @@
             this.questionLabel.Location = new System.Drawing.Point(13, 37);
             this.questionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(86, 21);
+            this.questionLabel.Size = new System.Drawing.Size(67, 17);
             this.questionLabel.TabIndex = 2;
             this.questionLabel.Text = "Question :";
             // 
@@ -96,7 +96,7 @@
             this.questionTextBox.Multiline = true;
             this.questionTextBox.Name = "questionTextBox";
             this.questionTextBox.Size = new System.Drawing.Size(419, 48);
-            this.questionTextBox.TabIndex = 3;
+            this.questionTextBox.TabIndex = 1;
             this.questionTextBox.TextChanged += new System.EventHandler(this.questionTextBox_TextChanged);
             // 
             // orderNumericUpDown
@@ -113,8 +113,8 @@
             0,
             0});
             this.orderNumericUpDown.Name = "orderNumericUpDown";
-            this.orderNumericUpDown.Size = new System.Drawing.Size(94, 29);
-            this.orderNumericUpDown.TabIndex = 4;
+            this.orderNumericUpDown.Size = new System.Drawing.Size(94, 25);
+            this.orderNumericUpDown.TabIndex = 2;
             this.orderNumericUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -128,7 +128,7 @@
             this.orderLabel.Location = new System.Drawing.Point(16, 125);
             this.orderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.orderLabel.Name = "orderLabel";
-            this.orderLabel.Size = new System.Drawing.Size(63, 21);
+            this.orderLabel.Size = new System.Drawing.Size(50, 17);
             this.orderLabel.TabIndex = 5;
             this.orderLabel.Text = "Order :";
             // 
@@ -139,7 +139,7 @@
             this.typeLabel.Location = new System.Drawing.Point(16, 158);
             this.typeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.typeLabel.Name = "typeLabel";
-            this.typeLabel.Size = new System.Drawing.Size(57, 21);
+            this.typeLabel.Size = new System.Drawing.Size(44, 17);
             this.typeLabel.TabIndex = 6;
             this.typeLabel.Text = "Type :";
             // 
@@ -149,8 +149,8 @@
             this.typeComboBox.FormattingEnabled = true;
             this.typeComboBox.Location = new System.Drawing.Point(73, 155);
             this.typeComboBox.Name = "typeComboBox";
-            this.typeComboBox.Size = new System.Drawing.Size(94, 29);
-            this.typeComboBox.TabIndex = 7;
+            this.typeComboBox.Size = new System.Drawing.Size(94, 25);
+            this.typeComboBox.TabIndex = 3;
             this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.typeComboBox_SelectedIndexChanged);
             // 
             // sliderGroupBox
@@ -178,7 +178,7 @@
             this.endValueGroupLabel.AutoSize = true;
             this.endValueGroupLabel.Location = new System.Drawing.Point(6, 83);
             this.endValueGroupLabel.Name = "endValueGroupLabel";
-            this.endValueGroupLabel.Size = new System.Drawing.Size(89, 21);
+            this.endValueGroupLabel.Size = new System.Drawing.Size(71, 17);
             this.endValueGroupLabel.TabIndex = 5;
             this.endValueGroupLabel.Text = "End Value:";
             // 
@@ -187,7 +187,7 @@
             this.startValueLabel.AutoSize = true;
             this.startValueLabel.Location = new System.Drawing.Point(285, 48);
             this.startValueLabel.Name = "startValueLabel";
-            this.startValueLabel.Size = new System.Drawing.Size(64, 21);
+            this.startValueLabel.Size = new System.Drawing.Size(52, 17);
             this.startValueLabel.TabIndex = 3;
             this.startValueLabel.Text = "Value : ";
             // 
@@ -196,7 +196,7 @@
             this.startValueGroupLabel.AutoSize = true;
             this.startValueGroupLabel.Location = new System.Drawing.Point(6, 21);
             this.startValueGroupLabel.Name = "startValueGroupLabel";
-            this.startValueGroupLabel.Size = new System.Drawing.Size(94, 21);
+            this.startValueGroupLabel.Size = new System.Drawing.Size(76, 17);
             this.startValueGroupLabel.TabIndex = 4;
             this.startValueGroupLabel.Text = "Start Value:";
             // 
@@ -209,15 +209,15 @@
             0,
             0});
             this.startValueNumericUpDown.Name = "startValueNumericUpDown";
-            this.startValueNumericUpDown.Size = new System.Drawing.Size(76, 29);
-            this.startValueNumericUpDown.TabIndex = 2;
+            this.startValueNumericUpDown.Size = new System.Drawing.Size(76, 25);
+            this.startValueNumericUpDown.TabIndex = 5;
             // 
             // endValueLabel
             // 
             this.endValueLabel.AutoSize = true;
             this.endValueLabel.Location = new System.Drawing.Point(284, 108);
             this.endValueLabel.Name = "endValueLabel";
-            this.endValueLabel.Size = new System.Drawing.Size(64, 21);
+            this.endValueLabel.Size = new System.Drawing.Size(52, 17);
             this.endValueLabel.TabIndex = 3;
             this.endValueLabel.Text = "Value : ";
             // 
@@ -226,8 +226,8 @@
             this.endCaptionTextBox.Location = new System.Drawing.Point(76, 106);
             this.endCaptionTextBox.MaxLength = 25;
             this.endCaptionTextBox.Name = "endCaptionTextBox";
-            this.endCaptionTextBox.Size = new System.Drawing.Size(187, 29);
-            this.endCaptionTextBox.TabIndex = 1;
+            this.endCaptionTextBox.Size = new System.Drawing.Size(187, 25);
+            this.endCaptionTextBox.TabIndex = 6;
             // 
             // endValueNumericUpDown
             // 
@@ -238,8 +238,8 @@
             0,
             0});
             this.endValueNumericUpDown.Name = "endValueNumericUpDown";
-            this.endValueNumericUpDown.Size = new System.Drawing.Size(76, 29);
-            this.endValueNumericUpDown.TabIndex = 2;
+            this.endValueNumericUpDown.Size = new System.Drawing.Size(76, 25);
+            this.endValueNumericUpDown.TabIndex = 7;
             this.endValueNumericUpDown.Value = new decimal(new int[] {
             100,
             0,
@@ -251,15 +251,15 @@
             this.startCaptionTextBox.Location = new System.Drawing.Point(76, 45);
             this.startCaptionTextBox.MaxLength = 25;
             this.startCaptionTextBox.Name = "startCaptionTextBox";
-            this.startCaptionTextBox.Size = new System.Drawing.Size(187, 29);
-            this.startCaptionTextBox.TabIndex = 1;
+            this.startCaptionTextBox.Size = new System.Drawing.Size(187, 25);
+            this.startCaptionTextBox.TabIndex = 4;
             // 
             // startCaptionLabel
             // 
             this.startCaptionLabel.AutoSize = true;
             this.startCaptionLabel.Location = new System.Drawing.Point(6, 48);
             this.startCaptionLabel.Name = "startCaptionLabel";
-            this.startCaptionLabel.Size = new System.Drawing.Size(83, 21);
+            this.startCaptionLabel.Size = new System.Drawing.Size(64, 17);
             this.startCaptionLabel.TabIndex = 0;
             this.startCaptionLabel.Text = "Caption : ";
             // 
@@ -268,7 +268,7 @@
             this.endCaptionLabel.AutoSize = true;
             this.endCaptionLabel.Location = new System.Drawing.Point(6, 109);
             this.endCaptionLabel.Name = "endCaptionLabel";
-            this.endCaptionLabel.Size = new System.Drawing.Size(83, 21);
+            this.endCaptionLabel.Size = new System.Drawing.Size(64, 17);
             this.endCaptionLabel.TabIndex = 0;
             this.endCaptionLabel.Text = "Caption : ";
             // 
@@ -291,7 +291,7 @@
             this.smileyFacesLabel.Location = new System.Drawing.Point(7, 35);
             this.smileyFacesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.smileyFacesLabel.Name = "smileyFacesLabel";
-            this.smileyFacesLabel.Size = new System.Drawing.Size(204, 21);
+            this.smileyFacesLabel.Size = new System.Drawing.Size(161, 17);
             this.smileyFacesLabel.TabIndex = 16;
             this.smileyFacesLabel.Text = "Number of Smiley Faces :";
             // 
@@ -309,7 +309,7 @@
             0,
             0});
             this.smileyNumericUpDown.Name = "smileyNumericUpDown";
-            this.smileyNumericUpDown.Size = new System.Drawing.Size(79, 29);
+            this.smileyNumericUpDown.Size = new System.Drawing.Size(79, 25);
             this.smileyNumericUpDown.TabIndex = 15;
             this.smileyNumericUpDown.Value = new decimal(new int[] {
             2,
@@ -336,7 +336,7 @@
             this.starsLabel.Location = new System.Drawing.Point(7, 32);
             this.starsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.starsLabel.Name = "starsLabel";
-            this.starsLabel.Size = new System.Drawing.Size(143, 21);
+            this.starsLabel.Size = new System.Drawing.Size(113, 17);
             this.starsLabel.TabIndex = 18;
             this.starsLabel.Text = "Number of Stars :";
             // 
@@ -354,7 +354,7 @@
             0,
             0});
             this.starsNumericUpDown.Name = "starsNumericUpDown";
-            this.starsNumericUpDown.Size = new System.Drawing.Size(79, 29);
+            this.starsNumericUpDown.Size = new System.Drawing.Size(79, 25);
             this.starsNumericUpDown.TabIndex = 17;
             this.starsNumericUpDown.Value = new decimal(new int[] {
             2,
@@ -368,7 +368,7 @@
             this.cancelButton.Location = new System.Drawing.Point(360, 344);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 11;
+            this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
@@ -377,7 +377,7 @@
             this.saveButton.Location = new System.Drawing.Point(279, 344);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 12;
+            this.saveButton.TabIndex = 8;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -387,7 +387,7 @@
             this.maxCharLabel.AutoSize = true;
             this.maxCharLabel.Location = new System.Drawing.Point(402, 112);
             this.maxCharLabel.Name = "maxCharLabel";
-            this.maxCharLabel.Size = new System.Drawing.Size(42, 21);
+            this.maxCharLabel.Size = new System.Drawing.Size(33, 17);
             this.maxCharLabel.TabIndex = 13;
             this.maxCharLabel.Text = "/100";
             // 
@@ -396,17 +396,17 @@
             this.currentCharCount.AutoSize = true;
             this.currentCharCount.Location = new System.Drawing.Point(375, 112);
             this.currentCharCount.Name = "currentCharCount";
-            this.currentCharCount.Size = new System.Drawing.Size(19, 21);
+            this.currentCharCount.Size = new System.Drawing.Size(15, 17);
             this.currentCharCount.TabIndex = 14;
             this.currentCharCount.Text = "0";
             // 
             // QuestionProperties
             // 
             this.AcceptButton = this.saveButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(442, 373);
+            this.ClientSize = new System.Drawing.Size(444, 381);
             this.Controls.Add(this.currentCharCount);
             this.Controls.Add(this.maxCharLabel);
             this.Controls.Add(this.saveButton);

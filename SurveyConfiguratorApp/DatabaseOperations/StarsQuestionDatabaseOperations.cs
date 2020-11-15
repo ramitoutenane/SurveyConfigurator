@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using SurveyConfiguratorApp.DatabaseOperations;
 
 namespace SurveyConfiguratorApp
 {
     /// <summary>
     /// Class to support database operations on stars question table
     /// </summary>
-    class StarsQuestionDatabaseOperations : ICUDable<StarsQuestion>, IQueryable<StarsQuestion>
+    class StarsQuestionDatabaseOperations : IRepository<StarsQuestion>
     {
         private readonly string mConnectionString;
         /// <summary>
@@ -21,21 +20,28 @@ namespace SurveyConfiguratorApp
         /// <param name="connectionString">SQL database connection string</param>
         public StarsQuestionDatabaseOperations(string connectionString)
         {
-            mConnectionString = connectionString;
-            mQuestionDatabaseOperation = new QuestionDatabaseOperations(connectionString);
+            try
+            {
+                mConnectionString = connectionString;
+                mQuestionDatabaseOperation = new QuestionDatabaseOperations(connectionString);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
         }
         /// <summary>
         /// Insert stars question into database stars question table
         /// </summary>
         /// <param name="data">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public int Insert(StarsQuestion data)
+        public int Create(StarsQuestion data)
         {
             int tQuestionId = -1;
             try
             {
                 // insert general question into question table and get question id to be used as foreign key
-                tQuestionId = mQuestionDatabaseOperation.Insert(data);
+                tQuestionId = mQuestionDatabaseOperation.Create(data);
                 // question id is auto increment key that starts from 1, if question is inserted successfully the returned id is larger than 1
                 // if id is less than 1 exit insert method to avoid foreign key reference error
                 if (tQuestionId < 1)

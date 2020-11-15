@@ -35,9 +35,9 @@
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
-            this.textDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeStringDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionBindingSource)).BeginInit();
@@ -64,9 +64,9 @@
             this.questionDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.questionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.textDataGridViewTextBoxColumn,
-            this.typeStringDataGridViewTextBoxColumn,
-            this.orderDataGridViewTextBoxColumn});
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn2});
             this.questionDataGridView.DataSource = this.questionBindingSource;
             this.questionDataGridView.Location = new System.Drawing.Point(12, 41);
             this.questionDataGridView.MultiSelect = false;
@@ -75,10 +75,12 @@
             this.questionDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.questionDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.questionDataGridView.Size = new System.Drawing.Size(710, 375);
-            this.questionDataGridView.TabIndex = 1;
+            this.questionDataGridView.StandardTab = true;
+            this.questionDataGridView.TabIndex = 0;
             this.questionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionDataGridView_CellDoubleClick);
             this.questionDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.questionDataGridView_ColumnHeaderMouseClick_1);
             this.questionDataGridView.SelectionChanged += new System.EventHandler(this.questionDataGridView_SelectionChanged);
+            this.questionDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questionDataGridView_KeyDown);
             // 
             // addButton
             // 
@@ -127,41 +129,34 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
-            // textDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn1
             // 
-            this.textDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.textDataGridViewTextBoxColumn.DataPropertyName = "Text";
-            this.textDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.textDataGridViewTextBoxColumn.HeaderText = "Question";
-            this.textDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.textDataGridViewTextBoxColumn.Name = "textDataGridViewTextBoxColumn";
-            this.textDataGridViewTextBoxColumn.ReadOnly = true;
-            this.textDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.textDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Text";
+            this.dataGridViewTextBoxColumn1.FillWeight = 65F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Question";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // typeStringDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn3
             // 
-            this.typeStringDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.typeStringDataGridViewTextBoxColumn.DataPropertyName = "TypeString";
-            this.typeStringDataGridViewTextBoxColumn.FillWeight = 20F;
-            this.typeStringDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeStringDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.typeStringDataGridViewTextBoxColumn.Name = "typeStringDataGridViewTextBoxColumn";
-            this.typeStringDataGridViewTextBoxColumn.ReadOnly = true;
-            this.typeStringDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.typeStringDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "TypeString";
+            this.dataGridViewTextBoxColumn3.FillWeight = 25F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // orderDataGridViewTextBoxColumn
+            // dataGridViewTextBoxColumn2
             // 
-            this.orderDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.orderDataGridViewTextBoxColumn.DataPropertyName = "Order";
-            this.orderDataGridViewTextBoxColumn.FillWeight = 10F;
-            this.orderDataGridViewTextBoxColumn.HeaderText = "Order";
-            this.orderDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.orderDataGridViewTextBoxColumn.Name = "orderDataGridViewTextBoxColumn";
-            this.orderDataGridViewTextBoxColumn.ReadOnly = true;
-            this.orderDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.orderDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Order";
+            this.dataGridViewTextBoxColumn2.FillWeight = 10F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Order";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // questionBindingSource
             // 
@@ -203,10 +198,13 @@
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button refreshButton;
-        private System.Windows.Forms.BindingSource questionBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn textDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource questionBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 

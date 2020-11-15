@@ -9,69 +9,103 @@ namespace SurveyConfiguratorApp
         public Question question { get; private set; }
         public QuestionProperties()
         {
-            InitializeComponent();
-            typeComboBox.DataSource = Enum.GetValues(typeof(QuestionType));
+            try
+            {
+                InitializeComponent();
+                typeComboBox.DataSource = Enum.GetValues(typeof(QuestionType));
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                Main.showError(MessageStringResources.cGENERAL_ERROR);
+            }
         }
         public QuestionProperties(Question question) : this()
         {
-            if (question != null)
+            try
             {
-                this.question = question;
-                questionTextBox.Text = question.Text;
-                orderNumericUpDown.Value = question.Order;
-                typeComboBox.SelectedIndex = (int)question.Type - 1;
-                typeComboBox.Enabled = false;
+                if (question != null)
+                {
+                    this.question = question;
+                    questionTextBox.Text = question.Text;
+                    orderNumericUpDown.Value = question.Order;
+                    typeComboBox.SelectedIndex = (int)question.Type - 1;
+                    typeComboBox.Enabled = false;
 
-                if (question is SliderQuestion slider)
-                {
-                    startCaptionTextBox.Text = slider.StartValueCaption;
-                    startValueNumericUpDown.Value = slider.StartValue;
-                    endCaptionTextBox.Text = slider.EndValueCaption;
-                    endValueNumericUpDown.Value = slider.EndValue;
+                    if (question is SliderQuestion tSlider)
+                    {
+                        startCaptionTextBox.Text = tSlider.StartValueCaption;
+                        startValueNumericUpDown.Value = tSlider.StartValue;
+                        endCaptionTextBox.Text = tSlider.EndValueCaption;
+                        endValueNumericUpDown.Value = tSlider.EndValue;
+                    }
+                    else if (question is SmileyQuestion tSmiley)
+                    {
+                        smileyNumericUpDown.Value = tSmiley.NumberOfFaces;
+                    }
+                    else if (question is StarsQuestion tStars)
+                    {
+                        starsNumericUpDown.Value = tStars.NumberOfStars;
+                    }
                 }
-                else if (question is SmileyQuestion smiley)
+                else
                 {
-                    smileyNumericUpDown.Value = smiley.NumberOfFaces;
-                }
-                else if (question is StarsQuestion stars)
-                {
-                    starsNumericUpDown.Value = stars.NumberOfStars;
+                    throw new ArgumentException(MessageStringResources.cQUESTION_TYPE_Exception);
+
                 }
             }
-            else
+            catch (Exception error)
             {
-                Main.showError("Invalid Question Type");
+                ErrorLogger.Log(error);
+                Main.showError(MessageStringResources.cGENERAL_ERROR);
             }
         }
 
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sliderGroupBox.Visible = false;
-            smileyGroupBox.Visible = false;
-            starsGroupBox.Visible = false;
-            Point groupBoxLocation = new Point(10, 195);
-            switch (typeComboBox.SelectedIndex)
+            try
             {
-                case 0:
-                    smileyGroupBox.Visible = true;
-                    smileyGroupBox.Location = groupBoxLocation;
-                    break;
-                case 1:
-                    sliderGroupBox.Visible = true;
-                    sliderGroupBox.Location = groupBoxLocation;
-                    break;
-                case 2:
-                    starsGroupBox.Visible = true;
-                    starsGroupBox.Location = groupBoxLocation;
-                    break;
+                sliderGroupBox.Visible = false;
+                smileyGroupBox.Visible = false;
+                starsGroupBox.Visible = false;
+                Point groupBoxLocation = new Point(10, 195);
+                switch (typeComboBox.SelectedIndex)
+                {
+                    case 0:
+                        smileyGroupBox.Visible = true;
+                        smileyGroupBox.Location = groupBoxLocation;
+                        break;
+                    case 1:
+                        sliderGroupBox.Visible = true;
+                        sliderGroupBox.Location = groupBoxLocation;
+                        break;
+                    case 2:
+                        starsGroupBox.Visible = true;
+                        starsGroupBox.Location = groupBoxLocation;
+                        break;
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                Main.showError(MessageStringResources.cGENERAL_ERROR);
             }
         }
 
         private void questionTextBox_TextChanged(object sender, EventArgs e)
         {
-            currentCharCount.Text = questionTextBox.Text.Length.ToString();
-        }
-        private bool isValidQuestion()
+            try
+            {
+                currentCharCount.Text = questionTextBox.Text.Length.ToString();
+            }           
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cGENERAL_ERROR);
+    }
+
+}
+private bool isValidQuestion()
         {
             if (questionTextBox.Text.TrimEnd().Length == 0)
             {
@@ -99,17 +133,18 @@ namespace SurveyConfiguratorApp
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (isValidQuestion())
+            try
             {
-                string questionText = questionTextBox.Text.TrimEnd();
-                int questionOrder = (int)orderNumericUpDown.Value;
-                int id = -1;
-                if (question != null && question.Id > 0)
+                if (isValidQuestion())
                 {
-                    id = question.Id;
-                }
-                try
-                {
+                    string questionText = questionTextBox.Text.TrimEnd();
+                    int questionOrder = (int)orderNumericUpDown.Value;
+                    int id = -1;
+                    if (question != null && question.Id > 0)
+                    {
+                        id = question.Id;
+                    }
+
                     switch (typeComboBox.SelectedIndex)
                     {
                         case 0:
@@ -125,10 +160,23 @@ namespace SurveyConfiguratorApp
                     }
                     DialogResult = DialogResult.OK;
                 }
-                catch (Exception ex)
-                {
-                    Main.showError(ex.Message);
-                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                Main.showError(MessageStringResources.cGENERAL_ERROR);
+            }
+
+        }
+        public static void showError(string errorMessage)
+        {
+            try
+            {
+                MessageBox.Show(errorMessage, MessageStringResources.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
             }
         }
     }

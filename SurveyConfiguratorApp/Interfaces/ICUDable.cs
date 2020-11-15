@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="data">Object to be inserted</param>
         /// <returns>Object id in repository</returns>
-        int Insert(T data);
+        int Create(T data);
         /// <summary>
         /// Update object on repository
         /// </summary>

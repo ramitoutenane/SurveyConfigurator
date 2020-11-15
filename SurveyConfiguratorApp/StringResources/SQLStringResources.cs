@@ -1,4 +1,4 @@
-﻿namespace SurveyConfiguratorApp.DatabaseOperations
+﻿namespace SurveyConfiguratorApp
 {
     public static class SQLStringResources
     {

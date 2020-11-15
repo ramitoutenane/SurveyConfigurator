@@ -1,59 +1,79 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Configuration;
 using SortOrder = System.Data.SqlClient.SortOrder;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SurveyConfiguratorApp
 {
     public partial class Main : Form
     {
-        private readonly QuestionManager mQuestionManager;
-        SortMethod sortMethod;
-        SortOrder sortOrder;
+        private readonly IMaintainable<Question> mQuestionManager;
+        private List<Question> mQuestionList;
+        private SortMethod mSortMethod;
+        private SortOrder mSortOrder;
 
         public Main()
         {
-            InitializeComponent();
-            sortMethod = SortMethod.ByQuestionText;
-            sortOrder = SortOrder.Ascending;
             try
             {
+                InitializeComponent();
+                mSortMethod = SortMethod.ByQuestionText;
+                mSortOrder = SortOrder.Ascending;
                 string connectionString = ConfigurationManager.ConnectionStrings["surveyConnection"].ConnectionString;
                 if (connectionString != null)
                     mQuestionManager = new QuestionManager(connectionString);
-
+                else
+                    throw new NullReferenceException("Connection String is null");
             }
-            catch (Exception ex)
+            catch (Exception error)
             {
-                showError("Invalid Connection string , Please check configuration file");
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cGENERAL_ERROR);
             }
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            if (mQuestionManager != null)
+            try
+            {
+                if (mQuestionManager == null)
+                    throw new NullReferenceException("Question manager reference is null");
                 refreshButton.PerformClick();
-            else
-                Application.Exit();
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cGENERAL_ERROR);
+            }
         }
 
         private void questionDataGridView_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            switch (e.ColumnIndex)
+            try
             {
-                case 0:
-                    setSortMethod(SortMethod.ByQuestionText);
-                    break;
-                case 1:
-                    setSortMethod(SortMethod.ByType);
-                    break;
-                case 2:
-                    setSortMethod(SortMethod.ByOrder);
-                    break;
+                switch (e.ColumnIndex)
+                {
+                    case 0:
+                        setSortMethod(SortMethod.ByQuestionText);
+                        break;
+                    case 1:
+                        setSortMethod(SortMethod.ByType);
+                        break;
+                    case 2:
+                        setSortMethod(SortMethod.ByOrder);
+                        break;
+                }
+                SortQuestions();
+                questionDataGridView.DataSource = mQuestionList;
+                questionDataGridView.Refresh();
             }
-            mQuestionManager.SortList(sortMethod, sortOrder);
-            refreshList();
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cGENERAL_ERROR);
+            }
 
         }
 
@@ -61,33 +81,94 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                mQuestionManager.Refresh();
-                refreshList();
+                if (mQuestionManager.Refresh() != null)
+                    refreshList();
+                else
+                    throw new Exception(MessageStringResources.cREFRESH_ERROR);
             }
-            catch (Exception ex)
+            catch (Exception error)
             {
-                showError(ex.Message);
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cREFRESH_ERROR);
             }
         }
 
         private void questionDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            if (questionDataGridView.SelectedRows.Count == 1)
+            try
             {
-                editButton.Enabled = true;
-                deleteButton.Enabled = true;
+                if (questionDataGridView.SelectedRows.Count == 1)
+                {
+                    editButton.Enabled = true;
+                    deleteButton.Enabled = true;
+                }
+                else
+                {
+                    editButton.Enabled = false;
+                    deleteButton.Enabled = false;
+                }
             }
-            else
+            catch (Exception error)
             {
-                editButton.Enabled = false;
-                deleteButton.Enabled = false;
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cGENERAL_ERROR);
             }
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete Question?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dialogResult == DialogResult.Yes)
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete Question?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    int selectedRow = -1;
+                    if (questionDataGridView.SelectedRows.Count > 0)
+                        selectedRow = questionDataGridView.SelectedRows[0].Index;
+
+                    if (selectedRow >= 0)
+                    {
+                        if (mQuestionManager.Delete(mQuestionList[selectedRow].Id))
+                            refreshList();
+                        else
+                            throw new Exception(MessageStringResources.cDELETE_ERROR);
+                    }
+                    else
+                        showError("No question is Selected");
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cDELETE_ERROR);
+            }
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (QuestionProperties propertiesDialog = new QuestionProperties())
+                {
+                    if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+                    {
+                        if (mQuestionManager.Insert(propertiesDialog.question))
+                            refreshList();
+                        else
+                            throw new Exception(MessageStringResources.cREFRESH_ERROR);
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cINSERT_ERROR);
+            }
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            try
             {
                 int selectedRow = -1;
                 if (questionDataGridView.SelectedRows.Count > 0)
@@ -95,121 +176,163 @@ namespace SurveyConfiguratorApp
 
                 if (selectedRow >= 0)
                 {
-                    try
-                    {
-                        mQuestionManager.Delete(mQuestionManager.Items[selectedRow].Id);
-                        refreshList();
-                    }
-                    catch (Exception ex)
-                    {
-                        showError(ex.Message);
-                    }
+                    ShowEditForm(questionDataGridView.Rows[selectedRow].DataBoundItem as Question);
                 }
                 else
                     showError("No question is Selected");
             }
-        }
-
-        private void addButton_Click(object sender, EventArgs e)
-        {
-            QuestionProperties propertiesDialog = new QuestionProperties();
-            if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+            catch (Exception error)
             {
-                try
-                {
-                    mQuestionManager.Insert(propertiesDialog.question);
-                    refreshList();
-                }
-                catch (Exception ex)
-                {
-                    showError(ex.Message);
-                }
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cUPDATE_ERROR);
             }
-            propertiesDialog.Dispose();
-        }
-
-        private void editButton_Click(object sender, EventArgs e)
-        {
-            int selectedRow = -1;
-            if (questionDataGridView.SelectedRows.Count > 0)
-                selectedRow = questionDataGridView.SelectedRows[0].Index;
-
-            if (selectedRow >= 0)
-            {
-                ShowEditForm(questionDataGridView.Rows[selectedRow].DataBoundItem as Question);
-            }
-            else
-                showError("No question is Selected");
         }
 
         private void refreshList()
         {
-            if (mQuestionManager.IsConnected())
+            try
             {
-                try
+                mQuestionList = mQuestionManager.Items;
+                questionDataGridView.DataSource = mQuestionList;
+                CurrencyManager currencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionList];
+                if (currencyManager != null)
                 {
-                    questionDataGridView.DataSource = mQuestionManager.Items;
-                    CurrencyManager currencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionManager.Items];
-                    if (currencyManager != null)
-                    {
-                        currencyManager.Refresh();
-                    }
-                    addButton.Enabled = true;
+                    currencyManager.Refresh();
                 }
-                catch (QuestionListRefreshException ex)
-                {
-                    showError(ex.Message);
-                    addButton.Enabled = false;
-                }
+                addButton.Enabled = true;
             }
-            else
+            catch (Exception error)
             {
-                string message = "Database Connection is not Available";
-                showError(message);
+                ErrorLogger.Log(error);
+                addButton.Enabled = false;
+
+                showError(MessageStringResources.cREFRESH_ERROR);
+
             }
 
         }
         private void ShowEditForm(Question question)
         {
-            QuestionProperties propertiesDialog = new QuestionProperties(question);
-            if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+            try
             {
-                try
+                using (QuestionProperties propertiesDialog = new QuestionProperties(question))
                 {
-                    mQuestionManager.Update(propertiesDialog.question);
-                    refreshList();
-                }
-                catch (Exception ex)
-                {
-                    showError(ex.Message);
+                    if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+                    {
+
+                        if(mQuestionManager.Update(propertiesDialog.question))
+                            refreshList();
+                        else
+                            throw new Exception(MessageStringResources.cUPDATE_ERROR);
+                    }
                 }
             }
-            propertiesDialog.Dispose();
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cUPDATE_ERROR);
+            }
         }
         public static void showError(string errorMessage)
         {
-            MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            try
+            {
+                MessageBox.Show(errorMessage, MessageStringResources.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
         }
 
         private void toggleSortOrder()
         {
-            if (sortOrder == SortOrder.Ascending)
-                sortOrder = SortOrder.Descending;
-            else
-                sortOrder = SortOrder.Ascending;
+            try
+            {
+                if (mSortOrder == SortOrder.Ascending)
+                    mSortOrder = SortOrder.Descending;
+                else
+                    mSortOrder = SortOrder.Ascending;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cSORT_ERROR);
+            }
+
         }
         private void setSortMethod(SortMethod newSortMethod)
         {
-            if (newSortMethod == sortMethod)
-                toggleSortOrder();
-            else
-                sortMethod = newSortMethod;
+            try
+            {
+                if (newSortMethod == mSortMethod)
+                    toggleSortOrder();
+                else
+                    mSortMethod = newSortMethod;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cSORT_ERROR);
+            }
+
         }
 
         private void questionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex != -1)
-                ShowEditForm(questionDataGridView.Rows[e.RowIndex].DataBoundItem as Question);
+            try
+            {
+                if (e.RowIndex != -1)
+                    ShowEditForm(questionDataGridView.Rows[e.RowIndex].DataBoundItem as Question);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cGENERAL_ERROR);
+            }
+        }
+        /// <summary>
+        ///  Sort Items list according to given order and method
+        /// </summary>
+        public void SortQuestions()
+        {
+            try
+            {
+                // initialize temporary list with old list capacity to avoid list resizing.
+                List<Question> tSortedList = new List<Question>(mQuestionList.Count);
+                //Sort Items list according to given ordering method using linq
+                switch (mSortMethod)
+                {
+                    case SortMethod.ByID:
+                        tSortedList = mQuestionList.OrderBy(Item => Item.Id).ToList();
+                        break;
+                    case SortMethod.ByOrder:
+                        tSortedList = mQuestionList.OrderBy(Item => Item.Order).ToList();
+                        break;
+                    case SortMethod.ByQuestionText:
+                        tSortedList = mQuestionList.OrderBy(Item => Item.Text).ToList();
+                        break;
+                    case SortMethod.ByType:
+                        tSortedList = mQuestionList.OrderBy(Item => Item.Type).ToList();
+                        break;
+                }
+                // temporary ordered list is sorted in ascending order, if the required order is descending then reverse it
+                if (mSortOrder == SortOrder.Descending)
+                {
+                    tSortedList.Reverse();
+                }
+                // set local Items list to the new sorted list
+                mQuestionList = tSortedList;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                showError(MessageStringResources.cSORT_ERROR);
+            }
+        }
+
+        private void questionDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
         }
     }
 }
