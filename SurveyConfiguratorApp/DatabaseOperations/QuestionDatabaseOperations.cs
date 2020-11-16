@@ -33,15 +33,15 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                string tCommandString = $"INSERT INTO {SQLStringResources.cTABLE_QUESTION} ({SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_TYPE_ID}) OUTPUT INSERTED.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
-                    $"VALUES ({SQLStringResources.cPARAMETER_QUESTION_TEXT}, {SQLStringResources.cPARAMETER_QUESTION_ORDER}, {SQLStringResources.cPARAMETER_QUESTION_TYPE})";
+                string tCommandString = $"INSERT INTO {SQLStringValues.cTABLE_QUESTION} ({SQLStringValues.cCOLUMN_QUESTION_TEXT}, {SQLStringValues.cCOLUMN_QUESTION_ORDER}, {SQLStringValues.cCOLUMN_TYPE_ID}) OUTPUT INSERTED.{SQLStringValues.cCOLUMN_QUESTION_ID} " +
+                    $"VALUES ({SQLStringValues.cPARAMETER_QUESTION_TEXT}, {SQLStringValues.cPARAMETER_QUESTION_ORDER}, {SQLStringValues.cPARAMETER_QUESTION_TYPE})";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_TEXT}", data.Text);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ORDER}", data.Order);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_TYPE}", (int)data.Type);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_TEXT}", data.Text);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ORDER}", data.Order);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_TYPE}", (int)data.Type);
                         tConnection.Open();
                         return (int)tCommand.ExecuteScalar();
                     }
@@ -62,15 +62,15 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                string tCommandString = $"UPDATE {SQLStringResources.cTABLE_QUESTION} SET {SQLStringResources.cCOLUMN_QUESTION_TEXT} = {SQLStringResources.cPARAMETER_QUESTION_TEXT}, " +
-                    $"{SQLStringResources.cCOLUMN_QUESTION_ORDER} = {SQLStringResources.cPARAMETER_QUESTION_ORDER} WHERE {SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} ";
+                string tCommandString = $"UPDATE {SQLStringValues.cTABLE_QUESTION} SET {SQLStringValues.cCOLUMN_QUESTION_TEXT} = {SQLStringValues.cPARAMETER_QUESTION_TEXT}, " +
+                    $"{SQLStringValues.cCOLUMN_QUESTION_ORDER} = {SQLStringValues.cPARAMETER_QUESTION_ORDER} WHERE {SQLStringValues.cCOLUMN_QUESTION_ID} = {SQLStringValues.cPARAMETER_QUESTION_ID} ";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_TEXT}", data.Text);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ORDER}", data.Order);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", data.Id);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_TEXT}", data.Text);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ORDER}", data.Order);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ID}", data.Id);
                         tConnection.Open();
                         return tCommand.ExecuteNonQuery() > 0;
                     }
@@ -91,12 +91,12 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                string tCommandString = $"DELETE FROM {SQLStringResources.cTABLE_QUESTION} WHERE {SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID}";
+                string tCommandString = $"DELETE FROM {SQLStringValues.cTABLE_QUESTION} WHERE {SQLStringValues.cCOLUMN_QUESTION_ID} = {SQLStringValues.cPARAMETER_QUESTION_ID}";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", id);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ID}", id);
                         tConnection.Open();
                         return tCommand.ExecuteNonQuery() > 0;
                     }

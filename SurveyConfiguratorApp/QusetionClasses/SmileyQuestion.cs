@@ -1,4 +1,6 @@
-﻿namespace SurveyConfiguratorApp
+﻿using System;
+
+namespace SurveyConfiguratorApp
 {
     /// <summary>
     /// Smiley question class that extends general question and adds smiley question properties 
@@ -15,20 +17,51 @@
         /// <param name="id">Question id</param>
         public SmileyQuestion(string text, int order, int numberOfFaces, int id = -1) : base(text, order, QuestionType.Smiley, id)
         {
-            NumberOfFaces = numberOfFaces;
+            try
+            {
+                NumberOfFaces = numberOfFaces;
+            }catch(Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
         }
-        /// <summary>
-        /// Smiley question constructor to initialize new smiley question
-        /// </summary>
-        /// <param name="other">Smiley question object to copy it's properties</param>
-        /// <param name="id">New question id</param>
-        public SmileyQuestion(SmileyQuestion other, int id) : this(other.Text, other.Order, other.NumberOfFaces, id) { }
         public int NumberOfFaces
         {
             get => mNumberOfFaces;
             set { mNumberOfFaces = value; }
         }
-
         public override string ToString() => $"{base.ToString()}\nNumber of Faces: {NumberOfFaces}";
+        /// <summary>
+        /// Check if question is valid
+        /// </summary>
+        /// <returns>true if valid , false otherwise</returns>
+        public override bool IsValid()
+        {
+            try
+            {
+                if (NumberOfFaces < QuestionValidationValues.cFACES_NUMBER_MIN)
+                    return false;
+                if (NumberOfFaces > QuestionValidationValues.cFACES_NUMBER_MAX)
+                    return false;
+                return base.IsValid();
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return false;
+            }
+        }
+        public override Question CopyWithNewId(int id)
+        {
+            try
+            {
+                return new SmileyQuestion(Text, Order,NumberOfFaces, id);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return null;
+            }
+        }
     }
 }

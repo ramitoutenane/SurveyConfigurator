@@ -17,7 +17,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(MessageStringResources.cGENERAL_ERROR);
+                Main.showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
         public QuestionProperties(Question question) : this()
@@ -50,17 +50,37 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringResources.cQUESTION_TYPE_Exception);
-
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(MessageStringResources.cGENERAL_ERROR);
+                Main.showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
+        private void QuestionProperties_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                orderNumericUpDown.Maximum = int.MaxValue;
+                startValueNumericUpDown.Maximum = int.MaxValue;
+                endValueNumericUpDown.Maximum = int.MaxValue;
+                smileyNumericUpDown.Maximum = int.MaxValue;
+                starsNumericUpDown.Maximum = int.MaxValue;
 
+                orderNumericUpDown.Minimum = int.MinValue;
+                startValueNumericUpDown.Minimum = int.MinValue;
+                endValueNumericUpDown.Minimum = int.MinValue;
+                smileyNumericUpDown.Minimum = int.MinValue;
+                starsNumericUpDown.Minimum = int.MinValue;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                Main.showError(MessageStringValues.cGENERAL_ERROR);
+            }
+        }
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -68,7 +88,7 @@ namespace SurveyConfiguratorApp
                 sliderGroupBox.Visible = false;
                 smileyGroupBox.Visible = false;
                 starsGroupBox.Visible = false;
-                Point groupBoxLocation = new Point(10, 195);
+                Point groupBoxLocation = new Point(10, 230);
                 switch (typeComboBox.SelectedIndex)
                 {
                     case 0:
@@ -88,7 +108,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(MessageStringResources.cGENERAL_ERROR);
+                Main.showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
 
@@ -97,38 +117,107 @@ namespace SurveyConfiguratorApp
             try
             {
                 currentCharCount.Text = questionTextBox.Text.Length.ToString();
-            }           
+            }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cGENERAL_ERROR);
-    }
+                showError(MessageStringValues.cGENERAL_ERROR);
+            }
 
-}
-private bool isValidQuestion()
+        }
+        private bool isValidQuestion()
         {
-            if (questionTextBox.Text.TrimEnd().Length == 0)
+            try
             {
-                Main.showError("Question text can't be empty");
-                questionTextBox.Focus();
+                if (questionTextBox.Text.TrimEnd().Length == 0)
+                {
+                    Main.showError("Question text can't be empty");
+                    questionTextBox.Focus();
+                    return false;
+                }
+                if(orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
+                {
+                    Main.showError($"Question Order can't be less than {QuestionValidationValues.cQUESTION_ORDER_MIN}");
+                    questionTextBox.Focus();
+                    return false;
+                }
+                if (typeComboBox.SelectedIndex == (int)QuestionType.Slider -1)
+                {
+                    if (startCaptionTextBox.Text.TrimEnd().Length == 0)
+                    {
+                        Main.showError("Start caption text can't be empty");
+                        startCaptionTextBox.Focus();
+                        return false;
+                    }
+                    if (endCaptionTextBox.Text.TrimEnd().Length == 0)
+                    {
+                        Main.showError("End caption text can't be empty");
+                        endCaptionTextBox.Focus();
+                        return false;
+                    }
+                    if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
+                    {
+                        Main.showError($"Start value can't be less than {QuestionValidationValues.cSTART_VALUE_MIN}");
+                        startValueNumericUpDown.Focus();
+                        return false;
+                    }
+                    if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
+                    {
+                        Main.showError($"End value can't be more than {QuestionValidationValues.cEND_VALUE_MAX}");
+                        endValueNumericUpDown.Focus();
+                        return false;
+                    }
+                    if (startValueNumericUpDown.Value >= endValueNumericUpDown.Value)
+                    {
+                        Main.showError($"Start value must be lee than End value");
+                        startValueNumericUpDown.Focus();
+                        return false;
+                    }
+                }
+                else if (typeComboBox.SelectedIndex == (int)QuestionType.Stars -1)
+                {
+                    if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
+                    {
+                        Main.showError($"Number of stars can't be less than {QuestionValidationValues.cSTARS_NUMBER_MIN}");
+                        starsNumericUpDown.Focus();
+                        return false;
+                    }
+                    if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
+                    {
+                        Main.showError($"Number of stars can't be more than {QuestionValidationValues.cSTARS_NUMBER_MAX}");
+                        starsNumericUpDown.Focus();
+                        return false;
+                    }
+                }
+                else if (typeComboBox.SelectedIndex == (int)QuestionType.Smiley -1)
+                {
+                    if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
+                    {
+                        Main.showError($"Number of faces can't be less than {QuestionValidationValues.cFACES_NUMBER_MIN}");
+                        smileyNumericUpDown.Focus();
+                        return false;
+                    }
+                    if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
+                    {
+                        Main.showError($"Number of faces can't be more than {QuestionValidationValues.cFACES_NUMBER_MAX}");
+                        smileyNumericUpDown.Focus();
+                        return false;
+                    }
+                }
+                else
+                {
+                    Main.showError($"Invalid Question Type Selection");
+                    typeComboBox.Focus();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                Main.showError(MessageStringValues.cGENERAL_ERROR);
                 return false;
             }
-            if (typeComboBox.SelectedIndex == 1)
-            {
-                if (startCaptionTextBox.Text.TrimEnd().Length == 0)
-                {
-                    Main.showError("Start caption text can't be empty");
-                    startCaptionTextBox.Focus();
-                    return false;
-                }
-                if (endCaptionTextBox.Text.TrimEnd().Length == 0)
-                {
-                    Main.showError("End caption text can't be empty");
-                    endCaptionTextBox.Focus();
-                    return false;
-                }
-            }
-            return true;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -164,7 +253,7 @@ private bool isValidQuestion()
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(MessageStringResources.cGENERAL_ERROR);
+                Main.showError(MessageStringValues.cGENERAL_ERROR);
             }
 
         }
@@ -172,12 +261,14 @@ private bool isValidQuestion()
         {
             try
             {
-                MessageBox.Show(errorMessage, MessageStringResources.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(errorMessage, MessageStringValues.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
             }
         }
+
+
     }
 }

@@ -38,13 +38,12 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cGENERAL_ERROR);
+                showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            MessageBox.Show(mConnectionString);
             try
             {
                 if (mQuestionManager == null)
@@ -54,7 +53,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cGENERAL_ERROR);
+                showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
 
@@ -81,7 +80,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cGENERAL_ERROR);
+                showError(MessageStringValues.cGENERAL_ERROR);
             }
 
         }
@@ -93,12 +92,12 @@ namespace SurveyConfiguratorApp
                 if (mQuestionManager.Refresh() != null)
                     refreshList();
                 else
-                    throw new Exception(MessageStringResources.cREFRESH_ERROR);
+                    throw new Exception(MessageStringValues.cREFRESH_ERROR);
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cREFRESH_ERROR);
+                showError(MessageStringValues.cREFRESH_ERROR);
             }
         }
 
@@ -120,7 +119,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cGENERAL_ERROR);
+                showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
 
@@ -140,7 +139,7 @@ namespace SurveyConfiguratorApp
                         if (mQuestionManager.Delete(mQuestionList[selectedRow].Id))
                             refreshList();
                         else
-                            throw new Exception(MessageStringResources.cDELETE_ERROR);
+                            throw new Exception(MessageStringValues.cDELETE_ERROR);
                     }
                     else
                         showError("No question is Selected");
@@ -149,7 +148,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cDELETE_ERROR);
+                showError(MessageStringValues.cDELETE_ERROR);
             }
         }
 
@@ -164,14 +163,14 @@ namespace SurveyConfiguratorApp
                         if (mQuestionManager.Insert(propertiesDialog.question))
                             refreshList();
                         else
-                            throw new Exception(MessageStringResources.cREFRESH_ERROR);
+                            throw new Exception(MessageStringValues.cREFRESH_ERROR);
                     }
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cINSERT_ERROR);
+                showError(MessageStringValues.cINSERT_ERROR);
             }
         }
 
@@ -193,7 +192,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cUPDATE_ERROR);
+                showError(MessageStringValues.cUPDATE_ERROR);
             }
         }
 
@@ -215,7 +214,7 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
                 addButton.Enabled = false;
 
-                showError(MessageStringResources.cREFRESH_ERROR);
+                showError(MessageStringValues.cREFRESH_ERROR);
 
             }
 
@@ -229,24 +228,24 @@ namespace SurveyConfiguratorApp
                     if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
 
-                        if(mQuestionManager.Update(propertiesDialog.question))
+                        if (mQuestionManager.Update(propertiesDialog.question))
                             refreshList();
                         else
-                            throw new Exception(MessageStringResources.cUPDATE_ERROR);
+                            throw new Exception(MessageStringValues.cUPDATE_ERROR);
                     }
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cUPDATE_ERROR);
+                showError(MessageStringValues.cUPDATE_ERROR);
             }
         }
         public static void showError(string errorMessage)
         {
             try
             {
-                MessageBox.Show(errorMessage, MessageStringResources.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(errorMessage, MessageStringValues.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception error)
             {
@@ -266,7 +265,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cSORT_ERROR);
+                showError(MessageStringValues.cSORT_ERROR);
             }
 
         }
@@ -282,7 +281,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cSORT_ERROR);
+                showError(MessageStringValues.cSORT_ERROR);
             }
 
         }
@@ -297,7 +296,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cGENERAL_ERROR);
+                showError(MessageStringValues.cGENERAL_ERROR);
             }
         }
         /// <summary>
@@ -336,7 +335,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringResources.cSORT_ERROR);
+                showError(MessageStringValues.cSORT_ERROR);
             }
         }
     }

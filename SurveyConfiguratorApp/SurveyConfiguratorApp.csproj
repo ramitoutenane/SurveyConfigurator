@@ -47,10 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstantValues\QuestionValidationValues.cs" />
     <Compile Include="ErrorLogger.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="StringResources\MessageStringResources.cs" />
-    <Compile Include="StringResources\SQLStringResources.cs" />
+    <Compile Include="ConstantValues\MessageStringValues.cs" />
+    <Compile Include="ConstantValues\SQLStringValues.cs" />
     <Compile Include="Enums\SortMethod.cs" />
     <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Interfaces\IQueryable.cs" />

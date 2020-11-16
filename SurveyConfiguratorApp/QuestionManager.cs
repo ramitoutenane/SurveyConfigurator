@@ -99,27 +99,31 @@ namespace SurveyConfiguratorApp
                 //check question type then add it to database and get it's primary key from SQL insert method, set the new id to question object add it to local list.
                 if (item is null)
                 {
-                    throw new ArgumentNullException(MessageStringResources.cQUESTION_NULL_Exception);
+                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_Exception);
+                }else if (!item.IsValid())
+                {
+                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_Exception);
                 }
-                else if (item is SliderQuestion slider)
+
+                if (item is SliderQuestion slider)
                 {
 
                     tID = mSliderSQL.Create(slider);
-                    tQuestion = new SliderQuestion(slider, tID);
+                    tQuestion = item.CopyWithNewId(tID);
                 }
                 else if (item is SmileyQuestion smiley)
                 {
                     tID = mSmileySQL.Create(smiley);
-                    tQuestion = new SmileyQuestion(smiley, tID);
+                    tQuestion = item.CopyWithNewId(tID);
                 }
                 else if (item is StarsQuestion stars)
                 {
                     tID = mStarsSQL.Create(stars);
-                    tQuestion = new StarsQuestion(stars, tID);
+                    tQuestion = item.CopyWithNewId(tID);
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringResources.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
                 }
                 // if the question inserted to database successfully the temporary id variable should change from -1 and temporary question reference should point to new question object 
                 if (tID >= 1 && tQuestion != null)
@@ -147,14 +151,18 @@ namespace SurveyConfiguratorApp
                 // check question type then update it in database, if updated successfully in database then update it in local list.
                 if (item is null)
                 {
-                    throw new ArgumentNullException(MessageStringResources.cQUESTION_NULL_Exception);
+                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_Exception);
+                }
+                else if (!item.IsValid())
+                {
+                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_Exception);
                 }
                 // search for the question in local list 
                 int tIndex = SearchByID(item.Id);
                 bool tUpdated = false;
                 if (tIndex < 0)
                 {
-                    throw new ArgumentException(MessageStringResources.cNO_QUESTION_ID);
+                    throw new ArgumentException(MessageStringValues.cNO_QUESTION_ID);
                 }
                 if (item is SliderQuestion slider)
                 {
@@ -170,7 +178,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringResources.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
                 }
                 // if updated successfully in database update it in local list.
                 if (tUpdated)
@@ -200,7 +208,7 @@ namespace SurveyConfiguratorApp
                 bool tDeleted = false;
                 if (tIndex < 0)
                 {
-                    throw new ArgumentException(MessageStringResources.cNO_QUESTION_ID);
+                    throw new ArgumentException(MessageStringValues.cNO_QUESTION_ID);
                 }
                 if (Items[tIndex] is SliderQuestion slider)
                 {
@@ -217,7 +225,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringResources.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
                 }
                 // if deleted successfully from database then delete it in local list.
                 if (tDeleted)

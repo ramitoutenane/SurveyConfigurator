@@ -1,4 +1,6 @@
-﻿namespace SurveyConfiguratorApp
+﻿using System;
+
+namespace SurveyConfiguratorApp
 {/// <summary>
  /// Abstract class to represent General question with required attributes
  /// </summary>
@@ -19,10 +21,17 @@
         /// <param name="id">Question id</param>
         protected Question(string text, int order, QuestionType type, int id)
         {
-            Text = text;
-            Order = order;
-            Type = type;
-            mId = id;
+            try
+            {
+                Text = text;
+                Order = order;
+                Type = type;
+                mId = id;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
         }
 
         public string Text
@@ -40,5 +49,26 @@
         public int Id { get => mId; }
         public string TypeString { get => Type.ToString(); }
         public override string ToString() => $"Id: {Id}\nType: {TypeString}\nQuestion: {Text}\nOrder: {Order}";
+        /// <summary>
+        /// Check if question is valid
+        /// </summary>
+        /// <returns>true if valid , false otherwise</returns>
+        public virtual bool IsValid()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Text) || Text.Length > QuestionValidationValues.cQUESTION_TEXT_LENGTH)
+                    return false;
+                if (Order < QuestionValidationValues.cQUESTION_ORDER_MIN)
+                    return false;
+                return true;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return false;
+            }
+        }
+        public abstract Question CopyWithNewId(int id);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SurveyConfiguratorApp
 {
-    public static class SQLStringResources
+    public static class SQLStringValues
     {
         public const string cPARAMETER_QUESTION_ID = "@id";
         public const string cPARAMETER_QUESTION_TEXT = "@text";

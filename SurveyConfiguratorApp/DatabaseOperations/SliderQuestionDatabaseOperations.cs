@@ -46,19 +46,19 @@ namespace SurveyConfiguratorApp
                 // if id is less than 1 exit insert method to avoid foreign key reference error
                 if (tQuestionId < 1)
                     return tQuestionId;
-                string tCommandString = $"INSERT INTO {SQLStringResources.cTABLE_SLIDER_QUESTION} ({SQLStringResources.cCOLUMN_QUESTION_ID}, {SQLStringResources.cCOLUMN_START_VALUE}, {SQLStringResources.cCOLUMN_END_VALUE}, {SQLStringResources.cCOLUMN_START_CAPTION}, {SQLStringResources.cCOLUMN_END_CAPTION}) " +
-                    $"OUTPUT INSERTED.{SQLStringResources.cCOLUMN_QUESTION_ID} VALUES ({SQLStringResources.cPARAMETER_QUESTION_ID}, {SQLStringResources.cPARAMETER_QUESTION_START_VALUE}, " +
-                    $"{SQLStringResources.cPARAMETER_QUESTION_END_VALUE},{SQLStringResources.cPARAMETER_QUESTION_START_CAPTION},{SQLStringResources.cPARAMETER_QUESTION_END_VALUE})";
+                string tCommandString = $"INSERT INTO {SQLStringValues.cTABLE_SLIDER_QUESTION} ({SQLStringValues.cCOLUMN_QUESTION_ID}, {SQLStringValues.cCOLUMN_START_VALUE}, {SQLStringValues.cCOLUMN_END_VALUE}, {SQLStringValues.cCOLUMN_START_CAPTION}, {SQLStringValues.cCOLUMN_END_CAPTION}) " +
+                    $"OUTPUT INSERTED.{SQLStringValues.cCOLUMN_QUESTION_ID} VALUES ({SQLStringValues.cPARAMETER_QUESTION_ID}, {SQLStringValues.cPARAMETER_QUESTION_START_VALUE}, " +
+                    $"{SQLStringValues.cPARAMETER_QUESTION_END_VALUE},{SQLStringValues.cPARAMETER_QUESTION_START_CAPTION},{SQLStringValues.cPARAMETER_QUESTION_END_VALUE})";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", tQuestionId);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ID}", tQuestionId);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
                         tConnection.Open();
                         return (int)tCommand.ExecuteScalar();
                     }
@@ -88,18 +88,18 @@ namespace SurveyConfiguratorApp
                 {
                     return false;
                 }
-                string tCommandString = $"UPDATE {SQLStringResources.cTABLE_SLIDER_QUESTION} SET {SQLStringResources.cCOLUMN_START_VALUE} = {SQLStringResources.cPARAMETER_QUESTION_START_VALUE}," +
-                    $" {SQLStringResources.cCOLUMN_END_VALUE} = {SQLStringResources.cPARAMETER_QUESTION_END_VALUE}, {SQLStringResources.cCOLUMN_START_CAPTION} ={SQLStringResources.cPARAMETER_QUESTION_START_CAPTION}, " +
-                    $"{SQLStringResources.cCOLUMN_END_CAPTION} ={SQLStringResources.cPARAMETER_QUESTION_END_VALUE} WHERE {SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} ";
+                string tCommandString = $"UPDATE {SQLStringValues.cTABLE_SLIDER_QUESTION} SET {SQLStringValues.cCOLUMN_START_VALUE} = {SQLStringValues.cPARAMETER_QUESTION_START_VALUE}," +
+                    $" {SQLStringValues.cCOLUMN_END_VALUE} = {SQLStringValues.cPARAMETER_QUESTION_END_VALUE}, {SQLStringValues.cCOLUMN_START_CAPTION} ={SQLStringValues.cPARAMETER_QUESTION_START_CAPTION}, " +
+                    $"{SQLStringValues.cCOLUMN_END_CAPTION} ={SQLStringValues.cPARAMETER_QUESTION_END_VALUE} WHERE {SQLStringValues.cCOLUMN_QUESTION_ID} = {SQLStringValues.cPARAMETER_QUESTION_ID} ";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", data.Id);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ID}", data.Id);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
                         tConnection.Open();
                         return tCommand.ExecuteNonQuery() > 0;
                     }
@@ -128,14 +128,14 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_START_VALUE}, {SQLStringResources.cCOLUMN_END_VALUE}, {SQLStringResources.cCOLUMN_START_CAPTION}, {SQLStringResources.cCOLUMN_END_CAPTION}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID},{SQLStringResources.cCOLUMN_TYPE_ID} " +
-                    $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_SLIDER_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cPARAMETER_QUESTION_ID} AND {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_SLIDER_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID}";
+                string tQueryString = $"SELECT {SQLStringValues.cCOLUMN_QUESTION_TEXT}, {SQLStringValues.cCOLUMN_QUESTION_ORDER}, {SQLStringValues.cCOLUMN_START_VALUE}, {SQLStringValues.cCOLUMN_END_VALUE}, {SQLStringValues.cCOLUMN_START_CAPTION}, {SQLStringValues.cCOLUMN_END_CAPTION}, {SQLStringValues.cTABLE_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID},{SQLStringValues.cCOLUMN_TYPE_ID} " +
+                    $"FROM {SQLStringValues.cTABLE_QUESTION}, {SQLStringValues.cTABLE_SLIDER_QUESTION} WHERE {SQLStringValues.cTABLE_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID} = {SQLStringValues.cPARAMETER_QUESTION_ID} AND {SQLStringValues.cTABLE_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID} = {SQLStringValues.cTABLE_SLIDER_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID}";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cPARAMETER_QUESTION_ID}", id);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cPARAMETER_QUESTION_ID}", id);
                         tConnection.Open();
                         using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
@@ -167,19 +167,19 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                string tQueryString = $"SELECT {SQLStringResources.cCOLUMN_QUESTION_TEXT}, {SQLStringResources.cCOLUMN_QUESTION_ORDER}, {SQLStringResources.cCOLUMN_START_VALUE}, {SQLStringResources.cCOLUMN_END_VALUE}, {SQLStringResources.cCOLUMN_START_CAPTION}, {SQLStringResources.cCOLUMN_END_CAPTION}, {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID},{SQLStringResources.cCOLUMN_TYPE_ID} " +
-                    $"FROM {SQLStringResources.cTABLE_QUESTION}, {SQLStringResources.cTABLE_SLIDER_QUESTION} WHERE {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} = {SQLStringResources.cTABLE_SLIDER_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} " +
-                    $"ORDER BY {SQLStringResources.cTABLE_QUESTION}.{SQLStringResources.cCOLUMN_QUESTION_ID} OFFSET {SQLStringResources.cOFFSET} ROWS";
+                string tQueryString = $"SELECT {SQLStringValues.cCOLUMN_QUESTION_TEXT}, {SQLStringValues.cCOLUMN_QUESTION_ORDER}, {SQLStringValues.cCOLUMN_START_VALUE}, {SQLStringValues.cCOLUMN_END_VALUE}, {SQLStringValues.cCOLUMN_START_CAPTION}, {SQLStringValues.cCOLUMN_END_CAPTION}, {SQLStringValues.cTABLE_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID},{SQLStringValues.cCOLUMN_TYPE_ID} " +
+                    $"FROM {SQLStringValues.cTABLE_QUESTION}, {SQLStringValues.cTABLE_SLIDER_QUESTION} WHERE {SQLStringValues.cTABLE_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID} = {SQLStringValues.cTABLE_SLIDER_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID} " +
+                    $"ORDER BY {SQLStringValues.cTABLE_QUESTION}.{SQLStringValues.cCOLUMN_QUESTION_ID} OFFSET {SQLStringValues.cOFFSET} ROWS";
                 // add Fetch clause if limit is larger than 0 which is default value
                 if (limit > 0)
-                    tQueryString += $" FETCH NEXT {SQLStringResources.cLIMIT} ROWS ONLY";
+                    tQueryString += $" FETCH NEXT {SQLStringValues.cLIMIT} ROWS ONLY";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cOFFSET}", offset);
-                        tCommand.Parameters.AddWithValue($"{SQLStringResources.cLIMIT}", limit);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cOFFSET}", offset);
+                        tCommand.Parameters.AddWithValue($"{SQLStringValues.cLIMIT}", limit);
                         tConnection.Open();
                         using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
