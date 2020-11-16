@@ -4,6 +4,7 @@ using System.Configuration;
 using SortOrder = System.Data.SqlClient.SortOrder;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
 {
@@ -13,7 +14,7 @@ namespace SurveyConfiguratorApp
         private List<Question> mQuestionList;
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
-
+        private string mConnectionString;
         public Main()
         {
             try
@@ -21,9 +22,16 @@ namespace SurveyConfiguratorApp
                 InitializeComponent();
                 mSortMethod = SortMethod.ByQuestionText;
                 mSortOrder = SortOrder.Ascending;
-                string connectionString = ConfigurationManager.ConnectionStrings["surveyConnection"].ConnectionString;
-                if (connectionString != null)
-                    mQuestionManager = new QuestionManager(connectionString);
+
+                SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder();
+                tBuilder.DataSource = ConfigurationManager.AppSettings["DatabaseServer"];
+                tBuilder.InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"];
+                tBuilder.UserID = ConfigurationManager.AppSettings["DatabaseUser"];
+                tBuilder.Password = ConfigurationManager.AppSettings["DatabasePassword"];
+
+                mConnectionString = tBuilder.ConnectionString;
+                if (mConnectionString != null)
+                    mQuestionManager = new QuestionManager(mConnectionString);
                 else
                     throw new NullReferenceException("Connection String is null");
             }
@@ -36,6 +44,7 @@ namespace SurveyConfiguratorApp
 
         private void Main_Load(object sender, EventArgs e)
         {
+            MessageBox.Show(mConnectionString);
             try
             {
                 if (mQuestionManager == null)
@@ -329,10 +338,6 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
                 showError(MessageStringResources.cSORT_ERROR);
             }
-        }
-
-        private void questionDataGridView_KeyDown(object sender, KeyEventArgs e)
-        {
         }
     }
 }

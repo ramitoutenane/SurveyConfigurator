@@ -168,7 +168,7 @@
             this.sliderGroupBox.Location = new System.Drawing.Point(10, 195);
             this.sliderGroupBox.Name = "sliderGroupBox";
             this.sliderGroupBox.Size = new System.Drawing.Size(425, 143);
-            this.sliderGroupBox.TabIndex = 8;
+            this.sliderGroupBox.TabIndex = 4;
             this.sliderGroupBox.TabStop = false;
             this.sliderGroupBox.Text = "Slider Qusetion";
             this.sliderGroupBox.Visible = false;
@@ -279,7 +279,7 @@
             this.smileyGroupBox.Location = new System.Drawing.Point(449, 51);
             this.smileyGroupBox.Name = "smileyGroupBox";
             this.smileyGroupBox.Size = new System.Drawing.Size(425, 70);
-            this.smileyGroupBox.TabIndex = 9;
+            this.smileyGroupBox.TabIndex = 4;
             this.smileyGroupBox.TabStop = false;
             this.smileyGroupBox.Text = "Smiley Faces Qusetion";
             this.smileyGroupBox.Visible = false;
@@ -310,7 +310,7 @@
             0});
             this.smileyNumericUpDown.Name = "smileyNumericUpDown";
             this.smileyNumericUpDown.Size = new System.Drawing.Size(79, 25);
-            this.smileyNumericUpDown.TabIndex = 15;
+            this.smileyNumericUpDown.TabIndex = 4;
             this.smileyNumericUpDown.Value = new decimal(new int[] {
             2,
             0,
@@ -324,7 +324,7 @@
             this.starsGroupBox.Location = new System.Drawing.Point(449, 134);
             this.starsGroupBox.Name = "starsGroupBox";
             this.starsGroupBox.Size = new System.Drawing.Size(425, 70);
-            this.starsGroupBox.TabIndex = 10;
+            this.starsGroupBox.TabIndex = 4;
             this.starsGroupBox.TabStop = false;
             this.starsGroupBox.Text = "Stars Qusetion";
             this.starsGroupBox.Visible = false;
@@ -355,7 +355,7 @@
             0});
             this.starsNumericUpDown.Name = "starsNumericUpDown";
             this.starsNumericUpDown.Size = new System.Drawing.Size(79, 25);
-            this.starsNumericUpDown.TabIndex = 17;
+            this.starsNumericUpDown.TabIndex = 4;
             this.starsNumericUpDown.Value = new decimal(new int[] {
             2,
             0,

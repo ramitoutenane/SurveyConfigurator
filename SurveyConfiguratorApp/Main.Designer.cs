@@ -80,7 +80,6 @@
             this.questionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionDataGridView_CellDoubleClick);
             this.questionDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.questionDataGridView_ColumnHeaderMouseClick_1);
             this.questionDataGridView.SelectionChanged += new System.EventHandler(this.questionDataGridView_SelectionChanged);
-            this.questionDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questionDataGridView_KeyDown);
             // 
             // addButton
             // 

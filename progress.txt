@@ -1,6 +1,8 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
     * Write Error logging code
+    * Form Localization (Arabic)
+    * Form Documentation
 
     * Testing and refactoring.
 
@@ -9,8 +11,8 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Write Error logging initial class
-    * Refactor code according to Majd's notes
+    * form validation
+    * class validation
 
 Done:
     - 2/Nov 10:00 AM:
@@ -55,3 +57,14 @@ Done:
         * Write "Add" and "Edit" form logic.
         * Write "Add" button logic.
         * Write "Edit" button logic.
+
+    -12/11 + 15/11 6:00
+        * Write Error logging initial class
+        * Document code (write comments)
+        * exception handling
+        * Refactor code according to Majd notes
+
+    -16/11 11:10 
+        * Form tab index
+        * Split connection string configuration into user friendly attributes
+
