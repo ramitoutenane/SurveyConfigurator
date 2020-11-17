@@ -10,7 +10,7 @@ namespace SurveyConfiguratorApp
 {
     public partial class Main : Form
     {
-        private readonly IMaintainable<Question> mQuestionManager;
+        private IMaintainable<Question> mQuestionManager;
         private List<Question> mQuestionList;
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
@@ -23,17 +23,6 @@ namespace SurveyConfiguratorApp
                 mSortMethod = SortMethod.ByQuestionText;
                 mSortOrder = SortOrder.Ascending;
 
-                SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder();
-                tBuilder.DataSource = ConfigurationManager.AppSettings["DatabaseServer"];
-                tBuilder.InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"];
-                tBuilder.UserID = ConfigurationManager.AppSettings["DatabaseUser"];
-                tBuilder.Password = ConfigurationManager.AppSettings["DatabasePassword"];
-
-                mConnectionString = tBuilder.ConnectionString;
-                if (mConnectionString != null)
-                    mQuestionManager = new QuestionManager(mConnectionString);
-                else
-                    throw new NullReferenceException("Connection String is null");
             }
             catch (Exception error)
             {
@@ -46,6 +35,20 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder
+                {
+                    DataSource = ConfigurationManager.AppSettings["DatabaseServer"],
+                    InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"],
+                    UserID = ConfigurationManager.AppSettings["DatabaseUser"],
+                    Password = ConfigurationManager.AppSettings["DatabasePassword"]
+                };
+
+                mConnectionString = tBuilder.ConnectionString;
+                if (mConnectionString != null)
+                    mQuestionManager = new QuestionManager(mConnectionString);
+                else
+                    throw new NullReferenceException("Connection String is null");
+
                 if (mQuestionManager == null)
                     throw new NullReferenceException("Question manager reference is null");
                 refreshButton.PerformClick();
