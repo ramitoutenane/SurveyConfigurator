@@ -80,6 +80,19 @@
     <Compile Include="QusetionClasses\SliderQuestion.cs" />
     <Compile Include="QusetionClasses\StarsQuestion.cs" />
     <Compile Include="QusetionClasses\SmileyQuestion.cs" />
+    <Compile Include="Properties\StringResources.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\StringResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main.ar.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -96,6 +109,14 @@
     <EmbeddedResource Include="QuestionProperties.resx">
       <DependentUpon>QuestionProperties.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\StringResources.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.ar.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\StringResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Question.datasource" />
     <None Include="Properties\Settings.settings">

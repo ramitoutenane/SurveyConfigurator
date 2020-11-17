@@ -36,10 +36,10 @@
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -51,6 +51,7 @@
             // 
             // questionDataGridView
             // 
+            resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.AllowDrop = true;
             this.questionDataGridView.AllowUserToOrderColumns = true;
             this.questionDataGridView.AutoGenerateColumns = false;
@@ -62,7 +63,6 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn2});
             this.questionDataGridView.DataSource = this.questionBindingSource;
-            resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.MultiSelect = false;
             this.questionDataGridView.Name = "questionDataGridView";
             this.questionDataGridView.RowHeadersVisible = false;
@@ -101,6 +101,10 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
+            // questionBindingSource
+            // 
+            this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -119,6 +123,7 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -130,19 +135,15 @@
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // questionBindingSource
-            // 
-            this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
-            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.questionDataGridView);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Controls.Add(this.questionDataGridView);
             this.Controls.Add(this.titleLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

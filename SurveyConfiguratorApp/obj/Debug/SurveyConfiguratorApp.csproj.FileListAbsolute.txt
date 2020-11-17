@@ -20,3 +20,8 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\De
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\ar\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.StringResources.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.StringResources.ar.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\ar\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.ar.resources

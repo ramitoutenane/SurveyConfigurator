@@ -27,7 +27,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cGENERAL_ERROR);
+                showError(Properties.StringResources.GENERAL_ERROR);
             }
         }
 
@@ -56,7 +56,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cGENERAL_ERROR);
+                showError(Properties.StringResources.GENERAL_ERROR);
             }
         }
 
@@ -83,7 +83,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cGENERAL_ERROR);
+                showError(Properties.StringResources.GENERAL_ERROR);
             }
 
         }
@@ -100,7 +100,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cREFRESH_ERROR);
+                showError(Properties.StringResources.REFRESH_ERROR);
             }
         }
 
@@ -122,7 +122,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cGENERAL_ERROR);
+                showError(Properties.StringResources.GENERAL_ERROR);
             }
         }
 
@@ -130,7 +130,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete Question?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult dialogResult = MessageBox.Show(Properties.StringResources.DELETE_CONFIRMATION_MESSAGE, Properties.StringResources.DELETE_CONFIRMATION_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResult == DialogResult.Yes)
                 {
                     int selectedRow = -1;
@@ -144,14 +144,13 @@ namespace SurveyConfiguratorApp
                         else
                             throw new Exception(MessageStringValues.cDELETE_ERROR);
                     }
-                    else
-                        showError(MessageStringValues.cNO_QUESTION_SELECTED);
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cDELETE_ERROR);
+                showError(Properties.StringResources.DELETE_ERROR);
+
             }
         }
 
@@ -173,7 +172,8 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cINSERT_ERROR);
+                showError(Properties.StringResources.INSERT_ERROR);
+
             }
         }
 
@@ -189,13 +189,12 @@ namespace SurveyConfiguratorApp
                 {
                     ShowEditForm(questionDataGridView.Rows[selectedRow].DataBoundItem as Question);
                 }
-                else
-                    showError(MessageStringValues.cNO_QUESTION_SELECTED);
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cUPDATE_ERROR);
+                showError(Properties.StringResources.UPDATE_ERROR);
+
             }
         }
 
@@ -217,8 +216,7 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
                 addButton.Enabled = false;
 
-                showError(MessageStringValues.cREFRESH_ERROR);
-
+                showError(Properties.StringResources.REFRESH_ERROR);
             }
 
         }
@@ -241,14 +239,15 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cUPDATE_ERROR);
+                showError(Properties.StringResources.UPDATE_ERROR);
+
             }
         }
         public static void showError(string errorMessage)
         {
             try
             {
-                MessageBox.Show(errorMessage, MessageStringValues.cERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(errorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception error)
             {
@@ -268,7 +267,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cSORT_ERROR);
+                showError(Properties.StringResources.SORT_ERROR);
             }
 
         }
@@ -284,7 +283,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cSORT_ERROR);
+                showError(Properties.StringResources.SORT_ERROR);
             }
 
         }
@@ -299,7 +298,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cGENERAL_ERROR);
+                showError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         /// <summary>
@@ -338,7 +337,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                showError(MessageStringValues.cSORT_ERROR);
+                showError(Properties.StringResources.SORT_ERROR);
             }
         }
     }

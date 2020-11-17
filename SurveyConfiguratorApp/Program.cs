@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SurveyConfiguratorApp
@@ -12,6 +13,7 @@ namespace SurveyConfiguratorApp
         [STAThread]
         static void Main()
         {
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ar");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());
