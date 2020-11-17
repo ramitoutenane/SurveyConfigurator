@@ -142,7 +142,7 @@ namespace SurveyConfiguratorApp
                             throw new Exception(MessageStringValues.cDELETE_ERROR);
                     }
                     else
-                        showError("No question is Selected");
+                        showError(MessageStringValues.cNO_QUESTION_SELECTED);
                 }
             }
             catch (Exception error)
@@ -187,7 +187,7 @@ namespace SurveyConfiguratorApp
                     ShowEditForm(questionDataGridView.Rows[selectedRow].DataBoundItem as Question);
                 }
                 else
-                    showError("No question is Selected");
+                    showError(MessageStringValues.cNO_QUESTION_SELECTED);
             }
             catch (Exception error)
             {

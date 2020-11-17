@@ -120,6 +120,7 @@
             0,
             0,
             0});
+            this.orderNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
             // 
             // orderLabel
             // 
@@ -211,6 +212,7 @@
             this.startValueNumericUpDown.Name = "startValueNumericUpDown";
             this.startValueNumericUpDown.Size = new System.Drawing.Size(76, 25);
             this.startValueNumericUpDown.TabIndex = 5;
+            this.startValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
             // 
             // endValueLabel
             // 
@@ -240,6 +242,7 @@
             0,
             0,
             0});
+            this.endValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
             // 
             // startCaptionTextBox
             // 
@@ -311,6 +314,7 @@
             0,
             0,
             0});
+            this.smileyNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
             // 
             // starsGroupBox
             // 
@@ -356,9 +360,11 @@
             0,
             0,
             0});
+            this.starsNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(361, 379);
             this.cancelButton.Name = "cancelButton";
@@ -397,7 +403,6 @@
             // 
             // QuestionProperties
             // 
-            this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;

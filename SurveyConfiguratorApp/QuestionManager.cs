@@ -102,7 +102,7 @@ namespace SurveyConfiguratorApp
                     throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_Exception);
                 }else if (!item.IsValid())
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_EXCEPTION);
                 }
 
                 if (item is SliderQuestion slider)
@@ -155,7 +155,7 @@ namespace SurveyConfiguratorApp
                 }
                 else if (!item.IsValid())
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_EXCEPTION);
                 }
                 // search for the question in local list 
                 int tIndex = SearchByID(item.Id);

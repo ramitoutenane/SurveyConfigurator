@@ -135,13 +135,13 @@ namespace SurveyConfiguratorApp
                     questionTextBox.Focus();
                     return false;
                 }
-                if(orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
+                if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
                 {
                     Main.showError($"Question Order can't be less than {QuestionValidationValues.cQUESTION_ORDER_MIN}");
                     questionTextBox.Focus();
                     return false;
                 }
-                if (typeComboBox.SelectedIndex == (int)QuestionType.Slider -1)
+                if (typeComboBox.SelectedIndex == (int)QuestionType.Slider - 1)
                 {
                     if (startCaptionTextBox.Text.TrimEnd().Length == 0)
                     {
@@ -174,7 +174,7 @@ namespace SurveyConfiguratorApp
                         return false;
                     }
                 }
-                else if (typeComboBox.SelectedIndex == (int)QuestionType.Stars -1)
+                else if (typeComboBox.SelectedIndex == (int)QuestionType.Stars - 1)
                 {
                     if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
                     {
@@ -189,7 +189,7 @@ namespace SurveyConfiguratorApp
                         return false;
                     }
                 }
-                else if (typeComboBox.SelectedIndex == (int)QuestionType.Smiley -1)
+                else if (typeComboBox.SelectedIndex == (int)QuestionType.Smiley - 1)
                 {
                     if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
                     {
@@ -268,7 +268,65 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
             }
         }
-
-
+        private void ValidateNumericUpDown(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                if (sender == orderNumericUpDown)
+                {
+                    if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
+                    {
+                        Main.showError($"Question Order can't be less than {QuestionValidationValues.cQUESTION_ORDER_MIN}");
+                        orderNumericUpDown.Value = QuestionValidationValues.cQUESTION_ORDER_MIN;
+                    }
+                }
+                else if (sender == startValueNumericUpDown)
+                {
+                    if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
+                    {
+                        Main.showError($"Start value can't be less than {QuestionValidationValues.cSTART_VALUE_MIN}");
+                        orderNumericUpDown.Value = QuestionValidationValues.cSTART_VALUE_MIN;
+                    }
+                }
+                else if (sender == endValueNumericUpDown)
+                {
+                    if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
+                    {
+                        Main.showError($"End value can't be more than {QuestionValidationValues.cEND_VALUE_MAX}");
+                        orderNumericUpDown.Value = QuestionValidationValues.cEND_VALUE_MAX;
+                    }
+                }
+                else if (sender == starsNumericUpDown)
+                {
+                    if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
+                    {
+                        Main.showError($"Number of stars can't be less than {QuestionValidationValues.cSTARS_NUMBER_MIN}");
+                        starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MIN;
+                    }
+                    if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
+                    {
+                        Main.showError($"Number of stars can't be more than {QuestionValidationValues.cSTARS_NUMBER_MAX}");
+                        starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MAX;
+                    }
+                }
+                else if (sender == smileyNumericUpDown)
+                {
+                    if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
+                    {
+                        Main.showError($"Number of faces can't be less than {QuestionValidationValues.cFACES_NUMBER_MIN}");
+                        smileyNumericUpDown.Value = QuestionValidationValues.cFACES_NUMBER_MIN;
+                    }
+                    if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
+                    {
+                        Main.showError($"Number of faces can't be more than {QuestionValidationValues.cFACES_NUMBER_MAX}");
+                        smileyNumericUpDown.Value = QuestionValidationValues.cFACES_NUMBER_MAX;
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
+        }
     }
 }

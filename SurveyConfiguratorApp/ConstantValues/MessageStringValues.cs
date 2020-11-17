@@ -12,7 +12,9 @@
         public const string cSORT_ERROR = "An Error occurred while sorting list.";
         public const string cERROR_BOX_TITLE = "Error";
         public const string cNO_QUESTION_ID = "Couldn't find a Question with given id";
-        public const string cQUESTION_VALIDATION_Exception = "Invalid Question attributes";
+        public const string cNO_QUESTION_SELECTED = "No question is Selected";
+
+        public const string cQUESTION_VALIDATION_EXCEPTION = "Invalid Question attributes";
         public const string cQUESTION_TYPE_Exception = "Question type is not recognized";
         public const string cQUESTION_NULL_Exception = "Given Question is Null";
 
