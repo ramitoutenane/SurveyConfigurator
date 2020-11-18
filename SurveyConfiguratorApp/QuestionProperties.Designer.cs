@@ -102,7 +102,7 @@
             0,
             0,
             0});
-            this.orderNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
+            this.orderNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
             // 
             // orderLabel
             // 
@@ -162,7 +162,7 @@
             0,
             0});
             this.startValueNumericUpDown.Name = "startValueNumericUpDown";
-            this.startValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
+            this.startValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
             // 
             // endValueLabel
             // 
@@ -183,7 +183,7 @@
             0,
             0,
             0});
-            this.endValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
+            this.endValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
             // 
             // startCaptionTextBox
             // 
@@ -232,7 +232,7 @@
             0,
             0,
             0});
-            this.smileyNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
+            this.smileyNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
             // 
             // starsGroupBox
             // 
@@ -266,7 +266,7 @@
             0,
             0,
             0});
-            this.starsNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateNumericUpDown);
+            this.starsNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
             // 
             // cancelButton
             // 
