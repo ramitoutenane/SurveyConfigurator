@@ -306,31 +306,31 @@
   <data name="&gt;&gt;refreshButton.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="LanguageComboBox.Items" xml:space="preserve">
+  <data name="languageComboBox.Items" xml:space="preserve">
     <value>ENG</value>
   </data>
-  <data name="LanguageComboBox.Items1" xml:space="preserve">
+  <data name="languageComboBox.Items1" xml:space="preserve">
     <value>عربي</value>
   </data>
-  <data name="LanguageComboBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>626, 424</value>
   </data>
-  <data name="LanguageComboBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>57, 27</value>
   </data>
-  <data name="LanguageComboBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;LanguageComboBox.Name" xml:space="preserve">
-    <value>LanguageComboBox</value>
+  <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
+    <value>languageComboBox</value>
   </data>
-  <data name="&gt;&gt;LanguageComboBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;languageComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LanguageComboBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;languageComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;LanguageComboBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;languageComboBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -347,9 +347,6 @@
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>

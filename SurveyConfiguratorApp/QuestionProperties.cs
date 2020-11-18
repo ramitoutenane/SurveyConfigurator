@@ -18,7 +18,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         public QuestionProperties(Question question) : this()
@@ -57,7 +57,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         private void QuestionProperties_Load(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
 
@@ -122,23 +122,23 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
 
         }
-        private bool isValidQuestion()
+        private bool IsValidQuestion()
         {
             try
             {
                 if (questionTextBox.Text.TrimEnd().Length == 0)
                 {
-                    Main.showError(Properties.StringResources.EMPTY_QUESTION_ERROR);
+                    Main.ShowError(Properties.StringResources.EMPTY_QUESTION_ERROR);
                     questionTextBox.Focus();
                     return false;
                 }
                 if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
                 {
-                    Main.showError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
+                    Main.ShowError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
                     questionTextBox.Focus();
                     return false;
                 }
@@ -146,31 +146,31 @@ namespace SurveyConfiguratorApp
                 {
                     if (startCaptionTextBox.Text.TrimEnd().Length == 0)
                     {
-                        Main.showError(Properties.StringResources.EMPTY_START_CAPTION);
+                        Main.ShowError(Properties.StringResources.EMPTY_START_CAPTION);
                         startCaptionTextBox.Focus();
                         return false;
                     }
                     if (endCaptionTextBox.Text.TrimEnd().Length == 0)
                     {
-                        Main.showError(Properties.StringResources.EMPTY_END_CAPTION);
+                        Main.ShowError(Properties.StringResources.EMPTY_END_CAPTION);
                         endCaptionTextBox.Focus();
                         return false;
                     }
                     if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
                         startValueNumericUpDown.Focus();
                         return false;
                     }
                     if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
                     {
-                        Main.showError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
+                        Main.ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
                         endValueNumericUpDown.Focus();
                         return false;
                     }
                     if (startValueNumericUpDown.Value >= endValueNumericUpDown.Value)
                     {
-                        Main.showError(Properties.StringResources.START_LARGER_THAN_END_ERROR);
+                        Main.ShowError(Properties.StringResources.START_LARGER_THAN_END_ERROR);
                         startValueNumericUpDown.Focus();
                         return false;
                     }
@@ -179,13 +179,13 @@ namespace SurveyConfiguratorApp
                 {
                     if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
                         starsNumericUpDown.Focus();
                         return false;
                     }
                     if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
                     {
-                        Main.showError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
+                        Main.ShowError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
                         starsNumericUpDown.Focus();
                         return false;
                     }
@@ -194,13 +194,13 @@ namespace SurveyConfiguratorApp
                 {
                     if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
                         smileyNumericUpDown.Focus();
                         return false;
                     }
                     if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
                     {
-                        Main.showError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
+                        Main.ShowError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
                         smileyNumericUpDown.Focus();
                         return false;
                     }
@@ -210,7 +210,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
                 return false;
             }
         }
@@ -219,7 +219,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                if (isValidQuestion())
+                if (IsValidQuestion())
                 {
                     string questionText = questionTextBox.Text.TrimEnd();
                     int questionOrder = (int)orderNumericUpDown.Value;
@@ -248,7 +248,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.showError(Properties.StringResources.GENERAL_ERROR);
+                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
 
         }
@@ -260,7 +260,7 @@ namespace SurveyConfiguratorApp
                 {
                     if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
                         orderNumericUpDown.Value = QuestionValidationValues.cQUESTION_ORDER_MIN;
                     }
                 }
@@ -268,7 +268,7 @@ namespace SurveyConfiguratorApp
                 {
                     if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
                         orderNumericUpDown.Value = QuestionValidationValues.cSTART_VALUE_MIN;
                     }
                 }
@@ -276,7 +276,7 @@ namespace SurveyConfiguratorApp
                 {
                     if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
                     {
-                        Main.showError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
+                        Main.ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
                         orderNumericUpDown.Value = QuestionValidationValues.cEND_VALUE_MAX;
                     }
                 }
@@ -284,12 +284,12 @@ namespace SurveyConfiguratorApp
                 {
                     if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
                         starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MIN;
                     }
                     if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
                     {
-                        Main.showError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
+                        Main.ShowError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
                         starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MAX;
                     }
                 }
@@ -297,12 +297,12 @@ namespace SurveyConfiguratorApp
                 {
                     if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
                     {
-                        Main.showError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
+                        Main.ShowError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
                         smileyNumericUpDown.Value = QuestionValidationValues.cFACES_NUMBER_MIN;
                     }
                     if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
                     {
-                        Main.showError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
+                        Main.ShowError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
                         smileyNumericUpDown.Value = QuestionValidationValues.cFACES_NUMBER_MAX;
                     }
                 }
