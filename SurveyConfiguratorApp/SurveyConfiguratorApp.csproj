@@ -105,7 +105,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="QuestionProperties.ar.resx">
+      <DependentUpon>QuestionProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="QuestionProperties.resx">
       <DependentUpon>QuestionProperties.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -132,6 +136,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

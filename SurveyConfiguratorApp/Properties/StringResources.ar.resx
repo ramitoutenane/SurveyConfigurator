@@ -126,6 +126,15 @@
   <data name="DELETE_ERROR" xml:space="preserve">
     <value>حدث خطأ أثناء حذف السؤال</value>
   </data>
+  <data name="EMPTY_END_CAPTION" xml:space="preserve">
+    <value>لا يمكن ترك عنوان النهاية فارغ</value>
+  </data>
+  <data name="EMPTY_QUESTION_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك نص السؤال فارغ</value>
+  </data>
+  <data name="EMPTY_START_CAPTION" xml:space="preserve">
+    <value>لا يمكن ترك عنوان البداية فارغ</value>
+  </data>
   <data name="ERROR_BOX_TITLE" xml:space="preserve">
     <value>خطأ</value>
   </data>
@@ -135,6 +144,36 @@
   <data name="INSERT_ERROR" xml:space="preserve">
     <value>حدث خطأ أثناء إضافة السؤال</value>
   </data>
+  <data name="MAX_END_VALUE_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك قيمة البداية أكبر من</value>
+  </data>
+  <data name="MAX_FACES_NUMBER_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك عدد الوجوه أكبر من</value>
+  </data>
+  <data name="MAX_STARS_NUMBER_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك عدد النجوم أكبر من</value>
+  </data>
+  <data name="MIN_FACES_NUMBER_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك عدد الوجوه أقل من</value>
+  </data>
+  <data name="MIN_ORDER_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك ترتيب السؤال أقل من</value>
+  </data>
+  <data name="MIN_STARS_NUMBER_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك عدد النجوم أقل من</value>
+  </data>
+  <data name="MIN_START_VALUE_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك قيمة البداية أقل من</value>
+  </data>
+  <data name="QUESTION_TYPE_SLIDER" xml:space="preserve">
+    <value>شريط تمرير</value>
+  </data>
+  <data name="QUESTION_TYPE_SMILEY" xml:space="preserve">
+    <value>وجوه</value>
+  </data>
+  <data name="QUESTION_TYPE_STARS" xml:space="preserve">
+    <value>نجوم</value>
+  </data>
   <data name="REFRESH_ERROR" xml:space="preserve">
     <value>حدث خطأ أثناء تحديث الأسئلة</value>
   </data>
@@ -143,6 +182,9 @@
   </data>
   <data name="SORT_ERROR" xml:space="preserve">
     <value>حدث خطأ أثناء ترتيب الأسئلة</value>
+  </data>
+  <data name="START_LARGER_THAN_END_ERROR" xml:space="preserve">
+    <value>لا يمكن ترك قيمة البداية أكبر من قيمة النهاية</value>
   </data>
   <data name="UPDATE_ERROR" xml:space="preserve">
     <value>حدث خطأ أثناء تعديل السؤال</value>

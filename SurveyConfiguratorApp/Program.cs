@@ -13,7 +13,7 @@ namespace SurveyConfiguratorApp
         [STAThread]
         static void Main()
         {
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ar");
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());

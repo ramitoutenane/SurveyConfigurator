@@ -1,7 +1,5 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-    * Form Documentation
-
     * Testing and refactoring.
 
     * Write user manual for end-user.
@@ -9,8 +7,7 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Form Localization (Arabic)
-
+    * Form Documentation
 Done:
     - 2/Nov 10:00 AM:
         * Create SQL-Server database.
@@ -69,3 +66,7 @@ Done:
         * Form validation
         * Class validation
         * Write Error logging code
+
+    -18/11 12:10
+        * Form Localization (Arabic)
+

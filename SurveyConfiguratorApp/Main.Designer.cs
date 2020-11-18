@@ -36,10 +36,11 @@
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
-            this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,6 @@
             // 
             // questionDataGridView
             // 
-            resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.AllowDrop = true;
             this.questionDataGridView.AllowUserToOrderColumns = true;
             this.questionDataGridView.AutoGenerateColumns = false;
@@ -63,6 +63,7 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn2});
             this.questionDataGridView.DataSource = this.questionBindingSource;
+            resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.MultiSelect = false;
             this.questionDataGridView.Name = "questionDataGridView";
             this.questionDataGridView.RowHeadersVisible = false;
@@ -96,14 +97,21 @@
             // 
             // refreshButton
             // 
+            this.refreshButton.BackgroundImage = global::SurveyConfiguratorApp.Properties.Resources.refresh;
             resources.ApplyResources(this.refreshButton, "refreshButton");
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
-            // questionBindingSource
+            // LanguageComboBox
             // 
-            this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
+            this.LanguageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LanguageComboBox.Items.AddRange(new object[] {
+            resources.GetString("LanguageComboBox.Items"),
+            resources.GetString("LanguageComboBox.Items1")});
+            resources.ApplyResources(this.LanguageComboBox, "LanguageComboBox");
+            this.LanguageComboBox.Name = "LanguageComboBox";
+            this.LanguageComboBox.SelectedIndexChanged += new System.EventHandler(this.LanguageComboBox_SelectedIndexChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -135,10 +143,15 @@
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
+            // questionBindingSource
+            // 
+            this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.LanguageComboBox);
             this.Controls.Add(this.questionDataGridView);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.deleteButton);
@@ -171,6 +184,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.ComboBox LanguageComboBox;
     }
 }
 

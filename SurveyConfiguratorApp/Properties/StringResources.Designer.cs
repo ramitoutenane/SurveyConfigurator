@@ -88,6 +88,33 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End caption text can&apos;t be empty.
+        /// </summary>
+        internal static string EMPTY_END_CAPTION {
+            get {
+                return ResourceManager.GetString("EMPTY_END_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question text can&apos;t be empty.
+        /// </summary>
+        internal static string EMPTY_QUESTION_ERROR {
+            get {
+                return ResourceManager.GetString("EMPTY_QUESTION_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start caption text can&apos;t be empty.
+        /// </summary>
+        internal static string EMPTY_START_CAPTION {
+            get {
+                return ResourceManager.GetString("EMPTY_START_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ERROR_BOX_TITLE {
@@ -115,6 +142,96 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End value can&apos;t be more than.
+        /// </summary>
+        internal static string MAX_END_VALUE_ERROR {
+            get {
+                return ResourceManager.GetString("MAX_END_VALUE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of faces can&apos;t be more than.
+        /// </summary>
+        internal static string MAX_FACES_NUMBER_ERROR {
+            get {
+                return ResourceManager.GetString("MAX_FACES_NUMBER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of stars can&apos;t be more than.
+        /// </summary>
+        internal static string MAX_STARS_NUMBER_ERROR {
+            get {
+                return ResourceManager.GetString("MAX_STARS_NUMBER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of faces can&apos;t be less than.
+        /// </summary>
+        internal static string MIN_FACES_NUMBER_ERROR {
+            get {
+                return ResourceManager.GetString("MIN_FACES_NUMBER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question Order can&apos;t be less than.
+        /// </summary>
+        internal static string MIN_ORDER_ERROR {
+            get {
+                return ResourceManager.GetString("MIN_ORDER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of stars can&apos;t be less than.
+        /// </summary>
+        internal static string MIN_STARS_NUMBER_ERROR {
+            get {
+                return ResourceManager.GetString("MIN_STARS_NUMBER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start value can&apos;t be less than.
+        /// </summary>
+        internal static string MIN_START_VALUE_ERROR {
+            get {
+                return ResourceManager.GetString("MIN_START_VALUE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SLIDER.
+        /// </summary>
+        internal static string QUESTION_TYPE_SLIDER {
+            get {
+                return ResourceManager.GetString("QUESTION_TYPE_SLIDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMILEY.
+        /// </summary>
+        internal static string QUESTION_TYPE_SMILEY {
+            get {
+                return ResourceManager.GetString("QUESTION_TYPE_SMILEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to STARS.
+        /// </summary>
+        internal static string QUESTION_TYPE_STARS {
+            get {
+                return ResourceManager.GetString("QUESTION_TYPE_STARS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An Error occurred while refreshing list.
         /// </summary>
         internal static string REFRESH_ERROR {
@@ -138,6 +255,15 @@ namespace SurveyConfiguratorApp.Properties {
         internal static string SORT_ERROR {
             get {
                 return ResourceManager.GetString("SORT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start value must be less than End value.
+        /// </summary>
+        internal static string START_LARGER_THAN_END_ERROR {
+            get {
+                return ResourceManager.GetString("START_LARGER_THAN_END_ERROR", resourceCulture);
             }
         }
         

@@ -5,6 +5,8 @@ using SortOrder = System.Data.SqlClient.SortOrder;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.SqlClient;
+using System.Globalization;
+using System.Threading;
 
 namespace SurveyConfiguratorApp
 {
@@ -15,11 +17,16 @@ namespace SurveyConfiguratorApp
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
         private string mConnectionString;
+        private string mCurrentLanguage;
+        private int mCurrentLanguageIndex;
         public Main()
         {
             try
             {
                 InitializeComponent();
+                mCurrentLanguage = "en";
+                mCurrentLanguageIndex = 0;
+                LanguageComboBox.SelectedIndex = mCurrentLanguageIndex;
                 mSortMethod = SortMethod.ByQuestionText;
                 mSortOrder = SortOrder.Ascending;
 
@@ -35,23 +42,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder
-                {
-                    DataSource = ConfigurationManager.AppSettings["DatabaseServer"],
-                    InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"],
-                    UserID = ConfigurationManager.AppSettings["DatabaseUser"],
-                    Password = ConfigurationManager.AppSettings["DatabasePassword"]
-                };
-
-                mConnectionString = tBuilder.ConnectionString;
-                if (mConnectionString != null)
-                    mQuestionManager = new QuestionManager(mConnectionString);
-                else
-                    throw new NullReferenceException("Connection String is null");
-
-                if (mQuestionManager == null)
-                    throw new NullReferenceException("Question manager reference is null");
-                refreshButton.PerformClick();
+                InitializeData();
             }
             catch (Exception error)
             {
@@ -339,6 +330,59 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
                 showError(Properties.StringResources.SORT_ERROR);
             }
+        }
+
+        private void LanguageComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool tChanged = false;
+            switch (LanguageComboBox.SelectedIndex)
+            {
+                case 0:
+                    if(mCurrentLanguage != "en")
+                    {
+                        tChanged = true;
+                        mCurrentLanguage = "en";
+                        mCurrentLanguageIndex = 0;
+                    }
+                    break;
+                case 1:
+                    if (mCurrentLanguage != "ar")
+                    {
+                        tChanged = true;
+                        mCurrentLanguage = "ar";
+                        mCurrentLanguageIndex = 1;
+                    }
+                    break;
+            }
+            if (tChanged)
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(mCurrentLanguage);
+                this.Controls.Clear();
+                InitializeComponent();
+                InitializeData();
+                LanguageComboBox.SelectedIndex = mCurrentLanguageIndex;
+            }
+        }
+
+        private void InitializeData()
+        {
+            SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder
+            {
+                DataSource = ConfigurationManager.AppSettings["DatabaseServer"],
+                InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"],
+                UserID = ConfigurationManager.AppSettings["DatabaseUser"],
+                Password = ConfigurationManager.AppSettings["DatabasePassword"]
+            };
+
+            mConnectionString = tBuilder.ConnectionString;
+            if (mConnectionString != null)
+                mQuestionManager = new QuestionManager(mConnectionString);
+            else
+                throw new NullReferenceException("Connection String is null");
+
+            if (mQuestionManager == null)
+                throw new NullReferenceException("Question manager reference is null");
+            refreshButton.PerformClick();
         }
     }
 }
