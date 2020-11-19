@@ -26,8 +26,9 @@ namespace SurveyConfiguratorApp
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
         private string mCurrentLanguage;
-        private int mCurrentLanguageIndex;
-        private Dictionary<DataGridViewColumn, SortMethod> mColumnSortMethod;
+        private Dictionary<string, SortMethod> mColumnSortMethod;
+        private Dictionary<string, string> mCultureTable;
+
         /// <summary>
         /// Main form constructor to initialize new Main form
         /// </summary>
@@ -36,20 +37,28 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
-                //set default from language
-                mCurrentLanguage = "en";
-                mCurrentLanguageIndex = 0;
-                languageComboBox.SelectedIndex = mCurrentLanguageIndex;
                 //set default sorting criteria 
                 mSortMethod = SortMethod.ByQuestionText;
                 mSortOrder = SortOrder.Ascending;
                 //set SortMethod based on related DataGridViewColumn
-                mColumnSortMethod = new Dictionary<DataGridViewColumn, SortMethod>
+                mColumnSortMethod = new Dictionary<string, SortMethod>
                 {
-                    {QuestionTextColumn, SortMethod.ByQuestionText},
-                    {QuestionOrderColumn, SortMethod.ByQuestionOrder},
-                    {QuestionTypeColumn, SortMethod.ByQuestionType}
+                    {QuestionTextColumn.ToString(), SortMethod.ByQuestionText},
+                    {QuestionOrderColumn.ToString(), SortMethod.ByQuestionOrder},
+                    {QuestionTypeColumn.ToString(), SortMethod.ByQuestionType}
                 };
+                //initialize dictionary of language and it's culture representation
+                mCultureTable = new Dictionary<string, string>
+                {
+                    {Properties.StringResources.ENGLISH_LANGUAGE,"en"},
+                    {Properties.StringResources.ARABIC_LANGUAGE,"ar"}
+                };
+                //populate typeComboBox
+                languageComboBox.DataSource = new List<string>(mCultureTable.Keys);
+
+                //set default from language
+                languageComboBox.SelectedItem = Properties.StringResources.ENGLISH_LANGUAGE;
+                mCurrentLanguage = Properties.StringResources.ENGLISH_LANGUAGE;
             }
             catch (Exception error)
             {
@@ -81,7 +90,7 @@ namespace SurveyConfiguratorApp
             {
                 //check which column has been clicked and change sort criteria based on it
                 DataGridViewColumn tClickedColumn = questionDataGridView.Columns[e.ColumnIndex];
-                SetSortMethod(mColumnSortMethod[tClickedColumn]);
+                SetSortMethod(mColumnSortMethod[tClickedColumn.ToString()]);
 
                 //sort question list and load new data to grid view 
                 SortQuestions();
@@ -253,25 +262,25 @@ namespace SurveyConfiguratorApp
             try
             {
                 bool tChanged = false;
-                //check selected index and change current language variables according to selection
-                switch (languageComboBox.SelectedIndex)
+                string tLanguageComboBoxSelectedItem = languageComboBox.SelectedItem.ToString();
+                //check selected language and change current language variables according to selection
+                string tComboBoxSelectedLanguge = mCultureTable[tLanguageComboBoxSelectedItem];
+                if (tComboBoxSelectedLanguge == mCultureTable[Properties.StringResources.ENGLISH_LANGUAGE])
                 {
-                    case 0:
-                        if (mCurrentLanguage != "en")
-                        {
-                            tChanged = true;
-                            mCurrentLanguage = "en";
-                            mCurrentLanguageIndex = 0;
-                        }
-                        break;
-                    case 1:
-                        if (mCurrentLanguage != "ar")
-                        {
-                            tChanged = true;
-                            mCurrentLanguage = "ar";
-                            mCurrentLanguageIndex = 1;
-                        }
-                        break;
+                    if (mCurrentLanguage != mCultureTable[Properties.StringResources.ENGLISH_LANGUAGE])
+                    {
+                        tChanged = true;
+                        mCurrentLanguage = mCultureTable[Properties.StringResources.ENGLISH_LANGUAGE];
+                        RightToLeft = RightToLeft.No;
+                    }
+                }
+                else if (tComboBoxSelectedLanguge == mCultureTable[Properties.StringResources.ARABIC_LANGUAGE])
+                {
+                    if (mCurrentLanguage != mCultureTable[Properties.StringResources.ARABIC_LANGUAGE])
+                    {
+                        tChanged = true;
+                        mCurrentLanguage = mCultureTable[Properties.StringResources.ARABIC_LANGUAGE];
+                    }
                 }
                 //if language is changed from current language to new one, change culture and reinitialize form components and data
                 if (tChanged)
@@ -280,7 +289,7 @@ namespace SurveyConfiguratorApp
                     this.Controls.Clear();
                     InitializeComponent();
                     InitializeData();
-                    languageComboBox.SelectedIndex = mCurrentLanguageIndex;
+                    languageComboBox.SelectedItem = tLanguageComboBoxSelectedItem;
                 }
             }
             catch (Exception error)

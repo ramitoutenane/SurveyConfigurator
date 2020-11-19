@@ -1,5 +1,9 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
+    * Create Sql installation script
+
+    * Add aditional features
+
     * Testing and refactoring.
 
     * Write user manual for end-user.
@@ -9,7 +13,7 @@ To Do:
 In Progress:
     * Move add and edit functionality to properties form
     * Code refactoring
-    * Add aditional features
+
 Done:
     - 2/Nov 10:00 AM:
         * Create SQL-Server database.
@@ -77,3 +81,6 @@ Done:
 
     -19/11 1:00
         * Modify code according to Majd notes
+    
+    -19/11 3:20
+        * Refactor language changing functionality

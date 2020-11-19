@@ -117,82 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ARABIC_LANGUAGE" xml:space="preserve">
-    <value>عربي</value>
-  </data>
-  <data name="DELETE_CONFIRMATION_MESSAGE" xml:space="preserve">
-    <value>Are you sure you want to delete question?</value>
-  </data>
-  <data name="DELETE_CONFIRMATION_TITLE" xml:space="preserve">
-    <value>Delete Confirmation</value>
-  </data>
-  <data name="DELETE_ERROR" xml:space="preserve">
-    <value>An Error occurred while deleting question</value>
-  </data>
-  <data name="EMPTY_END_CAPTION" xml:space="preserve">
-    <value>End caption text can't be empty</value>
-  </data>
-  <data name="EMPTY_QUESTION_ERROR" xml:space="preserve">
-    <value>Question text can't be empty</value>
-  </data>
-  <data name="EMPTY_START_CAPTION" xml:space="preserve">
-    <value>Start caption text can't be empty</value>
-  </data>
-  <data name="ENGLISH_LANGUAGE" xml:space="preserve">
-    <value>ENG</value>
-  </data>
-  <data name="ERROR_BOX_TITLE" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="GENERAL_ERROR" xml:space="preserve">
-    <value>An Error occurred, Please try again or contact Admin</value>
-  </data>
-  <data name="INSERT_ERROR" xml:space="preserve">
-    <value>An Error occurred while inserting question</value>
-  </data>
-  <data name="MAX_END_VALUE_ERROR" xml:space="preserve">
-    <value>End value can't be more than</value>
-  </data>
-  <data name="MAX_FACES_NUMBER_ERROR" xml:space="preserve">
-    <value>Number of faces can't be more than</value>
-  </data>
-  <data name="MAX_STARS_NUMBER_ERROR" xml:space="preserve">
-    <value>Number of stars can't be more than</value>
-  </data>
-  <data name="MIN_FACES_NUMBER_ERROR" xml:space="preserve">
-    <value>Number of faces can't be less than</value>
-  </data>
-  <data name="MIN_ORDER_ERROR" xml:space="preserve">
-    <value>Question Order can't be less than</value>
-  </data>
-  <data name="MIN_STARS_NUMBER_ERROR" xml:space="preserve">
-    <value>Number of stars can't be less than</value>
-  </data>
-  <data name="MIN_START_VALUE_ERROR" xml:space="preserve">
-    <value>Start value can't be less than</value>
-  </data>
-  <data name="QUESTION_TYPE_SLIDER" xml:space="preserve">
-    <value>SLIDER</value>
-  </data>
-  <data name="QUESTION_TYPE_SMILEY" xml:space="preserve">
-    <value>SMILEY</value>
-  </data>
-  <data name="QUESTION_TYPE_STARS" xml:space="preserve">
-    <value>STARS</value>
-  </data>
-  <data name="REFRESH_ERROR" xml:space="preserve">
-    <value>An Error occurred while refreshing list</value>
-  </data>
-  <data name="SELECT_ERROR" xml:space="preserve">
-    <value>An Error occurred while selecting question</value>
-  </data>
-  <data name="SORT_ERROR" xml:space="preserve">
-    <value>An Error occurred while sorting question</value>
-  </data>
-  <data name="START_LARGER_THAN_END_ERROR" xml:space="preserve">
-    <value>Start value must be less than End value</value>
-  </data>
-  <data name="UPDATE_ERROR" xml:space="preserve">
-    <value>An Error occurred while updating question</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
 </root>
