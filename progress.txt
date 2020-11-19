@@ -1,7 +1,5 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-    * Create Sql installation script
-
     * Add aditional features
 
     * Testing and refactoring.
@@ -11,7 +9,7 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Move add and edit functionality to properties form
+    * Create Sql installation script
     * Code refactoring
 
 Done:
@@ -84,3 +82,6 @@ Done:
     
     -19/11 3:20
         * Refactor language changing functionality
+
+    -19/11 5:15
+        * Move add and edit functionality to properties form

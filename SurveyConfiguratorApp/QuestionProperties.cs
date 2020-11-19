@@ -7,16 +7,18 @@ namespace SurveyConfiguratorApp
 {
     public partial class QuestionProperties : Form
     {
+        private readonly IRepository<Question> mQuestionManager;
         private Dictionary<QuestionType, string> mQuestionTypeResources;
         public Question question { get; private set; }
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
         /// </summary>
-        public QuestionProperties()
+        public QuestionProperties(IRepository<Question> questionManager)
         {
             try
             {
                 InitializeComponent();
+                mQuestionManager = questionManager;
                 //initialize dictionary of question type and it's string resource to use as ComboBox DataSource
                 mQuestionTypeResources = new Dictionary<QuestionType, string>
                 {
@@ -27,7 +29,6 @@ namespace SurveyConfiguratorApp
                 //populate typeComboBox
                 typeComboBox.DataSource = new List<string>(mQuestionTypeResources.Values);
                 typeComboBox.SelectedIndex = 0;
-
             }
             catch (Exception error)
             {
@@ -39,7 +40,7 @@ namespace SurveyConfiguratorApp
         /// QuestionProperties form constructor to initialize QuestionProperties form and populate with question data
         /// </summary>
         /// <param name="question">question to populate form with it's data</param>
-        public QuestionProperties(Question question) : this()
+        public QuestionProperties(IRepository<Question> questionManager, Question question) : this(questionManager)
         {
             try
             {
@@ -168,6 +169,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                bool tSaved = false;
                 //validate the properties
                 if (IsValidQuestion())
                 {
@@ -181,27 +183,41 @@ namespace SurveyConfiguratorApp
                         tId = question.Id;
                     }
                     //based on selected question type create new question, and save it to question public reference
-                    string tSelectedQuestion = (string)typeComboBox.SelectedItem;
-                    if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
+                    string tSelectedQuestionType = (string)typeComboBox.SelectedItem;
+                    if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Smiley])
                         question = new SmileyQuestion(tQuestionText, tQuestionOrder, (int)smileyNumericUpDown.Value, tId);
 
-                    else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Slider])
+                    else if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Slider])
                         question = new SliderQuestion(tQuestionText, tQuestionOrder, (int)startValueNumericUpDown.Value,
                                 (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), tId);
 
-                    else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Stars])
+                    else if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Stars])
                         question = new StarsQuestion(tQuestionText, tQuestionOrder, (int)starsNumericUpDown.Value, tId);
 
+
+                    //if question is not null check it's id to determine whether to insert it or update it
+                    if (question == null)
+                        throw new Exception(MessageStringValues.cQUESTION_NULL_EXCEPTION);
+                    Cursor.Current = Cursors.WaitCursor;
+                    if (question.Id >= 0)
+                        tSaved = UpdateQuestion(question);
+                    else
+                        tSaved = InsertQuestion(question);
+                    Cursor.Current = Cursors.Default;
+
                 }
-                //return OK result to parent form
-                DialogResult = DialogResult.OK;
+                if (tSaved)
+                    DialogResult = DialogResult.OK;
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
-
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
         /// <summary>
         /// orderNumericUpDown validation event handler
@@ -480,6 +496,53 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
+            }
+        }
+
+        /// <summary>
+        /// Insert question into repository
+        /// </summary>
+        /// <param name="question">The question to be inserted</param>
+        /// <returns>true if inserted, false otherwise</returns>
+        private bool InsertQuestion(Question question)
+        {
+            try
+            {
+                if (mQuestionManager.Insert(question))
+                    return true;
+                else
+                {
+                    ShowError(Properties.StringResources.INSERT_ERROR);
+                    return false;
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Update question in repository
+        /// </summary>
+        /// <param name="question">The question to be updated</param>
+        /// <returns>true if updated, false otherwise</returns>
+        private bool UpdateQuestion(Question question)
+        {
+            try
+            {
+                if (mQuestionManager.Update(question))
+                    return true;
+                else
+                {
+                    ShowError(Properties.StringResources.UPDATE_ERROR);
+                    return false;
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                return false;
             }
         }
     }

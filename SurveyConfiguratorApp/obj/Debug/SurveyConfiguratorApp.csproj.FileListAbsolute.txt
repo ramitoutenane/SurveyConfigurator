@@ -26,6 +26,6 @@ C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\o
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.ar.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.QuestionProperties.ar.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\en\SurveyConfiguratorApp.resources.dll
-C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.en.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\en\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache

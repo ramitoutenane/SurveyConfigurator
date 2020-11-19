@@ -154,16 +154,12 @@ namespace SurveyConfiguratorApp
             try
             {
                 //show new empty question properties dialog
-                using (QuestionProperties propertiesDialog = new QuestionProperties())
+                using (QuestionProperties propertiesDialog = new QuestionProperties(mQuestionManager))
                 {
                     //check if result of dialog is OK 
                     if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
-                        //insert new question to source, if inserted successfully reload data to grid view , throw error otherwise
-                        if (mQuestionManager.Insert(propertiesDialog.question))
                             RefreshList();
-                        else
-                            throw new Exception(MessageStringValues.cREFRESH_ERROR);
                     }
                 }
             }
@@ -221,10 +217,17 @@ namespace SurveyConfiguratorApp
                     if (selectedRow >= 0)
                     {
                         //delete question from source, if deleted successfully reload data to grid view , throw error otherwise
+                        Cursor.Current = Cursors.WaitCursor;
                         if (mQuestionManager.Delete(mQuestionList[selectedRow].Id))
+                        {
                             RefreshList();
+                            Cursor.Current = Cursors.Default;
+                        }
                         else
+                        {
+                            Cursor.Current = Cursors.Default;
                             throw new Exception(MessageStringValues.cDELETE_ERROR);
+                        }
                     }
                 }
             }
@@ -234,6 +237,10 @@ namespace SurveyConfiguratorApp
                 ShowError(Properties.StringResources.DELETE_ERROR);
 
             }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
         /// <summary>
         /// refreshButton Click event handler
@@ -242,16 +249,27 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
                 //refresh data from source, if refreshed successfully reload data to grid view , throw error otherwise
                 if (mQuestionManager.SelectAll() != null)
+                {
                     RefreshList();
+                    Cursor.Current = Cursors.Default;
+                }
                 else
+                {
+                    Cursor.Current = Cursors.Default;
                     throw new Exception(MessageStringValues.cREFRESH_ERROR);
+                }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
                 ShowError(Properties.StringResources.REFRESH_ERROR);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default ;
             }
         }
         /// <summary>
@@ -335,16 +353,12 @@ namespace SurveyConfiguratorApp
             try
             {
                 //show question properties dialog
-                using (QuestionProperties propertiesDialog = new QuestionProperties(question))
+                using (QuestionProperties propertiesDialog = new QuestionProperties(mQuestionManager, question))
                 {
                     //check if result of dialog is OK 
                     if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
-                        //update question on source, if updated successfully reload data to grid view , throw error otherwise
-                        if (mQuestionManager.Update(propertiesDialog.question))
                             RefreshList();
-                        else
-                            throw new Exception(MessageStringValues.cUPDATE_ERROR);
                     }
                 }
             }
