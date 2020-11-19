@@ -4,21 +4,30 @@ using System.Configuration;
 using SortOrder = System.Data.SqlClient.SortOrder;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Threading;
 
 namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Enumeration to define types of sorting methods provided by the system
+    /// </summary>
+    public enum SortMethod
+    {
+        ByQuestionID,
+        ByQuestionOrder,
+        ByQuestionType,
+        ByQuestionText
+    }
     public partial class Main : Form
     {
-        private IMaintainable<Question> mQuestionManager;
+        private IRepository<Question> mQuestionManager;
         private List<Question> mQuestionList;
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
-        private string mConnectionString;
         private string mCurrentLanguage;
         private int mCurrentLanguageIndex;
+        private Dictionary<DataGridViewColumn, SortMethod> mColumnSortMethod;
         /// <summary>
         /// Main form constructor to initialize new Main form
         /// </summary>
@@ -34,7 +43,13 @@ namespace SurveyConfiguratorApp
                 //set default sorting criteria 
                 mSortMethod = SortMethod.ByQuestionText;
                 mSortOrder = SortOrder.Ascending;
-
+                //set SortMethod based on related DataGridViewColumn
+                mColumnSortMethod = new Dictionary<DataGridViewColumn, SortMethod>
+                {
+                    {QuestionTextColumn, SortMethod.ByQuestionText},
+                    {QuestionOrderColumn, SortMethod.ByQuestionOrder},
+                    {QuestionTypeColumn, SortMethod.ByQuestionType}
+                };
             }
             catch (Exception error)
             {
@@ -65,18 +80,9 @@ namespace SurveyConfiguratorApp
             try
             {
                 //check which column has been clicked and change sort criteria based on it
-                switch (e.ColumnIndex)
-                {
-                    case 0:
-                        SetSortMethod(SortMethod.ByQuestionText);
-                        break;
-                    case 1:
-                        SetSortMethod(SortMethod.ByType);
-                        break;
-                    case 2:
-                        SetSortMethod(SortMethod.ByOrder);
-                        break;
-                }
+                DataGridViewColumn tClickedColumn = questionDataGridView.Columns[e.ColumnIndex];
+                SetSortMethod(mColumnSortMethod[tClickedColumn]);
+
                 //sort question list and load new data to grid view 
                 SortQuestions();
                 questionDataGridView.DataSource = mQuestionList;
@@ -228,7 +234,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 //refresh data from source, if refreshed successfully reload data to grid view , throw error otherwise
-                if (mQuestionManager.Refresh() != null)
+                if (mQuestionManager.SelectAll() != null)
                     RefreshList();
                 else
                     throw new Exception(MessageStringValues.cREFRESH_ERROR);
@@ -410,16 +416,16 @@ namespace SurveyConfiguratorApp
                 //Sort Items list according to given ordering method using linq
                 switch (mSortMethod)
                 {
-                    case SortMethod.ByID:
+                    case SortMethod.ByQuestionID:
                         tSortedList = mQuestionList.OrderBy(Item => Item.Id).ToList();
                         break;
-                    case SortMethod.ByOrder:
+                    case SortMethod.ByQuestionOrder:
                         tSortedList = mQuestionList.OrderBy(Item => Item.Order).ToList();
                         break;
                     case SortMethod.ByQuestionText:
                         tSortedList = mQuestionList.OrderBy(Item => Item.Text).ToList();
                         break;
-                    case SortMethod.ByType:
+                    case SortMethod.ByQuestionType:
                         tSortedList = mQuestionList.OrderBy(Item => Item.Type).ToList();
                         break;
                 }
@@ -444,26 +450,18 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                // create connection string from Configuration file data
-                SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder
-                {
-                    DataSource = ConfigurationManager.AppSettings["DatabaseServer"],
-                    InitialCatalog = ConfigurationManager.AppSettings["DatabaseName"],
-                    UserID = ConfigurationManager.AppSettings["DatabaseUser"],
-                    Password = ConfigurationManager.AppSettings["DatabasePassword"]
-                };
-                mConnectionString = tBuilder.ConnectionString;
+                // get connection data from configuration file to create database settings object
+                string tDataSource = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_SERVER];
+                string tInitialCatalog = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_NAME];
+                string tUserID = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_USER];
+                string tPassword = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_PASSWORD];
+                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDataSource, tInitialCatalog, tUserID, tPassword);
 
                 //initialize new question manger to manage question repository and connection
-                if (mConnectionString != null)
-                    mQuestionManager = new QuestionManager(mConnectionString);
-                else
-                    throw new NullReferenceException("Connection String is null");
-
+                mQuestionManager = new QuestionManager(tDatabaseSettings);
                 if (mQuestionManager == null)
-                    throw new NullReferenceException("Question manager reference is null");
+                    throw new NullReferenceException(MessageStringValues.cQUESTION_MANAGER_NULL_EXCEPTION);
                 refreshButton.PerformClick();
-
             }
             catch (Exception error)
             {

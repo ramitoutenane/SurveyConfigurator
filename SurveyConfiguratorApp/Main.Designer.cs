@@ -32,15 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.titleLabel = new System.Windows.Forms.Label();
             this.questionDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.languageComboBox = new System.Windows.Forms.ComboBox();
+            this.QuestionTextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestionTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestionOrderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -59,9 +59,9 @@
             this.questionDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.questionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.questionDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn2});
+            this.QuestionTextColumn,
+            this.QuestionTypeColumn,
+            this.QuestionOrderColumn});
             this.questionDataGridView.DataSource = this.questionBindingSource;
             resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.MultiSelect = false;
@@ -73,36 +73,6 @@
             this.questionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionDataGridView_CellDoubleClick);
             this.questionDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.questionDataGridView_ColumnHeaderMouseClick_1);
             this.questionDataGridView.SelectionChanged += new System.EventHandler(this.questionDataGridView_SelectionChanged);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Text";
-            this.dataGridViewTextBoxColumn1.FillWeight = 65F;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "TypeString";
-            this.dataGridViewTextBoxColumn3.FillWeight = 25F;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Order";
-            this.dataGridViewTextBoxColumn2.FillWeight = 10F;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // questionBindingSource
             // 
@@ -147,6 +117,36 @@
             this.languageComboBox.Name = "languageComboBox";
             this.languageComboBox.SelectedIndexChanged += new System.EventHandler(this.languageComboBox_SelectedIndexChanged);
             // 
+            // QuestionTextColumn
+            // 
+            this.QuestionTextColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.QuestionTextColumn.DataPropertyName = "Text";
+            this.QuestionTextColumn.FillWeight = 65F;
+            resources.ApplyResources(this.QuestionTextColumn, "QuestionTextColumn");
+            this.QuestionTextColumn.Name = "QuestionTextColumn";
+            this.QuestionTextColumn.ReadOnly = true;
+            this.QuestionTextColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // QuestionTypeColumn
+            // 
+            this.QuestionTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.QuestionTypeColumn.DataPropertyName = "TypeString";
+            this.QuestionTypeColumn.FillWeight = 25F;
+            resources.ApplyResources(this.QuestionTypeColumn, "QuestionTypeColumn");
+            this.QuestionTypeColumn.Name = "QuestionTypeColumn";
+            this.QuestionTypeColumn.ReadOnly = true;
+            this.QuestionTypeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // QuestionOrderColumn
+            // 
+            this.QuestionOrderColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.QuestionOrderColumn.DataPropertyName = "Order";
+            this.QuestionOrderColumn.FillWeight = 10F;
+            resources.ApplyResources(this.QuestionOrderColumn, "QuestionOrderColumn");
+            this.QuestionOrderColumn.Name = "QuestionOrderColumn";
+            this.QuestionOrderColumn.ReadOnly = true;
+            this.QuestionOrderColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
@@ -181,10 +181,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn typeStringDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orderDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource questionBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.ComboBox languageComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestionTextColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestionTypeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QuestionOrderColumn;
     }
 }
 

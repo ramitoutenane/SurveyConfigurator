@@ -7,6 +7,7 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
+    * Move add and edit functionality to properties form
     * Code refactoring
     * Add aditional features
 Done:
@@ -73,3 +74,6 @@ Done:
     
     -18/11 2:45
         * Form Documentation
+
+    -19/11 1:00
+        * Modify code according to Majd notes

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,6 +7,7 @@ namespace SurveyConfiguratorApp
 {
     public partial class QuestionProperties : Form
     {
+        private Dictionary<QuestionType, string> mQuestionTypeResources;
         public Question question { get; private set; }
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
@@ -15,13 +17,22 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
-                PopulateQuestionTypes();
+                //initialize dictionary of question type and it's string resource to use as ComboBox DataSource
+                mQuestionTypeResources = new Dictionary<QuestionType, string>
+                {
+                    {QuestionType.Smiley,Properties.StringResources.QUESTION_TYPE_SMILEY},
+                    {QuestionType.Slider,Properties.StringResources.QUESTION_TYPE_SLIDER},
+                    {QuestionType.Stars,Properties.StringResources.QUESTION_TYPE_STARS}
+                };
+                //populate typeComboBox
+                typeComboBox.DataSource = new List<string>(mQuestionTypeResources.Values);
                 typeComboBox.SelectedIndex = 0;
+
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         /// <summary>
@@ -34,11 +45,11 @@ namespace SurveyConfiguratorApp
             {
                 if (question != null)
                 {
-                    // populate components with general question data
+                    //populate components with general question data
                     this.question = question;
                     questionTextBox.Text = question.Text;
                     orderNumericUpDown.Value = question.Order;
-                    typeComboBox.SelectedIndex = (int)question.Type - 1;
+                    typeComboBox.SelectedItem = mQuestionTypeResources[question.Type];
                     typeComboBox.Enabled = false;
                     //populate components with specific question type data
                     if (question is SliderQuestion tSlider)
@@ -59,13 +70,13 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         /// <summary>
@@ -92,7 +103,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         /// <summary>
@@ -107,28 +118,30 @@ namespace SurveyConfiguratorApp
                 smileyGroupBox.Visible = false;
                 starsGroupBox.Visible = false;
                 //question group box location point
-                Point groupBoxLocation = new Point(10, 230);
+                Point tGroupBoxLocation = new Point(10, 230);
                 //check selected question and show it's group box
-                switch (typeComboBox.SelectedIndex)
+                string tSelectedQuestion = (string)typeComboBox.SelectedItem;
+                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
+
                 {
-                    case 0:
-                        smileyGroupBox.Visible = true;
-                        smileyGroupBox.Location = groupBoxLocation;
-                        break;
-                    case 1:
-                        sliderGroupBox.Visible = true;
-                        sliderGroupBox.Location = groupBoxLocation;
-                        break;
-                    case 2:
-                        starsGroupBox.Visible = true;
-                        starsGroupBox.Location = groupBoxLocation;
-                        break;
+                    smileyGroupBox.Visible = true;
+                    smileyGroupBox.Location = tGroupBoxLocation;
+                }
+                else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Slider])
+                {
+                    sliderGroupBox.Visible = true;
+                    sliderGroupBox.Location = tGroupBoxLocation;
+                }
+                else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Stars])
+                {
+                    starsGroupBox.Visible = true;
+                    starsGroupBox.Location = tGroupBoxLocation;
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         /// <summary>
@@ -144,7 +157,7 @@ namespace SurveyConfiguratorApp
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
             }
 
         }
@@ -158,97 +171,118 @@ namespace SurveyConfiguratorApp
                 //validate the properties
                 if (IsValidQuestion())
                 {
-                    string questionText = questionTextBox.Text.TrimEnd();
-                    int questionOrder = (int)orderNumericUpDown.Value;
-                    int id = -1;
+                    string tQuestionText = questionTextBox.Text.TrimEnd();
+                    int tQuestionOrder = (int)orderNumericUpDown.Value;
+                    int tId = -1;
                     //if question already exist (update form), get a copy of it's id
                     //if (add form) question id is -1, if update form question id != -1
                     if (question != null && question.Id > 0)
                     {
-                        id = question.Id;
+                        tId = question.Id;
                     }
                     //based on selected question type create new question, and save it to question public reference
-                    switch (typeComboBox.SelectedIndex)
-                    {
-                        case 0:
-                            question = new SmileyQuestion(questionText, questionOrder, (int)smileyNumericUpDown.Value, id);
-                            break;
-                        case 1:
-                            question = new SliderQuestion(questionText, questionOrder, (int)startValueNumericUpDown.Value,
-                                (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), id);
-                            break;
-                        case 2:
-                            question = new StarsQuestion(questionText, questionOrder, (int)starsNumericUpDown.Value, id);
-                            break;
-                    }
-                    //return OK result to parent form
-                    DialogResult = DialogResult.OK;
+                    string tSelectedQuestion = (string)typeComboBox.SelectedItem;
+                    if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
+                        question = new SmileyQuestion(tQuestionText, tQuestionOrder, (int)smileyNumericUpDown.Value, tId);
 
+                    else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Slider])
+                        question = new SliderQuestion(tQuestionText, tQuestionOrder, (int)startValueNumericUpDown.Value,
+                                (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), tId);
+
+                    else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Stars])
+                        question = new StarsQuestion(tQuestionText, tQuestionOrder, (int)starsNumericUpDown.Value, tId);
+
+                }
+                //return OK result to parent form
+                DialogResult = DialogResult.OK;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
+            }
+
+        }
+        /// <summary>
+        /// orderNumericUpDown validation event handler
+        /// </summary>
+        private void orderNumericUpDown_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                if (sender == orderNumericUpDown)
+                {
+                    if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
+                    {
+                        ShowError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
+                        orderNumericUpDown.Value = QuestionValidationValues.cQUESTION_ORDER_MIN;
+                    }
                 }
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
             }
-
         }
         /// <summary>
-        /// numericUpDown validation event handler
+        /// startValueNumericUpDown validation event handler
         /// </summary>
-        private void numericUpDown_Validation(object sender, System.ComponentModel.CancelEventArgs e)
+        private void startValueNumericUpDown_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                //check which numericUpDown triggered the event
-                //validate it's value, if invalid change it to valid state and show error message to user
-                if (sender == orderNumericUpDown)
-                {
-                    if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
-                        orderNumericUpDown.Value = QuestionValidationValues.cQUESTION_ORDER_MIN;
-                    }
-                }
-                else if (sender == startValueNumericUpDown)
+                if (sender == startValueNumericUpDown)
                 {
                     if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
                     {
-                        Main.ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
+                        ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
                         orderNumericUpDown.Value = QuestionValidationValues.cSTART_VALUE_MIN;
                     }
                 }
-                else if (sender == endValueNumericUpDown)
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
+        }
+        /// <summary>
+        /// endValueNumericUpDown validation event handler
+        /// </summary>
+        private void endValueNumericUpDown_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                if (sender == endValueNumericUpDown)
                 {
                     if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
                     {
-                        Main.ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
+                        ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
                         orderNumericUpDown.Value = QuestionValidationValues.cEND_VALUE_MAX;
                     }
                 }
-                else if (sender == starsNumericUpDown)
-                {
-                    if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
-                        starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MIN;
-                    }
-                    if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
-                        starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MAX;
-                    }
-                }
-                else if (sender == smileyNumericUpDown)
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
+        }
+        /// <summary>
+        /// smileyNumericUpDown validation event handler
+        /// </summary>
+        private void smileyNumericUpDown_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                if (sender == smileyNumericUpDown)
                 {
                     if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
                     {
-                        Main.ShowError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
+                        ShowError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
                         smileyNumericUpDown.Value = QuestionValidationValues.cFACES_NUMBER_MIN;
                     }
                     if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
                     {
-                        Main.ShowError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
+                        ShowError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
                         smileyNumericUpDown.Value = QuestionValidationValues.cFACES_NUMBER_MAX;
                     }
                 }
@@ -259,15 +293,25 @@ namespace SurveyConfiguratorApp
             }
         }
         /// <summary>
-        /// Populate QuestionTypes combo box with question types from string resources based on form language
+        /// starsNumericUpDown validation event handler
         /// </summary>
-        private void PopulateQuestionTypes()
+        private void starsNumericUpDown_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                typeComboBox.Items.Add(Properties.StringResources.QUESTION_TYPE_SMILEY);
-                typeComboBox.Items.Add(Properties.StringResources.QUESTION_TYPE_SLIDER);
-                typeComboBox.Items.Add(Properties.StringResources.QUESTION_TYPE_STARS);
+                if (sender == starsNumericUpDown)
+                {
+                    if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
+                    {
+                        ShowError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
+                        starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MIN;
+                    }
+                    if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
+                    {
+                        ShowError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
+                        starsNumericUpDown.Value = QuestionValidationValues.cSTARS_NUMBER_MAX;
+                    }
+                }
             }
             catch (Exception error)
             {
@@ -285,87 +329,157 @@ namespace SurveyConfiguratorApp
                 //check general question properties
                 if (questionTextBox.Text.TrimEnd().Length == 0)
                 {
-                    Main.ShowError(Properties.StringResources.EMPTY_QUESTION_ERROR);
+                    ShowError(Properties.StringResources.EMPTY_QUESTION_ERROR);
                     questionTextBox.Focus();
                     return false;
                 }
                 if (orderNumericUpDown.Value < QuestionValidationValues.cQUESTION_ORDER_MIN)
                 {
-                    Main.ShowError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
+                    ShowError($"{Properties.StringResources.MIN_ORDER_ERROR} {QuestionValidationValues.cQUESTION_ORDER_MIN}");
                     questionTextBox.Focus();
                     return false;
                 }
                 //check the type of question and it's properties based on question type selection
-                if (typeComboBox.SelectedIndex == (int)QuestionType.Slider - 1)
+                string tSelectedQuestion = (string)typeComboBox.SelectedItem;
+                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Slider])
                 {
-                    if (startCaptionTextBox.Text.TrimEnd().Length == 0)
-                    {
-                        Main.ShowError(Properties.StringResources.EMPTY_START_CAPTION);
-                        startCaptionTextBox.Focus();
-                        return false;
-                    }
-                    if (endCaptionTextBox.Text.TrimEnd().Length == 0)
-                    {
-                        Main.ShowError(Properties.StringResources.EMPTY_END_CAPTION);
-                        endCaptionTextBox.Focus();
-                        return false;
-                    }
-                    if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
-                        startValueNumericUpDown.Focus();
-                        return false;
-                    }
-                    if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
-                        endValueNumericUpDown.Focus();
-                        return false;
-                    }
-                    if (startValueNumericUpDown.Value >= endValueNumericUpDown.Value)
-                    {
-                        Main.ShowError(Properties.StringResources.START_LARGER_THAN_END_ERROR);
-                        startValueNumericUpDown.Focus();
-                        return false;
-                    }
+                    return IsValidSliderQuestion();
                 }
-                else if (typeComboBox.SelectedIndex == (int)QuestionType.Stars - 1)
+                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Stars])
                 {
-                    if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
-                        starsNumericUpDown.Focus();
-                        return false;
-                    }
-                    if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
-                        starsNumericUpDown.Focus();
-                        return false;
-                    }
+                    return IsValidStarsQuestion();
                 }
-                else if (typeComboBox.SelectedIndex == (int)QuestionType.Smiley - 1)
+                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
                 {
-                    if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
-                        smileyNumericUpDown.Focus();
-                        return false;
-                    }
-                    if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
-                    {
-                        Main.ShowError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
-                        smileyNumericUpDown.Focus();
-                        return false;
-                    }
+                    return IsValidSmileyQuestion();
+                }
+                return false;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Check if slider question properties are valid
+        /// </summary>
+        /// <returns>true if all properties are valid, false otherwise</returns>
+        private bool IsValidSliderQuestion()
+        {
+            try
+            {
+                if (startCaptionTextBox.Text.TrimEnd().Length == 0)
+                {
+                    ShowError(Properties.StringResources.EMPTY_START_CAPTION);
+                    startCaptionTextBox.Focus();
+                    return false;
+                }
+                if (endCaptionTextBox.Text.TrimEnd().Length == 0)
+                {
+                    ShowError(Properties.StringResources.EMPTY_END_CAPTION);
+                    endCaptionTextBox.Focus();
+                    return false;
+                }
+                if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
+                {
+                    ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
+                    startValueNumericUpDown.Focus();
+                    return false;
+                }
+                if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
+                {
+                    ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
+                    endValueNumericUpDown.Focus();
+                    return false;
+                }
+                if (startValueNumericUpDown.Value >= endValueNumericUpDown.Value)
+                {
+                    ShowError(Properties.StringResources.START_LARGER_THAN_END_ERROR);
+                    startValueNumericUpDown.Focus();
+                    return false;
                 }
                 return true;
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                Main.ShowError(Properties.StringResources.GENERAL_ERROR);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
                 return false;
+            }
+        }
+        /// <summary>
+        /// Check if stars question properties are valid
+        /// </summary>
+        /// <returns>true if all properties are valid, false otherwise</returns>
+        private bool IsValidStarsQuestion()
+        {
+            try
+            {
+                if (starsNumericUpDown.Value < QuestionValidationValues.cSTARS_NUMBER_MIN)
+                {
+                    ShowError($"{Properties.StringResources.MIN_STARS_NUMBER_ERROR}{QuestionValidationValues.cSTARS_NUMBER_MIN}");
+                    starsNumericUpDown.Focus();
+                    return false;
+                }
+                if (starsNumericUpDown.Value > QuestionValidationValues.cSTARS_NUMBER_MAX)
+                {
+                    ShowError($"{Properties.StringResources.MAX_STARS_NUMBER_ERROR} {QuestionValidationValues.cSTARS_NUMBER_MAX}");
+                    starsNumericUpDown.Focus();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Check if smiley question properties are valid
+        /// </summary>
+        /// <returns>true if all properties are valid, false otherwise</returns>
+        private bool IsValidSmileyQuestion()
+        {
+            try
+            {
+                if (smileyNumericUpDown.Value < QuestionValidationValues.cFACES_NUMBER_MIN)
+                {
+                    ShowError($"{Properties.StringResources.MIN_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MIN}");
+                    smileyNumericUpDown.Focus();
+                    return false;
+                }
+                if (smileyNumericUpDown.Value > QuestionValidationValues.cFACES_NUMBER_MAX)
+                {
+                    ShowError($"{Properties.StringResources.MAX_FACES_NUMBER_ERROR} {QuestionValidationValues.cFACES_NUMBER_MAX}");
+                    smileyNumericUpDown.Focus();
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Show custom Error message box to user
+        /// </summary>
+        /// <param name="errorMessage">error message to be shown to user</param>
+        public static void ShowError(string errorMessage)
+        {
+            try
+            {
+                MessageBox.Show(errorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
             }
         }
     }

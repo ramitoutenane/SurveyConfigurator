@@ -4,30 +4,30 @@ using System.Data.SqlClient;
 
 namespace SurveyConfiguratorApp
 {
-    public class QuestionManager : IMaintainable<Question>
+    public class QuestionManager : IRepository<Question>
     {
         /// <summary>
         /// List of questions to be maintained 
         /// </summary>
         public List<Question> Items { get; private set; }
-        private readonly string mConnectionString;
-        private readonly IRepository<SliderQuestion> mSliderSQL;
-        private readonly IRepository<SmileyQuestion> mSmileySQL;
-        private readonly IRepository<StarsQuestion> mStarsSQL;
+        private readonly DatabaseSettings mDatabaseSettings;
+        private readonly ICRUDable<SliderQuestion> mSliderSQL;
+        private readonly ICRUDable<SmileyQuestion> mSmileySQL;
+        private readonly ICRUDable<StarsQuestion> mStarsSQL;
 
         /// <summary>
         /// QuestionManager constructor to initialize new QuestionManager object
         /// </summary>
         /// <param name="connectionString">Database connection string</param>
-        public QuestionManager(string connectionString)
+        public QuestionManager(DatabaseSettings databaseSettings)
         {
             try
             {
                 Items = new List<Question>();
-                mConnectionString = connectionString;
-                mSliderSQL = new SliderQuestionDatabaseOperations(mConnectionString);
-                mSmileySQL = new SmileyQuestionDatabaseOperations(mConnectionString);
-                mStarsSQL = new StarsQuestionDatabaseOperations(mConnectionString);
+                mDatabaseSettings = databaseSettings;
+                mSliderSQL = new SliderQuestionDatabaseOperations(mDatabaseSettings);
+                mSmileySQL = new SmileyQuestionDatabaseOperations(mDatabaseSettings);
+                mStarsSQL = new StarsQuestionDatabaseOperations(mDatabaseSettings);
             }
             catch (Exception error)
             {
@@ -38,14 +38,14 @@ namespace SurveyConfiguratorApp
         /// Synchronize local Items list with latest version of questions from database
         /// </summary>
         /// <returns>The new refreshed Items List</returns>
-        public List<Question> Refresh()
+        public List<Question> SelectAll()
         {
             try
             {
                 // select all questions of each question type from database
-                List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
-                List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
-                List<StarsQuestion> tStarsList = mStarsSQL.SelectAll();
+                List<SliderQuestion> tSliderList = mSliderSQL.ReadAll();
+                List<SmileyQuestion> tSmileyList = mSmileySQL.ReadAll();
+                List<StarsQuestion> tStarsList = mStarsSQL.ReadAll();
                 // create new temporary list to merge previous lists,it's initial capacity is equal to the sum of all question lists 
                 List<Question> tAllQuestion = new List<Question>(tSliderList.Count + tSmileyList.Count + tStarsList.Count);
                 // add all question lists to the temporary list that contains all questions 
@@ -99,7 +99,7 @@ namespace SurveyConfiguratorApp
                 //check question type then add it to database and get it's primary key from SQL insert method, set the new id to question object add it to local list.
                 if (item is null)
                 {
-                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_Exception);
+                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_EXCEPTION);
                 }else if (!item.IsValid())
                 {
                     throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_EXCEPTION);
@@ -123,7 +123,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
                 }
                 // if the question inserted to database successfully the temporary id variable should change from -1 and temporary question reference should point to new question object 
                 if (tID >= 1 && tQuestion != null)
@@ -151,7 +151,7 @@ namespace SurveyConfiguratorApp
                 // check question type then update it in database, if updated successfully in database then update it in local list.
                 if (item is null)
                 {
-                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_Exception);
+                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_EXCEPTION);
                 }
                 else if (!item.IsValid())
                 {
@@ -178,7 +178,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
                 }
                 // if updated successfully in database update it in local list.
                 if (tUpdated)
@@ -225,7 +225,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_Exception);
+                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
                 }
                 // if deleted successfully from database then delete it in local list.
                 if (tDeleted)

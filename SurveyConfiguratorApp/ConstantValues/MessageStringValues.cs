@@ -13,8 +13,9 @@
         public const string cNO_QUESTION_ID = "Couldn't find a Question with given id";
         public const string cNO_QUESTION_SELECTED = "No question is Selected";
         public const string cQUESTION_VALIDATION_EXCEPTION = "Invalid Question attributes";
-        public const string cQUESTION_TYPE_Exception = "Question type is not recognized";
-        public const string cQUESTION_NULL_Exception = "Given Question is Null";
-
+        public const string cQUESTION_TYPE_EXCEPTION = "Question type is not recognized";
+        public const string cQUESTION_NULL_EXCEPTION = "Given Question is Null";
+        public const string cCONNECTION_STRING_NULL_EXCEPTION = "Connection String is null";
+        public const string cQUESTION_MANAGER_NULL_EXCEPTION = "Question manager reference is null";
     }
 }

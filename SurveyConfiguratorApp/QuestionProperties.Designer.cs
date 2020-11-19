@@ -102,7 +102,7 @@
             0,
             0,
             0});
-            this.orderNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
+            this.orderNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.orderNumericUpDown_Validating);
             // 
             // orderLabel
             // 
@@ -116,15 +116,14 @@
             // 
             // typeComboBox
             // 
-            resources.ApplyResources(this.typeComboBox, "typeComboBox");
             this.typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.typeComboBox, "typeComboBox");
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.typeComboBox_SelectedIndexChanged);
             // 
             // sliderGroupBox
             // 
-            resources.ApplyResources(this.sliderGroupBox, "sliderGroupBox");
             this.sliderGroupBox.Controls.Add(this.endValueGroupLabel);
             this.sliderGroupBox.Controls.Add(this.startValueLabel);
             this.sliderGroupBox.Controls.Add(this.startValueGroupLabel);
@@ -135,6 +134,7 @@
             this.sliderGroupBox.Controls.Add(this.startCaptionTextBox);
             this.sliderGroupBox.Controls.Add(this.startCaptionLabel);
             this.sliderGroupBox.Controls.Add(this.endCaptionLabel);
+            resources.ApplyResources(this.sliderGroupBox, "sliderGroupBox");
             this.sliderGroupBox.Name = "sliderGroupBox";
             this.sliderGroupBox.TabStop = false;
             // 
@@ -162,7 +162,7 @@
             0,
             0});
             this.startValueNumericUpDown.Name = "startValueNumericUpDown";
-            this.startValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
+            this.startValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.startValueNumericUpDown_Validating);
             // 
             // endValueLabel
             // 
@@ -183,7 +183,7 @@
             0,
             0,
             0});
-            this.endValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
+            this.endValueNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.endValueNumericUpDown_Validating);
             // 
             // startCaptionTextBox
             // 
@@ -202,9 +202,9 @@
             // 
             // smileyGroupBox
             // 
-            resources.ApplyResources(this.smileyGroupBox, "smileyGroupBox");
             this.smileyGroupBox.Controls.Add(this.smileyFacesLabel);
             this.smileyGroupBox.Controls.Add(this.smileyNumericUpDown);
+            resources.ApplyResources(this.smileyGroupBox, "smileyGroupBox");
             this.smileyGroupBox.Name = "smileyGroupBox";
             this.smileyGroupBox.TabStop = false;
             // 
@@ -232,13 +232,13 @@
             0,
             0,
             0});
-            this.smileyNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
+            this.smileyNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.smileyNumericUpDown_Validating);
             // 
             // starsGroupBox
             // 
-            resources.ApplyResources(this.starsGroupBox, "starsGroupBox");
             this.starsGroupBox.Controls.Add(this.starsLabel);
             this.starsGroupBox.Controls.Add(this.starsNumericUpDown);
+            resources.ApplyResources(this.starsGroupBox, "starsGroupBox");
             this.starsGroupBox.Name = "starsGroupBox";
             this.starsGroupBox.TabStop = false;
             // 
@@ -266,13 +266,13 @@
             0,
             0,
             0});
-            this.starsNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_Validation);
+            this.starsNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.starsNumericUpDown_Validating);
             // 
             // cancelButton
             // 
-            resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 

@@ -117,787 +117,787 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="starsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>425, 70</value>
-  </data>
-  <data name="endCaptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>76, 106</value>
-  </data>
-  <data name="&gt;&gt;starsNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;typeLabel.Name" xml:space="preserve">
-    <value>typeLabel</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="starsNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="titleLabel.Text" xml:space="preserve">
-    <value>Question Properties</value>
-  </data>
-  <data name="startValueGroupLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
-  </data>
-  <data name="starsLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 11.25pt</value>
-  </data>
-  <data name="&gt;&gt;typeComboBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;typeLabel.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="currentCharCount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 166</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;endValueNumericUpDown.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
-  </data>
-  <data name="&gt;&gt;typeLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="titleLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="endValueGroupLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="startCaptionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;questionLabel.Name" xml:space="preserve">
-    <value>questionLabel</value>
-  </data>
-  <data name="&gt;&gt;endValueGroupLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="endCaptionLabel.Text" xml:space="preserve">
-    <value>Caption : </value>
-  </data>
-  <data name="titleLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="starsLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="titleLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 14.25pt, style=Bold</value>
   </data>
   <data name="titleLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;saveButton.Name" xml:space="preserve">
-    <value>saveButton</value>
-  </data>
-  <data name="&gt;&gt;titleLabel.Name" xml:space="preserve">
-    <value>titleLabel</value>
-  </data>
-  <data name="&gt;&gt;starsNumericUpDown.Parent" xml:space="preserve">
-    <value>starsGroupBox</value>
+  <data name="titleLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="titleLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>444, 54</value>
   </data>
-  <data name="&gt;&gt;endValueNumericUpDown.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="startValueGroupLabel.Text" xml:space="preserve">
-    <value>Start Value:</value>
-  </data>
-  <data name="starsGroupBox.Text" xml:space="preserve">
-    <value>Stars Qusetion</value>
-  </data>
-  <data name="smileyGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>449, 51</value>
-  </data>
-  <data name="&gt;&gt;startValueLabel.ZOrder" xml:space="preserve">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="titleLabel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="currentCharCount.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;questionTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="saveButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="endCaptionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;orderNumericUpDown.Name" xml:space="preserve">
-    <value>orderNumericUpDown</value>
-  </data>
-  <data name="&gt;&gt;smileyFacesLabel.Name" xml:space="preserve">
-    <value>smileyFacesLabel</value>
-  </data>
-  <data name="orderLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="startValueLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="endCaptionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
+  <data name="titleLabel.Text" xml:space="preserve">
     <value>Question Properties</value>
   </data>
-  <data name="&gt;&gt;currentCharCount.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="titleLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
-  <data name="startValueLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>285, 48</value>
+  <data name="&gt;&gt;titleLabel.Name" xml:space="preserve">
+    <value>titleLabel</value>
   </data>
-  <data name="&gt;&gt;sliderGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;orderNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="endValueLabel.Text" xml:space="preserve">
-    <value>Value : </value>
-  </data>
-  <data name="&gt;&gt;starsNumericUpDown.Name" xml:space="preserve">
-    <value>starsNumericUpDown</value>
-  </data>
-  <data name="&gt;&gt;endCaptionTextBox.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
+  <data name="&gt;&gt;titleLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;titleLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;startValueNumericUpDown.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
+  <data name="&gt;&gt;titleLabel.ZOrder" xml:space="preserve">
+    <value>13</value>
   </data>
-  <data name="&gt;&gt;endValueLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="typeLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="questionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;startValueLabel.Type" xml:space="preserve">
+  <data name="questionLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 11.25pt</value>
+  </data>
+  <data name="questionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 37</value>
+  </data>
+  <data name="questionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="questionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 17</value>
+  </data>
+  <data name="questionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="questionLabel.Text" xml:space="preserve">
+    <value>Question :</value>
+  </data>
+  <data name="&gt;&gt;questionLabel.Name" xml:space="preserve">
+    <value>questionLabel</value>
+  </data>
+  <data name="&gt;&gt;questionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;questionLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;questionLabel.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="questionTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 61</value>
+  </data>
+  <data name="questionTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="questionTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="questionTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>419, 100</value>
+  </data>
+  <data name="questionTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;questionTextBox.Name" xml:space="preserve">
+    <value>questionTextBox</value>
+  </data>
+  <data name="&gt;&gt;questionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;questionTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;questionTextBox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="orderNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>74, 167</value>
+  </data>
+  <data name="orderNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 25</value>
+  </data>
+  <data name="orderNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;orderNumericUpDown.Name" xml:space="preserve">
+    <value>orderNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;orderNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;orderNumericUpDown.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;orderNumericUpDown.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="orderLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="orderLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 11.25pt</value>
+  </data>
+  <data name="orderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 169</value>
+  </data>
+  <data name="orderLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="orderLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 17</value>
+  </data>
+  <data name="orderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="orderLabel.Text" xml:space="preserve">
+    <value>Order :</value>
+  </data>
+  <data name="&gt;&gt;orderLabel.Name" xml:space="preserve">
+    <value>orderLabel</value>
+  </data>
+  <data name="&gt;&gt;orderLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;orderLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;endCaptionLabel.Name" xml:space="preserve">
-    <value>endCaptionLabel</value>
+  <data name="&gt;&gt;orderLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
-  <data name="&gt;&gt;orderNumericUpDown.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="startCaptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 25</value>
-  </data>
-  <data name="&gt;&gt;smileyFacesLabel.Parent" xml:space="preserve">
-    <value>smileyGroupBox</value>
-  </data>
-  <data name="questionTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 61</value>
-  </data>
-  <data name="&gt;&gt;questionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="questionTextBox.Multiline" type="System.Boolean, mscorlib">
+  <data name="typeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="endValueNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
-  </data>
-  <data name="questionLabel.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="typeLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 11.25pt</value>
-  </data>
-  <data name="endCaptionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;starsLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="endCaptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 25</value>
-  </data>
-  <data name="&gt;&gt;smileyNumericUpDown.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;startValueGroupLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;endCaptionLabel.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
-  </data>
-  <data name="smileyFacesLabel.Text" xml:space="preserve">
-    <value>Number of Smiley Faces :</value>
-  </data>
-  <data name="&gt;&gt;saveButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>460, 445</value>
-  </data>
-  <data name="orderNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 25</value>
-  </data>
-  <data name="startValueNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;starsLabel.Name" xml:space="preserve">
-    <value>starsLabel</value>
-  </data>
-  <data name="&gt;&gt;startCaptionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;orderLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sliderGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="smileyFacesLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="orderLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="startCaptionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
-  </data>
-  <data name="starsNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 25</value>
-  </data>
-  <data name="&gt;&gt;endCaptionTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;startCaptionTextBox.Name" xml:space="preserve">
-    <value>startCaptionTextBox</value>
-  </data>
-  <data name="&gt;&gt;saveButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="endValueGroupLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 17</value>
-  </data>
-  <data name="startCaptionTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;sliderGroupBox.Name" xml:space="preserve">
-    <value>sliderGroupBox</value>
   </data>
   <data name="typeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 202</value>
   </data>
-  <data name="startCaptionLabel.Text" xml:space="preserve">
-    <value>Caption : </value>
+  <data name="typeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
-  <data name="orderNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 167</value>
+  <data name="typeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 17</value>
   </data>
-  <data name="endValueGroupLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="typeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="currentCharCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 17</value>
+  <data name="typeLabel.Text" xml:space="preserve">
+    <value>Type :</value>
   </data>
-  <data name="starsLabel.Text" xml:space="preserve">
-    <value>Number of Stars :</value>
+  <data name="&gt;&gt;typeLabel.Name" xml:space="preserve">
+    <value>typeLabel</value>
   </data>
-  <data name="&gt;&gt;smileyGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;typeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;typeLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>QuestionProperties</value>
-  </data>
-  <data name="titleLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;maxCharLabel.Name" xml:space="preserve">
-    <value>maxCharLabel</value>
-  </data>
-  <data name="saveButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;typeLabel.ZOrder" xml:space="preserve">
     <value>8</value>
-  </data>
-  <data name="smileyFacesLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="sliderGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
   </data>
   <data name="typeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>74, 199</value>
   </data>
-  <data name="&gt;&gt;startCaptionLabel.Name" xml:space="preserve">
-    <value>startCaptionLabel</value>
+  <data name="typeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 25</value>
+  </data>
+  <data name="typeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;typeComboBox.Name" xml:space="preserve">
+    <value>typeComboBox</value>
   </data>
   <data name="&gt;&gt;typeComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;endCaptionTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;typeComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="&gt;&gt;typeComboBox.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
-  <data name="&gt;&gt;starsGroupBox.Name" xml:space="preserve">
-    <value>starsGroupBox</value>
-  </data>
-  <data name="questionTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>419, 100</value>
-  </data>
-  <data name="sliderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>425, 143</value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>460, 445</value>
-  </data>
-  <data name="questionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 37</value>
-  </data>
-  <data name="orderLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 11.25pt</value>
-  </data>
-  <data name="smileyNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 25</value>
-  </data>
-  <data name="cancelButton.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="endValueGroupLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="endValueGroupLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 83</value>
   </data>
-  <data name="&gt;&gt;startCaptionLabel.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
+  <data name="endValueGroupLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 17</value>
   </data>
-  <data name="&gt;&gt;titleLabel.Type" xml:space="preserve">
+  <data name="endValueGroupLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="endValueGroupLabel.Text" xml:space="preserve">
+    <value>End Value:</value>
+  </data>
+  <data name="&gt;&gt;endValueGroupLabel.Name" xml:space="preserve">
+    <value>endValueGroupLabel</value>
+  </data>
+  <data name="&gt;&gt;endValueGroupLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="startCaptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>76, 45</value>
+  <data name="&gt;&gt;endValueGroupLabel.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
   </data>
-  <data name="starsLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+  <data name="&gt;&gt;endValueGroupLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;startValueNumericUpDown.ZOrder" xml:space="preserve">
+  <data name="startValueLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="startValueLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 48</value>
+  </data>
+  <data name="startValueLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 17</value>
+  </data>
+  <data name="startValueLabel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="startValueLabel.Text" xml:space="preserve">
     <value>Value : </value>
   </data>
-  <data name="typeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;startValueLabel.Name" xml:space="preserve">
+    <value>startValueLabel</value>
   </data>
-  <data name="smileyFacesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 35</value>
-  </data>
-  <data name="typeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 17</value>
-  </data>
-  <data name="&gt;&gt;smileyGroupBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="questionTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;smileyGroupBox.Name" xml:space="preserve">
-    <value>smileyGroupBox</value>
-  </data>
-  <data name="orderLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 17</value>
-  </data>
-  <data name="&gt;&gt;questionLabel.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="questionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;starsGroupBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;starsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="startValueNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 25</value>
-  </data>
-  <data name="&gt;&gt;endCaptionLabel.Type" xml:space="preserve">
+  <data name="&gt;&gt;startValueLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="smileyGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>425, 70</value>
-  </data>
-  <data name="maxCharLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 11.25pt</value>
-  </data>
-  <data name="questionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="orderNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="endValueLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 17</value>
-  </data>
-  <data name="&gt;&gt;endCaptionTextBox.Name" xml:space="preserve">
-    <value>endCaptionTextBox</value>
-  </data>
-  <data name="&gt;&gt;smileyFacesLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;starsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;typeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="questionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 17</value>
-  </data>
-  <data name="orderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 169</value>
-  </data>
-  <data name="&gt;&gt;currentCharCount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="titleLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 14.25pt, style=Bold</value>
-  </data>
-  <data name="&gt;&gt;maxCharLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="startCaptionTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="smileyGroupBox.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;maxCharLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="questionTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>100</value>
   </data>
   <data name="&gt;&gt;startValueLabel.Parent" xml:space="preserve">
     <value>sliderGroupBox</value>
   </data>
-  <data name="&gt;&gt;currentCharCount.Name" xml:space="preserve">
-    <value>currentCharCount</value>
+  <data name="&gt;&gt;startValueLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="currentCharCount.Text" xml:space="preserve">
-    <value>0</value>
+  <data name="startValueGroupLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;startValueLabel.Name" xml:space="preserve">
-    <value>startValueLabel</value>
+  <data name="startValueGroupLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
   </data>
-  <data name="orderLabel.Text" xml:space="preserve">
-    <value>Order :</value>
+  <data name="startValueGroupLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 17</value>
   </data>
-  <data name="typeLabel.Text" xml:space="preserve">
-    <value>Type :</value>
+  <data name="startValueGroupLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="startValueGroupLabel.Text" xml:space="preserve">
+    <value>Start Value:</value>
+  </data>
+  <data name="&gt;&gt;startValueGroupLabel.Name" xml:space="preserve">
+    <value>startValueGroupLabel</value>
+  </data>
+  <data name="&gt;&gt;startValueGroupLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;startValueGroupLabel.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
+  </data>
+  <data name="&gt;&gt;startValueGroupLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="startValueNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>342, 46</value>
+  </data>
+  <data name="startValueNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 25</value>
+  </data>
+  <data name="startValueNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;startValueNumericUpDown.Name" xml:space="preserve">
+    <value>startValueNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;startValueNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;startValueNumericUpDown.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
+  </data>
+  <data name="&gt;&gt;startValueNumericUpDown.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="endValueLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="endValueLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>284, 108</value>
+  </data>
+  <data name="endValueLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 17</value>
+  </data>
+  <data name="endValueLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="endValueLabel.Text" xml:space="preserve">
+    <value>Value : </value>
+  </data>
+  <data name="&gt;&gt;endValueLabel.Name" xml:space="preserve">
+    <value>endValueLabel</value>
   </data>
   <data name="&gt;&gt;endValueLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;smileyNumericUpDown.Parent" xml:space="preserve">
-    <value>smileyGroupBox</value>
+  <data name="&gt;&gt;endValueLabel.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
   </data>
-  <data name="&gt;&gt;endCaptionLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;endValueLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="endCaptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 106</value>
   </data>
   <data name="endCaptionTextBox.MaxLength" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="questionLabel.Text" xml:space="preserve">
-    <value>Question :</value>
+  <data name="endCaptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 25</value>
   </data>
-  <data name="sliderGroupBox.Text" xml:space="preserve">
-    <value>Slider Qusetion</value>
+  <data name="endCaptionTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;endCaptionTextBox.Name" xml:space="preserve">
+    <value>endCaptionTextBox</value>
   </data>
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 379</value>
+  <data name="&gt;&gt;endCaptionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;starsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;endCaptionTextBox.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
   </data>
-  <data name="maxCharLabel.Text" xml:space="preserve">
-    <value>/100</value>
+  <data name="&gt;&gt;endCaptionTextBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="endValueNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>342, 106</value>
+  </data>
+  <data name="endValueNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 25</value>
+  </data>
+  <data name="endValueNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
   <data name="&gt;&gt;endValueNumericUpDown.Name" xml:space="preserve">
     <value>endValueNumericUpDown</value>
   </data>
-  <data name="&gt;&gt;endValueGroupLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;endValueNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;endValueNumericUpDown.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
+  </data>
+  <data name="&gt;&gt;endValueNumericUpDown.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="startCaptionTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 45</value>
+  </data>
+  <data name="startCaptionTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="startCaptionTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 25</value>
+  </data>
+  <data name="startCaptionTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;startCaptionTextBox.Name" xml:space="preserve">
+    <value>startCaptionTextBox</value>
+  </data>
+  <data name="&gt;&gt;startCaptionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;startCaptionTextBox.Parent" xml:space="preserve">
     <value>sliderGroupBox</value>
   </data>
   <data name="&gt;&gt;startCaptionTextBox.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="&gt;&gt;startValueGroupLabel.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
+  <data name="startCaptionLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="smileyFacesLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 17</value>
+  <data name="startCaptionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 48</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="startCaptionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
   </data>
-  <data name="smileyGroupBox.Text" xml:space="preserve">
-    <value>Smiley Faces Qusetion</value>
+  <data name="startCaptionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;orderNumericUpDown.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="startCaptionLabel.Text" xml:space="preserve">
+    <value>Caption : </value>
   </data>
-  <data name="&gt;&gt;orderLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;startCaptionLabel.Name" xml:space="preserve">
+    <value>startCaptionLabel</value>
   </data>
-  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+  <data name="&gt;&gt;startCaptionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="maxCharLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>33, 17</value>
-  </data>
-  <data name="starsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>449, 134</value>
-  </data>
-  <data name="titleLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;startCaptionTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;startCaptionLabel.Parent" xml:space="preserve">
     <value>sliderGroupBox</value>
   </data>
   <data name="&gt;&gt;startCaptionLabel.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="starsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 17</value>
-  </data>
-  <data name="&gt;&gt;endValueNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;currentCharCount.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="saveButton.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="&gt;&gt;questionLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;smileyNumericUpDown.Name" xml:space="preserve">
-    <value>smileyNumericUpDown</value>
-  </data>
-  <data name="smileyFacesLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 11.25pt</value>
-  </data>
-  <data name="starsGroupBox.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;questionTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="startCaptionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 48</value>
-  </data>
-  <data name="starsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 32</value>
-  </data>
-  <data name="starsLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="endCaptionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 17</value>
   </data>
   <data name="endCaptionLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 109</value>
   </data>
-  <data name="smileyNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 33</value>
+  <data name="endCaptionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
   </data>
-  <data name="endValueLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="startValueNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 46</value>
-  </data>
-  <data name="&gt;&gt;endValueGroupLabel.Name" xml:space="preserve">
-    <value>endValueGroupLabel</value>
-  </data>
-  <data name="&gt;&gt;sliderGroupBox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="starsNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 30</value>
-  </data>
-  <data name="endValueLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;orderLabel.Name" xml:space="preserve">
-    <value>orderLabel</value>
-  </data>
-  <data name="endValueNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;saveButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="startCaptionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;titleLabel.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;endValueLabel.Name" xml:space="preserve">
-    <value>endValueLabel</value>
-  </data>
-  <data name="&gt;&gt;typeComboBox.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="typeLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 11.25pt</value>
-  </data>
-  <data name="sliderGroupBox.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;typeComboBox.Name" xml:space="preserve">
-    <value>typeComboBox</value>
-  </data>
-  <data name="typeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="typeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 25</value>
-  </data>
-  <data name="&gt;&gt;smileyGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="currentCharCount.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>444, 406</value>
-  </data>
-  <data name="&gt;&gt;startCaptionTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="titleLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;maxCharLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="smileyGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="endValueLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>284, 108</value>
-  </data>
-  <data name="startValueGroupLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="starsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;starsNumericUpDown.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;smileyFacesLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;startValueGroupLabel.Name" xml:space="preserve">
-    <value>startValueGroupLabel</value>
-  </data>
-  <data name="maxCharLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 166</value>
-  </data>
-  <data name="&gt;&gt;smileyNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="startValueGroupLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="maxCharLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;startValueGroupLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="startValueGroupLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 17</value>
-  </data>
-  <data name="endValueGroupLabel.Text" xml:space="preserve">
-    <value>End Value:</value>
-  </data>
-  <data name="startValueLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 17</value>
-  </data>
-  <data name="&gt;&gt;questionTextBox.Name" xml:space="preserve">
-    <value>questionTextBox</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
-    <value>cancelButton</value>
-  </data>
-  <data name="&gt;&gt;endValueLabel.Parent" xml:space="preserve">
-    <value>sliderGroupBox</value>
-  </data>
-  <data name="typeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="smileyNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;endValueGroupLabel.ZOrder" xml:space="preserve">
+  <data name="endCaptionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;startValueNumericUpDown.Name" xml:space="preserve">
-    <value>startValueNumericUpDown</value>
+  <data name="endCaptionLabel.Text" xml:space="preserve">
+    <value>Caption : </value>
   </data>
-  <data name="saveButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>280, 379</value>
+  <data name="&gt;&gt;endCaptionLabel.Name" xml:space="preserve">
+    <value>endCaptionLabel</value>
   </data>
-  <data name="&gt;&gt;starsLabel.Parent" xml:space="preserve">
-    <value>starsGroupBox</value>
+  <data name="&gt;&gt;endCaptionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="questionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;endCaptionLabel.Parent" xml:space="preserve">
+    <value>sliderGroupBox</value>
   </data>
-  <data name="smileyFacesLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="orderLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="startValueLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;startValueNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;endCaptionLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="sliderGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 230</value>
   </data>
-  <data name="endCaptionTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="sliderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>425, 143</value>
+  </data>
+  <data name="sliderGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="sliderGroupBox.Text" xml:space="preserve">
+    <value>Slider Qusetion</value>
+  </data>
+  <data name="sliderGroupBox.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;sliderGroupBox.Name" xml:space="preserve">
+    <value>sliderGroupBox</value>
+  </data>
+  <data name="&gt;&gt;sliderGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sliderGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;sliderGroupBox.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;questionTextBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="smileyFacesLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="endValueNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 106</value>
+  <data name="smileyFacesLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 11.25pt</value>
+  </data>
+  <data name="smileyFacesLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 28</value>
+  </data>
+  <data name="smileyFacesLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="smileyFacesLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 17</value>
+  </data>
+  <data name="smileyFacesLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="smileyFacesLabel.Text" xml:space="preserve">
+    <value>Number of Smiley Faces :</value>
+  </data>
+  <data name="&gt;&gt;smileyFacesLabel.Name" xml:space="preserve">
+    <value>smileyFacesLabel</value>
+  </data>
+  <data name="&gt;&gt;smileyFacesLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smileyFacesLabel.Parent" xml:space="preserve">
+    <value>smileyGroupBox</value>
+  </data>
+  <data name="&gt;&gt;smileyFacesLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="smileyNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="smileyNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 25</value>
+  </data>
+  <data name="smileyNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;smileyNumericUpDown.Name" xml:space="preserve">
+    <value>smileyNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;smileyNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smileyNumericUpDown.Parent" xml:space="preserve">
+    <value>smileyGroupBox</value>
+  </data>
+  <data name="&gt;&gt;smileyNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="smileyGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>449, 51</value>
+  </data>
+  <data name="smileyGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>425, 70</value>
+  </data>
+  <data name="smileyGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="smileyGroupBox.Text" xml:space="preserve">
+    <value>Smiley Faces Qusetion</value>
+  </data>
+  <data name="smileyGroupBox.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;smileyGroupBox.Name" xml:space="preserve">
+    <value>smileyGroupBox</value>
+  </data>
+  <data name="&gt;&gt;smileyGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smileyGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;smileyGroupBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="starsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="starsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 11.25pt</value>
+  </data>
+  <data name="starsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 28</value>
+  </data>
+  <data name="starsLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="starsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 17</value>
+  </data>
+  <data name="starsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="starsLabel.Text" xml:space="preserve">
+    <value>Number of Stars :</value>
+  </data>
+  <data name="&gt;&gt;starsLabel.Name" xml:space="preserve">
+    <value>starsLabel</value>
+  </data>
+  <data name="&gt;&gt;starsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;starsLabel.Parent" xml:space="preserve">
+    <value>starsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;starsLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="starsNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>180, 26</value>
+  </data>
+  <data name="starsNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 25</value>
+  </data>
+  <data name="starsNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;starsNumericUpDown.Name" xml:space="preserve">
+    <value>starsNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;starsNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;starsNumericUpDown.Parent" xml:space="preserve">
+    <value>starsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;starsNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="starsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>449, 134</value>
+  </data>
+  <data name="starsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>425, 70</value>
+  </data>
+  <data name="starsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="starsGroupBox.Text" xml:space="preserve">
+    <value>Stars Qusetion</value>
+  </data>
+  <data name="starsGroupBox.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;starsGroupBox.Name" xml:space="preserve">
+    <value>starsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;starsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;starsGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;starsGroupBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 379</value>
+  </data>
+  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="cancelButton.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="saveButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>279, 379</value>
+  </data>
+  <data name="saveButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="saveButton.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="saveButton.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="&gt;&gt;saveButton.Name" xml:space="preserve">
+    <value>saveButton</value>
+  </data>
+  <data name="&gt;&gt;saveButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;saveButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="maxCharLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="maxCharLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>403, 166</value>
+  </data>
+  <data name="maxCharLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 17</value>
+  </data>
+  <data name="maxCharLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="maxCharLabel.Text" xml:space="preserve">
+    <value>/100</value>
+  </data>
+  <data name="&gt;&gt;maxCharLabel.Name" xml:space="preserve">
+    <value>maxCharLabel</value>
+  </data>
+  <data name="&gt;&gt;maxCharLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maxCharLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;maxCharLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="currentCharCount.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="currentCharCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>376, 166</value>
+  </data>
+  <data name="currentCharCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 17</value>
+  </data>
+  <data name="currentCharCount.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="currentCharCount.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;currentCharCount.Name" xml:space="preserve">
+    <value>currentCharCount</value>
+  </data>
+  <data name="&gt;&gt;currentCharCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;currentCharCount.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;currentCharCount.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>8, 17</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>444, 411</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 11.25pt</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>460, 450</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>460, 450</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Question Properties</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>QuestionProperties</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -209,7 +209,7 @@
     <value>شريط التمرير</value>
   </data>
   <data name="smileyFacesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>347, 33</value>
+    <value>347, 28</value>
   </data>
   <data name="smileyFacesLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 17</value>
@@ -218,7 +218,7 @@
     <value>عدد الوجوه : </value>
   </data>
   <data name="smileyNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>250, 31</value>
+    <value>260, 26</value>
   </data>
   <data name="smileyGroupBox.Text" xml:space="preserve">
     <value>وجوه</value>
@@ -233,19 +233,19 @@
     <value>عدد النجوم :</value>
   </data>
   <data name="starsNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>250, 28</value>
+    <value>260, 26</value>
   </data>
   <data name="starsGroupBox.Text" xml:space="preserve">
     <value>نجوم</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 379</value>
+    <value>361, 379</value>
   </data>
   <data name="cancelButton.Text" xml:space="preserve">
     <value>الغاء</value>
   </data>
   <data name="saveButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>360, 379</value>
+    <value>280, 379</value>
   </data>
   <data name="saveButton.Text" xml:space="preserve">
     <value>حفظ</value>

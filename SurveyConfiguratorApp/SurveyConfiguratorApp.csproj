@@ -48,14 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstantValues\QuestionValidationValues.cs" />
+    <Compile Include="DatabaseSettings.cs" />
     <Compile Include="ErrorLogger.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ICRUDable.cs" />
     <Compile Include="ConstantValues\MessageStringValues.cs" />
-    <Compile Include="ConstantValues\SQLStringValues.cs" />
-    <Compile Include="Enums\SortMethod.cs" />
-    <Compile Include="Enums\QuestionType.cs" />
-    <Compile Include="Interfaces\IQueryable.cs" />
-    <Compile Include="Interfaces\IMaintainable.cs" />
+    <Compile Include="ConstantValues\DatabaseStringValues.cs" />
+    <Compile Include="Interfaces\IReadable.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="QuestionProperties.cs">
       <SubType>Form</SubType>
     </Compile>
