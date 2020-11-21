@@ -1,5 +1,8 @@
 ﻿namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Constant Values to be used to interact with database
+    /// </summary>
     public static class DatabaseStringValues
     {
         public const string cDATABASE_SERVER = "DatabaseServer";
@@ -16,20 +19,20 @@
         public const string cPARAMETER_QUESTION_END_CAPTION = "@endCaption";
         public const string cPARAMETER_QUESTION_FACES_NUMBER = "@numberOfFaces";
         public const string cPARAMETER_QUESTION_STARS_NUMBER = "@numberOfStars";
-        public const string cTABLE_QUESTION = "question";
-        public const string cTABLE_SLIDER_QUESTION = "slider_question";
-        public const string cTABLE_SMILEY_QUESTION = "smiley_question";
-        public const string cTABLE_STARS_QUESTION = "star_question";
-        public const string cCOLUMN_QUESTION_ID = "question_id";
-        public const string cCOLUMN_QUESTION_TEXT = "question_text";
-        public const string cCOLUMN_QUESTION_ORDER = "question_order";
-        public const string cCOLUMN_TYPE_ID = "type_id";
-        public const string cCOLUMN_FACES_NUMBER = "num_of_faces";
-        public const string cCOLUMN_STARS_NUMBER = "num_of_stars";
-        public const string cCOLUMN_START_VALUE = "start_value";
-        public const string cCOLUMN_END_VALUE = "end_value";
-        public const string cCOLUMN_START_CAPTION = "start_value_caption";
-        public const string cCOLUMN_END_CAPTION = "end_value_caption";
+        public const string cTABLE_QUESTION = "Question";
+        public const string cTABLE_SLIDER_QUESTION = "SliderQuestion";
+        public const string cTABLE_SMILEY_QUESTION = "SmileyQuestion";
+        public const string cTABLE_STARS_QUESTION = "StarQuestion";
+        public const string cCOLUMN_QUESTION_ID = "QuestionId";
+        public const string cCOLUMN_QUESTION_TEXT = "QuestionText";
+        public const string cCOLUMN_QUESTION_ORDER = "QuestionOrder";
+        public const string cCOLUMN_TYPE_ID = "TypeId";
+        public const string cCOLUMN_FACES_NUMBER = "NumOfFaces";
+        public const string cCOLUMN_STARS_NUMBER = "NumOfStars";
+        public const string cCOLUMN_START_VALUE = "StartValue";
+        public const string cCOLUMN_END_VALUE = "EndValue";
+        public const string cCOLUMN_START_CAPTION = "StartValueCaption";
+        public const string cCOLUMN_END_CAPTION = "EndValueCaption";
         public const string cOFFSET = "@offset";
         public const string cLIMIT = "@limit";
 

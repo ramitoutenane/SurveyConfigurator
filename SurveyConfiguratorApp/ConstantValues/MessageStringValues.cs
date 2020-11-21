@@ -1,5 +1,8 @@
 ﻿namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Constant strings to be used to print messages to user
+    /// </summary>
     public static class MessageStringValues
     {
         public const string cGENERAL_ERROR = "An Error occurred, Please try again or contact Admin";

@@ -171,6 +171,9 @@
   <data name="MIN_START_VALUE_ERROR" xml:space="preserve">
     <value>Start value can't be less than</value>
   </data>
+  <data name="mi_END_VALUE_ERROR" xml:space="preserve">
+    <value />
+  </data>
   <data name="QUESTION_TYPE_SLIDER" xml:space="preserve">
     <value>SLIDER</value>
   </data>

@@ -132,13 +132,13 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// questionDataGridView cell double click event handler
         /// </summary>
-        private void questionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void questionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs clickedCell)
         {
             try
             {
                 //if a row is selected, index is not -1, show question properties dialog with selected question properties loaded to it
-                if (e.RowIndex != -1)
-                    ShowEditForm(questionDataGridView.Rows[e.RowIndex].DataBoundItem as Question);
+                if (clickedCell.RowIndex != -1)
+                    ShowEditForm(questionDataGridView.Rows[clickedCell.RowIndex].DataBoundItem as Question);
             }
             catch (Exception error)
             {
@@ -154,10 +154,10 @@ namespace SurveyConfiguratorApp
             try
             {
                 //show new empty question properties dialog
-                using (QuestionProperties propertiesDialog = new QuestionProperties(mQuestionManager))
+                using (QuestionProperties tPropertiesDialog = new QuestionProperties(mQuestionManager))
                 {
                     //check if result of dialog is OK 
-                    if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+                    if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
                             RefreshList();
                     }
@@ -178,15 +178,15 @@ namespace SurveyConfiguratorApp
             try
             {
                 //check if one row is selected and get it's index
-                int selectedRow = -1;
+                int tSelectedRow = -1;
                 if (questionDataGridView.SelectedRows.Count == 1)
-                    selectedRow = questionDataGridView.SelectedRows[0].Index;
+                    tSelectedRow = questionDataGridView.SelectedRows[0].Index;
 
                 //if a row is selected, index is not -1
-                if (selectedRow >= 0)
+                if (tSelectedRow >= 0)
                 {
                     //show question properties dialog with selected question properties loaded to it
-                    ShowEditForm(questionDataGridView.Rows[selectedRow].DataBoundItem as Question);
+                    ShowEditForm(questionDataGridView.Rows[tSelectedRow].DataBoundItem as Question);
                 }
             }
             catch (Exception error)
@@ -204,21 +204,21 @@ namespace SurveyConfiguratorApp
             try
             {
                 //show confirmation dialog to user
-                DialogResult dialogResult = MessageBox.Show(Properties.StringResources.DELETE_CONFIRMATION_MESSAGE, Properties.StringResources.DELETE_CONFIRMATION_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult tDialogResult = MessageBox.Show(Properties.StringResources.DELETE_CONFIRMATION_MESSAGE, Properties.StringResources.DELETE_CONFIRMATION_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 //check if result of dialog is YES
-                if (dialogResult == DialogResult.Yes)
+                if (tDialogResult == DialogResult.Yes)
                 {
                     //check if row is selected and get it's index
-                    int selectedRow = -1;
+                    int tSelectedRow = -1;
                     if (questionDataGridView.SelectedRows.Count == 1)
-                        selectedRow = questionDataGridView.SelectedRows[0].Index;
+                        tSelectedRow = questionDataGridView.SelectedRows[0].Index;
 
                     //if a row is selected, index is not -1
-                    if (selectedRow >= 0)
+                    if (tSelectedRow >= 0)
                     {
                         //delete question from source, if deleted successfully reload data to grid view , throw error otherwise
                         Cursor.Current = Cursors.WaitCursor;
-                        if (mQuestionManager.Delete(mQuestionList[selectedRow].Id))
+                        if (mQuestionManager.Delete(mQuestionList[tSelectedRow].Id))
                         {
                             RefreshList();
                             Cursor.Current = Cursors.Default;
@@ -325,13 +325,14 @@ namespace SurveyConfiguratorApp
             {
                 //get data from source
                 mQuestionList = mQuestionManager.Items;
+                SortQuestions();
                 //bind questionDataGridView to local question list
                 questionDataGridView.DataSource = mQuestionList;
                 //update questionDataGridView binding context
-                CurrencyManager currencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionList];
-                if (currencyManager != null)
+                CurrencyManager tCurrencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionList];
+                if (tCurrencyManager != null)
                 {
-                    currencyManager.Refresh();
+                    tCurrencyManager.Refresh();
                 }
                 addButton.Enabled = true;
             }
@@ -353,10 +354,10 @@ namespace SurveyConfiguratorApp
             try
             {
                 //show question properties dialog
-                using (QuestionProperties propertiesDialog = new QuestionProperties(mQuestionManager, question))
+                using (QuestionProperties tPropertiesDialog = new QuestionProperties(mQuestionManager, question))
                 {
                     //check if result of dialog is OK 
-                    if (propertiesDialog.ShowDialog(this) == DialogResult.OK)
+                    if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
                             RefreshList();
                     }

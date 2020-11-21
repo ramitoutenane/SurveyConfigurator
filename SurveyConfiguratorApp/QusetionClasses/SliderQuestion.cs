@@ -90,7 +90,11 @@ namespace SurveyConfiguratorApp
                 return false;
             }
         }
-
+        /// <summary>
+        /// Get a copy of the current question with new id
+        /// </summary>
+        /// <param name="id">the new id</param>
+        /// <returns></returns>
         public override Question CopyWithNewId(int id)
         {
             try

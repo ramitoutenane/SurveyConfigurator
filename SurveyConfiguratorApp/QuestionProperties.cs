@@ -9,7 +9,7 @@ namespace SurveyConfiguratorApp
     {
         private readonly IRepository<Question> mQuestionManager;
         private Dictionary<QuestionType, string> mQuestionTypeResources;
-        public Question question { get; private set; }
+        private Question mQuestion;
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
         /// </summary>
@@ -47,7 +47,7 @@ namespace SurveyConfiguratorApp
                 if (question != null)
                 {
                     //populate components with general question data
-                    this.question = question;
+                    mQuestion = question;
                     questionTextBox.Text = question.Text;
                     orderNumericUpDown.Value = question.Order;
                     typeComboBox.SelectedItem = mQuestionTypeResources[question.Type];
@@ -178,31 +178,31 @@ namespace SurveyConfiguratorApp
                     int tId = -1;
                     //if question already exist (update form), get a copy of it's id
                     //if (add form) question id is -1, if update form question id != -1
-                    if (question != null && question.Id > 0)
+                    if (mQuestion != null && mQuestion.Id > 0)
                     {
-                        tId = question.Id;
+                        tId = mQuestion.Id;
                     }
                     //based on selected question type create new question, and save it to question public reference
                     string tSelectedQuestionType = (string)typeComboBox.SelectedItem;
                     if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Smiley])
-                        question = new SmileyQuestion(tQuestionText, tQuestionOrder, (int)smileyNumericUpDown.Value, tId);
+                        mQuestion = new SmileyQuestion(tQuestionText, tQuestionOrder, (int)smileyNumericUpDown.Value, tId);
 
                     else if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Slider])
-                        question = new SliderQuestion(tQuestionText, tQuestionOrder, (int)startValueNumericUpDown.Value,
+                        mQuestion = new SliderQuestion(tQuestionText, tQuestionOrder, (int)startValueNumericUpDown.Value,
                                 (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), tId);
 
                     else if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Stars])
-                        question = new StarsQuestion(tQuestionText, tQuestionOrder, (int)starsNumericUpDown.Value, tId);
+                        mQuestion = new StarsQuestion(tQuestionText, tQuestionOrder, (int)starsNumericUpDown.Value, tId);
 
 
                     //if question is not null check it's id to determine whether to insert it or update it
-                    if (question == null)
+                    if (mQuestion == null)
                         throw new Exception(MessageStringValues.cQUESTION_NULL_EXCEPTION);
                     Cursor.Current = Cursors.WaitCursor;
-                    if (question.Id >= 0)
-                        tSaved = UpdateQuestion(question);
+                    if (mQuestion.Id >= 0)
+                        tSaved = UpdateQuestion(mQuestion);
                     else
-                        tSaved = InsertQuestion(question);
+                        tSaved = InsertQuestion(mQuestion);
                     Cursor.Current = Cursors.Default;
 
                 }
@@ -252,7 +252,7 @@ namespace SurveyConfiguratorApp
                     if (startValueNumericUpDown.Value < QuestionValidationValues.cSTART_VALUE_MIN)
                     {
                         ShowError($"{Properties.StringResources.MIN_START_VALUE_ERROR} {QuestionValidationValues.cSTART_VALUE_MIN}");
-                        orderNumericUpDown.Value = QuestionValidationValues.cSTART_VALUE_MIN;
+                        startValueNumericUpDown.Value = QuestionValidationValues.cSTART_VALUE_MIN;
                     }
                 }
             }
@@ -273,7 +273,12 @@ namespace SurveyConfiguratorApp
                     if (endValueNumericUpDown.Value > QuestionValidationValues.cEND_VALUE_MAX)
                     {
                         ShowError($"{Properties.StringResources.MAX_END_VALUE_ERROR} {QuestionValidationValues.cEND_VALUE_MAX}");
-                        orderNumericUpDown.Value = QuestionValidationValues.cEND_VALUE_MAX;
+                        endValueNumericUpDown.Value = QuestionValidationValues.cEND_VALUE_MAX;
+                    }
+                    if (endValueNumericUpDown.Value <= startValueNumericUpDown.Value)
+                    {
+                        ShowError(Properties.StringResources.START_LARGER_THAN_END_ERROR);
+                        endValueNumericUpDown.Value = startValueNumericUpDown.Value + 1;
                     }
                 }
             }

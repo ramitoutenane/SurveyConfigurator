@@ -1,5 +1,8 @@
 ﻿namespace SurveyConfiguratorApp
 {
+    /// <summary>
+    /// Constant values to be used to validate questions
+    /// </summary>
     public static class QuestionValidationValues
     {
         public const int cQUESTION_TEXT_LENGTH = 100;
