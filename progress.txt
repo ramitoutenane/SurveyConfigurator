@@ -85,3 +85,7 @@ Done:
 
     -23/11 2:30
         *Refactor code according to Majd notes
+    
+    -23/11 3:00
+        *Use (#region) to format Forms code
+        *Create general enumerations file 
