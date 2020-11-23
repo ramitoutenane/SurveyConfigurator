@@ -7,7 +7,7 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Class to support database operations on slider question table
     /// </summary>
-    class SliderQuestionDatabaseOperations : IDatabaseOperations<SliderQuestion>
+    public class SliderQuestionDatabaseOperations : IDatabaseOperations<SliderQuestion>
     {
         private readonly string mConnectionString;
         /// <summary>

@@ -7,7 +7,7 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Class to support database operations on smiley question table
     /// </summary>
-    class SmileyQuestionDatabaseOperations : IDatabaseOperations<SmileyQuestion>
+    public class SmileyQuestionDatabaseOperations : IDatabaseOperations<SmileyQuestion>
     {
         private readonly string mConnectionString;
         /// <summary>

@@ -1,0 +1,10 @@
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseOperations.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseSettings.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\SurveyQuestions.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManager.csproj.CoreCompileInputs.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManager.csproj.CopyComplete
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManager.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManager.pdb

@@ -7,7 +7,7 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Class to support database operations on stars question table
     /// </summary>
-    class StarsQuestionDatabaseOperations : IDatabaseOperations<StarsQuestion>
+    public class StarsQuestionDatabaseOperations : IDatabaseOperations<StarsQuestion>
     {
         private readonly string mConnectionString;
         /// <summary>
