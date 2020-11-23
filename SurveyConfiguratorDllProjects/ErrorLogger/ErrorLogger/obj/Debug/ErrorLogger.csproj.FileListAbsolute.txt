@@ -1,0 +1,5 @@
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\bin\Debug\ErrorLogger.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.csproj.CoreCompileInputs.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.pdb

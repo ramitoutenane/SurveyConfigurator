@@ -5,6 +5,7 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
+    * Create dlls
     * Testing and refactoring.
 
 Done:
