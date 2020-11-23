@@ -9,6 +9,7 @@ using System.Threading;
 
 namespace SurveyConfiguratorApp
 {
+    #region SortMethod Enumeration
     /// <summary>
     /// Enumeration to define types of sorting methods provided by the system
     /// </summary>
@@ -19,8 +20,10 @@ namespace SurveyConfiguratorApp
         ByQuestionType,
         ByQuestionText
     }
+    #endregion
     public partial class Main : Form
     {
+        #region Initialize Main form
         private IQuestionRepository mQuestionManager;
         private List<Question> mQuestionList;
         private SortMethod mSortMethod;
@@ -82,8 +85,41 @@ namespace SurveyConfiguratorApp
             }
         }
         /// <summary>
+        /// initialize connection and question manager
+        /// </summary>
+        private void InitializeData()
+        {
+            try
+            {
+                // get connection data from configuration file to create database settings object
+                string tDatabaseServer = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_SERVER];
+                string tDatabaseName = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_NAME];
+                string tDatabaseUser = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_USER];
+                string tDatabasePassword = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_PASSWORD];
+                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDatabaseServer, tDatabaseName, tDatabaseUser, tDatabasePassword);
+
+                //initialize new question manger to manage question repository and connection
+                mQuestionManager = new QuestionManager(tDatabaseSettings);
+                if (mQuestionManager == null)
+                {
+                    ErrorLogger.Log(new NullReferenceException(ErrorMessages.cQUESTION_MANAGER_NULL_EXCEPTION));
+                    ShowError(Properties.StringResources.GENERAL_ERROR);
+                    return;
+                }
+                refreshButton.PerformClick();
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                ShowError(Properties.StringResources.GENERAL_ERROR);
+            }
+        }
+#endregion
+        #region questionDataGridView event handling
+        /// <summary>
         /// questionDataGridView ColumnHeaderMouseClick event handler
         /// </summary>
+
         private void questionDataGridView_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
@@ -146,6 +182,8 @@ namespace SurveyConfiguratorApp
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
+        #endregion
+        #region Buttons event handling
         /// <summary>
         /// addButton Click event handler
         /// </summary>
@@ -276,6 +314,8 @@ namespace SurveyConfiguratorApp
                 Cursor.Current = Cursors.Default ;
             }
         }
+        #endregion
+        #region Change language
         /// <summary>
         /// languageComboBox change selection event handler
         /// </summary>
@@ -322,75 +362,8 @@ namespace SurveyConfiguratorApp
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
-        /// <summary>
-        /// Refresh questionDataGridView to show the latest changes
-        /// </summary>
-        private void RefreshList()
-        {
-            try
-            {
-                //get data from source
-                mQuestionList = mQuestionManager.QuestionsList;
-                SortQuestions();
-                //bind questionDataGridView to local question list
-                questionDataGridView.DataSource = mQuestionList;
-                //update questionDataGridView binding context
-                CurrencyManager tCurrencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionList];
-                if (tCurrencyManager != null)
-                {
-                    tCurrencyManager.Refresh();
-                }
-                addButton.Enabled = true;
-            }
-            catch (Exception error)
-            {
-                ErrorLogger.Log(error);
-                addButton.Enabled = false;
-
-                ShowError(Properties.StringResources.REFRESH_ERROR);
-            }
-
-        }
-        /// <summary>
-        /// Show question properties dialog with question data loaded to it
-        /// </summary>
-        /// <param name="question">Question object to be loaded to properties form</param>
-        private void ShowEditForm(Question question)
-        {
-            try
-            {
-                //show question properties dialog
-                using (QuestionProperties tPropertiesDialog = new QuestionProperties(mQuestionManager, question))
-                {
-                    //check if result of dialog is OK 
-                    if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
-                    {
-                            RefreshList();
-                    }
-                }
-            }
-            catch (Exception error)
-            {
-                ErrorLogger.Log(error);
-                ShowError(Properties.StringResources.UPDATE_ERROR);
-
-            }
-        }
-        /// <summary>
-        /// Show custom Error message box to user
-        /// </summary>
-        /// <param name="errorMessage">error message to be shown to user</param>
-        public static void ShowError(string errorMessage)
-        {
-            try
-            {
-                MessageBox.Show(errorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception error)
-            {
-                ErrorLogger.Log(error);
-            }
-        }
+        #endregion
+        #region Sort questions list
         /// <summary>
         /// Toggle SortOrder between Ascending and Descending
         /// </summary>
@@ -473,35 +446,77 @@ namespace SurveyConfiguratorApp
                 ShowError(Properties.StringResources.SORT_ERROR);
             }
         }
+        #endregion
+        #region Helper methods
         /// <summary>
-        /// initialize connection and question manager
+        /// Refresh questionDataGridView to show the latest changes
         /// </summary>
-        private void InitializeData()
+        private void RefreshList()
         {
             try
             {
-                // get connection data from configuration file to create database settings object
-                string tDatabaseServer = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_SERVER];
-                string tDatabaseName = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_NAME];
-                string tDatabaseUser = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_USER];
-                string tDatabasePassword = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_PASSWORD];
-                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDatabaseServer, tDatabaseName, tDatabaseUser, tDatabasePassword);
-
-                //initialize new question manger to manage question repository and connection
-                mQuestionManager = new QuestionManager(tDatabaseSettings);
-                if (mQuestionManager == null)
-                    {
-                        ErrorLogger.Log(new NullReferenceException(ErrorMessages.cQUESTION_MANAGER_NULL_EXCEPTION));
-                        ShowError(Properties.StringResources.GENERAL_ERROR);
-                        return;
-                    }
-                refreshButton.PerformClick();
+                //get data from source
+                mQuestionList = mQuestionManager.QuestionsList;
+                SortQuestions();
+                //bind questionDataGridView to local question list
+                questionDataGridView.DataSource = mQuestionList;
+                //update questionDataGridView binding context
+                CurrencyManager tCurrencyManager = (CurrencyManager)questionDataGridView.BindingContext[mQuestionList];
+                if (tCurrencyManager != null)
+                {
+                    tCurrencyManager.Refresh();
+                }
+                addButton.Enabled = true;
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
-                ShowError(Properties.StringResources.GENERAL_ERROR);
+                addButton.Enabled = false;
+
+                ShowError(Properties.StringResources.REFRESH_ERROR);
+            }
+
+        }
+        /// <summary>
+        /// Show question properties dialog with question data loaded to it
+        /// </summary>
+        /// <param name="question">Question object to be loaded to properties form</param>
+        private void ShowEditForm(Question question)
+        {
+            try
+            {
+                //show question properties dialog
+                using (QuestionProperties tPropertiesDialog = new QuestionProperties(mQuestionManager, question))
+                {
+                    //check if result of dialog is OK 
+                    if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
+                    {
+                            RefreshList();
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+                ShowError(Properties.StringResources.UPDATE_ERROR);
+
             }
         }
+        /// <summary>
+        /// Show custom Error message box to user
+        /// </summary>
+        /// <param name="errorMessage">error message to be shown to user</param>
+        public static void ShowError(string errorMessage)
+        {
+            try
+            {
+                MessageBox.Show(errorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception error)
+            {
+                ErrorLogger.Log(error);
+            }
+        }
+        #endregion
     }
 }

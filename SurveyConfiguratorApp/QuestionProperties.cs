@@ -7,6 +7,7 @@ namespace SurveyConfiguratorApp
 {
     public partial class QuestionProperties : Form
     {
+        #region Initialize QuestionProperties form
         private readonly IQuestionRepository mQuestionManager;
         private Dictionary<QuestionType, string> mQuestionTypeResources;
         private Question mQuestion;
@@ -117,6 +118,8 @@ namespace SurveyConfiguratorApp
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
+        #endregion
+        #region Conrols event handling
         /// <summary>
         /// typeComboBox change selection event handler
         /// </summary>
@@ -235,6 +238,8 @@ namespace SurveyConfiguratorApp
                 Cursor.Current = Cursors.Default;
             }
         }
+        #endregion
+        #region NumericUpDown validation
         /// <summary>
         /// orderNumericUpDown validation event handler
         /// </summary>
@@ -355,6 +360,8 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
             }
         }
+        #endregion
+        #region Question validation
         /// <summary>
         /// Check if all question properties are valid based on question type
         /// </summary>
@@ -504,6 +511,8 @@ namespace SurveyConfiguratorApp
                 return false;
             }
         }
+        #endregion
+        #region Helper methods
         /// <summary>
         /// Show custom Error message box to user
         /// </summary>
@@ -519,7 +528,6 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
             }
         }
-
         /// <summary>
         /// Insert question into repository
         /// </summary>
@@ -566,5 +574,6 @@ namespace SurveyConfiguratorApp
                 return false;
             }
         }
+        #endregion
     }
 }
