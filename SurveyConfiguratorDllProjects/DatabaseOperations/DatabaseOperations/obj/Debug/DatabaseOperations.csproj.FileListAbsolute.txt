@@ -1,0 +1,9 @@
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.csproj.CoreCompileInputs.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\DatabaseOperations.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\DatabaseOperations.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\DatabaseSettings.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\SurveyQuestions.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.csproj.CopyComplete
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.pdb
