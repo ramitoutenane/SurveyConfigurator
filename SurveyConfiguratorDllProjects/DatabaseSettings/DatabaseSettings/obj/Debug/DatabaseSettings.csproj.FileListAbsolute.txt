@@ -1,0 +1,7 @@
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\bin\Debug\DatabaseSettings.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\bin\Debug\DatabaseSettings.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\obj\Debug\DatabaseSettings.csproj.CoreCompileInputs.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\obj\Debug\DatabaseSettings.csproj.CopyComplete
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\obj\Debug\DatabaseSettings.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\DatabaseSettings\DatabaseSettings\obj\Debug\DatabaseSettings.pdb
