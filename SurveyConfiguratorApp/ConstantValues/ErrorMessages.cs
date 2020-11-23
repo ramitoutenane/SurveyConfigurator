@@ -3,7 +3,7 @@
     /// <summary>
     /// Constant strings to be used to print messages to user
     /// </summary>
-    public static class MessageStringValues
+    public static class ErrorMessages
     {
         public const string cGENERAL_ERROR = "An Error occurred, Please try again or contact Admin";
         public const string cREFRESH_ERROR = "An Error occurred while refreshing list";

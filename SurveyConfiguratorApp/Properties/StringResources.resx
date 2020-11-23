@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ARABIC_LANGUAGE" xml:space="preserve">
-    <value>عربي</value>
-  </data>
   <data name="DELETE_CONFIRMATION_MESSAGE" xml:space="preserve">
     <value>Are you sure you want to delete question?</value>
   </data>
@@ -137,9 +134,6 @@
   </data>
   <data name="EMPTY_START_CAPTION" xml:space="preserve">
     <value>Start caption text can't be empty</value>
-  </data>
-  <data name="ENGLISH_LANGUAGE" xml:space="preserve">
-    <value>ENG</value>
   </data>
   <data name="ERROR_BOX_TITLE" xml:space="preserve">
     <value>Error</value>
@@ -171,17 +165,14 @@
   <data name="MIN_START_VALUE_ERROR" xml:space="preserve">
     <value>Start value can't be less than</value>
   </data>
-  <data name="mi_END_VALUE_ERROR" xml:space="preserve">
-    <value />
-  </data>
   <data name="QUESTION_TYPE_SLIDER" xml:space="preserve">
-    <value>SLIDER</value>
+    <value>Slider</value>
   </data>
   <data name="QUESTION_TYPE_SMILEY" xml:space="preserve">
-    <value>SMILEY</value>
+    <value>Smiley</value>
   </data>
   <data name="QUESTION_TYPE_STARS" xml:space="preserve">
-    <value>STARS</value>
+    <value>Stars</value>
   </data>
   <data name="REFRESH_ERROR" xml:space="preserve">
     <value>An Error occurred while refreshing list</value>

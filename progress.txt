@@ -5,7 +5,6 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Add aditional features
     * Testing and refactoring.
 
 Done:
@@ -83,3 +82,6 @@ Done:
         * Move add and edit functionality to properties form
         * Create Sql installation script
         * Code refactoring
+
+    -23/11 2:30
+        *Refactor code according to Majd notes

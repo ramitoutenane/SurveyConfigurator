@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Linq;
 
 namespace SurveyConfiguratorApp
 {
-    public class QuestionManager : IRepository<Question>
+    public class QuestionManager : IQuestionRepository
     {
         /// <summary>
         /// List of questions to be maintained 
         /// </summary>
-        public List<Question> Items { get; private set; }
+        public List<Question> QuestionsList { get; private set; }
         private readonly DatabaseSettings mDatabaseSettings;
-        private readonly ICRUDable<SliderQuestion> mSliderSQL;
-        private readonly ICRUDable<SmileyQuestion> mSmileySQL;
-        private readonly ICRUDable<StarsQuestion> mStarsSQL;
+        private readonly IDatabaseOperations<SliderQuestion> mSliderSQL;
+        private readonly IDatabaseOperations<SmileyQuestion> mSmileySQL;
+        private readonly IDatabaseOperations<StarsQuestion> mStarsSQL;
 
         /// <summary>
         /// QuestionManager constructor to initialize new QuestionManager object
@@ -23,7 +23,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                Items = new List<Question>();
+                QuestionsList = new List<Question>();
                 mDatabaseSettings = databaseSettings;
                 mSliderSQL = new SliderQuestionDatabaseOperations(mDatabaseSettings);
                 mSmileySQL = new SmileyQuestionDatabaseOperations(mDatabaseSettings);
@@ -35,102 +35,81 @@ namespace SurveyConfiguratorApp
             }
         }
         /// <summary>
-        /// Synchronize local Items list with latest version of questions from database
+        /// Synchronize local Questions list with latest version of questions from database
         /// </summary>
-        /// <returns>The new refreshed Items List</returns>
+        /// <returns>The new refreshed Questions List</returns>
         public List<Question> SelectAll()
         {
             try
             {
                 // select all questions of each question type from database
-                List<SliderQuestion> tSliderList = mSliderSQL.ReadAll();
-                List<SmileyQuestion> tSmileyList = mSmileySQL.ReadAll();
-                List<StarsQuestion> tStarsList = mStarsSQL.ReadAll();
+                List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
+                List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
+                List<StarsQuestion> tStarsList = mStarsSQL.SelectAll();
                 // create new temporary list to merge previous lists,it's initial capacity is equal to the sum of all question lists 
                 List<Question> tAllQuestion = new List<Question>(tSliderList.Count + tSmileyList.Count + tStarsList.Count);
                 // add all question lists to the temporary list that contains all questions 
                 tAllQuestion.AddRange(tSliderList);
                 tAllQuestion.AddRange(tSmileyList);
                 tAllQuestion.AddRange(tStarsList);
-                // set the value of Items list to the new created list
-                Items = tAllQuestion;
-                // sort the Items list and return it
-                return Items;
+                // set the value of Questions list to the new created list
+                QuestionsList = tAllQuestion;
+                // sort the Questions list and return it
+                return QuestionsList;
             }
             catch (Exception error)
             {
                 ErrorLogger.Log(error);
                 return null;
             }
-        }
-        /// <summary>
-        /// Select specific question from the questions list
-        /// </summary>
-        /// <param name="id">Id of question to be selected</param>
-        /// <returns>The selected question if exist, null otherwise</returns>
-        public Question Select(int id)
-        {
-            try
-            {
-                int tIndex = SearchByID(id);
-                // SearchByID method returns the index of item if it exist, -1 otherwise
-                if (tIndex != -1)
-                    return Items[tIndex];
-                return null;
-            }
-            catch (Exception error)
-            {
-                ErrorLogger.Log(error);
-                return null;
-            }
-
         }
         /// <summary>
         /// Insert question to database and local questions list
         /// </summary>
-        /// <param name="item">The new question to be inserted</param>
-        public bool Insert(Question item)
+        /// <param name="question">The new question to be inserted</param>
+        public bool Insert(Question question)
         {
             try
             {
                 // create temporary id variable and question object reference
                 int tID = -1;
                 Question tQuestion = null;
-                //check question type then add it to database and get it's primary key from SQL insert method, set the new id to question object add it to local list.
-                if (item is null)
-                {
-                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_EXCEPTION);
-                }else if (!item.IsValid())
-                {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_EXCEPTION);
-                }
 
-                if (item is SliderQuestion slider)
+                if (question is null)
                 {
-
-                    tID = mSliderSQL.Create(slider);
-                    tQuestion = item.CopyWithNewId(tID);
+                    ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
+                    return false;
                 }
-                else if (item is SmileyQuestion smiley)
+                else if (!question.IsValid())
                 {
-                    tID = mSmileySQL.Create(smiley);
-                    tQuestion = item.CopyWithNewId(tID);
+                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_VALIDATION_EXCEPTION));
+                    return false;
                 }
-                else if (item is StarsQuestion stars)
+                //check question type then add it to database and get it's primary key from SQL insert method
+                switch (question.Type)
                 {
-                    tID = mStarsSQL.Create(stars);
-                    tQuestion = item.CopyWithNewId(tID);
+                    case QuestionType.Slider:
+                        tID = mSliderSQL.Insert(question as SliderQuestion);
+                        break;
+                    case QuestionType.Smiley:
+                        tID = mSmileySQL.Insert(question as SmileyQuestion);
+                        break;
+                    case QuestionType.Stars:
+                        tID = mStarsSQL.Insert(question as StarsQuestion);
+                        break;
+                    default:
+                        ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
+                        return false;
                 }
-                else
+                
+                // if the question inserted to database successfully the temporary id variable should change from -1 
+                if (tID >= 1)
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
-                }
-                // if the question inserted to database successfully the temporary id variable should change from -1 and temporary question reference should point to new question object 
-                if (tID >= 1 && tQuestion != null)
-                {
-                    // add item to local questions list and reorder the list 
-                    Items.Add(tQuestion);
-                    return true;
+                    tQuestion = question.CopyWithNewId(tID);
+                    // add Question to local questions list and reorder the list 
+                    if(tQuestion != null)
+                        QuestionsList.Add(tQuestion);
+                        return true;
                 }
                 return false;
             }
@@ -143,47 +122,51 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// Update question in database and local questions list
         /// </summary>
-        /// <param name="item">The new question to be updated</param>
-        public bool Update(Question item)
+        /// <param name="question">The new question to be updated</param>
+        public bool Update(Question question)
         {
             try
             {
-                // check question type then update it in database, if updated successfully in database then update it in local list.
-                if (item is null)
+
+                if (question is null)
                 {
-                    throw new ArgumentNullException(MessageStringValues.cQUESTION_NULL_EXCEPTION);
+                    ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
+                    return false;
                 }
-                else if (!item.IsValid())
+                else if (!question.IsValid())
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_VALIDATION_EXCEPTION);
+                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_VALIDATION_EXCEPTION));
+                    return false;
                 }
                 // search for the question in local list 
-                int tIndex = SearchByID(item.Id);
+                Question tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == question.Id);
+                if (tQuestionFindResult == null)
+                {
+                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
+                    return false;
+                }
+
                 bool tUpdated = false;
-                if (tIndex < 0)
+                // check question type then update it in database, if updated successfully in database then update it in local list.
+                switch (question.Type)
                 {
-                    throw new ArgumentException(MessageStringValues.cNO_QUESTION_ID);
-                }
-                if (item is SliderQuestion slider)
-                {
-                    tUpdated = mSliderSQL.Update(slider);
-                }
-                else if (item is SmileyQuestion smiley)
-                {
-                    tUpdated = mSmileySQL.Update(smiley);
-                }
-                else if (item is StarsQuestion stars)
-                {
-                    tUpdated = mStarsSQL.Update(stars);
-                }
-                else
-                {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
+                    case QuestionType.Slider:
+                        tUpdated = mSliderSQL.Update(question as SliderQuestion);
+                        break;
+                    case QuestionType.Smiley:
+                        tUpdated = mSmileySQL.Update(question as SmileyQuestion);
+                        break;
+                    case QuestionType.Stars:
+                        tUpdated = mStarsSQL.Update(question as StarsQuestion);
+                        break;
+                    default:
+                        ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
+                        return false;
                 }
                 // if updated successfully in database update it in local list.
                 if (tUpdated)
                 {
-                    Items[tIndex] = item;
+                    QuestionsList[QuestionsList.FindIndex(tQuestion => tQuestion.Id == question.Id)] = question;
                     return true;
                 }
                 return false;
@@ -204,33 +187,32 @@ namespace SurveyConfiguratorApp
             {
                 // check question type then delete it from database, if deleted successfully from database then delete it in local list.
                 // search for the question in local list 
-                int tIndex = SearchByID(id);
+                Question tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == id);
                 bool tDeleted = false;
-                if (tIndex < 0)
+                if (tQuestionFindResult == null)
                 {
-                    throw new ArgumentException(MessageStringValues.cNO_QUESTION_ID);
+                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
+                    return false;
                 }
-                if (Items[tIndex] is SliderQuestion slider)
+                switch (tQuestionFindResult.Type)
                 {
-                    tDeleted = mSliderSQL.Delete(id);
-                }
-                else if (Items[tIndex] is SmileyQuestion smiley)
-                {
-                    tDeleted = mSmileySQL.Delete(id);
-
-                }
-                else if (Items[tIndex] is StarsQuestion stars)
-                {
-                    tDeleted = mStarsSQL.Delete(id);
-                }
-                else
-                {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
+                    case QuestionType.Slider:
+                        tDeleted = mSliderSQL.Delete(id);
+                        break;
+                    case QuestionType.Smiley:
+                        tDeleted = mSmileySQL.Delete(id);
+                        break;
+                    case QuestionType.Stars:
+                        tDeleted = mStarsSQL.Delete(id);
+                        break;
+                    default:
+                        ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
+                        return false;
                 }
                 // if deleted successfully from database then delete it in local list.
                 if (tDeleted)
                 {
-                    Items.RemoveAt(tIndex);
+                    QuestionsList.RemoveAll(tQuestion => tQuestion.Id == id);
                     return true;
                 }
                 return false;
@@ -240,31 +222,6 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(error);
                 return false;
             }
-        }
-        /// <summary>
-        /// Search for question by it's id
-        /// </summary>
-        /// <param name="id">Id of question to search for</param>
-        /// <returns>Index of question if found, -1 otherwise</returns>
-        private int SearchByID(int id)
-        {
-            try
-            {
-                if (Items != null && Items.Count > 0)
-                    // loop through all question and check if question id is equal to search id
-                    for (int i = 0; i < Items.Count; i++)
-                    {
-                        if (Items[i].Id == id)
-                            return i;
-                    }
-                return -1;
-            }
-            catch (Exception error)
-            {
-                ErrorLogger.Log(error);
-                return -1;
-            }
-
         }
     }
 }

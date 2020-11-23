@@ -32,15 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.titleLabel = new System.Windows.Forms.Label();
             this.questionDataGridView = new System.Windows.Forms.DataGridView();
+            this.QuestionTextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestionTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QuestionOrderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.languageComboBox = new System.Windows.Forms.ComboBox();
-            this.QuestionTextColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuestionTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuestionOrderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.questionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +52,6 @@
             // 
             // questionDataGridView
             // 
-            resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.AllowDrop = true;
             this.questionDataGridView.AllowUserToOrderColumns = true;
             this.questionDataGridView.AutoGenerateColumns = false;
@@ -64,6 +63,7 @@
             this.QuestionTypeColumn,
             this.QuestionOrderColumn});
             this.questionDataGridView.DataSource = this.questionBindingSource;
+            resources.ApplyResources(this.questionDataGridView, "questionDataGridView");
             this.questionDataGridView.MultiSelect = false;
             this.questionDataGridView.Name = "questionDataGridView";
             this.questionDataGridView.RowHeadersVisible = false;
@@ -73,45 +73,6 @@
             this.questionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.questionDataGridView_CellDoubleClick);
             this.questionDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.questionDataGridView_ColumnHeaderMouseClick_1);
             this.questionDataGridView.SelectionChanged += new System.EventHandler(this.questionDataGridView_SelectionChanged);
-            // 
-            // addButton
-            // 
-            resources.ApplyResources(this.addButton, "addButton");
-            this.addButton.Name = "addButton";
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
-            // editButton
-            // 
-            resources.ApplyResources(this.editButton, "editButton");
-            this.editButton.Name = "editButton";
-            this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click);
-            // 
-            // deleteButton
-            // 
-            resources.ApplyResources(this.deleteButton, "deleteButton");
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
-            // refreshButton
-            // 
-            resources.ApplyResources(this.refreshButton, "refreshButton");
-            this.refreshButton.BackgroundImage = global::SurveyConfiguratorApp.Properties.Resources.refresh;
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
-            // languageComboBox
-            // 
-            resources.ApplyResources(this.languageComboBox, "languageComboBox");
-            this.languageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.languageComboBox.Items.AddRange(new object[] {
-            resources.GetString("languageComboBox.Items"),
-            resources.GetString("languageComboBox.Items1")});
-            this.languageComboBox.Name = "languageComboBox";
-            this.languageComboBox.SelectedIndexChanged += new System.EventHandler(this.languageComboBox_SelectedIndexChanged);
             // 
             // QuestionTextColumn
             // 
@@ -146,6 +107,45 @@
             // questionBindingSource
             // 
             this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
+            // 
+            // addButton
+            // 
+            resources.ApplyResources(this.addButton, "addButton");
+            this.addButton.Name = "addButton";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // editButton
+            // 
+            resources.ApplyResources(this.editButton, "editButton");
+            this.editButton.Name = "editButton";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
+            // deleteButton
+            // 
+            resources.ApplyResources(this.deleteButton, "deleteButton");
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.BackgroundImage = global::SurveyConfiguratorApp.Properties.Resources.refresh;
+            resources.ApplyResources(this.refreshButton, "refreshButton");
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
+            // languageComboBox
+            // 
+            this.languageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.languageComboBox.Items.AddRange(new object[] {
+            resources.GetString("languageComboBox.Items"),
+            resources.GetString("languageComboBox.Items1")});
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
+            this.languageComboBox.Name = "languageComboBox";
+            this.languageComboBox.SelectedIndexChanged += new System.EventHandler(this.languageComboBox_SelectedIndexChanged);
             // 
             // Main
             // 

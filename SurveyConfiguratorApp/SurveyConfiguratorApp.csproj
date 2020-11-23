@@ -47,14 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstantValues\ConstantStringResources.cs" />
     <Compile Include="ConstantValues\QuestionValidationValues.cs" />
     <Compile Include="DatabaseSettings.cs" />
     <Compile Include="ErrorLogger.cs" />
-    <Compile Include="Interfaces\ICRUDable.cs" />
-    <Compile Include="ConstantValues\MessageStringValues.cs" />
-    <Compile Include="ConstantValues\DatabaseStringValues.cs" />
-    <Compile Include="Interfaces\IReadable.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IDatabaseOperations.cs" />
+    <Compile Include="ConstantValues\ErrorMessages.cs" />
+    <Compile Include="ConstantValues\DatabaseParameters.cs" />
+    <Compile Include="Interfaces\IDatabaseSelectable.cs" />
+    <Compile Include="Interfaces\IQuestionRepository.cs" />
     <Compile Include="QuestionProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,7 +72,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ICUDable.cs" />
+    <Compile Include="Interfaces\IDatabaseProcessable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QusetionClasses\Question.cs" />

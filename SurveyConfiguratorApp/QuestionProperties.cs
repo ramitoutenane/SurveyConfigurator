@@ -7,13 +7,13 @@ namespace SurveyConfiguratorApp
 {
     public partial class QuestionProperties : Form
     {
-        private readonly IRepository<Question> mQuestionManager;
+        private readonly IQuestionRepository mQuestionManager;
         private Dictionary<QuestionType, string> mQuestionTypeResources;
         private Question mQuestion;
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
         /// </summary>
-        public QuestionProperties(IRepository<Question> questionManager)
+        public QuestionProperties(IQuestionRepository questionManager)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace SurveyConfiguratorApp
         /// QuestionProperties form constructor to initialize QuestionProperties form and populate with question data
         /// </summary>
         /// <param name="question">question to populate form with it's data</param>
-        public QuestionProperties(IRepository<Question> questionManager, Question question) : this(questionManager)
+        public QuestionProperties(IQuestionRepository questionManager, Question question) : this(questionManager)
         {
             try
             {
@@ -53,25 +53,35 @@ namespace SurveyConfiguratorApp
                     typeComboBox.SelectedItem = mQuestionTypeResources[question.Type];
                     typeComboBox.Enabled = false;
                     //populate components with specific question type data
-                    if (question is SliderQuestion tSlider)
+                    switch (question.Type)
                     {
-                        startCaptionTextBox.Text = tSlider.StartValueCaption;
-                        startValueNumericUpDown.Value = tSlider.StartValue;
-                        endCaptionTextBox.Text = tSlider.EndValueCaption;
-                        endValueNumericUpDown.Value = tSlider.EndValue;
-                    }
-                    else if (question is SmileyQuestion tSmiley)
-                    {
-                        smileyNumericUpDown.Value = tSmiley.NumberOfFaces;
-                    }
-                    else if (question is StarsQuestion tStars)
-                    {
-                        starsNumericUpDown.Value = tStars.NumberOfStars;
+                        case QuestionType.Slider:
+                            SliderQuestion tSlider = question as SliderQuestion;
+                            startCaptionTextBox.Text = tSlider.StartValueCaption;
+                            startValueNumericUpDown.Value = tSlider.StartValue;
+                            endCaptionTextBox.Text = tSlider.EndValueCaption;
+                            endValueNumericUpDown.Value = tSlider.EndValue;
+                            break;
+                        case QuestionType.Smiley:
+                            SmileyQuestion tSmiley = question as SmileyQuestion;
+                            smileyNumericUpDown.Value = tSmiley.NumberOfFaces;
+
+                            break;
+                        case QuestionType.Stars:
+                            StarsQuestion tStars = question as StarsQuestion;
+                            starsNumericUpDown.Value = tStars.NumberOfStars;
+                            break;
+                        default:
+                            ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
+                            ShowError(Properties.StringResources.GENERAL_ERROR);
+                            return;
                     }
                 }
                 else
                 {
-                    throw new ArgumentException(MessageStringValues.cQUESTION_TYPE_EXCEPTION);
+                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
+                    ShowError(Properties.StringResources.GENERAL_ERROR);
+                    return;
                 }
             }
             catch (Exception error)
@@ -121,7 +131,8 @@ namespace SurveyConfiguratorApp
                 //question group box location point
                 Point tGroupBoxLocation = new Point(10, 230);
                 //check selected question and show it's group box
-                string tSelectedQuestion = (string)typeComboBox.SelectedItem;
+                string tSelectedQuestion = typeComboBox.SelectedItem.ToString();
+
                 if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
 
                 {
@@ -197,7 +208,12 @@ namespace SurveyConfiguratorApp
 
                     //if question is not null check it's id to determine whether to insert it or update it
                     if (mQuestion == null)
-                        throw new Exception(MessageStringValues.cQUESTION_NULL_EXCEPTION);
+                    {
+                        ErrorLogger.Log(new Exception(ErrorMessages.cQUESTION_NULL_EXCEPTION));
+                        ShowError(Properties.StringResources.GENERAL_ERROR);
+                        return;
+
+                    }
                     Cursor.Current = Cursors.WaitCursor;
                     if (mQuestion.Id >= 0)
                         tSaved = UpdateQuestion(mQuestion);

@@ -21,7 +21,7 @@ namespace SurveyConfiguratorApp
     }
     public partial class Main : Form
     {
-        private IRepository<Question> mQuestionManager;
+        private IQuestionRepository mQuestionManager;
         private List<Question> mQuestionList;
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
@@ -50,15 +50,15 @@ namespace SurveyConfiguratorApp
                 //initialize dictionary of language and it's culture representation
                 mCultureTable = new Dictionary<string, string>
                 {
-                    {Properties.StringResources.ENGLISH_LANGUAGE,"en"},
-                    {Properties.StringResources.ARABIC_LANGUAGE,"ar"}
+                    {ConstantStringResources.cENGLISH_LANGUAGE,ConstantStringResources.cENGLISH_CULTURE},
+                    {ConstantStringResources.cARABIC_LANGUAGE,ConstantStringResources.cARABIC_CULTURE}
                 };
                 //populate typeComboBox
                 languageComboBox.DataSource = new List<string>(mCultureTable.Keys);
 
                 //set default from language
-                languageComboBox.SelectedItem = Properties.StringResources.ENGLISH_LANGUAGE;
-                mCurrentLanguage = Properties.StringResources.ENGLISH_LANGUAGE;
+                languageComboBox.SelectedItem = ConstantStringResources.cENGLISH_LANGUAGE;
+                mCurrentLanguage = ConstantStringResources.cENGLISH_LANGUAGE;
             }
             catch (Exception error)
             {
@@ -216,7 +216,7 @@ namespace SurveyConfiguratorApp
                     //if a row is selected, index is not -1
                     if (tSelectedRow >= 0)
                     {
-                        //delete question from source, if deleted successfully reload data to grid view , throw error otherwise
+                        //delete question from source, if deleted successfully reload data to grid view , show error otherwise
                         Cursor.Current = Cursors.WaitCursor;
                         if (mQuestionManager.Delete(mQuestionList[tSelectedRow].Id))
                         {
@@ -226,7 +226,9 @@ namespace SurveyConfiguratorApp
                         else
                         {
                             Cursor.Current = Cursors.Default;
-                            throw new Exception(MessageStringValues.cDELETE_ERROR);
+                            ErrorLogger.Log(new Exception(ErrorMessages.cDELETE_ERROR));
+                            ShowError(Properties.StringResources.DELETE_ERROR);
+                            return;
                         }
                     }
                 }
@@ -250,7 +252,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                //refresh data from source, if refreshed successfully reload data to grid view , throw error otherwise
+                //refresh data from source, if refreshed successfully reload data to grid view , show error otherwise
                 if (mQuestionManager.SelectAll() != null)
                 {
                     RefreshList();
@@ -259,7 +261,9 @@ namespace SurveyConfiguratorApp
                 else
                 {
                     Cursor.Current = Cursors.Default;
-                    throw new Exception(MessageStringValues.cREFRESH_ERROR);
+                    ErrorLogger.Log(new Exception(ErrorMessages.cREFRESH_ERROR));
+                    ShowError(Properties.StringResources.REFRESH_ERROR);
+                    return;
                 }
             }
             catch (Exception error)
@@ -283,22 +287,24 @@ namespace SurveyConfiguratorApp
                 string tLanguageComboBoxSelectedItem = languageComboBox.SelectedItem.ToString();
                 //check selected language and change current language variables according to selection
                 string tComboBoxSelectedLanguge = mCultureTable[tLanguageComboBoxSelectedItem];
-                if (tComboBoxSelectedLanguge == mCultureTable[Properties.StringResources.ENGLISH_LANGUAGE])
+                switch (tComboBoxSelectedLanguge)
                 {
-                    if (mCurrentLanguage != mCultureTable[Properties.StringResources.ENGLISH_LANGUAGE])
-                    {
-                        tChanged = true;
-                        mCurrentLanguage = mCultureTable[Properties.StringResources.ENGLISH_LANGUAGE];
-                        RightToLeft = RightToLeft.No;
-                    }
-                }
-                else if (tComboBoxSelectedLanguge == mCultureTable[Properties.StringResources.ARABIC_LANGUAGE])
-                {
-                    if (mCurrentLanguage != mCultureTable[Properties.StringResources.ARABIC_LANGUAGE])
-                    {
-                        tChanged = true;
-                        mCurrentLanguage = mCultureTable[Properties.StringResources.ARABIC_LANGUAGE];
-                    }
+                    case ConstantStringResources.cENGLISH_CULTURE:
+                        if (mCurrentLanguage != mCultureTable[ConstantStringResources.cENGLISH_LANGUAGE])
+                        {
+                            tChanged = true;
+                            mCurrentLanguage = mCultureTable[ConstantStringResources.cENGLISH_LANGUAGE];
+                            RightToLeft = RightToLeft.No;
+                        }
+                        break;
+
+                    case ConstantStringResources.cARABIC_CULTURE:
+                        if (mCurrentLanguage != mCultureTable[ConstantStringResources.cARABIC_LANGUAGE])
+                        {
+                            tChanged = true;
+                            mCurrentLanguage = mCultureTable[ConstantStringResources.cARABIC_LANGUAGE];
+                        }
+                        break;
                 }
                 //if language is changed from current language to new one, change culture and reinitialize form components and data
                 if (tChanged)
@@ -324,7 +330,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 //get data from source
-                mQuestionList = mQuestionManager.Items;
+                mQuestionList = mQuestionManager.QuestionsList;
                 SortQuestions();
                 //bind questionDataGridView to local question list
                 questionDataGridView.DataSource = mQuestionList;
@@ -475,16 +481,20 @@ namespace SurveyConfiguratorApp
             try
             {
                 // get connection data from configuration file to create database settings object
-                string tDataSource = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_SERVER];
-                string tInitialCatalog = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_NAME];
-                string tUserID = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_USER];
-                string tPassword = ConfigurationManager.AppSettings[DatabaseStringValues.cDATABASE_PASSWORD];
-                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDataSource, tInitialCatalog, tUserID, tPassword);
+                string tDatabaseServer = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_SERVER];
+                string tDatabaseName = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_NAME];
+                string tDatabaseUser = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_USER];
+                string tDatabasePassword = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_PASSWORD];
+                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDatabaseServer, tDatabaseName, tDatabaseUser, tDatabasePassword);
 
                 //initialize new question manger to manage question repository and connection
                 mQuestionManager = new QuestionManager(tDatabaseSettings);
                 if (mQuestionManager == null)
-                    throw new NullReferenceException(MessageStringValues.cQUESTION_MANAGER_NULL_EXCEPTION);
+                    {
+                        ErrorLogger.Log(new NullReferenceException(ErrorMessages.cQUESTION_MANAGER_NULL_EXCEPTION));
+                        ShowError(Properties.StringResources.GENERAL_ERROR);
+                        return;
+                    }
                 refreshButton.PerformClick();
             }
             catch (Exception error)

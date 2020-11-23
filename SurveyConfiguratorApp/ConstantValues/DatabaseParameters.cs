@@ -3,12 +3,8 @@
     /// <summary>
     /// Constant Values to be used to interact with database
     /// </summary>
-    public static class DatabaseStringValues
+    public static class DatabaseParameters
     {
-        public const string cDATABASE_SERVER = "DatabaseServer";
-        public const string cDATABASE_NAME = "DatabaseName";
-        public const string cDATABASE_USER = "DatabaseUser";
-        public const string cDATABASE_PASSWORD = "DatabasePassword";
         public const string cPARAMETER_QUESTION_ID = "@id";
         public const string cPARAMETER_QUESTION_TEXT = "@text";
         public const string cPARAMETER_QUESTION_TYPE = "@type";

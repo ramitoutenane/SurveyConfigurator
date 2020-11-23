@@ -262,7 +262,7 @@
             0});
             this.starsNumericUpDown.Name = "starsNumericUpDown";
             this.starsNumericUpDown.Value = new decimal(new int[] {
-            2,
+            1,
             0,
             0,
             0});

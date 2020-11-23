@@ -4,24 +4,23 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Interface to support repository maintaining behavior
     /// </summary>
-    /// <typeparam name="T">The object to be managed</typeparam>
-    public interface IRepository<T> where T : class
+    public interface IQuestionRepository
     {
         /// <summary>
         /// List of objects to be maintained 
         /// </summary>
-        List<T> Items { get; }
+        List<Question> QuestionsList { get; }
         /// <summary>
         /// Insert object into repository
         /// </summary>
-        /// <param name="item">Object to be inserted</param>
-        bool Insert(T item);
+        /// <param name="question">Object to be inserted</param>
+        bool Insert(Question question);
         /// <summary>
         /// Update object on repository
         /// </summary>
-        /// <param name="item">The new object to be update</param>
+        /// <param name="question">The new object to be update</param>
         /// <returns>true if inserted, false otherwise</return 
-        bool Update(T item);
+        bool Update(Question question);
         /// <summary>
         /// Delete object from repository
         /// </summary>
@@ -29,16 +28,9 @@ namespace SurveyConfiguratorApp
         /// <returns>true if updated, false otherwise</return
         bool Delete(int id);
         /// <summary>
-        /// Select specific object from the repository
-        /// </summary>
-        /// <param name="id">Id of object to be selected</param>
-        /// <returns>The selected object if exist, null otherwise</returns>
-        /// <returns>true if deleted, false otherwise</return
-        T Select(int id);
-        /// <summary>
         /// Synchronize local list with latest version from source
         /// </summary>
         /// <returns>The new refreshed List </returns>
-        List<T> SelectAll();
+        List<Question> SelectAll();
     }
 }

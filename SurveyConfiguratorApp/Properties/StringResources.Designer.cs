@@ -61,15 +61,6 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to عربي.
-        /// </summary>
-        internal static string ARABIC_LANGUAGE {
-            get {
-                return ResourceManager.GetString("ARABIC_LANGUAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete question?.
         /// </summary>
         internal static string DELETE_CONFIRMATION_MESSAGE {
@@ -120,15 +111,6 @@ namespace SurveyConfiguratorApp.Properties {
         internal static string EMPTY_START_CAPTION {
             get {
                 return ResourceManager.GetString("EMPTY_START_CAPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ENG.
-        /// </summary>
-        internal static string ENGLISH_LANGUAGE {
-            get {
-                return ResourceManager.GetString("ENGLISH_LANGUAGE", resourceCulture);
             }
         }
         
@@ -223,7 +205,7 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SLIDER.
+        ///   Looks up a localized string similar to Slider.
         /// </summary>
         internal static string QUESTION_TYPE_SLIDER {
             get {
@@ -232,7 +214,7 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SMILEY.
+        ///   Looks up a localized string similar to Smiley.
         /// </summary>
         internal static string QUESTION_TYPE_SMILEY {
             get {
@@ -241,7 +223,7 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STARS.
+        ///   Looks up a localized string similar to Stars.
         /// </summary>
         internal static string QUESTION_TYPE_STARS {
             get {

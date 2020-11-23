@@ -7,7 +7,7 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Class to support database operations on slider question table
     /// </summary>
-    class SliderQuestionDatabaseOperations : ICRUDable<SliderQuestion>
+    class SliderQuestionDatabaseOperations : IDatabaseOperations<SliderQuestion>
     {
         private readonly string mConnectionString;
         /// <summary>
@@ -41,10 +41,10 @@ namespace SurveyConfiguratorApp
                 // create connection string from databaseSettings object data
                 SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder
                 {
-                    DataSource = databaseSettings.DataSource,
-                    InitialCatalog = databaseSettings.InitialCatalog,
-                    UserID = databaseSettings.UserID,
-                    Password = databaseSettings.Password
+                    DataSource = databaseSettings.DatabaseServer,
+                    InitialCatalog = databaseSettings.DatabaseName,
+                    UserID = databaseSettings.DatabaseUser,
+                    Password = databaseSettings.DatabasePassword
                 };
                 mConnectionString = tBuilder.ConnectionString;
                 mQuestionDatabaseOperation = new QuestionDatabaseOperations(mConnectionString);
@@ -59,30 +59,30 @@ namespace SurveyConfiguratorApp
         /// </summary>
         /// <param name="data">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public int Create(SliderQuestion data)
+        public int Insert(SliderQuestion data)
         {
             int tQuestionId = -1;
             try
             {
                 // insert general question into question table and get question id to be used as foreign key
-                tQuestionId = mQuestionDatabaseOperation.Create(data);
+                tQuestionId = mQuestionDatabaseOperation.Insert(data);
                 // question id is auto increment key that starts from 1, if question is inserted successfully the returned id is larger than 1
                 // if id is less than 1 exit insert method to avoid foreign key reference error
                 if (tQuestionId < 1)
                     return tQuestionId;
-                string tCommandString = $"INSERT INTO {DatabaseStringValues.cTABLE_SLIDER_QUESTION} ({DatabaseStringValues.cCOLUMN_QUESTION_ID}, {DatabaseStringValues.cCOLUMN_START_VALUE}, {DatabaseStringValues.cCOLUMN_END_VALUE}, {DatabaseStringValues.cCOLUMN_START_CAPTION}, {DatabaseStringValues.cCOLUMN_END_CAPTION}) " +
-                    $"OUTPUT INSERTED.{DatabaseStringValues.cCOLUMN_QUESTION_ID} VALUES ({DatabaseStringValues.cPARAMETER_QUESTION_ID}, {DatabaseStringValues.cPARAMETER_QUESTION_START_VALUE}, " +
-                    $"{DatabaseStringValues.cPARAMETER_QUESTION_END_VALUE},{DatabaseStringValues.cPARAMETER_QUESTION_START_CAPTION},{DatabaseStringValues.cPARAMETER_QUESTION_END_VALUE})";
+                string tCommandString = $"INSERT INTO {DatabaseParameters.cTABLE_SLIDER_QUESTION} ({DatabaseParameters.cCOLUMN_QUESTION_ID}, {DatabaseParameters.cCOLUMN_START_VALUE}, {DatabaseParameters.cCOLUMN_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION}, {DatabaseParameters.cCOLUMN_END_CAPTION}) " +
+                    $"OUTPUT INSERTED.{DatabaseParameters.cCOLUMN_QUESTION_ID} VALUES ({DatabaseParameters.cPARAMETER_QUESTION_ID}, {DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}, " +
+                    $"{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE},{DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION},{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE})";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_ID}", tQuestionId);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", tQuestionId);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
                         tConnection.Open();
                         return (int)tCommand.ExecuteScalar();
                     }
@@ -112,18 +112,18 @@ namespace SurveyConfiguratorApp
                 {
                     return false;
                 }
-                string tCommandString = $"UPDATE {DatabaseStringValues.cTABLE_SLIDER_QUESTION} SET {DatabaseStringValues.cCOLUMN_START_VALUE} = {DatabaseStringValues.cPARAMETER_QUESTION_START_VALUE}," +
-                    $" {DatabaseStringValues.cCOLUMN_END_VALUE} = {DatabaseStringValues.cPARAMETER_QUESTION_END_VALUE}, {DatabaseStringValues.cCOLUMN_START_CAPTION} ={DatabaseStringValues.cPARAMETER_QUESTION_START_CAPTION}, " +
-                    $"{DatabaseStringValues.cCOLUMN_END_CAPTION} ={DatabaseStringValues.cPARAMETER_QUESTION_END_VALUE} WHERE {DatabaseStringValues.cCOLUMN_QUESTION_ID} = {DatabaseStringValues.cPARAMETER_QUESTION_ID} ";
+                string tCommandString = $"UPDATE {DatabaseParameters.cTABLE_SLIDER_QUESTION} SET {DatabaseParameters.cCOLUMN_START_VALUE} = {DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}," +
+                    $" {DatabaseParameters.cCOLUMN_END_VALUE} = {DatabaseParameters.cPARAMETER_QUESTION_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION} ={DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION}, " +
+                    $"{DatabaseParameters.cCOLUMN_END_CAPTION} ={DatabaseParameters.cPARAMETER_QUESTION_END_VALUE} WHERE {DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID} ";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_ID}", data.Id);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", data.Id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}", data.StartValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE}", data.EndValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION}", data.StartValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_CAPTION}", data.EndValueCaption);
                         tConnection.Open();
                         return tCommand.ExecuteNonQuery() > 0;
                     }
@@ -148,18 +148,18 @@ namespace SurveyConfiguratorApp
         /// </summary>
         /// <param name="id">Id of question to be selected</param>
         /// <returns>The selected question if exist, null otherwise</returns>
-        public SliderQuestion Read(int id)
+        public SliderQuestion Select(int id)
         {
             try
             {
-                string tQueryString = $"SELECT {DatabaseStringValues.cCOLUMN_QUESTION_TEXT}, {DatabaseStringValues.cCOLUMN_QUESTION_ORDER}, {DatabaseStringValues.cCOLUMN_START_VALUE}, {DatabaseStringValues.cCOLUMN_END_VALUE}, {DatabaseStringValues.cCOLUMN_START_CAPTION}, {DatabaseStringValues.cCOLUMN_END_CAPTION}, {DatabaseStringValues.cTABLE_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID},{DatabaseStringValues.cCOLUMN_TYPE_ID} " +
-                    $"FROM {DatabaseStringValues.cTABLE_QUESTION}, {DatabaseStringValues.cTABLE_SLIDER_QUESTION} WHERE {DatabaseStringValues.cTABLE_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID} = {DatabaseStringValues.cPARAMETER_QUESTION_ID} AND {DatabaseStringValues.cTABLE_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID} = {DatabaseStringValues.cTABLE_SLIDER_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID}";
+                string tQueryString = $"SELECT {DatabaseParameters.cCOLUMN_QUESTION_TEXT}, {DatabaseParameters.cCOLUMN_QUESTION_ORDER}, {DatabaseParameters.cCOLUMN_START_VALUE}, {DatabaseParameters.cCOLUMN_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION}, {DatabaseParameters.cCOLUMN_END_CAPTION}, {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID},{DatabaseParameters.cCOLUMN_TYPE_ID} " +
+                    $"FROM {DatabaseParameters.cTABLE_QUESTION}, {DatabaseParameters.cTABLE_SLIDER_QUESTION} WHERE {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID} AND {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cTABLE_SLIDER_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID}";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cPARAMETER_QUESTION_ID}", id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", id);
                         tConnection.Open();
                         using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
@@ -187,23 +187,23 @@ namespace SurveyConfiguratorApp
         /// <param name="offset">Number of questions to skip before starting to return objects from the database</param>
         /// <param name="limit">Number of questions to return after the offset has been processed</param>
         /// <returns>List that contains the retrieved questions</returns>
-        public List<SliderQuestion> ReadAll(int offset = 0, int limit = 0)
+        public List<SliderQuestion> SelectAll(int offset = 0, int limit = 0)
         {
             try
             {
-                string tQueryString = $"SELECT {DatabaseStringValues.cCOLUMN_QUESTION_TEXT}, {DatabaseStringValues.cCOLUMN_QUESTION_ORDER}, {DatabaseStringValues.cCOLUMN_START_VALUE}, {DatabaseStringValues.cCOLUMN_END_VALUE}, {DatabaseStringValues.cCOLUMN_START_CAPTION}, {DatabaseStringValues.cCOLUMN_END_CAPTION}, {DatabaseStringValues.cTABLE_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID},{DatabaseStringValues.cCOLUMN_TYPE_ID} " +
-                    $"FROM {DatabaseStringValues.cTABLE_QUESTION}, {DatabaseStringValues.cTABLE_SLIDER_QUESTION} WHERE {DatabaseStringValues.cTABLE_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID} = {DatabaseStringValues.cTABLE_SLIDER_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID} " +
-                    $"ORDER BY {DatabaseStringValues.cTABLE_QUESTION}.{DatabaseStringValues.cCOLUMN_QUESTION_ID} OFFSET {DatabaseStringValues.cOFFSET} ROWS";
+                string tQueryString = $"SELECT {DatabaseParameters.cCOLUMN_QUESTION_TEXT}, {DatabaseParameters.cCOLUMN_QUESTION_ORDER}, {DatabaseParameters.cCOLUMN_START_VALUE}, {DatabaseParameters.cCOLUMN_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION}, {DatabaseParameters.cCOLUMN_END_CAPTION}, {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID},{DatabaseParameters.cCOLUMN_TYPE_ID} " +
+                    $"FROM {DatabaseParameters.cTABLE_QUESTION}, {DatabaseParameters.cTABLE_SLIDER_QUESTION} WHERE {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cTABLE_SLIDER_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} " +
+                    $"ORDER BY {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} OFFSET {DatabaseParameters.cOFFSET} ROWS";
                 // add Fetch clause if limit is larger than 0 which is default value
                 if (limit > 0)
-                    tQueryString += $" FETCH NEXT {DatabaseStringValues.cLIMIT} ROWS ONLY";
+                    tQueryString += $" FETCH NEXT {DatabaseParameters.cLIMIT} ROWS ONLY";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cOFFSET}", offset);
-                        tCommand.Parameters.AddWithValue($"{DatabaseStringValues.cLIMIT}", limit);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cOFFSET}", offset);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cLIMIT}", limit);
                         tConnection.Open();
                         using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
