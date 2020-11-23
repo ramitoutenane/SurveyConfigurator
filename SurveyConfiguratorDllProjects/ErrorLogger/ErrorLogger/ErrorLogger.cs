@@ -2,8 +2,6 @@
 using System.IO;
 using System.Text;
 
-namespace ErrorLogger
-{
     /// <summary>
     /// Class used to log error to the location given in configuration
     /// </summary>
@@ -51,4 +49,3 @@ namespace ErrorLogger
             catch { }
         }
     }
-}

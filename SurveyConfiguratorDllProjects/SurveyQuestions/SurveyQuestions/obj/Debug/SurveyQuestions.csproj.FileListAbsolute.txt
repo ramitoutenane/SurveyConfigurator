@@ -1,0 +1,9 @@
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\obj\Debug\SurveyQuestions.csprojAssemblyReference.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\obj\Debug\SurveyQuestions.csproj.CoreCompileInputs.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\bin\Debug\SurveyQuestions.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\bin\Debug\SurveyQuestions.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\bin\Debug\ErrorLogger.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\obj\Debug\SurveyQuestions.csproj.CopyComplete
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\obj\Debug\SurveyQuestions.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorDllProjects\SurveyQuestions\SurveyQuestions\obj\Debug\SurveyQuestions.pdb
