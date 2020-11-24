@@ -33,20 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DatabaseOperations">
-      <HintPath>..\SurveyConfiguratorDevelopment\DllFiles\DatabaseOperations.dll</HintPath>
+    <Reference Include="DatabaseOperations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseOperations.dll</HintPath>
     </Reference>
-    <Reference Include="DatabaseSettings">
-      <HintPath>..\SurveyConfiguratorDevelopment\DllFiles\DatabaseSettings.dll</HintPath>
+    <Reference Include="ErrorLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\ErrorLogger.dll</HintPath>
     </Reference>
-    <Reference Include="ErrorLogger">
-      <HintPath>..\SurveyConfiguratorDevelopment\DllFiles\ErrorLogger.dll</HintPath>
+    <Reference Include="QuestionManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.dll</HintPath>
     </Reference>
-    <Reference Include="QuestionManager">
-      <HintPath>..\SurveyConfiguratorDevelopment\DllFiles\QuestionManager.dll</HintPath>
-    </Reference>
-    <Reference Include="SurveyQuestions">
-      <HintPath>..\SurveyConfiguratorDevelopment\DllFiles\SurveyQuestions.dll</HintPath>
+    <Reference Include="SurveyConfiguratorEntities">
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\SurveyConfiguratorEntities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

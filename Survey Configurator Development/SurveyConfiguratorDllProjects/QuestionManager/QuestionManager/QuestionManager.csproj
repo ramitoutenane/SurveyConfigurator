@@ -31,17 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DatabaseOperations">
-      <HintPath>..\..\..\DllFiles\DatabaseOperations.dll</HintPath>
+    <Reference Include="DatabaseOperations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DatabaseOperations\DatabaseOperations\bin\Debug\DatabaseOperations.dll</HintPath>
     </Reference>
-    <Reference Include="DatabaseSettings">
-      <HintPath>..\..\..\DllFiles\DatabaseSettings.dll</HintPath>
+    <Reference Include="ErrorLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DatabaseOperations\DatabaseOperations\bin\Debug\ErrorLogger.dll</HintPath>
     </Reference>
-    <Reference Include="ErrorLogger">
-      <HintPath>..\..\..\DllFiles\ErrorLogger.dll</HintPath>
-    </Reference>
-    <Reference Include="SurveyQuestions">
-      <HintPath>..\..\..\DllFiles\SurveyQuestions.dll</HintPath>
+    <Reference Include="SurveyConfiguratorEntities">
+      <HintPath>..\..\DatabaseOperations\DatabaseOperations\bin\Debug\SurveyConfiguratorEntities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
