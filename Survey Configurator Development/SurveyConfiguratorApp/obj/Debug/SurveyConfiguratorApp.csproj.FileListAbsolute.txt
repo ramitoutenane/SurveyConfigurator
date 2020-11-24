@@ -9,6 +9,7 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\De
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.QuestionProperties.resources
@@ -24,8 +25,42 @@ C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\b
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorApp.pdb
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\ar\SurveyConfiguratorApp.resources.dll
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\en\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\DatabaseOperations.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\DatabaseSettings.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\QuestionManager.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\bin\Debug\SurveyQuestions.dll
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\ar\SurveyConfiguratorApp.resources.dll
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\en\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CopyComplete
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
-C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\SurveyConfiguratorApp.exe.config
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\SurveyConfiguratorApp.exe
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\SurveyConfiguratorApp.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\ar\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\en\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\DatabaseOperations.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\ErrorLogger.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\QuestionManager.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\SurveyConfiguratorEntities.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\DatabaseOperations.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\ErrorLogger.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\QuestionManager.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\bin\Debug\SurveyConfiguratorEntities.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.Main.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.QuestionProperties.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.Properties.StringResources.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.Main.ar.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.Main.en.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.QuestionProperties.ar.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.Properties.StringResources.ar.resources
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.csproj.GenerateResource.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.csproj.CoreCompileInputs.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\ar\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\en\SurveyConfiguratorApp.resources.dll
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.csproj.CopyComplete
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.exe
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorAppDll\obj\Debug\SurveyConfiguratorApp.pdb

@@ -33,6 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DatabaseOperations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseOperations.dll</HintPath>
+    </Reference>
+    <Reference Include="ErrorLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\ErrorLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="QuestionManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.dll</HintPath>
+    </Reference>
+    <Reference Include="SurveyConfiguratorEntities">
+      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\SurveyConfiguratorEntities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -47,40 +62,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConstantValues\ConstantStringResources.cs" />
-    <Compile Include="ConstantValues\QuestionValidationValues.cs" />
-    <Compile Include="DatabaseSettings.cs" />
-    <Compile Include="ErrorLogger.cs" />
-    <Compile Include="Interfaces\IDatabaseOperations.cs" />
-    <Compile Include="ConstantValues\ErrorMessages.cs" />
-    <Compile Include="ConstantValues\DatabaseParameters.cs" />
-    <Compile Include="Interfaces\IDatabaseSelectable.cs" />
-    <Compile Include="Interfaces\IQuestionRepository.cs" />
+    <Compile Include="ConstantStringResources.cs" />
     <Compile Include="QuestionProperties.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="QuestionProperties.Designer.cs">
       <DependentUpon>QuestionProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuestionManager.cs" />
-    <Compile Include="DatabaseOperations\SliderQuestionDatabaseOperations.cs" />
-    <Compile Include="DatabaseOperations\SmileyQuestionDatabaseOperations.cs" />
-    <Compile Include="DatabaseOperations\StarsQuestionDatabaseOperations.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IDatabaseProcessable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QusetionClasses\Question.cs" />
-    <Compile Include="DatabaseOperations\QuestionDatabaseOperations.cs" />
-    <Compile Include="QusetionClasses\QuestionEnumerations.cs" />
-    <Compile Include="QusetionClasses\SliderQuestion.cs" />
-    <Compile Include="QusetionClasses\StarsQuestion.cs" />
-    <Compile Include="QusetionClasses\SmileyQuestion.cs" />
     <Compile Include="Properties\StringResources.ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
