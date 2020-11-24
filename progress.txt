@@ -1,11 +1,9 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-    * Write user manual for end-user.
-    * Write installation documentation for administrator.
     * Write technical documentation for developer.
 
 In Progress:
-    * Create dlls
+    * Write installation documentation for administrator.
     * Testing and refactoring.
 
 Done:
@@ -90,3 +88,8 @@ Done:
     -23/11 3:00
         *Use (#region) to format Forms code
         *Create general enumerations file 
+    24-11 12:00
+        * Create dlls
+
+    24/11 1:30
+        * Write user manual for end-user.
