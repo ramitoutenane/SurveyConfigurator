@@ -7,10 +7,29 @@ namespace SurveyConfiguratorApp
 {
     public partial class QuestionProperties : Form
     {
+        #region QuestionTypeTranslation inner class 
+        /// <summary>
+        /// private inner class to connect question Type with it's translated name
+        /// </summary>
+        private class QuestionTypeTranslation
+        {
+            public readonly QuestionType Type;
+            public readonly string TypeName;
+
+            public QuestionTypeTranslation(QuestionType type, string typeName)
+            {
+                Type = type;
+                TypeName = typeName;
+            }
+
+            public override string ToString() => TypeName;
+
+        }
+        #endregion
         #region Initialize QuestionProperties form
         private readonly IQuestionRepository mQuestionManager;
-        private Dictionary<QuestionType, string> mQuestionTypeResources;
         private Question mQuestion;
+        private List<QuestionTypeTranslation> mQuestionTypeList;
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
         /// </summary>
@@ -20,15 +39,15 @@ namespace SurveyConfiguratorApp
             {
                 InitializeComponent();
                 mQuestionManager = questionManager;
-                //initialize dictionary of question type and it's string resource to use as ComboBox DataSource
-                mQuestionTypeResources = new Dictionary<QuestionType, string>
-                {
-                    {QuestionType.Smiley,Properties.StringResources.QUESTION_TYPE_SMILEY},
-                    {QuestionType.Slider,Properties.StringResources.QUESTION_TYPE_SLIDER},
-                    {QuestionType.Stars,Properties.StringResources.QUESTION_TYPE_STARS}
-                };
+
                 //populate typeComboBox
-                typeComboBox.DataSource = new List<string>(mQuestionTypeResources.Values);
+                mQuestionTypeList = new List<QuestionTypeTranslation>()
+                {
+                    new QuestionTypeTranslation(QuestionType.Smiley,Properties.StringResources.QUESTION_TYPE_SMILEY),
+                    new QuestionTypeTranslation(QuestionType.Slider,Properties.StringResources.QUESTION_TYPE_SLIDER),
+                    new QuestionTypeTranslation(QuestionType.Stars,Properties.StringResources.QUESTION_TYPE_STARS)
+                };
+                typeComboBox.DataSource = mQuestionTypeList;
                 typeComboBox.SelectedIndex = 0;
             }
             catch (Exception error)
@@ -51,7 +70,7 @@ namespace SurveyConfiguratorApp
                     mQuestion = question;
                     questionTextBox.Text = question.Text;
                     orderNumericUpDown.Value = question.Order;
-                    typeComboBox.SelectedItem = mQuestionTypeResources[question.Type];
+                    typeComboBox.SelectedItem = mQuestionTypeList.Find(tQuestion => tQuestion.Type == question.Type);
                     typeComboBox.Enabled = false;
                     //populate components with specific question type data
                     switch (question.Type)
@@ -119,7 +138,7 @@ namespace SurveyConfiguratorApp
             }
         }
         #endregion
-        #region Conrols event handling
+        #region Controls event handling
         /// <summary>
         /// typeComboBox change selection event handler
         /// </summary>
@@ -134,23 +153,23 @@ namespace SurveyConfiguratorApp
                 //question group box location point
                 Point tGroupBoxLocation = new Point(10, 230);
                 //check selected question and show it's group box
-                string tSelectedQuestion = typeComboBox.SelectedItem.ToString();
+                QuestionTypeTranslation tSelectedQuestion = typeComboBox.SelectedItem as QuestionTypeTranslation;
+                switch (tSelectedQuestion.Type)
+                {
+                    case QuestionType.Smiley:
+                        smileyGroupBox.Visible = true;
+                        smileyGroupBox.Location = tGroupBoxLocation;
+                        break;
+                    case QuestionType.Slider:
+                        sliderGroupBox.Visible = true;
+                        sliderGroupBox.Location = tGroupBoxLocation;
 
-                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
+                        break;
+                    case QuestionType.Stars:
+                        starsGroupBox.Visible = true;
+                        starsGroupBox.Location = tGroupBoxLocation;
 
-                {
-                    smileyGroupBox.Visible = true;
-                    smileyGroupBox.Location = tGroupBoxLocation;
-                }
-                else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Slider])
-                {
-                    sliderGroupBox.Visible = true;
-                    sliderGroupBox.Location = tGroupBoxLocation;
-                }
-                else if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Stars])
-                {
-                    starsGroupBox.Visible = true;
-                    starsGroupBox.Location = tGroupBoxLocation;
+                        break;
                 }
             }
             catch (Exception error)
@@ -197,17 +216,20 @@ namespace SurveyConfiguratorApp
                         tId = mQuestion.Id;
                     }
                     //based on selected question type create new question, and save it to question public reference
-                    string tSelectedQuestionType = (string)typeComboBox.SelectedItem;
-                    if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Smiley])
-                        mQuestion = new SmileyQuestion(tQuestionText, tQuestionOrder, (int)smileyNumericUpDown.Value, tId);
-
-                    else if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Slider])
-                        mQuestion = new SliderQuestion(tQuestionText, tQuestionOrder, (int)startValueNumericUpDown.Value,
-                                (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), tId);
-
-                    else if (tSelectedQuestionType == mQuestionTypeResources[QuestionType.Stars])
-                        mQuestion = new StarsQuestion(tQuestionText, tQuestionOrder, (int)starsNumericUpDown.Value, tId);
-
+                    QuestionTypeTranslation tSelectedQuestion = typeComboBox.SelectedItem as QuestionTypeTranslation;
+                    switch (tSelectedQuestion.Type)
+                    {
+                        case QuestionType.Smiley:
+                            mQuestion = new SmileyQuestion(tQuestionText, tQuestionOrder, (int)smileyNumericUpDown.Value, tId);
+                            break;
+                        case QuestionType.Slider:
+                            mQuestion = new SliderQuestion(tQuestionText, tQuestionOrder, (int)startValueNumericUpDown.Value,
+                                    (int)endValueNumericUpDown.Value, startCaptionTextBox.Text.TrimEnd(), endCaptionTextBox.Text.TrimEnd(), tId);
+                            break;
+                        case QuestionType.Stars:
+                            mQuestion = new StarsQuestion(tQuestionText, tQuestionOrder, (int)starsNumericUpDown.Value, tId);
+                            break;
+                    }
 
                     //if question is not null check it's id to determine whether to insert it or update it
                     if (mQuestion == null)
@@ -384,20 +406,19 @@ namespace SurveyConfiguratorApp
                     return false;
                 }
                 //check the type of question and it's properties based on question type selection
-                string tSelectedQuestion = (string)typeComboBox.SelectedItem;
-                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Slider])
+                QuestionTypeTranslation tSelectedQuestion = typeComboBox.SelectedItem as QuestionTypeTranslation;
+                switch (tSelectedQuestion.Type)
                 {
-                    return IsValidSliderQuestion();
+                    case QuestionType.Smiley:
+                        return IsValidSmileyQuestion();
+                    case QuestionType.Slider:
+                        return IsValidSliderQuestion();
+                    case QuestionType.Stars:
+                        return IsValidStarsQuestion();
+                    default:
+                        return false;
                 }
-                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Stars])
-                {
-                    return IsValidStarsQuestion();
-                }
-                if (tSelectedQuestion == mQuestionTypeResources[QuestionType.Smiley])
-                {
-                    return IsValidSmileyQuestion();
-                }
-                return false;
+
             }
             catch (Exception error)
             {
