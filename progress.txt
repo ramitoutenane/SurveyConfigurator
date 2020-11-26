@@ -3,7 +3,6 @@ To Do:
     * Write technical documentation for developer.
 
 In Progress:
-    * Write installation documentation for administrator.
     * Testing and refactoring.
 
 Done:
@@ -93,3 +92,7 @@ Done:
 
     24/11 1:30
         * Write user manual for end-user.
+
+    26/11 3:30   
+        * Write installation documentation for administrator.
+        * Write technical documentation for developer.
