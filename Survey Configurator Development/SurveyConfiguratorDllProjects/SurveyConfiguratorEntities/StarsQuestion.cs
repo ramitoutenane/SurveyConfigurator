@@ -5,9 +5,12 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Stars question class that extends general question and adds stars question properties 
     /// </summary>
-    public class StarsQuestion : Question
+    public class StarsQuestion : BaseQuestion
     {
+        #region Variable deceleration
         private int nNumberOfStars;
+        #endregion
+        #region Constructor
         /// <summary>
         /// Stars question constructor to initialize new stars question
         /// </summary>
@@ -21,21 +24,21 @@ namespace SurveyConfiguratorApp
             {
                 NumberOfStars = numberOfStars;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
-        /// <summary>
-        /// Stars question constructor to initialize new smiley question
-        /// </summary>
-        /// <param name="other">Stars question object to copy it's properties</param>
-        /// <param name="id">New question id</param>
+        #endregion
+        #region Properties definition
+
         public int NumberOfStars
         {
             get => nNumberOfStars;
             set { nNumberOfStars = value; }
         }
+        #endregion
+        #region Methods
         public override string ToString() => $"{base.ToString()}\nNumber of Stars: {NumberOfStars}";
         /// <summary>
         /// Check if question is valid
@@ -61,17 +64,38 @@ namespace SurveyConfiguratorApp
         /// </summary>
         /// <param name="id">the new id</param>
         /// <returns></returns>
-        public override Question CopyWithNewId(int id)
+        public override BaseQuestion CopyWithNewId(int id)
         {
             try
             {
                 return new StarsQuestion(Text, Order, NumberOfStars, id);
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 return null;
             }
         }
+
+        public override bool Equals(object pObj)
+        {
+            return Equals(pObj as StarsQuestion);
+        }
+
+        public bool Equals(StarsQuestion pOther)
+        {
+            return pOther != null &&
+                   base.Equals(pOther) &&
+                   nNumberOfStars == pOther.nNumberOfStars;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 49537828;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + nNumberOfStars.GetHashCode();
+            return hashCode;
+        }
+        #endregion
     }
 }

@@ -33,21 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DatabaseOperations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseOperations.dll</HintPath>
-    </Reference>
-    <Reference Include="ErrorLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\ErrorLogger.dll</HintPath>
-    </Reference>
-    <Reference Include="QuestionManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.dll</HintPath>
-    </Reference>
-    <Reference Include="SurveyConfiguratorEntities">
-      <HintPath>..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\SurveyConfiguratorEntities.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -138,6 +123,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\DatabaseOperations.csproj">
+      <Project>{fb51b0c2-89d2-4d34-a2b4-376a2b71db5c}</Project>
+      <Name>DatabaseOperations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\ErrorLogger.csproj">
+      <Project>{fa3d9252-6e05-4dda-86c2-e35890aee56a}</Project>
+      <Name>ErrorLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\QuestionManager.csproj">
+      <Project>{6e1bc44e-ce1e-4430-b687-0e60ca22fecc}</Project>
+      <Name>QuestionManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\SurveyConfiguratorEntities.csproj">
+      <Project>{374ac4a3-caee-4823-9019-61e38fa1f8d4}</Project>
+      <Name>SurveyConfiguratorEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

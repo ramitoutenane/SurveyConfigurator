@@ -6,54 +6,58 @@ namespace SurveyConfiguratorApp
     /// <summary>
     /// Class to support database operations on question table
     /// </summary>
-    public class QuestionDatabaseOperations : IDatabaseProcessable<Question>
+    public class BaseQuestionDatabaseOperations : IDatabaseProcessable<BaseQuestion>
     {
+        #region Variable deceleration
         private readonly string mConnectionString;
+        #endregion
+        #region Constructors
         /// <summary>
         /// QuestionDatabaseOperations constructor to initialize new QuestionDatabaseOperations object
         /// </summary>
-        /// <param name="connectionString">SQL database connection string</param>
-        public QuestionDatabaseOperations(string connectionString)
+        /// <param name="pConnectionString">SQL database connection string</param>
+        public BaseQuestionDatabaseOperations(string pConnectionString)
         {
             try
             {
-                mConnectionString = connectionString;
+                mConnectionString = pConnectionString;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         /// <summary>
         /// QuestionDatabaseOperations constructor to initialize new QuestionDatabaseOperations object
         /// </summary>
-        /// <param name="databaseSettings">DatabaseSettings object</param>
-        public QuestionDatabaseOperations(DatabaseSettings databaseSettings)
+        /// <param name="pDatabaseSettings">DatabaseSettings object</param>
+        public BaseQuestionDatabaseOperations(DatabaseSettings pDatabaseSettings)
         {
             try
             {
                 // create connection string from databaseSettings object data
                 SqlConnectionStringBuilder tBuilder = new SqlConnectionStringBuilder
                 {
-                    DataSource = databaseSettings.DatabaseServer,
-                    InitialCatalog = databaseSettings.DatabaseName,
-                    UserID = databaseSettings.DatabaseUser,
-                    Password = databaseSettings.DatabasePassword
+                    DataSource = pDatabaseSettings.DatabaseServer,
+                    InitialCatalog = pDatabaseSettings.DatabaseName,
+                    UserID = pDatabaseSettings.DatabaseUser,
+                    Password = pDatabaseSettings.DatabasePassword
                 };
                 mConnectionString = tBuilder.ConnectionString;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
-        
+        #endregion
+        #region Methods
         /// <summary>
         /// Insert question into database question table
         /// </summary>
-        /// <param name="data">question to be inserted</param>
+        /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public int Insert(Question data)
+        public bool Insert(BaseQuestion pQuestion)
         {
             try
             {
@@ -63,26 +67,32 @@ namespace SurveyConfiguratorApp
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TEXT}", data.Text);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", data.Order);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TYPE}", (int)data.Type);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TEXT}", pQuestion.Text);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TYPE}", (int)pQuestion.Type);
                         tConnection.Open();
-                        return (int)tCommand.ExecuteScalar();
+                        int tID = (int)tCommand.ExecuteScalar();
+                        if (tID > 0)
+                        {
+                            pQuestion.ChangeId(tID);
+                            return true;
+                        }
+                        return false;
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
-                return -1;
+                ErrorLogger.Log(pError);
+                return false;
             }
         }
         /// <summary>
         /// update question in database question table
         /// </summary>
-        /// <param name="data">question to be updated</param>
+        /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public bool Update(Question data)
+        public bool Update(BaseQuestion pQuestion)
         {
             try
             {
@@ -92,17 +102,17 @@ namespace SurveyConfiguratorApp
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TEXT}", data.Text);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", data.Order);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", data.Id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TEXT}", pQuestion.Text);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tConnection.Open();
                         return tCommand.ExecuteNonQuery() > 0;
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 return false;
             }
         }
@@ -111,7 +121,7 @@ namespace SurveyConfiguratorApp
         /// </summary>
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
-        public bool Delete(int id)
+        public bool Delete(int pId)
         {
             try
             {
@@ -120,17 +130,42 @@ namespace SurveyConfiguratorApp
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pId);
                         tConnection.Open();
                         return tCommand.ExecuteNonQuery() > 0;
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 return false;
             }
         }
+        /// <summary>
+        /// check if database connection is available
+        /// </summary>
+        /// <returns>true if connected, false otherwise</returns>
+        public bool IsConnected()
+        {
+
+            try
+            {
+                using (SqlConnection tConnection = new SqlConnection(mConnectionString))
+                {
+                    // if data base is connected, no SqlException will be raised and true is returned
+                    tConnection.Open();
+                    tConnection.Close();
+                }
+            }
+            catch (SqlException)
+            {
+                // if database is disconnected, SqlException will be raised and false is returned
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
     }
 }

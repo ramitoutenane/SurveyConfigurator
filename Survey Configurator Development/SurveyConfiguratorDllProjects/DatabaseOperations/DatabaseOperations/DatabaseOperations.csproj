@@ -31,13 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ErrorLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SurveyConfiguratorEntities\bin\Debug\ErrorLogger.dll</HintPath>
-    </Reference>
-    <Reference Include="SurveyConfiguratorEntities">
-      <HintPath>..\..\SurveyConfiguratorEntities\bin\Debug\SurveyConfiguratorEntities.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,10 +46,20 @@
     <Compile Include="IDatabaseProcessable.cs" />
     <Compile Include="IDatabaseSelectable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuestionDatabaseOperations.cs" />
+    <Compile Include="BaseQuestionDatabaseOperations.cs" />
     <Compile Include="SliderQuestionDatabaseOperations.cs" />
     <Compile Include="SmileyQuestionDatabaseOperations.cs" />
     <Compile Include="StarsQuestionDatabaseOperations.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ErrorLogger\ErrorLogger\ErrorLogger.csproj">
+      <Project>{fa3d9252-6e05-4dda-86c2-e35890aee56a}</Project>
+      <Name>ErrorLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SurveyConfiguratorEntities\SurveyConfiguratorEntities.csproj">
+      <Project>{374ac4a3-caee-4823-9019-61e38fa1f8d4}</Project>
+      <Name>SurveyConfiguratorEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

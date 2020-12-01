@@ -25,7 +25,7 @@ namespace SurveyConfiguratorApp
     {
         #region Initialize Main form
         private IQuestionRepository mQuestionManager;
-        private List<Question> mQuestionList;
+        private List<BaseQuestion> mQuestionList;
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
         private string mCurrentLanguage;
@@ -63,9 +63,9 @@ namespace SurveyConfiguratorApp
                 languageComboBox.SelectedItem = ConstantStringResources.cENGLISH_LANGUAGE;
                 mCurrentLanguage = ConstantStringResources.cENGLISH_LANGUAGE;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -78,9 +78,9 @@ namespace SurveyConfiguratorApp
             {
                 InitializeData();
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -108,9 +108,9 @@ namespace SurveyConfiguratorApp
                 }
                 refreshButton.PerformClick();
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -133,9 +133,9 @@ namespace SurveyConfiguratorApp
                 questionDataGridView.DataSource = mQuestionList;
                 questionDataGridView.Refresh();
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
 
@@ -159,9 +159,9 @@ namespace SurveyConfiguratorApp
                     deleteButton.Enabled = false;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -174,11 +174,11 @@ namespace SurveyConfiguratorApp
             {
                 //if a row is selected, index is not -1, show question properties dialog with selected question properties loaded to it
                 if (clickedCell.RowIndex != -1)
-                    ShowEditForm(questionDataGridView.Rows[clickedCell.RowIndex].DataBoundItem as Question);
+                    ShowEditForm(questionDataGridView.Rows[clickedCell.RowIndex].DataBoundItem as BaseQuestion);
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -201,9 +201,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.INSERT_ERROR);
 
             }
@@ -224,12 +224,12 @@ namespace SurveyConfiguratorApp
                 if (tSelectedRow >= 0)
                 {
                     //show question properties dialog with selected question properties loaded to it
-                    ShowEditForm(questionDataGridView.Rows[tSelectedRow].DataBoundItem as Question);
+                    ShowEditForm(questionDataGridView.Rows[tSelectedRow].DataBoundItem as BaseQuestion);
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.UPDATE_ERROR);
 
             }
@@ -254,7 +254,7 @@ namespace SurveyConfiguratorApp
                     //if a row is selected, index is not -1
                     if (tSelectedRow >= 0)
                     {
-                        //delete question from source, if deleted successfully reload data to grid view , show error otherwise
+                        //delete question from source, if deleted successfully reload data to grid view , show pError otherwise
                         Cursor.Current = Cursors.WaitCursor;
                         if (mQuestionManager.Delete(mQuestionList[tSelectedRow].Id))
                         {
@@ -271,9 +271,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.DELETE_ERROR);
 
             }
@@ -290,7 +290,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-                //refresh data from source, if refreshed successfully reload data to grid view , show error otherwise
+                //refresh data from source, if refreshed successfully reload data to grid view , show pError otherwise
                 if (mQuestionManager.SelectAll() != null)
                 {
                     RefreshList();
@@ -304,9 +304,9 @@ namespace SurveyConfiguratorApp
                     return;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.REFRESH_ERROR);
             }
             finally
@@ -356,9 +356,9 @@ namespace SurveyConfiguratorApp
                     languageComboBox.SelectedItem = tLanguageComboBoxSelectedItem;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -376,9 +376,9 @@ namespace SurveyConfiguratorApp
                 else
                     mSortOrder = SortOrder.Ascending;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.SORT_ERROR);
             }
 
@@ -386,23 +386,23 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// Change list sort method
         /// </summary>
-        /// <param name="newSortMethod">list Sort Method</param>
-        private void SetSortMethod(SortMethod newSortMethod)
+        /// <param name="pNewSortMethod">list Sort Method</param>
+        private void SetSortMethod(SortMethod pNewSortMethod)
         {
             try
             {
                 // if the new sort method is the same as old one , just toggle sort order, else change sort method to new one with Ascending order
-                if (newSortMethod == mSortMethod)
+                if (pNewSortMethod == mSortMethod)
                     ToggleSortOrder();
                 else
                 {
                     mSortOrder = SortOrder.Ascending;
-                    mSortMethod = newSortMethod;
+                    mSortMethod = pNewSortMethod;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.SORT_ERROR);
             }
 
@@ -415,7 +415,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 // initialize temporary list with old list capacity to avoid list resizing.
-                List<Question> tSortedList = new List<Question>(mQuestionList.Count);
+                List<BaseQuestion> tSortedList = new List<BaseQuestion>(mQuestionList.Count);
                 //Sort Items list according to given ordering method using linq
                 switch (mSortMethod)
                 {
@@ -440,9 +440,9 @@ namespace SurveyConfiguratorApp
                 // set local Items list to the new sorted list
                 mQuestionList = tSortedList;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.SORT_ERROR);
             }
         }
@@ -468,9 +468,9 @@ namespace SurveyConfiguratorApp
                 }
                 addButton.Enabled = true;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 addButton.Enabled = false;
 
                 ShowError(Properties.StringResources.REFRESH_ERROR);
@@ -480,13 +480,13 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// Show question properties dialog with question data loaded to it
         /// </summary>
-        /// <param name="question">Question object to be loaded to properties form</param>
-        private void ShowEditForm(Question question)
+        /// <param name="pQuestion">Question object to be loaded to properties form</param>
+        private void ShowEditForm(BaseQuestion pQuestion)
         {
             try
             {
                 //show question properties dialog
-                using (QuestionProperties tPropertiesDialog = new QuestionProperties(mQuestionManager, question))
+                using (QuestionProperties tPropertiesDialog = new QuestionProperties(mQuestionManager, pQuestion))
                 {
                     //check if result of dialog is OK 
                     if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
@@ -495,9 +495,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.UPDATE_ERROR);
 
             }
@@ -505,16 +505,16 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// Show custom Error message box to user
         /// </summary>
-        /// <param name="errorMessage">error message to be shown to user</param>
-        public static void ShowError(string errorMessage)
+        /// <param name="pErrorMessage">pError message to be shown to user</param>
+        public static void ShowError(string pErrorMessage)
         {
             try
             {
-                MessageBox.Show(errorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(pErrorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         #endregion

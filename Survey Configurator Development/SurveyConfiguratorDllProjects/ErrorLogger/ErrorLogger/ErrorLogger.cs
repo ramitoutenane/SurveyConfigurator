@@ -3,15 +3,15 @@ using System.IO;
 using System.Text;
 
     /// <summary>
-    /// Class used to log error to the location given in configuration
+    /// Class used to log pError to the location given in configuration
     /// </summary>
     public static class ErrorLogger
     {
         /// <summary>
-        /// Log error message to log file
+        /// Log pError message to log file
         /// </summary>
-        /// <param name="message">Error message to be logged</param>
-        public static void Log(string message)
+        /// <param name="pMessage">Error message to be logged</param>
+        public static void Log(string pMessage)
         {
             try
             {
@@ -19,10 +19,10 @@ using System.Text;
                 StringBuilder tLogMessage = new StringBuilder();
                 tLogMessage.AppendLine($"Time: {DateTime.Now}");
                 tLogMessage.AppendLine(new string('-', 50));
-                tLogMessage.AppendLine(message);
+                tLogMessage.AppendLine(pMessage);
 
-                // write message to error.log file
-                using (StreamWriter tStreamWriter = File.AppendText("error.log"))
+                // write message to pError.log file
+                using (StreamWriter tStreamWriter = File.AppendText("pError.log"))
                 {
                     tStreamWriter.WriteLine(tLogMessage.ToString());
                 }
@@ -32,18 +32,18 @@ using System.Text;
         /// <summary>
         /// Log exception to log file
         /// </summary>
-        /// <param name="error">Exception to be logged</param>
-        public static void Log(Exception error)
+        /// <param name="pError">Exception to be logged</param>
+        public static void Log(Exception pError)
         {
             try
             {
-                // format error message to show required data
+                // format pError message to show required data
                 StringBuilder tErrorMessage = new StringBuilder();
-                tErrorMessage.AppendLine($"Exception Type : {error.GetType()}");
-                tErrorMessage.AppendLine($"Exception Message : {error.Message}");
-                tErrorMessage.AppendLine($"Exception Stack : {error.StackTrace}");
+                tErrorMessage.AppendLine($"Exception Type : {pError.GetType()}");
+                tErrorMessage.AppendLine($"Exception Message : {pError.Message}");
+                tErrorMessage.AppendLine($"Exception Stack : {pError.StackTrace}");
 
-                // log error
+                // log pError
                 Log(tErrorMessage.ToString());
             }
             catch { }

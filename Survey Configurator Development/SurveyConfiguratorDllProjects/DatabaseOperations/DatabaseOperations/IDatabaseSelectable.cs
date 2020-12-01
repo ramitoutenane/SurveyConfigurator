@@ -6,20 +6,20 @@ namespace SurveyConfiguratorApp
     /// Interface to support query behavior on repository 
     /// </summary>
     /// <typeparam name="T">The object to be managed</typeparam>
-    public interface IDatabaseSelectable<T> where T : Question
+    public interface IDatabaseSelectable<T> where T : BaseQuestion
     {
         /// <summary>
         /// Select all objects in given range from repository
         /// </summary>
-        /// <param name="offset">Number of objects to skip before starting to return objects from the repository</param>
-        /// <param name="limit">Number of objects to return after the offset has been processed</param>
+        /// <param name="pOffset">Number of objects to skip before starting to return objects from the repository</param>
+        /// <param name="pLimit">Number of objects to return after the offset has been processed</param>
         /// <returns>List that contains the retrieved objects</returns>
-        List<T> SelectAll(int offset = 0, int limit = 0);
+        List<T> SelectAll(int pOffset = 0, int pLimit = 0);
         /// <summary>
         /// Select specific object from the repository
         /// </summary>
-        /// <param name="id">Id of object to be selected</param>
+        /// <param name="pId">Id of object to be selected</param>
         /// <returns>The selected object if exist, null otherwise</returns>
-        T Select(int id);
+        T Select(int pId);
     }
 }

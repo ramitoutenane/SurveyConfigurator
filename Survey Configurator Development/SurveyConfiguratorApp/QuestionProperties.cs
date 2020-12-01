@@ -16,10 +16,10 @@ namespace SurveyConfiguratorApp
             public readonly QuestionType Type;
             public readonly string TypeName;
 
-            public QuestionTypeTranslation(QuestionType type, string typeName)
+            public QuestionTypeTranslation(QuestionType pType, string pTypeName)
             {
-                Type = type;
-                TypeName = typeName;
+                Type = pType;
+                TypeName = pTypeName;
             }
 
             public override string ToString() => TypeName;
@@ -28,17 +28,17 @@ namespace SurveyConfiguratorApp
         #endregion
         #region Initialize QuestionProperties form
         private readonly IQuestionRepository mQuestionManager;
-        private Question mQuestion;
+        private BaseQuestion mQuestion;
         private List<QuestionTypeTranslation> mQuestionTypeList;
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
         /// </summary>
-        public QuestionProperties(IQuestionRepository questionManager)
+        public QuestionProperties(IQuestionRepository pQuestionManager)
         {
             try
             {
                 InitializeComponent();
-                mQuestionManager = questionManager;
+                mQuestionManager = pQuestionManager;
 
                 //populate typeComboBox
                 mQuestionTypeList = new List<QuestionTypeTranslation>()
@@ -50,45 +50,45 @@ namespace SurveyConfiguratorApp
                 typeComboBox.DataSource = mQuestionTypeList;
                 typeComboBox.SelectedIndex = 0;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
         /// <summary>
         /// QuestionProperties form constructor to initialize QuestionProperties form and populate with question data
         /// </summary>
-        /// <param name="question">question to populate form with it's data</param>
-        public QuestionProperties(IQuestionRepository questionManager, Question question) : this(questionManager)
+        /// <param name="pQuestion">question to populate form with it's data</param>
+        public QuestionProperties(IQuestionRepository pQuestionManager, BaseQuestion pQuestion) : this(pQuestionManager)
         {
             try
             {
-                if (question != null)
+                if (pQuestion != null)
                 {
                     //populate components with general question data
-                    mQuestion = question;
-                    questionTextBox.Text = question.Text;
-                    orderNumericUpDown.Value = question.Order;
-                    typeComboBox.SelectedItem = mQuestionTypeList.Find(tQuestion => tQuestion.Type == question.Type);
+                    mQuestion = pQuestion;
+                    questionTextBox.Text = pQuestion.Text;
+                    orderNumericUpDown.Value = pQuestion.Order;
+                    typeComboBox.SelectedItem = mQuestionTypeList.Find(tQuestion => tQuestion.Type == pQuestion.Type);
                     typeComboBox.Enabled = false;
                     //populate components with specific question type data
-                    switch (question.Type)
+                    switch (pQuestion.Type)
                     {
                         case QuestionType.Slider:
-                            SliderQuestion tSlider = question as SliderQuestion;
+                            SliderQuestion tSlider = pQuestion as SliderQuestion;
                             startCaptionTextBox.Text = tSlider.StartValueCaption;
                             startValueNumericUpDown.Value = tSlider.StartValue;
                             endCaptionTextBox.Text = tSlider.EndValueCaption;
                             endValueNumericUpDown.Value = tSlider.EndValue;
                             break;
                         case QuestionType.Smiley:
-                            SmileyQuestion tSmiley = question as SmileyQuestion;
+                            SmileyQuestion tSmiley = pQuestion as SmileyQuestion;
                             smileyNumericUpDown.Value = tSmiley.NumberOfFaces;
 
                             break;
                         case QuestionType.Stars:
-                            StarsQuestion tStars = question as StarsQuestion;
+                            StarsQuestion tStars = pQuestion as StarsQuestion;
                             starsNumericUpDown.Value = tStars.NumberOfStars;
                             break;
                         default:
@@ -104,9 +104,9 @@ namespace SurveyConfiguratorApp
                     return;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -131,9 +131,9 @@ namespace SurveyConfiguratorApp
                 smileyNumericUpDown.Minimum = int.MinValue;
                 starsNumericUpDown.Minimum = int.MinValue;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -172,9 +172,9 @@ namespace SurveyConfiguratorApp
                         break;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
         }
@@ -188,9 +188,9 @@ namespace SurveyConfiguratorApp
                 //update question length character counter
                 currentCharCount.Text = questionTextBox.Text.Length.ToString();
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
 
@@ -250,9 +250,9 @@ namespace SurveyConfiguratorApp
                 if (tSaved)
                     DialogResult = DialogResult.OK;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
             finally
@@ -278,9 +278,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         /// <summary>
@@ -299,9 +299,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         /// <summary>
@@ -325,9 +325,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         /// <summary>
@@ -351,9 +351,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         /// <summary>
@@ -377,9 +377,9 @@ namespace SurveyConfiguratorApp
                     }
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         #endregion
@@ -420,9 +420,9 @@ namespace SurveyConfiguratorApp
                 }
 
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
                 return false;
             }
@@ -467,9 +467,9 @@ namespace SurveyConfiguratorApp
                 }
                 return true;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
                 return false;
             }
@@ -496,9 +496,9 @@ namespace SurveyConfiguratorApp
                 }
                 return true;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
                 return false;
             }
@@ -525,9 +525,9 @@ namespace SurveyConfiguratorApp
                 }
                 return true;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
                 return false;
             }
@@ -537,28 +537,28 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// Show custom Error message box to user
         /// </summary>
-        /// <param name="errorMessage">error message to be shown to user</param>
-        public static void ShowError(string errorMessage)
+        /// <param name="pErrorMessage">pError message to be shown to user</param>
+        public static void ShowError(string pErrorMessage)
         {
             try
             {
-                MessageBox.Show(errorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(pErrorMessage, Properties.StringResources.ERROR_BOX_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
         /// <summary>
         /// Insert question into repository
         /// </summary>
-        /// <param name="question">The question to be inserted</param>
+        /// <param name="pQuestion">The question to be inserted</param>
         /// <returns>true if inserted, false otherwise</returns>
-        private bool InsertQuestion(Question question)
+        private bool InsertQuestion(BaseQuestion pQuestion)
         {
             try
             {
-                if (mQuestionManager.Insert(question))
+                if (mQuestionManager.Insert(pQuestion))
                     return true;
                 else
                 {
@@ -566,22 +566,22 @@ namespace SurveyConfiguratorApp
                     return false;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 return false;
             }
         }
         /// <summary>
         /// Update question in repository
         /// </summary>
-        /// <param name="question">The question to be updated</param>
+        /// <param name="pQuestion">The question to be updated</param>
         /// <returns>true if updated, false otherwise</returns>
-        private bool UpdateQuestion(Question question)
+        private bool UpdateQuestion(BaseQuestion pQuestion)
         {
             try
             {
-                if (mQuestionManager.Update(question))
+                if (mQuestionManager.Update(pQuestion))
                     return true;
                 else
                 {
@@ -589,9 +589,9 @@ namespace SurveyConfiguratorApp
                     return false;
                 }
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
                 return false;
             }
         }

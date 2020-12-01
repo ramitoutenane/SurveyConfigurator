@@ -9,28 +9,40 @@ namespace SurveyConfiguratorApp
         /// <summary>
         /// List of objects to be maintained 
         /// </summary>
-        List<Question> QuestionsList { get; }
+        List<BaseQuestion> QuestionsList { get; }
         /// <summary>
         /// Insert object into repository
         /// </summary>
-        /// <param name="question">Object to be inserted</param>
-        bool Insert(Question question);
+        /// <param name="pQuestion">Object to be inserted</param>
+        bool Insert(BaseQuestion pQuestion);
         /// <summary>
         /// Update object on repository
         /// </summary>
-        /// <param name="question">The new object to be update</param>
+        /// <param name="pQuestion">The new object to be update</param>
         /// <returns>true if inserted, false otherwise</return 
-        bool Update(Question question);
+        bool Update(BaseQuestion pQuestion);
         /// <summary>
         /// Delete object from repository
         /// </summary>
-        /// <param name="id">The id of object to be deleted</param>
+        /// <param name="pId">The id of object to be deleted</param>
         /// <returns>true if updated, false otherwise</return
-        bool Delete(int id);
+        bool Delete(int pId);
         /// <summary>
         /// Synchronize local list with latest version from source
         /// </summary>
         /// <returns>The new refreshed List </returns>
-        List<Question> SelectAll();
+        List<BaseQuestion> SelectAll();
+        /// <summary>
+        /// Check if source connection is available
+        /// </summary>
+        /// <returns>true if connected, false otherwise</returns>
+        bool IsConnected();
+        /// <summary>
+        /// Check if local question list content and source content are equal
+        /// </summary>
+        /// <param name="pSourceQuestionList">source list to compare to local list</param>
+        /// <returns>true if equal, false otherwise</returns>
+        bool IsUpToDate(List<BaseQuestion> pSourceQuestionList);
+
     }
 }

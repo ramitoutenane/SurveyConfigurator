@@ -106,7 +106,7 @@
             // 
             // questionBindingSource
             // 
-            this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.Question);
+            this.questionBindingSource.DataSource = typeof(SurveyConfiguratorApp.BaseQuestion);
             // 
             // addButton
             // 

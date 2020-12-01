@@ -6,34 +6,40 @@ namespace SurveyConfiguratorApp
     /// </summary>
     public class DatabaseSettings
     {
+        #region Variable deceleration
         private string mDatabaseServer;
         private string mDatabaseName;
         private string mDatabaseUser;
         private string mDatabasePassword;
+        #endregion
+        #region Constructor 
         /// <summary>
         /// DatabaseSettings constructor to initialize new DatabaseSettings object
         /// </summary>
-        /// <param name="databaseServer">Database server</param>
-        /// <param name="databaseName">Database name</param>
-        /// <param name="databaseUser">Database user</param>
-        /// <param name="databasePassword">Database user password</param>
-        public DatabaseSettings(string databaseServer, string databaseName, string databaseUser, string databasePassword)
+        /// <param name="pDatabaseServer">Database server</param>
+        /// <param name="pDatabaseName">Database name</param>
+        /// <param name="pDatabaseUser">Database user</param>
+        /// <param name="pDatabasePassword">Database user password</param>
+        public DatabaseSettings(string pDatabaseServer, string pDatabaseName, string pDatabaseUser, string pDatabasePassword)
         {
             try
             {
-                DatabaseServer = databaseServer;
-                DatabaseName = databaseName;
-                DatabaseUser = databaseUser;
-                DatabasePassword = databasePassword;
+                DatabaseServer = pDatabaseServer;
+                DatabaseName = pDatabaseName;
+                DatabaseUser = pDatabaseUser;
+                DatabasePassword = pDatabasePassword;
             }
-            catch (Exception error)
+            catch (Exception pError)
             {
-                ErrorLogger.Log(error);
+                ErrorLogger.Log(pError);
             }
         }
+        #endregion
+        #region Properties definition
         public string DatabaseServer { get => mDatabaseServer; private set => mDatabaseServer = value; }
         public string DatabaseName { get => mDatabaseName; private set => mDatabaseName = value; }
         public string DatabaseUser { get => mDatabaseUser; private set => mDatabaseUser = value; }
         public string DatabasePassword { get => mDatabasePassword; private set => mDatabasePassword = value; }
+        #endregion
     }
 }

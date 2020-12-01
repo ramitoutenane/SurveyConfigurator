@@ -1,6 +1,6 @@
 Project Start : Monday, 2/Nov/2020 
 To Do:
-    * Write technical documentation for developer.
+   
 
 In Progress:
     * Testing and refactoring.
