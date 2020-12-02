@@ -16,7 +16,7 @@ namespace SurveyConfiguratorApp
         public const string cDATABASE_USER = "DatabaseUser";
         public const string cDATABASE_PASSWORD = "DatabasePassword";
         public const string cARABIC_LANGUAGE = "عربي";
-            public const string cARABIC_CULTURE = "ar";
+        public const string cARABIC_CULTURE = "ar";
         public const string cENGLISH_LANGUAGE = "ENG";
         public const string cENGLISH_CULTURE = "en";
     }

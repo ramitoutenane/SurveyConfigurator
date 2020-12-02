@@ -37,12 +37,6 @@ namespace SurveyConfiguratorApp
         /// </summary>
         /// <returns>true if connected, false otherwise</returns>
         bool IsConnected();
-        /// <summary>
-        /// Check if local question list content and source content are equal
-        /// </summary>
-        /// <param name="pSourceQuestionList">source list to compare to local list</param>
-        /// <returns>true if equal, false otherwise</returns>
-        bool IsUpToDate(List<BaseQuestion> pSourceQuestionList);
 
     }
 }

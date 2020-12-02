@@ -6,6 +6,7 @@
     public static class ErrorMessages
     {
         public const string cGENERAL_ERROR = "An Error occurred, Please try again or contact Admin";
+        public const string cCONNECTION_ERROR = "Connection to database is not available";
         public const string cREFRESH_ERROR = "An Error occurred while refreshing list";
         public const string cINSERT_ERROR = "An Error occurred while inserting question";
         public const string cUPDATE_ERROR = "An Error occurred while updating question";

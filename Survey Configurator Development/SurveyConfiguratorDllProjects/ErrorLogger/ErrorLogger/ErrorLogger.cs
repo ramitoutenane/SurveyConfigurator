@@ -22,7 +22,7 @@ using System.Text;
                 tLogMessage.AppendLine(pMessage);
 
                 // write message to pError.log file
-                using (StreamWriter tStreamWriter = File.AppendText("pError.log"))
+                using (StreamWriter tStreamWriter = File.AppendText("error.log"))
                 {
                     tStreamWriter.WriteLine(tLogMessage.ToString());
                 }

@@ -61,6 +61,15 @@ namespace SurveyConfiguratorApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection to database is not available.
+        /// </summary>
+        internal static string CONNECTION_ERROR {
+            get {
+                return ResourceManager.GetString("CONNECTION_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete question?.
         /// </summary>
         internal static string DELETE_CONFIRMATION_MESSAGE {

@@ -58,10 +58,6 @@ namespace SurveyConfiguratorApp
                 };
                 //populate typeComboBox
                 languageComboBox.DataSource = new List<string>(mCultureTable.Keys);
-
-                //set default from language
-                languageComboBox.SelectedItem = ConstantStringResources.cENGLISH_LANGUAGE;
-                mCurrentLanguage = ConstantStringResources.cENGLISH_LANGUAGE;
             }
             catch (Exception pError)
             {
@@ -76,7 +72,8 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                InitializeData();
+                if (mQuestionManager == null)
+                    InitializeData();
             }
             catch (Exception pError)
             {
@@ -106,15 +103,37 @@ namespace SurveyConfiguratorApp
                     ShowError(Properties.StringResources.GENERAL_ERROR);
                     return;
                 }
-                refreshButton.PerformClick();
+                Cursor.Current = Cursors.WaitCursor;
+                //refresh data from source, if refreshed successfully reload data to grid view , show pError otherwise
+                if (!mQuestionManager.IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    ShowError(Properties.StringResources.CONNECTION_ERROR);
+                    return;
+                }
+                if (mQuestionManager.SelectAll() != null)
+                {
+                    RefreshList();
+                }
+                else
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cREFRESH_ERROR));
+                    ShowError(Properties.StringResources.REFRESH_ERROR);
+                    return;
+                }
+                threadTimer.Start();
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
                 ShowError(Properties.StringResources.GENERAL_ERROR);
             }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
-#endregion
+        #endregion
         #region questionDataGridView event handling
         /// <summary>
         /// questionDataGridView ColumnHeaderMouseClick event handler
@@ -197,7 +216,7 @@ namespace SurveyConfiguratorApp
                     //check if result of dialog is OK 
                     if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
-                            RefreshList();
+                        RefreshList();
                     }
                 }
             }
@@ -241,22 +260,29 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                //show confirmation dialog to user
-                DialogResult tDialogResult = MessageBox.Show(Properties.StringResources.DELETE_CONFIRMATION_MESSAGE, Properties.StringResources.DELETE_CONFIRMATION_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                //check if result of dialog is YES
-                if (tDialogResult == DialogResult.Yes)
-                {
-                    //check if row is selected and get it's index
-                    int tSelectedRow = -1;
-                    if (questionDataGridView.SelectedRows.Count == 1)
-                        tSelectedRow = questionDataGridView.SelectedRows[0].Index;
+                //check if row is selected and get it's index
+                int tSelectedRow = -1;
+                if (questionDataGridView.SelectedRows.Count == 1)
+                    tSelectedRow = questionDataGridView.SelectedRows[0].Index;
 
-                    //if a row is selected, index is not -1
-                    if (tSelectedRow >= 0)
+                //if a row is selected, index is not -1
+                if (tSelectedRow >= 0)
+                {
+                    BaseQuestion tSelectedQuestion = mQuestionList[tSelectedRow];
+                    //show confirmation dialog to user
+                    DialogResult tDialogResult = MessageBox.Show(Properties.StringResources.DELETE_CONFIRMATION_MESSAGE, Properties.StringResources.DELETE_CONFIRMATION_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    //check if result of dialog is YES
+                    if (tDialogResult == DialogResult.Yes)
                     {
                         //delete question from source, if deleted successfully reload data to grid view , show pError otherwise
                         Cursor.Current = Cursors.WaitCursor;
-                        if (mQuestionManager.Delete(mQuestionList[tSelectedRow].Id))
+                        if (!mQuestionManager.IsConnected())
+                        {
+                            ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                            ShowError(Properties.StringResources.CONNECTION_ERROR);
+                            return;
+                        }
+                        if (mQuestionManager.Delete(tSelectedQuestion.Id))
                         {
                             RefreshList();
                             Cursor.Current = Cursors.Default;
@@ -289,20 +315,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                //refresh data from source, if refreshed successfully reload data to grid view , show pError otherwise
-                if (mQuestionManager.SelectAll() != null)
-                {
-                    RefreshList();
-                    Cursor.Current = Cursors.Default;
-                }
-                else
-                {
-                    Cursor.Current = Cursors.Default;
-                    ErrorLogger.Log(new Exception(ErrorMessages.cREFRESH_ERROR));
-                    ShowError(Properties.StringResources.REFRESH_ERROR);
-                    return;
-                }
+                InitializeData();
             }
             catch (Exception pError)
             {
@@ -311,7 +324,7 @@ namespace SurveyConfiguratorApp
             }
             finally
             {
-                Cursor.Current = Cursors.Default ;
+                Cursor.Current = Cursors.Default;
             }
         }
         #endregion
@@ -491,7 +504,7 @@ namespace SurveyConfiguratorApp
                     //check if result of dialog is OK 
                     if (tPropertiesDialog.ShowDialog(this) == DialogResult.OK)
                     {
-                            RefreshList();
+                        RefreshList();
                     }
                 }
             }
@@ -517,6 +530,58 @@ namespace SurveyConfiguratorApp
                 ErrorLogger.Log(pError);
             }
         }
+        #endregion
+        #region Database thread
+        private delegate void RefreshFromDatabaseDelegate();
+        private void threadTimer_Tick(object sender, EventArgs e)
+        {
+            if (mQuestionManager.IsConnected())
+                new Thread(() => RefreshFromDatabaseThreadWork()) { IsBackground = true }.Start();
+        }
+        private void RefreshFromDatabaseThreadWork()
+        {
+            RefreshFromDatabaseDelegate pRefreshFromDatabaseDelegate = new RefreshFromDatabaseDelegate(RefreshFromDatabase);
+            questionDataGridView.BeginInvoke(pRefreshFromDatabaseDelegate);
+
+        }
+        public void RefreshFromDatabase()
+        {
+            //if refreshed successfully reload data to grid view, show error otherwise
+            if (mQuestionManager.SelectAll() != null)
+            {
+                List<BaseQuestion> tQuestionList = mQuestionManager.QuestionsList;
+                //refresh question list if its not up to date.
+                if (!IsUpToDate(tQuestionList))
+                    RefreshList();
+            }
+        }
+        /// <summary>
+        /// Check if local question list content and source content are equal
+        /// </summary>
+        /// <param name="pSourceQuestionList">source list to compare to local list</param>
+        /// <returns>true if equal, false otherwise</returns>
+        public bool IsUpToDate(List<BaseQuestion> pSourceQuestionList)
+        {
+            try
+            {
+                if (mQuestionList.Count != pSourceQuestionList.Count)
+                    return false;
+                List<BaseQuestion> tOrderedSourceQuestionList = pSourceQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
+                List<BaseQuestion> tOrderedLocalQuestionList = mQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
+                for (int i = 0; i < tOrderedLocalQuestionList.Count; i++)
+                {
+                    if (!tOrderedLocalQuestionList[i].Equals(tOrderedSourceQuestionList[i]))
+                        return false;
+                }
+                return true;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
+        }
+
         #endregion
     }
 }

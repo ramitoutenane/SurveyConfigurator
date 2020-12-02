@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace SurveyConfiguratorApp
 {
@@ -15,6 +16,7 @@ namespace SurveyConfiguratorApp
         private readonly IDatabaseOperations<SliderQuestion> mSliderSQL;
         private readonly IDatabaseOperations<SmileyQuestion> mSmileySQL;
         private readonly IDatabaseOperations<StarsQuestion> mStarsSQL;
+        private bool mIsConnected;
         #endregion
         #region Constructor
         /// <summary>
@@ -30,6 +32,7 @@ namespace SurveyConfiguratorApp
                 mSliderSQL = new SliderQuestionDatabaseOperations(mDatabaseSettings);
                 mSmileySQL = new SmileyQuestionDatabaseOperations(mDatabaseSettings);
                 mStarsSQL = new StarsQuestionDatabaseOperations(mDatabaseSettings);
+                mIsConnected = mStarsSQL.IsConnected();
             }
             catch (Exception pError)
             {
@@ -103,13 +106,13 @@ namespace SurveyConfiguratorApp
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
                         return false;
                 }
-                
+
                 // if the question inserted to database successfully the temporary id variable should change from -1 
                 if (tInserted)
                 {
                     // add Question to local questions list 
-                        QuestionsList.Add(pQuestion);
-                        return true;
+                    QuestionsList.Add(pQuestion);
+                    return true;
                 }
                 return false;
             }
@@ -223,6 +226,7 @@ namespace SurveyConfiguratorApp
                 return false;
             }
         }
+
         /// <summary>
         /// Check if source connection is available
         /// </summary>
@@ -231,7 +235,10 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                return mStarsSQL.IsConnected();
+                //start a new thread to check connection
+                new Thread(() => IsConnectionAvailable()) { IsBackground = true }.Start();
+                //return the latest known value of connection status
+                return mIsConnected;
             }
             catch (Exception pError)
             {
@@ -240,29 +247,17 @@ namespace SurveyConfiguratorApp
             }
         }
         /// <summary>
-        /// Check if local question list content and source content are equal
+        /// Check if source connection is available
         /// </summary>
-        /// <param name="pSourceQuestionList">source list to compare to local list</param>
-        /// <returns>true if equal, false otherwise</returns>
-        public bool IsUpToDate(List<BaseQuestion> pSourceQuestionList)
+        private void IsConnectionAvailable()
         {
             try
             {
-                if (QuestionsList.Count != pSourceQuestionList.Count)
-                    return false;
-                pSourceQuestionList = pSourceQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
-                List<BaseQuestion> tOrderedLocalQuestionList = QuestionsList.OrderBy(tQuestion => tQuestion.Id).ToList();
-                for (int i = 0; i < tOrderedLocalQuestionList.Count; i++)
-                {
-                    if (!tOrderedLocalQuestionList[i].Equals(pSourceQuestionList[i]))
-                        return false;
-                }
-                return true;
+                mIsConnected = mStarsSQL.IsConnected();
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
             }
         }
         #endregion

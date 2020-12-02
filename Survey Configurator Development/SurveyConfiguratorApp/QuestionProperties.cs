@@ -558,6 +558,12 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                if (!mQuestionManager.IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    ShowError(Properties.StringResources.CONNECTION_ERROR);
+                    return false;
+                }
                 if (mQuestionManager.Insert(pQuestion))
                     return true;
                 else
@@ -581,6 +587,12 @@ namespace SurveyConfiguratorApp
         {
             try
             {
+                if (!mQuestionManager.IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    ShowError(Properties.StringResources.CONNECTION_ERROR);
+                    return false;
+                }
                 if (mQuestionManager.Update(pQuestion))
                     return true;
                 else

@@ -41,6 +41,7 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.languageComboBox = new System.Windows.Forms.ComboBox();
+            this.threadTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.questionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.questionBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -147,6 +148,11 @@
             this.languageComboBox.Name = "languageComboBox";
             this.languageComboBox.SelectedIndexChanged += new System.EventHandler(this.languageComboBox_SelectedIndexChanged);
             // 
+            // threadTimer
+            // 
+            this.threadTimer.Interval = 5000;
+            this.threadTimer.Tick += new System.EventHandler(this.threadTimer_Tick);
+            // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
@@ -185,6 +191,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn QuestionTextColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuestionTypeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuestionOrderColumn;
+        private System.Windows.Forms.Timer threadTimer;
     }
 }
 
