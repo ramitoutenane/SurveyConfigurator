@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurveyConfiguratorApp
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Stars question class that extends general question and adds stars question properties 

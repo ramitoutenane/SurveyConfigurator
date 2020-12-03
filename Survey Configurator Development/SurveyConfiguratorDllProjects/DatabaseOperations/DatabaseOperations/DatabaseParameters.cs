@@ -1,4 +1,4 @@
-﻿namespace SurveyConfiguratorApp
+﻿namespace DatabaseOperations
 {
     /// <summary>
     /// Constant Values to be used to interact with database

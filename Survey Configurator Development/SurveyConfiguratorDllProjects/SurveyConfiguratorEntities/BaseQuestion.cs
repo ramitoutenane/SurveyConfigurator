@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SurveyConfiguratorApp
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Abstract class to represent General question with required attributes

@@ -133,9 +133,9 @@
       <Project>{fa3d9252-6e05-4dda-86c2-e35890aee56a}</Project>
       <Name>ErrorLogger</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\QuestionManager.csproj">
+    <ProjectReference Include="..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\QuestionManaging.csproj">
       <Project>{6e1bc44e-ce1e-4430-b687-0e60ca22fecc}</Project>
-      <Name>QuestionManager</Name>
+      <Name>QuestionManaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\SurveyConfiguratorEntities.csproj">
       <Project>{374ac4a3-caee-4823-9019-61e38fa1f8d4}</Project>

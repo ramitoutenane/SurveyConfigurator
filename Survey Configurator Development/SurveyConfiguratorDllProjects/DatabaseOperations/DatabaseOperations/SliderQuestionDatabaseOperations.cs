@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SurveyConfiguratorEntities;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace SurveyConfiguratorApp
+namespace DatabaseOperations
 {
     /// <summary>
     /// Class to support database operations on slider question table
@@ -237,7 +238,16 @@ namespace SurveyConfiguratorApp
         /// <returns>true if connected, false otherwise</returns>
         public bool IsConnected()
         {
-            return mQuestionDatabaseOperation.IsConnected();
+            try
+            {
+                return mQuestionDatabaseOperation.IsConnected();
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
+            
         }
         #endregion
     }

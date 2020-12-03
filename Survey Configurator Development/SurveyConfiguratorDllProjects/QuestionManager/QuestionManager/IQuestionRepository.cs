@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-namespace SurveyConfiguratorApp
+﻿using SurveyConfiguratorEntities;
+using System.Collections.Generic;
+namespace QuestionManaging
 {
     /// <summary>
     /// Interface to support repository maintaining behavior

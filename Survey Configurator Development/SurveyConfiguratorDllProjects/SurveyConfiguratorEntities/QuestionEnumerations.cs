@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SurveyConfiguratorApp
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Enumeration to define types of questions provided by the system

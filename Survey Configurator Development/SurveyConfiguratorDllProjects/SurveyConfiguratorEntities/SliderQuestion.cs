@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SurveyConfiguratorApp
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Slider question class that extends general question and adds slider question properties 

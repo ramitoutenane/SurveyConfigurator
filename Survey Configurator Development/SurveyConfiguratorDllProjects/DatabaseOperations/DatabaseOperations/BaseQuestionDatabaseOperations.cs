@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SurveyConfiguratorEntities;
+using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
-namespace SurveyConfiguratorApp
+namespace DatabaseOperations
 {
     /// <summary>
     /// Class to support database operations on question table
@@ -10,6 +12,7 @@ namespace SurveyConfiguratorApp
     {
         #region Variable deceleration
         private readonly string mConnectionString;
+        private bool mConnectionStatus;
         #endregion
         #region Constructors
         /// <summary>
@@ -21,6 +24,7 @@ namespace SurveyConfiguratorApp
             try
             {
                 mConnectionString = pConnectionString;
+                mConnectionStatus = IsConnectionAvailable();
             }
             catch (Exception pError)
             {
@@ -44,6 +48,8 @@ namespace SurveyConfiguratorApp
                     Password = pDatabaseSettings.DatabasePassword
                 };
                 mConnectionString = tBuilder.ConnectionString;
+                mConnectionStatus = IsConnectionAvailable();
+
             }
             catch (Exception pError)
             {
@@ -148,6 +154,22 @@ namespace SurveyConfiguratorApp
         /// <returns>true if connected, false otherwise</returns>
         public bool IsConnected()
         {
+            try
+            {
+                Task.Factory.StartNew(() => mConnectionStatus = IsConnectionAvailable());
+                return mConnectionStatus;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
+        }
+        /// <summary>
+        /// check if database connection is available
+        /// </summary>
+        public bool IsConnectionAvailable()
+        {
 
             try
             {
@@ -157,13 +179,18 @@ namespace SurveyConfiguratorApp
                     tConnection.Open();
                     tConnection.Close();
                 }
+                return true;
             }
             catch (SqlException)
             {
                 // if database is disconnected, SqlException will be raised and false is returned
                 return false;
             }
-            return true;
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         #endregion

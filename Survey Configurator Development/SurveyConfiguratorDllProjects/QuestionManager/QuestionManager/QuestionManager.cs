@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DatabaseOperations;
+using SurveyConfiguratorEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace SurveyConfiguratorApp
+namespace QuestionManaging
 {
     public class QuestionManager : IQuestionRepository
     {
@@ -16,7 +18,6 @@ namespace SurveyConfiguratorApp
         private readonly IDatabaseOperations<SliderQuestion> mSliderSQL;
         private readonly IDatabaseOperations<SmileyQuestion> mSmileySQL;
         private readonly IDatabaseOperations<StarsQuestion> mStarsSQL;
-        private bool mIsConnected;
         #endregion
         #region Constructor
         /// <summary>
@@ -32,7 +33,6 @@ namespace SurveyConfiguratorApp
                 mSliderSQL = new SliderQuestionDatabaseOperations(mDatabaseSettings);
                 mSmileySQL = new SmileyQuestionDatabaseOperations(mDatabaseSettings);
                 mStarsSQL = new StarsQuestionDatabaseOperations(mDatabaseSettings);
-                mIsConnected = mStarsSQL.IsConnected();
             }
             catch (Exception pError)
             {
@@ -235,29 +235,12 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                //start a new thread to check connection
-                new Thread(() => IsConnectionAvailable()) { IsBackground = true }.Start();
-                //return the latest known value of connection status
-                return mIsConnected;
+                return mStarsSQL.IsConnected();
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
                 return false;
-            }
-        }
-        /// <summary>
-        /// Check if source connection is available
-        /// </summary>
-        private void IsConnectionAvailable()
-        {
-            try
-            {
-                mIsConnected = mStarsSQL.IsConnected();
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
             }
         }
         #endregion

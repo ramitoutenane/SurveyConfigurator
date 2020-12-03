@@ -1,4 +1,4 @@
-﻿namespace SurveyConfiguratorApp
+﻿namespace QuestionManaging
 {
     /// <summary>
     /// Constant strings to be used to print messages to user

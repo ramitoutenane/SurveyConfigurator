@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseOperations", "..\Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorLogger", "..\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\ErrorLogger.csproj", "{FA3D9252-6E05-4DDA-86C2-E35890AEE56A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionManager", "..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\QuestionManager.csproj", "{6E1BC44E-CE1E-4430-B687-0E60CA22FECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionManaging", "..\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\QuestionManaging.csproj", "{6E1BC44E-CE1E-4430-B687-0E60CA22FECC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyConfiguratorEntities", "..\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\SurveyConfiguratorEntities.csproj", "{374AC4A3-CAEE-4823-9019-61E38FA1F8D4}"
 EndProject

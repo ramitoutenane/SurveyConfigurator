@@ -1,4 +1,6 @@
-﻿namespace SurveyConfiguratorApp
+﻿using SurveyConfiguratorEntities;
+
+namespace DatabaseOperations
 {
     /// <summary>
     /// Interface to support Insert , Update , Delete behavior on repository 

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using SurveyConfiguratorEntities;
+using System.Collections.Generic;
 using System.Data.Common;
-namespace SurveyConfiguratorApp
+namespace DatabaseOperations
 {
     /// <summary>
     /// Interface to support query behavior on repository 

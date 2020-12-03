@@ -1,5 +1,5 @@
 ﻿using System;
-namespace SurveyConfiguratorApp
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Class to represent and store database connection settings

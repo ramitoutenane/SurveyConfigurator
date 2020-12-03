@@ -1,4 +1,4 @@
-﻿namespace SurveyConfiguratorApp
+﻿namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Constant values to be used to validate questions

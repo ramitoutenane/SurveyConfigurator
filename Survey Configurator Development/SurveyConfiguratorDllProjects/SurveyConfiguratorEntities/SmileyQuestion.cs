@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SurveyConfiguratorApp
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Smiley question class that extends general question and adds smiley question properties 
