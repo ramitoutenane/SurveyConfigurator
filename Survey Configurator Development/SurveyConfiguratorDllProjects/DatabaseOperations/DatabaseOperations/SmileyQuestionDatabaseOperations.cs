@@ -65,17 +65,17 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public bool Insert(SmileyQuestion pQuestion)
+        public Response Insert(SmileyQuestion pQuestion)
         {
-            bool tInserted = false;
+            Response tInsertResponse = Response.DefaultResponse();
             try
             {
                 // insert general question into question table and get question id to be used as foreign key
-                tInserted = mQuestionDatabaseOperation.Insert(pQuestion);
+                tInsertResponse = mQuestionDatabaseOperation.Insert(pQuestion);
                 // Smiley question depend on base question primary key since there is foreign key relationship between tables
                 // we insert general question and check if is inserted we insert smiley question, otherwise we exit
-                if (!tInserted)
-                    return false;
+                if (tInsertResponse.Status != ResponseStatus.Success)
+                    return tInsertResponse;
                 string tCommandString = $"INSERT INTO {DatabaseParameters.cTABLE_SMILEY_QUESTION} ({DatabaseParameters.cCOLUMN_QUESTION_ID}, {DatabaseParameters.cCOLUMN_FACES_NUMBER}) OUTPUT INSERTED.{DatabaseParameters.cCOLUMN_QUESTION_ID} " +
                     $"VALUES ({DatabaseParameters.cPARAMETER_QUESTION_ID}, {DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER})";
 
@@ -86,17 +86,20 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER}", pQuestion.NumberOfFaces);
                         tConnection.Open();
-                        return (int)tCommand.ExecuteScalar()>0;
+                        if ((int)tCommand.ExecuteScalar() > 0)
+                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
+                        else
+                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
                     }
                 }
             }
             catch (Exception pError)
             {
                 // if exception raises on specific question data insertion then delete inserted general question from question table
-                if (tInserted)
+                if (tInsertResponse.Status == ResponseStatus.Success)
                     mQuestionDatabaseOperation.Delete(pQuestion.Id);
                 ErrorLogger.Log(pError);
-                return false;
+                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
 
@@ -105,14 +108,15 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public bool Update(SmileyQuestion pQuestion)
+        public Response Update(SmileyQuestion pQuestion)
         {
             try
             {
                 // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
-                if (!mQuestionDatabaseOperation.Update(pQuestion))
+                Response tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
+                if (tUpdateResponse.Status != ResponseStatus.Success)
                 {
-                    return false;
+                    return tUpdateResponse;
                 }
                 string tCommandString = $"UPDATE {DatabaseParameters.cTABLE_SMILEY_QUESTION} SET {DatabaseParameters.cCOLUMN_FACES_NUMBER} = {DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER} WHERE {DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID} ";
 
@@ -123,14 +127,18 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER}", pQuestion.NumberOfFaces);
                         tConnection.Open();
-                        return tCommand.ExecuteNonQuery() > 0;
+                        if (tCommand.ExecuteNonQuery() > 0)
+                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                        else
+                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
                     }
                 }
+
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -139,7 +147,7 @@ namespace DatabaseOperations
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
         // because table has on delete cascade constraint, just delete general question
-        public bool Delete(int pId) => mQuestionDatabaseOperation.Delete(pId);
+        public Response Delete(int pId) => mQuestionDatabaseOperation.Delete(pId);
         /// <summary>
         /// Select specific question from the repository
         /// </summary>
@@ -236,7 +244,7 @@ namespace DatabaseOperations
                 ErrorLogger.Log(pError);
                 return false;
             }
-            
+
         }
         #endregion
     }

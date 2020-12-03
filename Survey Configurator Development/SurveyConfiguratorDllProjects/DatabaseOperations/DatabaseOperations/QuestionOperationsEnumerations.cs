@@ -8,7 +8,9 @@ namespace DatabaseOperations
 {
     public enum ResponseStatus
     {
+        Default,
         Fail,
-        Success
+        Success,
+        Error
     }
 }

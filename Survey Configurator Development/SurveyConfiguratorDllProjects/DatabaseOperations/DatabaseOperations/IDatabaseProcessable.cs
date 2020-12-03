@@ -13,19 +13,19 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">Object to be inserted</param>
         /// <returns>Object id in repository</returns>
-        bool Insert(T pQuestion);
+        Response Insert(T pQuestion);
         /// <summary>
         /// Update object on repository
         /// </summary>
         /// <param name="pQuestion">The new object to be update</param>
         /// <returns>true if objected updated, false otherwise</returns>
-        bool Update(T pQuestion);
+        Response Update(T pQuestion);
         /// <summary>
         /// Delete object from repository
         /// </summary>
         /// <param name="pId">The id of object to be deleted</param>
         /// <returns>true if objected deleted, false otherwise</returns>
-        bool Delete(int pId);
+        Response Delete(int pId);
         /// <summary>
         /// check if database connection is available
         /// </summary>

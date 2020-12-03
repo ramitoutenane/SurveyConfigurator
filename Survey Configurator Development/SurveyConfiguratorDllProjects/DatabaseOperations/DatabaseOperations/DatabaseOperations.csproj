@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseQuestionDatabaseOperations.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="ResponseConstantValues.cs" />
     <Compile Include="SliderQuestionDatabaseOperations.cs" />
     <Compile Include="SmileyQuestionDatabaseOperations.cs" />
     <Compile Include="StarsQuestionDatabaseOperations.cs" />

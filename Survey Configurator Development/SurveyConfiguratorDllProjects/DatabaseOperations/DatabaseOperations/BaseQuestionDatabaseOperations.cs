@@ -63,7 +63,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public bool Insert(BaseQuestion pQuestion)
+        public Response Insert(BaseQuestion pQuestion)
         {
             try
             {
@@ -81,16 +81,16 @@ namespace DatabaseOperations
                         if (tID > 0)
                         {
                             pQuestion.ChangeId(tID);
-                            return true;
+                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
                         }
-                        return false;
+                        return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
                     }
                 }
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -98,7 +98,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public bool Update(BaseQuestion pQuestion)
+        public Response Update(BaseQuestion pQuestion)
         {
             try
             {
@@ -112,14 +112,18 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tConnection.Open();
-                        return tCommand.ExecuteNonQuery() > 0;
+                        if (tCommand.ExecuteNonQuery() > 0)
+                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                        else
+                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
                     }
                 }
+
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -127,7 +131,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
-        public bool Delete(int pId)
+        public Response Delete(int pId)
         {
             try
             {
@@ -138,14 +142,17 @@ namespace DatabaseOperations
                     {
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pId);
                         tConnection.Open();
-                        return tCommand.ExecuteNonQuery() > 0;
+                        if (tCommand.ExecuteNonQuery() > 0)
+                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cDELETE_SUCCESS_MESSAGE);
+                        else
+                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cDELETE_FAIL_MESSAGE);
                     }
                 }
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
             }
         }
         /// <summary>

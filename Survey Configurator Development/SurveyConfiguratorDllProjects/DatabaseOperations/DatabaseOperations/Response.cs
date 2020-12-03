@@ -35,5 +35,11 @@ namespace DatabaseOperations
         public int StatusCode { get => mStatusCode;}
         public string StatusMessage { get => mStatusMessage;}
         #endregion
+        #region Method
+        public static Response DefaultResponse()
+        {
+            return new Response(ResponseStatus.Default, ResponseConstantValues.cDEFAULT_STATUS_CODE, "Default response");
+        }
+        #endregion
     }
 }

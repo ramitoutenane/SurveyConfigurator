@@ -79,7 +79,7 @@ namespace QuestionManaging
             try
             {
                 // create temporary id variable and question object reference
-                bool tInserted = false;
+                Response tInsertedResponse;
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
@@ -94,13 +94,13 @@ namespace QuestionManaging
                 switch (pQuestion.Type)
                 {
                     case QuestionType.Slider:
-                        tInserted = mSliderSQL.Insert(pQuestion as SliderQuestion);
+                        tInsertedResponse = mSliderSQL.Insert(pQuestion as SliderQuestion);
                         break;
                     case QuestionType.Smiley:
-                        tInserted = mSmileySQL.Insert(pQuestion as SmileyQuestion);
+                        tInsertedResponse = mSmileySQL.Insert(pQuestion as SmileyQuestion);
                         break;
                     case QuestionType.Stars:
-                        tInserted = mStarsSQL.Insert(pQuestion as StarsQuestion);
+                        tInsertedResponse = mStarsSQL.Insert(pQuestion as StarsQuestion);
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
@@ -108,7 +108,7 @@ namespace QuestionManaging
                 }
 
                 // if the question inserted to database successfully the temporary id variable should change from -1 
-                if (tInserted)
+                if (tInsertedResponse.Status  == ResponseStatus.Success)
                 {
                     // add Question to local questions list 
                     QuestionsList.Add(pQuestion);
@@ -149,25 +149,25 @@ namespace QuestionManaging
                     return false;
                 }
 
-                bool tUpdated = false;
+                Response tUpdatedResponse;
                 // check question type then update it in database, if updated successfully in database then update it in local list.
                 switch (pQuestion.Type)
                 {
                     case QuestionType.Slider:
-                        tUpdated = mSliderSQL.Update(pQuestion as SliderQuestion);
+                        tUpdatedResponse = mSliderSQL.Update(pQuestion as SliderQuestion);
                         break;
                     case QuestionType.Smiley:
-                        tUpdated = mSmileySQL.Update(pQuestion as SmileyQuestion);
+                        tUpdatedResponse = mSmileySQL.Update(pQuestion as SmileyQuestion);
                         break;
                     case QuestionType.Stars:
-                        tUpdated = mStarsSQL.Update(pQuestion as StarsQuestion);
+                        tUpdatedResponse = mStarsSQL.Update(pQuestion as StarsQuestion);
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
                         return false;
                 }
                 // if updated successfully in database update it in local list.
-                if (tUpdated)
+                if (tUpdatedResponse.Status == ResponseStatus.Success)
                 {
                     QuestionsList[QuestionsList.FindIndex(tQuestion => tQuestion.Id == pQuestion.Id)] = pQuestion;
                     return true;
@@ -191,7 +191,7 @@ namespace QuestionManaging
                 // check question type then delete it from database, if deleted successfully from database then delete it in local list.
                 // search for the question in local list 
                 BaseQuestion tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == pId);
-                bool tDeleted = false;
+                Response tDeletedResponse;
                 if (tQuestionFindResult == null)
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
@@ -200,20 +200,20 @@ namespace QuestionManaging
                 switch (tQuestionFindResult.Type)
                 {
                     case QuestionType.Slider:
-                        tDeleted = mSliderSQL.Delete(pId);
+                        tDeletedResponse = mSliderSQL.Delete(pId);
                         break;
                     case QuestionType.Smiley:
-                        tDeleted = mSmileySQL.Delete(pId);
+                        tDeletedResponse = mSmileySQL.Delete(pId);
                         break;
                     case QuestionType.Stars:
-                        tDeleted = mStarsSQL.Delete(pId);
+                        tDeletedResponse = mStarsSQL.Delete(pId);
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
                         return false;
                 }
                 // if deleted successfully from database then delete it in local list.
-                if (tDeleted)
+                if (tDeletedResponse.Status == ResponseStatus.Success)
                 {
                     QuestionsList.RemoveAll(tQuestion => tQuestion.Id == pId);
                     return true;
