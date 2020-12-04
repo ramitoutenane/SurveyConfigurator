@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DatabaseOperations
 {
+    /// <summary>
+    /// Constant Values to be used in creating response objects
+    /// </summary>
     public static class ResponseConstantValues
     {
         public const int cDEFAULT_STATUS_CODE = 0;

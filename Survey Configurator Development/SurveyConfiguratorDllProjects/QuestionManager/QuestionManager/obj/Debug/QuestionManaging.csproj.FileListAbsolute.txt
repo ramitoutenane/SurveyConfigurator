@@ -1,5 +1,3 @@
-C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManaging.csprojAssemblyReference.cache
-C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManaging.csproj.CoreCompileInputs.cache
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.dll
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\QuestionManager.pdb
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseOperations.dll
@@ -8,6 +6,8 @@ C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Dev
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\DatabaseOperations.pdb
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\ErrorLogger.pdb
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\bin\Debug\SurveyConfiguratorEntities.pdb
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManaging.csprojAssemblyReference.cache
+C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManaging.csproj.CoreCompileInputs.cache
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManaging.csproj.CopyComplete
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManager.dll
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\QuestionManager\QuestionManager\obj\Debug\QuestionManager.pdb

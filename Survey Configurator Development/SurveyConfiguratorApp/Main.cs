@@ -42,6 +42,16 @@ namespace SurveyConfiguratorApp
             try
             {
                 InitializeComponent();
+                // get connection data from configuration file to create database settings object
+                string tDatabaseServer = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_SERVER];
+                string tDatabaseName = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_NAME];
+                string tDatabaseUser = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_USER];
+                string tDatabasePassword = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_PASSWORD];
+                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDatabaseServer, tDatabaseName, tDatabaseUser, tDatabasePassword);
+
+                //initialize new question manger to manage question repository and connection
+                mQuestionManager = new QuestionManager(tDatabaseSettings);
+
                 //set default sorting criteria 
                 mSortMethod = SortMethod.ByQuestionText;
                 mSortOrder = SortOrder.Ascending;
@@ -58,8 +68,10 @@ namespace SurveyConfiguratorApp
                     {ConstantStringResources.cENGLISH_LANGUAGE,ConstantStringResources.cENGLISH_CULTURE},
                     {ConstantStringResources.cARABIC_LANGUAGE,ConstantStringResources.cARABIC_CULTURE}
                 };
+
                 //populate typeComboBox
                 languageComboBox.DataSource = new List<string>(mCultureTable.Keys);
+
             }
             catch (Exception pError)
             {
@@ -74,8 +86,7 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                if (mQuestionManager == null)
-                    InitializeData();
+                StartAutoRefreshThread();
             }
             catch (Exception pError)
             {
@@ -90,21 +101,13 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                // get connection data from configuration file to create database settings object
-                string tDatabaseServer = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_SERVER];
-                string tDatabaseName = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_NAME];
-                string tDatabaseUser = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_USER];
-                string tDatabasePassword = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_PASSWORD];
-                DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDatabaseServer, tDatabaseName, tDatabaseUser, tDatabasePassword);
-
-                //initialize new question manger to manage question repository and connection
-                mQuestionManager = new QuestionManager(tDatabaseSettings);
                 if (mQuestionManager == null)
                 {
                     ErrorLogger.Log(new NullReferenceException(ErrorMessages.cQUESTION_MANAGER_NULL_EXCEPTION));
                     ShowError(Properties.StringResources.GENERAL_ERROR);
                     return;
                 }
+
                 Cursor.Current = Cursors.WaitCursor;
                 //refresh data from source, if refreshed successfully reload data to grid view , show pError otherwise
                 if (!mQuestionManager.IsConnected())
@@ -123,7 +126,6 @@ namespace SurveyConfiguratorApp
                     ShowError(Properties.StringResources.REFRESH_ERROR);
                     return;
                 }
-                threadTimer.Start();
             }
             catch (Exception pError)
             {
@@ -535,52 +537,92 @@ namespace SurveyConfiguratorApp
         #endregion
         #region Database thread
         private delegate void RefreshFromDatabaseDelegate();
-        private void threadTimer_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// register delegate and time interval of auto refresh
+        /// </summary>
+        private void StartAutoRefreshThread()
         {
-            if (mQuestionManager.IsConnected())
-                new Thread(() => RefreshFromDatabaseThreadWork()) { IsBackground = true }.Start();
-        }
-        private void RefreshFromDatabaseThreadWork()
-        {
-            RefreshFromDatabaseDelegate pRefreshFromDatabaseDelegate = new RefreshFromDatabaseDelegate(RefreshFromDatabase);
-            questionDataGridView.BeginInvoke(pRefreshFromDatabaseDelegate);
+            try
+            {
+                //get refresh interval from config file, if invalid set to 20,000 milliseconds
+                int tAutoRefreshInterval;
+                if (!int.TryParse(ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL], out tAutoRefreshInterval))
+                    tAutoRefreshInterval = 20000;
+
+                //call auto refresh method from question manager
+                if (mQuestionManager != null)
+                {
+                    ((QuestionManager)mQuestionManager).AutoRefresh(tAutoRefreshInterval, RefreshFromAnotherThread);
+                }
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
 
         }
-        public void RefreshFromDatabase()
+        /// <summary>
+        /// Refresh questions data grid view from another thread
+        /// </summary>
+        private void RefreshFromAnotherThread()
         {
-            //if refreshed successfully reload data to grid view, show error otherwise
-            if (mQuestionManager.SelectAll() != null)
+            try
             {
-                List<BaseQuestion> tQuestionList = mQuestionManager.QuestionsList;
-                //refresh question list if its not up to date.
-                if (!IsUpToDate(tQuestionList))
-                    RefreshList();
+                RefreshFromDatabaseDelegate pRefreshFromDatabaseDelegate = RefreshIfChanged;
+                questionDataGridView.BeginInvoke(pRefreshFromDatabaseDelegate);
             }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+
+        }
+
+        /// <summary>
+        /// Refresh question data grid view if local question list and database questions are different
+        /// </summary>
+        public void RefreshIfChanged()
+        {
+            try
+            {
+                //if refreshed successfully reload data to grid view, show error otherwise
+                if (mQuestionManager.SelectAll() != null)
+                {
+                    List<BaseQuestion> tQuestionList = mQuestionManager.QuestionsList;
+                    //refresh question list if its not up to date.
+                    if (IsChanged(tQuestionList))
+                        RefreshList();
+                }
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+
         }
         /// <summary>
         /// Check if local question list content and source content are equal
         /// </summary>
         /// <param name="pSourceQuestionList">source list to compare to local list</param>
         /// <returns>true if equal, false otherwise</returns>
-        public bool IsUpToDate(List<BaseQuestion> pSourceQuestionList)
+        public bool IsChanged(List<BaseQuestion> pSourceQuestionList)
         {
-            try
-            {
+            try { 
                 if (mQuestionList.Count != pSourceQuestionList.Count)
-                    return false;
+                    return true;
                 List<BaseQuestion> tOrderedSourceQuestionList = pSourceQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
                 List<BaseQuestion> tOrderedLocalQuestionList = mQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
                 for (int i = 0; i < tOrderedLocalQuestionList.Count; i++)
                 {
                     if (!tOrderedLocalQuestionList[i].Equals(tOrderedSourceQuestionList[i]))
-                        return false;
+                        return true;
                 }
-                return true;
+                return false;
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return true;
             }
         }
 

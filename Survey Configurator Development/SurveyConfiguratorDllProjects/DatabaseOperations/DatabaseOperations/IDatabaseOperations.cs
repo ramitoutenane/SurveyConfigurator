@@ -8,6 +8,5 @@ namespace DatabaseOperations
     /// <typeparam name="T">The object to be managed</typeparam>
     public interface IDatabaseOperations<T> : IDatabaseSelectable<T>, IDatabaseProcessable<T> where T : BaseQuestion
     {
-
     }
 }

@@ -38,8 +38,16 @@ namespace DatabaseOperations
         #region Method
         public static Response DefaultResponse()
         {
-            return new Response(ResponseStatus.Default, ResponseConstantValues.cDEFAULT_STATUS_CODE, "Default response");
-        }
+            try
+            {
+                return new Response(ResponseStatus.Default, ResponseConstantValues.cDEFAULT_STATUS_CODE, "Default response");
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return null;
+            }
+}
         #endregion
     }
 }

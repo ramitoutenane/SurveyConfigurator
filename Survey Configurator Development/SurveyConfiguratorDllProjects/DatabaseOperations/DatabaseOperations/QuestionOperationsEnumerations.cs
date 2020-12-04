@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DatabaseOperations
 {
+    /// <summary>
+    /// Enumeration to define types of response status provided by the system
+    /// </summary>
     public enum ResponseStatus
     {
         Default,

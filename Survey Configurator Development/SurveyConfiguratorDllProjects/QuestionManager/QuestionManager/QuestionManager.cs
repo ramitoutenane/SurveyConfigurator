@@ -13,11 +13,14 @@ namespace QuestionManaging
         /// <summary>
         /// List of questions to be maintained 
         /// </summary>
-        public List<BaseQuestion> QuestionsList { get; private set; }
         private readonly DatabaseSettings mDatabaseSettings;
         private readonly IDatabaseOperations<SliderQuestion> mSliderSQL;
         private readonly IDatabaseOperations<SmileyQuestion> mSmileySQL;
         private readonly IDatabaseOperations<StarsQuestion> mStarsSQL;
+        private Thread mAutoRefreshThread;
+        public List<BaseQuestion> QuestionsList { get; private set; }
+        public delegate void AutoRefreshDelegate();
+
         #endregion
         #region Constructor
         /// <summary>
@@ -243,6 +246,38 @@ namespace QuestionManaging
                 return false;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
+        /// <param name="pAutoRefreshDelegate">Delegate method to call</param>
+        public void AutoRefresh(int pRefreshInterval, AutoRefreshDelegate pAutoRefreshDelegate )
+        {
+            try
+            {
+               
+                //if the thread is alive then kill it to start new one
+                if (mAutoRefreshThread != null && mAutoRefreshThread.IsAlive)
+                    mAutoRefreshThread.Abort();
+
+                //run new thread to call auto refresh delegate method
+                mAutoRefreshThread = new Thread(() => {
+                    while (mAutoRefreshThread.IsAlive)
+                    {
+                        if(IsConnected())
+                            pAutoRefreshDelegate();
+                        Thread.Sleep(pRefreshInterval);
+                    }
+                });
+                mAutoRefreshThread.IsBackground = true;
+                mAutoRefreshThread.Start();
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+        }
+
         #endregion
     }
 }

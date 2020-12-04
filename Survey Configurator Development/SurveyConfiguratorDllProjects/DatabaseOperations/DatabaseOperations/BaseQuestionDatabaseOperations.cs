@@ -163,7 +163,7 @@ namespace DatabaseOperations
         {
             try
             {
-                Task.Factory.StartNew(() => mConnectionStatus = IsConnectionAvailable());
+                Task.Run(() => mConnectionStatus = IsConnectionAvailable());
                 return mConnectionStatus;
             }
             catch (Exception pError)

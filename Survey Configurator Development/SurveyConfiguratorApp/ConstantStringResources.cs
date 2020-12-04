@@ -15,6 +15,7 @@ namespace SurveyConfiguratorApp
         public const string cDATABASE_NAME = "DatabaseName";
         public const string cDATABASE_USER = "DatabaseUser";
         public const string cDATABASE_PASSWORD = "DatabasePassword";
+        public const string cAUTO_REFRESH_INTERVAL = "AutoRefreshInterval";
         public const string cARABIC_LANGUAGE = "عربي";
         public const string cARABIC_CULTURE = "ar";
         public const string cENGLISH_LANGUAGE = "ENG";
