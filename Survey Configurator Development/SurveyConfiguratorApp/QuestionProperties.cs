@@ -29,13 +29,13 @@ namespace SurveyConfiguratorApp
         }
         #endregion
         #region Initialize QuestionProperties form
-        private readonly IQuestionRepository mQuestionManager;
+        private readonly QuestionManager mQuestionManager;
         private BaseQuestion mQuestion;
         private List<QuestionTypeTranslation> mQuestionTypeList;
         /// <summary>
         /// QuestionProperties form constructor to initialize new QuestionProperties form
         /// </summary>
-        public QuestionProperties(IQuestionRepository pQuestionManager)
+        public QuestionProperties(QuestionManager pQuestionManager)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace SurveyConfiguratorApp
         /// QuestionProperties form constructor to initialize QuestionProperties form and populate with question data
         /// </summary>
         /// <param name="pQuestion">question to populate form with it's data</param>
-        public QuestionProperties(IQuestionRepository pQuestionManager, BaseQuestion pQuestion) : this(pQuestionManager)
+        public QuestionProperties(QuestionManager pQuestionManager, BaseQuestion pQuestion) : this(pQuestionManager)
         {
             try
             {

@@ -65,16 +65,16 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public Response Insert(SmileyQuestion pQuestion)
+        public Reslut Insert(SmileyQuestion pQuestion)
         {
-            Response tInsertResponse = Response.DefaultResponse();
+            Reslut tInsertResponse = Reslut.DefaultResult();
             try
             {
                 // insert general question into question table and get question id to be used as foreign key
                 tInsertResponse = mQuestionDatabaseOperation.Insert(pQuestion);
                 // Smiley question depend on base question primary key since there is foreign key relationship between tables
                 // we insert general question and check if is inserted we insert smiley question, otherwise we exit
-                if (tInsertResponse.Status != ResponseStatus.Success)
+                if (tInsertResponse.Status != ResultValue.Success)
                     return tInsertResponse;
                 string tCommandString = $"INSERT INTO {DatabaseParameters.cTABLE_SMILEY_QUESTION} ({DatabaseParameters.cCOLUMN_QUESTION_ID}, {DatabaseParameters.cCOLUMN_FACES_NUMBER}) OUTPUT INSERTED.{DatabaseParameters.cCOLUMN_QUESTION_ID} " +
                     $"VALUES ({DatabaseParameters.cPARAMETER_QUESTION_ID}, {DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER})";
@@ -87,19 +87,19 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER}", pQuestion.NumberOfFaces);
                         tConnection.Open();
                         if ((int)tCommand.ExecuteScalar() > 0)
-                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
                         else
-                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
+                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
                     }
                 }
             }
             catch (Exception pError)
             {
                 // if exception raises on specific question data insertion then delete inserted general question from question table
-                if (tInsertResponse.Status == ResponseStatus.Success)
+                if (tInsertResponse.Status == ResultValue.Success)
                     mQuestionDatabaseOperation.Delete(pQuestion.Id);
                 ErrorLogger.Log(pError);
-                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
 
@@ -108,13 +108,13 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public Response Update(SmileyQuestion pQuestion)
+        public Reslut Update(SmileyQuestion pQuestion)
         {
             try
             {
                 // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
-                Response tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
-                if (tUpdateResponse.Status != ResponseStatus.Success)
+                Reslut tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
+                if (tUpdateResponse.Status != ResultValue.Success)
                 {
                     return tUpdateResponse;
                 }
@@ -128,9 +128,9 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER}", pQuestion.NumberOfFaces);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
-                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
+                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
                     }
                 }
 
@@ -138,7 +138,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -147,7 +147,7 @@ namespace DatabaseOperations
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
         // because table has on delete cascade constraint, just delete general question
-        public Response Delete(int pId) => mQuestionDatabaseOperation.Delete(pId);
+        public Reslut Delete(int pId) => mQuestionDatabaseOperation.Delete(pId);
         /// <summary>
         /// Select specific question from the repository
         /// </summary>

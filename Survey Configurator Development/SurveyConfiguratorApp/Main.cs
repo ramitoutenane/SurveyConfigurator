@@ -26,7 +26,7 @@ namespace SurveyConfiguratorApp
     public partial class Main : Form
     {
         #region Initialize Main form
-        private IQuestionRepository mQuestionManager;
+        private QuestionManager mQuestionManager;
         private List<BaseQuestion> mQuestionList;
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
@@ -544,15 +544,19 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                //get refresh interval from config file, if invalid set to 20,000 milliseconds
+                //get refresh interval from config file, if invalid or less than 20000 milliseconds then set to 20000 milliseconds
+                string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
                 int tAutoRefreshInterval;
-                if (!int.TryParse(ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL], out tAutoRefreshInterval))
+                if (!int.TryParse(tConfigRefreshInterval, out tAutoRefreshInterval) || tAutoRefreshInterval < 20000)
+                {
                     tAutoRefreshInterval = 20000;
+                }
 
                 //call auto refresh method from question manager
                 if (mQuestionManager != null)
                 {
-                    ((QuestionManager)mQuestionManager).AutoRefresh(tAutoRefreshInterval, RefreshFromAnotherThread);
+                    mQuestionManager.AutoRefreshEventHandler += RefreshFromAnotherThread;
+                    mQuestionManager.StartAutoRefresh(tAutoRefreshInterval);
                 }
             }
             catch (Exception pError)

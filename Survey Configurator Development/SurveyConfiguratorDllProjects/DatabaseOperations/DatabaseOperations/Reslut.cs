@@ -9,12 +9,12 @@ namespace DatabaseOperations
     /// <summary>
     /// Class to return operation response and status
     /// </summary>
-    public class Response
+    public class Reslut
     {
         #region Variable deceleration
-        private ResponseStatus mStatus;
-        private int mStatusCode;
-        private string mStatusMessage;
+        private ResultValue mValue;
+        private int mResultCode;
+        private string mResultMessage;
         #endregion
         #region Constructors
         /// <summary>
@@ -23,24 +23,24 @@ namespace DatabaseOperations
         /// <param name="pStatus">ResponseStatus value</param>
         /// <param name="pStatusCode">Response status code</param>
         /// <param name="pStatusMessage">Response status message</param>
-        public Response(ResponseStatus pStatus, int pStatusCode, string pStatusMessage)
+        public Reslut(ResultValue pStatus, int pStatusCode, string pStatusMessage)
         {
-            mStatus = pStatus;
-            mStatusCode = pStatusCode;
-            mStatusMessage = pStatusMessage;
+            mValue = pStatus;
+            mResultCode = pStatusCode;
+            mResultMessage = pStatusMessage;
         }
         #endregion
         #region Properties definition
-        public ResponseStatus Status { get => mStatus;}
-        public int StatusCode { get => mStatusCode;}
-        public string StatusMessage { get => mStatusMessage;}
+        public ResultValue Status { get => mValue;}
+        public int StatusCode { get => mResultCode;}
+        public string StatusMessage { get => mResultMessage;}
         #endregion
         #region Method
-        public static Response DefaultResponse()
+        public static Reslut DefaultResult()
         {
             try
             {
-                return new Response(ResponseStatus.Default, ResponseConstantValues.cDEFAULT_STATUS_CODE, "Default response");
+                return new Reslut(ResultValue.Default, ResponseConstantValues.cDEFAULT_STATUS_CODE, "Default response");
             }
             catch (Exception pError)
             {

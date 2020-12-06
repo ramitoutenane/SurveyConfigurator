@@ -14,12 +14,13 @@ namespace QuestionManaging
         /// List of questions to be maintained 
         /// </summary>
         private readonly DatabaseSettings mDatabaseSettings;
+        private readonly BaseQuestionDatabaseOperations mQuestionDatabaseOperations;
         private readonly IDatabaseOperations<SliderQuestion> mSliderSQL;
         private readonly IDatabaseOperations<SmileyQuestion> mSmileySQL;
         private readonly IDatabaseOperations<StarsQuestion> mStarsSQL;
-        private Thread mAutoRefreshThread;
         public List<BaseQuestion> QuestionsList { get; private set; }
-        public delegate void AutoRefreshDelegate();
+        public event BaseQuestionDatabaseOperations.AutoRefreshDelegate AutoRefreshEventHandler;
+
 
         #endregion
         #region Constructor
@@ -36,6 +37,7 @@ namespace QuestionManaging
                 mSliderSQL = new SliderQuestionDatabaseOperations(mDatabaseSettings);
                 mSmileySQL = new SmileyQuestionDatabaseOperations(mDatabaseSettings);
                 mStarsSQL = new StarsQuestionDatabaseOperations(mDatabaseSettings);
+                mQuestionDatabaseOperations = new BaseQuestionDatabaseOperations(mDatabaseSettings);
             }
             catch (Exception pError)
             {
@@ -52,6 +54,11 @@ namespace QuestionManaging
         {
             try
             {
+                if (!IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    return null;
+                }
                 // select all questions of each question type from database
                 List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
                 List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
@@ -81,8 +88,13 @@ namespace QuestionManaging
         {
             try
             {
+                if (!IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    return false;
+                }
                 // create temporary id variable and question object reference
-                Response tInsertedResponse;
+                Reslut tInsertedResponse;
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
@@ -111,7 +123,7 @@ namespace QuestionManaging
                 }
 
                 // if the question inserted to database successfully the temporary id variable should change from -1 
-                if (tInsertedResponse.Status  == ResponseStatus.Success)
+                if (tInsertedResponse.Status  == ResultValue.Success)
                 {
                     // add Question to local questions list 
                     QuestionsList.Add(pQuestion);
@@ -133,7 +145,11 @@ namespace QuestionManaging
         {
             try
             {
-
+                if (!IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    return false;
+                }
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
@@ -152,7 +168,7 @@ namespace QuestionManaging
                     return false;
                 }
 
-                Response tUpdatedResponse;
+                Reslut tUpdatedResponse;
                 // check question type then update it in database, if updated successfully in database then update it in local list.
                 switch (pQuestion.Type)
                 {
@@ -170,7 +186,7 @@ namespace QuestionManaging
                         return false;
                 }
                 // if updated successfully in database update it in local list.
-                if (tUpdatedResponse.Status == ResponseStatus.Success)
+                if (tUpdatedResponse.Status == ResultValue.Success)
                 {
                     QuestionsList[QuestionsList.FindIndex(tQuestion => tQuestion.Id == pQuestion.Id)] = pQuestion;
                     return true;
@@ -191,10 +207,15 @@ namespace QuestionManaging
         {
             try
             {
+                if (!IsConnected())
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    return false;
+                }
                 // check question type then delete it from database, if deleted successfully from database then delete it in local list.
                 // search for the question in local list 
                 BaseQuestion tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == pId);
-                Response tDeletedResponse;
+                Reslut tDeletedResponse;
                 if (tQuestionFindResult == null)
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
@@ -216,7 +237,7 @@ namespace QuestionManaging
                         return false;
                 }
                 // if deleted successfully from database then delete it in local list.
-                if (tDeletedResponse.Status == ResponseStatus.Success)
+                if (tDeletedResponse.Status == ResultValue.Success)
                 {
                     QuestionsList.RemoveAll(tQuestion => tQuestion.Id == pId);
                     return true;
@@ -238,7 +259,7 @@ namespace QuestionManaging
         {
             try
             {
-                return mStarsSQL.IsConnected();
+                return mQuestionDatabaseOperations.IsConnected();
             }
             catch (Exception pError)
             {
@@ -247,30 +268,20 @@ namespace QuestionManaging
             }
         }
         /// <summary>
-        /// 
+        /// Start auto refresh thread
         /// </summary>
         /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
         /// <param name="pAutoRefreshDelegate">Delegate method to call</param>
-        public void AutoRefresh(int pRefreshInterval, AutoRefreshDelegate pAutoRefreshDelegate )
+        public void StartAutoRefresh(int pRefreshInterval)
         {
             try
             {
-               
-                //if the thread is alive then kill it to start new one
-                if (mAutoRefreshThread != null && mAutoRefreshThread.IsAlive)
-                    mAutoRefreshThread.Abort();
-
-                //run new thread to call auto refresh delegate method
-                mAutoRefreshThread = new Thread(() => {
-                    while (mAutoRefreshThread.IsAlive)
-                    {
-                        if(IsConnected())
-                            pAutoRefreshDelegate();
-                        Thread.Sleep(pRefreshInterval);
-                    }
-                });
-                mAutoRefreshThread.IsBackground = true;
-                mAutoRefreshThread.Start();
+                if(AutoRefreshEventHandler != null)
+                {
+                    mQuestionDatabaseOperations.AutoRefreshEventHandler += AutoRefreshEventHandler;
+                    mQuestionDatabaseOperations.StartAutoRefresh(pRefreshInterval);
+                }
+                       
             }
             catch (Exception pError)
             {

@@ -1,6 +1,7 @@
 ﻿using SurveyConfiguratorEntities;
 using System;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DatabaseOperations
@@ -13,6 +14,10 @@ namespace DatabaseOperations
         #region Variable deceleration
         private readonly string mConnectionString;
         private bool mConnectionStatus;
+        private Thread mAutoRefreshThread;
+        public delegate void AutoRefreshDelegate();
+        public event AutoRefreshDelegate AutoRefreshEventHandler;
+
         #endregion
         #region Constructors
         /// <summary>
@@ -63,7 +68,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public Response Insert(BaseQuestion pQuestion)
+        public Reslut Insert(BaseQuestion pQuestion)
         {
             try
             {
@@ -81,16 +86,16 @@ namespace DatabaseOperations
                         if (tID > 0)
                         {
                             pQuestion.ChangeId(tID);
-                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
                         }
-                        return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
+                        return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
                     }
                 }
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -98,7 +103,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public Response Update(BaseQuestion pQuestion)
+        public Reslut Update(BaseQuestion pQuestion)
         {
             try
             {
@@ -113,9 +118,9 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
-                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
+                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
                     }
                 }
 
@@ -123,7 +128,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -131,7 +136,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
-        public Response Delete(int pId)
+        public Reslut Delete(int pId)
         {
             try
             {
@@ -143,16 +148,16 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pId);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Response(ResponseStatus.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cDELETE_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cDELETE_SUCCESS_MESSAGE);
                         else
-                            return new Response(ResponseStatus.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cDELETE_FAIL_MESSAGE);
+                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cDELETE_FAIL_MESSAGE);
                     }
                 }
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Response(ResponseStatus.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -200,6 +205,38 @@ namespace DatabaseOperations
             }
         }
 
+        /// <summary>
+        /// Start auto refresh from database thread
+        /// </summary>
+        /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
+        public void StartAutoRefresh(int pRefreshInterval)
+        {
+            try
+            {
+
+                //if the thread is alive then kill it to start new one
+                if (mAutoRefreshThread == null || !mAutoRefreshThread.IsAlive)
+                {
+                    //run new thread to call auto refresh delegate method
+                    mAutoRefreshThread = new Thread(() => {
+                        while (mAutoRefreshThread.IsAlive)
+                        {
+                            if (IsConnected() && AutoRefreshEventHandler != null)
+                                //fire auto refresh event
+                                AutoRefreshEventHandler();
+                            Thread.Sleep(pRefreshInterval);
+                        }
+                    });
+                    mAutoRefreshThread.IsBackground = true;
+                    mAutoRefreshThread.Start();
+                }
+
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+        }
         #endregion
     }
 }
