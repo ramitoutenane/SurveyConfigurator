@@ -2,8 +2,6 @@
 using SurveyConfiguratorEntities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace QuestionManaging
 {
@@ -54,15 +52,15 @@ namespace QuestionManaging
         {
             try
             {
-                if (!IsConnected())
-                {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
-                    return null;
-                }
                 // select all questions of each question type from database
                 List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
                 List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
                 List<StarsQuestion> tStarsList = mStarsSQL.SelectAll();
+                if(tSliderList == null || tSmileyList == null || tStarsList == null)
+                {
+                    ErrorLogger.Log(new Exception(ErrorMessages.cSELECT_ERROR));
+                    return null;
+                }
                 // create new temporary list to merge previous lists,it's initial capacity is equal to the sum of all question lists 
                 List<BaseQuestion> tAllQuestion = new List<BaseQuestion>(tSliderList.Count + tSmileyList.Count + tStarsList.Count);
                 // add all question lists to the temporary list that contains all questions 
@@ -88,11 +86,6 @@ namespace QuestionManaging
         {
             try
             {
-                if (!IsConnected())
-                {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
-                    return false;
-                }
                 // create temporary id variable and question object reference
                 Reslut tInsertedResponse;
                 if (pQuestion is null)
@@ -145,11 +138,6 @@ namespace QuestionManaging
         {
             try
             {
-                if (!IsConnected())
-                {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
-                    return false;
-                }
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
@@ -207,11 +195,6 @@ namespace QuestionManaging
         {
             try
             {
-                if (!IsConnected())
-                {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
-                    return false;
-                }
                 // check question type then delete it from database, if deleted successfully from database then delete it in local list.
                 // search for the question in local list 
                 BaseQuestion tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == pId);
@@ -271,7 +254,6 @@ namespace QuestionManaging
         /// Start auto refresh thread
         /// </summary>
         /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
-        /// <param name="pAutoRefreshDelegate">Delegate method to call</param>
         public void StartAutoRefresh(int pRefreshInterval)
         {
             try

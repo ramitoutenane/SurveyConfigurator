@@ -96,3 +96,6 @@ Done:
     26/11 3:30   
         * Write installation documentation for administrator.
         * Write technical documentation for developer.
+    
+    2/12 
+        * Create auto refresh thread

@@ -7,3 +7,12 @@ C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Dev
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.csproj.CopyComplete
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.dll
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\bin\Debug\SurveyConfiguratorEntities.dll
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\bin\Debug\SurveyConfiguratorEntities.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\bin\Debug\ErrorLogger.dll
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\bin\Debug\ErrorLogger.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.csprojAssemblyReference.cache
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.csproj.CoreCompileInputs.cache
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.csproj.CopyComplete
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.dll
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\obj\Debug\SurveyConfiguratorEntities.pdb
