@@ -74,7 +74,7 @@ namespace DatabaseOperations
                 tInsertResponse = mQuestionDatabaseOperation.Insert(pQuestion);
                 // Smiley question depend on base question primary key since there is foreign key relationship between tables
                 // we insert general question and check if is inserted we insert smiley question, otherwise we exit
-                if (tInsertResponse.Status != ResultValue.Success)
+                if (tInsertResponse.Value != ResultValue.Success)
                     return tInsertResponse;
                 string tCommandString = $"INSERT INTO {DatabaseParameters.cTABLE_SMILEY_QUESTION} ({DatabaseParameters.cCOLUMN_QUESTION_ID}, {DatabaseParameters.cCOLUMN_FACES_NUMBER}) OUTPUT INSERTED.{DatabaseParameters.cCOLUMN_QUESTION_ID} " +
                     $"VALUES ({DatabaseParameters.cPARAMETER_QUESTION_ID}, {DatabaseParameters.cPARAMETER_QUESTION_FACES_NUMBER})";
@@ -96,7 +96,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 // if exception raises on specific question data insertion then delete inserted general question from question table
-                if (tInsertResponse.Status == ResultValue.Success)
+                if (tInsertResponse.Value == ResultValue.Success)
                     mQuestionDatabaseOperation.Delete(pQuestion.Id);
                 ErrorLogger.Log(pError);
                 return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
@@ -114,7 +114,7 @@ namespace DatabaseOperations
             {
                 // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
                 Reslut tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
-                if (tUpdateResponse.Status != ResultValue.Success)
+                if (tUpdateResponse.Value != ResultValue.Success)
                 {
                     return tUpdateResponse;
                 }
@@ -153,7 +153,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pId">Id of question to be selected</param>
         /// <returns>The selected question if exist, null otherwise</returns>
-        public SmileyQuestion Select(int pId)
+        public SmileyQuestion Read(int pId)
         {
             try
             {

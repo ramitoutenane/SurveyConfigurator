@@ -15,4 +15,14 @@ namespace SurveyConfiguratorEntities
         Slider = 2,
         Stars = 3
     }
+    /// <summary>
+    /// Enumeration to define types of response status provided by the system
+    /// </summary>
+    public enum ResultValue
+    {
+        Default,
+        Fail,
+        Success,
+        Error
+    }
 }

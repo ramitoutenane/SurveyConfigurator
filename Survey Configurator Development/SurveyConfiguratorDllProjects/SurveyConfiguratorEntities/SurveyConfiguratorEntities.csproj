@@ -46,6 +46,8 @@
     <Compile Include="BaseQuestion.cs" />
     <Compile Include="QuestionEnumerations.cs" />
     <Compile Include="QuestionValidationValues.cs" />
+    <Compile Include="Reslut.cs" />
+    <Compile Include="ResponseConstantValues.cs" />
     <Compile Include="SliderQuestion.cs" />
     <Compile Include="SmileyQuestion.cs" />
     <Compile Include="StarsQuestion.cs" />

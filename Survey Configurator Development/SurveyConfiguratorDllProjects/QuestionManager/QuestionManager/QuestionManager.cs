@@ -53,42 +53,51 @@ namespace QuestionManaging
         /// <summary>
         /// Synchronize local Questions list with latest version of questions from database
         /// </summary>
-        /// <returns>The new refreshed Questions List</returns>
-        public List<BaseQuestion> SelectAll()
+        /// <returns>Result object of operation</returns>
+        public Reslut RefreshQuestionList()
         {
             try
             {
                 // select all questions of each question type from database
                 List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
+                if (tSliderList == null)
+                    return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cREFRESH_FAIL_MESSAGE);
+
+
                 List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
+                if (tSmileyList == null)
+                    return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cREFRESH_FAIL_MESSAGE);
+
+
                 List<StarsQuestion> tStarsList = mStarsSQL.SelectAll();
-                if(tSliderList == null || tSmileyList == null || tStarsList == null)
-                {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cSELECT_ERROR));
-                    return null;
-                }
+                if (tStarsList == null)
+                    return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cREFRESH_FAIL_MESSAGE);
+
+
                 // create new temporary list to merge previous lists,it's initial capacity is equal to the sum of all question lists 
                 List<BaseQuestion> tAllQuestion = new List<BaseQuestion>(tSliderList.Count + tSmileyList.Count + tStarsList.Count);
+
                 // add all question lists to the temporary list that contains all questions 
                 tAllQuestion.AddRange(tSliderList);
                 tAllQuestion.AddRange(tSmileyList);
                 tAllQuestion.AddRange(tStarsList);
+
                 // set the value of Questions list to the new created list
                 QuestionsList = tAllQuestion;
                 // sort the Questions list and return it
-                return QuestionsList;
+                return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cREFRESH_SUCCESS_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return null;
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cREFRESH_ERROR_MESSAGE);
             }
         }
         /// <summary>
         /// Insert question to database and local questions list
         /// </summary>
         /// <param name="pQuestion">The new question to be inserted</param>
-        public bool Insert(BaseQuestion pQuestion)
+        public Reslut Insert(BaseQuestion pQuestion)
         {
             try
             {
@@ -97,12 +106,12 @@ namespace QuestionManaging
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
-                    return false;
+                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
                 }
                 else if (!pQuestion.IsValid())
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_VALIDATION_EXCEPTION));
-                    return false;
+                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
                 }
                 //check question type then add it to database and get it's primary key from SQL insert method
                 switch (pQuestion.Type)
@@ -118,48 +127,48 @@ namespace QuestionManaging
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
-                        return false;
+                        return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
                 }
 
                 // if the question inserted to database successfully the temporary id variable should change from -1 
-                if (tInsertedResponse.Status  == ResultValue.Success)
+                if (tInsertedResponse.Value  == ResultValue.Success)
                 {
                     // add Question to local questions list 
                     QuestionsList.Add(pQuestion);
-                    return true;
+                    return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
                 }
-                return false;
+                return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
         /// Update question in database and local questions list
         /// </summary>
         /// <param name="pQuestion">The new question to be updated</param>
-        public bool Update(BaseQuestion pQuestion)
+        public Reslut Update(BaseQuestion pQuestion)
         {
             try
             {
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
-                    return false;
+                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
                 else if (!pQuestion.IsValid())
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_VALIDATION_EXCEPTION));
-                    return false;
+                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
                 // search for the question in local list 
                 BaseQuestion tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == pQuestion.Id);
                 if (tQuestionFindResult == null)
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
-                    return false;
+                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
 
                 Reslut tUpdatedResponse;
@@ -177,27 +186,27 @@ namespace QuestionManaging
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
-                        return false;
+                        return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
                 // if updated successfully in database update it in local list.
-                if (tUpdatedResponse.Status == ResultValue.Success)
+                if (tUpdatedResponse.Value == ResultValue.Success)
                 {
                     QuestionsList[QuestionsList.FindIndex(tQuestion => tQuestion.Id == pQuestion.Id)] = pQuestion;
-                    return true;
+                    return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
                 }
-                return false;
+                return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
         /// Delete question from database and local list
         /// </summary>
         /// <param name="pId">The id of question to be deleted</param>
-        public bool Delete(int pId)
+        public Reslut Delete(int pId)
         {
             try
             {
@@ -208,7 +217,7 @@ namespace QuestionManaging
                 if (tQuestionFindResult == null)
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
-                    return false;
+                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
                 }
                 switch (tQuestionFindResult.Type)
                 {
@@ -223,20 +232,20 @@ namespace QuestionManaging
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
-                        return false;
+                        return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
                 }
                 // if deleted successfully from database then delete it in local list.
-                if (tDeletedResponse.Status == ResultValue.Success)
+                if (tDeletedResponse.Value == ResultValue.Success)
                 {
                     QuestionsList.RemoveAll(tQuestion => tQuestion.Id == pId);
-                    return true;
+                    return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cDELETE_SUCCESS_MESSAGE);
                 }
-                return false;
+                return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cDELETE_FAIL_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return false;
+                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
             }
         }
 
@@ -320,7 +329,7 @@ namespace QuestionManaging
                     {
                         Thread.Sleep(pRefreshInterval);
                         List<BaseQuestion> tOldQuestionsList = QuestionsList;
-                        SelectAll();
+                        RefreshQuestionList();
                         if (QuestionsList != null && IsChanged(tOldQuestionsList))
                         {
                             //fire auto refresh event

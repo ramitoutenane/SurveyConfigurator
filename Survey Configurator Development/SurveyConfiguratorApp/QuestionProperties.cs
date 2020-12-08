@@ -20,8 +20,14 @@ namespace SurveyConfiguratorApp
 
             public QuestionTypeTranslation(QuestionType pType, string pTypeName)
             {
-                Type = pType;
-                TypeName = pTypeName;
+                try
+                {
+                    Type = pType;
+                    TypeName = pTypeName;
+                }catch(Exception pError)
+                {
+                    ErrorLogger.Log(pError);
+                }
             }
 
             public override string ToString() => TypeName;
@@ -101,7 +107,7 @@ namespace SurveyConfiguratorApp
                 }
                 else
                 {
-                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
+                    ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
                     ShowError(Properties.StringResources.GENERAL_ERROR);
                     return;
                 }
@@ -566,7 +572,7 @@ namespace SurveyConfiguratorApp
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }
-                if (mQuestionManager.Insert(pQuestion))
+                if (mQuestionManager.Insert(pQuestion).Value == ResultValue.Success)
                     return true;
                 else
                 {
@@ -595,7 +601,7 @@ namespace SurveyConfiguratorApp
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }
-                if (mQuestionManager.Update(pQuestion))
+                if (mQuestionManager.Update(pQuestion).Value == ResultValue.Success)
                     return true;
                 else
                 {

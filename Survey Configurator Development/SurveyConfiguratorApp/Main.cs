@@ -116,13 +116,12 @@ namespace SurveyConfiguratorApp
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return;
                 }
-                if (mQuestionManager.SelectAll() != null)
+                if (mQuestionManager.RefreshQuestionList().Value == ResultValue.Success)
                 {
                     RefreshList();
                 }
                 else
                 {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cREFRESH_ERROR));
                     ShowError(Properties.StringResources.REFRESH_ERROR);
                     return;
                 }
@@ -286,7 +285,7 @@ namespace SurveyConfiguratorApp
                             ShowError(Properties.StringResources.CONNECTION_ERROR);
                             return;
                         }
-                        if (mQuestionManager.Delete(tSelectedQuestion.Id))
+                        if (mQuestionManager.Delete(tSelectedQuestion.Id).Value == ResultValue.Success)
                         {
                             RefreshList();
                             Cursor.Current = Cursors.Default;
@@ -294,7 +293,6 @@ namespace SurveyConfiguratorApp
                         else
                         {
                             Cursor.Current = Cursors.Default;
-                            ErrorLogger.Log(new Exception(ErrorMessages.cDELETE_ERROR));
                             ShowError(Properties.StringResources.DELETE_ERROR);
                             return;
                         }

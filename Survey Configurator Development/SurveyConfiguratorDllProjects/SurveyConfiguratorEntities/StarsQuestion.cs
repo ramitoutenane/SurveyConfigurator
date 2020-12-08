@@ -79,22 +79,46 @@ namespace SurveyConfiguratorEntities
 
         public override bool Equals(object pObj)
         {
-            return Equals(pObj as StarsQuestion);
+            try
+            {
+                return Equals(pObj as StarsQuestion);
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         public bool Equals(StarsQuestion pOther)
         {
-            return pOther != null &&
-                   base.Equals(pOther) &&
-                   nNumberOfStars == pOther.nNumberOfStars;
+            try
+            {
+                return pOther != null &&
+                       base.Equals(pOther) &&
+                       nNumberOfStars == pOther.nNumberOfStars;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         public override int GetHashCode()
         {
-            int hashCode = 49537828;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + nNumberOfStars.GetHashCode();
-            return hashCode;
+            try
+            {
+                int hashCode = 49537828;
+                hashCode = hashCode * -1521134295 + base.GetHashCode();
+                hashCode = hashCode * -1521134295 + nNumberOfStars.GetHashCode();
+                return hashCode;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return new Random().Next(int.MaxValue, int.MaxValue);
+            }
         }
         #endregion
     }

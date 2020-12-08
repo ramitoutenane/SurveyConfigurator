@@ -21,6 +21,6 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pId">Id of object to be selected</param>
         /// <returns>The selected object if exist, null otherwise</returns>
-        T Select(int pId);
+        T Read(int pId);
     }
 }

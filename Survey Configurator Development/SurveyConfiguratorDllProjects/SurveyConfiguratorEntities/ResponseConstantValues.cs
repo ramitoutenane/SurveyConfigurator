@@ -1,5 +1,5 @@
 ﻿
-namespace DatabaseOperations
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Constant Values to be used in creating response objects
@@ -19,5 +19,8 @@ namespace DatabaseOperations
         public const string cDELETE_SUCCESS_MESSAGE = "Question deleted successfully";
         public const string cDELETE_FAIL_MESSAGE = "Question has not been deleted";
         public const string cDELETE_ERROR_MESSAGE = "An error occurred while deleting question";
+        public const string cREFRESH_SUCCESS_MESSAGE = "Question list refreshed successfully";
+        public const string cREFRESH_FAIL_MESSAGE = "Question list has not been refreshed";
+        public const string cREFRESH_ERROR_MESSAGE = "An error occurred while refreshing question list";
     }
 }

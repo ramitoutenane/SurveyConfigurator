@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DatabaseOperations
+namespace SurveyConfiguratorEntities
 {
     /// <summary>
     /// Class to return operation response and status
@@ -31,9 +27,9 @@ namespace DatabaseOperations
         }
         #endregion
         #region Properties definition
-        public ResultValue Status { get => mValue;}
-        public int StatusCode { get => mResultCode;}
-        public string StatusMessage { get => mResultMessage;}
+        public ResultValue Value { get => mValue;}
+        public int ResultCode { get => mResultCode;}
+        public string ResultMessage { get => mResultMessage;}
         #endregion
         #region Method
         public static Reslut DefaultResult()

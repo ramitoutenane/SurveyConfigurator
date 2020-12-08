@@ -110,28 +110,52 @@ namespace SurveyConfiguratorEntities
 
         public override bool Equals(object pObj)
         {
-            return Equals(pObj as SliderQuestion);
+            try
+            {
+                return Equals(pObj as SliderQuestion);
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         public bool Equals(SliderQuestion pOther)
         {
-            return pOther != null &&
-                   base.Equals(pOther) &&
-                   mStartValue == pOther.mStartValue &&
-                   mEndValue == pOther.mEndValue &&
-                   mStartValueCaption == pOther.mStartValueCaption &&
-                   mEndValueCaption == pOther.mEndValueCaption;
+            try
+            {
+                return pOther != null &&
+                       base.Equals(pOther) &&
+                       mStartValue == pOther.mStartValue &&
+                       mEndValue == pOther.mEndValue &&
+                       mStartValueCaption == pOther.mStartValueCaption &&
+                       mEndValueCaption == pOther.mEndValueCaption;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         public override int GetHashCode()
         {
-            int hashCode = 850309230;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + mStartValue.GetHashCode();
-            hashCode = hashCode * -1521134295 + mEndValue.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(mStartValueCaption);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(mEndValueCaption);
-            return hashCode;
+            try
+            {
+                int hashCode = 850309230;
+                hashCode = hashCode * -1521134295 + base.GetHashCode();
+                hashCode = hashCode * -1521134295 + mStartValue.GetHashCode();
+                hashCode = hashCode * -1521134295 + mEndValue.GetHashCode();
+                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(mStartValueCaption);
+                hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(mEndValueCaption);
+                return hashCode;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return 0;
+            }
         }
         #endregion
     }

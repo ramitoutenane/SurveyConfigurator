@@ -23,7 +23,8 @@ namespace SurveyConfiguratorEntities
             try
             {
                 NumberOfFaces = pNumberOfFaces;
-            }catch(Exception pError)
+            }
+            catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
             }
@@ -67,7 +68,7 @@ namespace SurveyConfiguratorEntities
         {
             try
             {
-                return new SmileyQuestion(Text, Order,NumberOfFaces, pId);
+                return new SmileyQuestion(Text, Order, NumberOfFaces, pId);
             }
             catch (Exception pError)
             {
@@ -78,23 +79,47 @@ namespace SurveyConfiguratorEntities
 
         public override bool Equals(object pObj)
         {
-            return Equals(pObj as SmileyQuestion);
+            try
+            {
+                return Equals(pObj as SmileyQuestion);
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         public bool Equals(SmileyQuestion pOther)
         {
-            return pOther != null &&
-                   base.Equals(pOther) &&
-                   mNumberOfFaces == pOther.mNumberOfFaces;
+            try
+            {
+                return pOther != null &&
+                       base.Equals(pOther) &&
+                       mNumberOfFaces == pOther.mNumberOfFaces;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
         }
 
         public override int GetHashCode()
         {
-            int hashCode = -1437452496;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + mNumberOfFaces.GetHashCode();
-            return hashCode;
+            try
+            {
+                int hashCode = -1437452496;
+                hashCode = hashCode * -1521134295 + base.GetHashCode();
+                hashCode = hashCode * -1521134295 + mNumberOfFaces.GetHashCode();
+                return hashCode;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return 0;
+            }
+            #endregion
         }
-        #endregion
     }
 }
