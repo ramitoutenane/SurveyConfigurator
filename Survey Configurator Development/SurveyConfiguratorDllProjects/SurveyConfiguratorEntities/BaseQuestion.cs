@@ -125,12 +125,12 @@ namespace SurveyConfiguratorEntities
             hashCode = hashCode * -1521134295 + mOrder.GetHashCode();
             hashCode = hashCode * -1521134295 + mId.GetHashCode();
             hashCode = hashCode * -1521134295 + Type.GetHashCode();
-            return hashCode;
+            return Math.Abs(hashCode);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return 0;
+                return int.MinValue;
             }
         }
         #endregion

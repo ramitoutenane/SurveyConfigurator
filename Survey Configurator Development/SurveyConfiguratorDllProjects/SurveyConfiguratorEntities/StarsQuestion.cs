@@ -112,14 +112,15 @@ namespace SurveyConfiguratorEntities
                 int hashCode = 49537828;
                 hashCode = hashCode * -1521134295 + base.GetHashCode();
                 hashCode = hashCode * -1521134295 + nNumberOfStars.GetHashCode();
-                return hashCode;
+                return Math.Abs(hashCode);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Random().Next(int.MaxValue, int.MaxValue);
+                return int.MinValue;
             }
         }
         #endregion
     }
 }
+

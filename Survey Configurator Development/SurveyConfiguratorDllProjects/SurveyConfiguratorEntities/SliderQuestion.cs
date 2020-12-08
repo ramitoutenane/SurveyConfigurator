@@ -149,12 +149,12 @@ namespace SurveyConfiguratorEntities
                 hashCode = hashCode * -1521134295 + mEndValue.GetHashCode();
                 hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(mStartValueCaption);
                 hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(mEndValueCaption);
-                return hashCode;
+                return Math.Abs(hashCode);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return 0;
+                return int.MinValue;
             }
         }
         #endregion

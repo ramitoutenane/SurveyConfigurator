@@ -270,20 +270,21 @@ namespace QuestionManaging
         /// </summary>
         /// <param name="pOldQuestionList">source list to compare to local list</param>
         /// <returns>true if equal, false otherwise</returns>
-        private bool IsChanged(List<BaseQuestion> pOldQuestionList)
+        private bool IsChanged()
         {
             try
             {
-                if (QuestionsList.Count != pOldQuestionList.Count)
+                //get a copy of list and refresh it to get latest from database
+                List<BaseQuestion> tOldQuestionsList = QuestionsList;
+                RefreshQuestionList();
+
+                //if lists count is not equal then it has been changed
+                if (QuestionsList.Count != tOldQuestionsList.Count)
                     return true;
-                List<BaseQuestion> tOrderedOldQuestionList = pOldQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
-                List<BaseQuestion> tOrderedCurrentQuestionList = QuestionsList.OrderBy(tQuestion => tQuestion.Id).ToList();
-                for (int i = 0; i < tOrderedCurrentQuestionList.Count; i++)
-                {
-                    if (!tOrderedCurrentQuestionList[i].Equals(tOrderedOldQuestionList[i]))
-                        return true;
-                }
-                return false;
+
+                //get the difference set between lists, if the difference count is 0 then they are equal and the list has not been changed
+                return QuestionsList.Except(tOldQuestionsList).Count() == 0;
+
             }
 
             catch (Exception pError)
@@ -328,9 +329,8 @@ namespace QuestionManaging
                     if (IsConnected() && QuestionListChangedEventHandler != null)
                     {
                         Thread.Sleep(pRefreshInterval);
-                        List<BaseQuestion> tOldQuestionsList = QuestionsList;
-                        RefreshQuestionList();
-                        if (QuestionsList != null && IsChanged(tOldQuestionsList))
+
+                        if (QuestionsList != null && IsChanged())
                         {
                             //fire auto refresh event
                             QuestionListChangedEventHandler();
