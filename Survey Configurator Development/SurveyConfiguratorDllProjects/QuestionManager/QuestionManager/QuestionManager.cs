@@ -2,6 +2,8 @@
 using SurveyConfiguratorEntities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace QuestionManaging
 {
@@ -17,7 +19,11 @@ namespace QuestionManaging
         private readonly IDatabaseOperations<SmileyQuestion> mSmileySQL;
         private readonly IDatabaseOperations<StarsQuestion> mStarsSQL;
         public List<BaseQuestion> QuestionsList { get; private set; }
-        public event BaseQuestionDatabaseOperations.AutoRefreshDelegate AutoRefreshEventHandler;
+        private Thread mAutoCheckThread;
+        private bool mKeepAutoCheckThreadAlive;
+        public delegate void RefreshListDelegate();
+        public event RefreshListDelegate QuestionListChangedEventHandler;
+
 
 
         #endregion
@@ -251,6 +257,33 @@ namespace QuestionManaging
             }
         }
         /// <summary>
+        /// Check if local question list content and source content are equal
+        /// </summary>
+        /// <param name="pOldQuestionList">source list to compare to local list</param>
+        /// <returns>true if equal, false otherwise</returns>
+        private bool IsChanged(List<BaseQuestion> pOldQuestionList)
+        {
+            try
+            {
+                if (QuestionsList.Count != pOldQuestionList.Count)
+                    return true;
+                List<BaseQuestion> tOrderedOldQuestionList = pOldQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
+                List<BaseQuestion> tOrderedCurrentQuestionList = QuestionsList.OrderBy(tQuestion => tQuestion.Id).ToList();
+                for (int i = 0; i < tOrderedCurrentQuestionList.Count; i++)
+                {
+                    if (!tOrderedCurrentQuestionList[i].Equals(tOrderedOldQuestionList[i]))
+                        return true;
+                }
+                return false;
+            }
+
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return true;
+            }
+        }
+        /// <summary>
         /// Start auto refresh thread
         /// </summary>
         /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
@@ -258,19 +291,62 @@ namespace QuestionManaging
         {
             try
             {
-                if(AutoRefreshEventHandler != null)
+                if(QuestionListChangedEventHandler != null)
                 {
-                    mQuestionDatabaseOperations.AutoRefreshEventHandler += AutoRefreshEventHandler;
-                    mQuestionDatabaseOperations.StartAutoRefresh(pRefreshInterval);
+                    if (mAutoCheckThread == null || !mAutoCheckThread.IsAlive)
+                    {
+                        //run new thread to call auto refresh delegate method
+                        mAutoCheckThread = new Thread(new ThreadStart(() => AutoRefreshThreadWork(pRefreshInterval)));
+                        mAutoCheckThread.IsBackground = true;
+                        mAutoCheckThread.Start();
+                    }
+
                 }
-                       
+
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
             }
         }
+        private void AutoRefreshThreadWork(int pRefreshInterval)
+        {
+            try
+            {
+                mKeepAutoCheckThreadAlive = true;
+                while (mKeepAutoCheckThreadAlive)
+                {
+                    if (IsConnected() && QuestionListChangedEventHandler != null)
+                    {
+                        Thread.Sleep(pRefreshInterval);
+                        List<BaseQuestion> tOldQuestionsList = QuestionsList;
+                        SelectAll();
+                        if (QuestionsList != null && IsChanged(tOldQuestionsList))
+                        {
+                            //fire auto refresh event
+                            QuestionListChangedEventHandler();
+                        }
 
+                    }
+                }
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+        }
+        public void StopAutoRefresh()
+        {
+            try
+            {
+                mKeepAutoCheckThreadAlive = false;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+            
+        }
         #endregion
     }
 }

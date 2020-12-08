@@ -1,7 +1,6 @@
 ﻿using SurveyConfiguratorEntities;
 using System;
 using System.Data.SqlClient;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DatabaseOperations
@@ -14,9 +13,6 @@ namespace DatabaseOperations
         #region Variable deceleration
         private readonly string mConnectionString;
         private bool mConnectionStatus;
-        private Thread mAutoRefreshThread;
-        public delegate void AutoRefreshDelegate();
-        public event AutoRefreshDelegate AutoRefreshEventHandler;
 
         #endregion
         #region Constructors
@@ -202,39 +198,6 @@ namespace DatabaseOperations
             {
                 ErrorLogger.Log(pError);
                 return false;
-            }
-        }
-
-        /// <summary>
-        /// Start auto refresh from database thread
-        /// </summary>
-        /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
-        public void StartAutoRefresh(int pRefreshInterval)
-        {
-            try
-            {
-
-                //if the thread is alive then kill it to start new one
-                if (mAutoRefreshThread == null || !mAutoRefreshThread.IsAlive)
-                {
-                    //run new thread to call auto refresh delegate method
-                    mAutoRefreshThread = new Thread(() => {
-                        while (mAutoRefreshThread.IsAlive)
-                        {
-                            if (IsConnected() && AutoRefreshEventHandler != null)
-                                //fire auto refresh event
-                                AutoRefreshEventHandler();
-                            Thread.Sleep(pRefreshInterval);
-                        }
-                    });
-                    mAutoRefreshThread.IsBackground = true;
-                    mAutoRefreshThread.Start();
-                }
-
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
             }
         }
         #endregion

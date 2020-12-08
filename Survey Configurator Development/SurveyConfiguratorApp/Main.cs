@@ -536,7 +536,7 @@ namespace SurveyConfiguratorApp
         }
         #endregion
         #region Database thread
-        private delegate void RefreshFromDatabaseDelegate();
+        private delegate void RefreshListDelegate();
         /// <summary>
         /// register delegate and time interval of auto refresh
         /// </summary>
@@ -555,7 +555,7 @@ namespace SurveyConfiguratorApp
                 //call auto refresh method from question manager
                 if (mQuestionManager != null)
                 {
-                    mQuestionManager.AutoRefreshEventHandler += RefreshFromAnotherThread;
+                    mQuestionManager.QuestionListChangedEventHandler += new QuestionManager.RefreshListDelegate (ThreadSafeListRefresh);
                     mQuestionManager.StartAutoRefresh(tAutoRefreshInterval);
                 }
             }
@@ -563,16 +563,15 @@ namespace SurveyConfiguratorApp
             {
                 ErrorLogger.Log(pError);
             }
-
         }
         /// <summary>
         /// Refresh questions data grid view from another thread
         /// </summary>
-        private void RefreshFromAnotherThread()
+        private void ThreadSafeListRefresh()
         {
             try
             {
-                RefreshFromDatabaseDelegate pRefreshFromDatabaseDelegate = RefreshIfChanged;
+                RefreshListDelegate pRefreshFromDatabaseDelegate = new RefreshListDelegate(RefreshList);
                 questionDataGridView.BeginInvoke(pRefreshFromDatabaseDelegate);
             }
             catch (Exception pError)
@@ -581,55 +580,6 @@ namespace SurveyConfiguratorApp
             }
 
         }
-
-        /// <summary>
-        /// Refresh question data grid view if local question list and database questions are different
-        /// </summary>
-        public void RefreshIfChanged()
-        {
-            try
-            {
-                //if refreshed successfully reload data to grid view, show error otherwise
-                if (mQuestionManager.SelectAll() != null)
-                {
-                    List<BaseQuestion> tQuestionList = mQuestionManager.QuestionsList;
-                    //refresh question list if its not up to date.
-                    if (IsChanged(tQuestionList))
-                        RefreshList();
-                }
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-            }
-
-        }
-        /// <summary>
-        /// Check if local question list content and source content are equal
-        /// </summary>
-        /// <param name="pSourceQuestionList">source list to compare to local list</param>
-        /// <returns>true if equal, false otherwise</returns>
-        public bool IsChanged(List<BaseQuestion> pSourceQuestionList)
-        {
-            try { 
-                if (mQuestionList.Count != pSourceQuestionList.Count)
-                    return true;
-                List<BaseQuestion> tOrderedSourceQuestionList = pSourceQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
-                List<BaseQuestion> tOrderedLocalQuestionList = mQuestionList.OrderBy(tQuestion => tQuestion.Id).ToList();
-                for (int i = 0; i < tOrderedLocalQuestionList.Count; i++)
-                {
-                    if (!tOrderedLocalQuestionList[i].Equals(tOrderedSourceQuestionList[i]))
-                        return true;
-                }
-                return false;
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return true;
-            }
-        }
-
         #endregion
     }
 }
