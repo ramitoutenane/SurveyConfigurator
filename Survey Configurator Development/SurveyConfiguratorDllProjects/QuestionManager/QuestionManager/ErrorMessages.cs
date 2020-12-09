@@ -5,6 +5,7 @@
     /// </summary>
     public static class ErrorMessages
     {
+        public const string cREFRESH_INTERVAL_WARNING = "Warning : Invalid refresh interval value, changed to default (20 seconds)";
         public const string cGENERAL_ERROR = "An Error occurred, Please try again or contact Admin";
         public const string cCONNECTION_ERROR = "Connection to database is not available";
         public const string cREFRESH_ERROR = "An Error occurred while refreshing list";

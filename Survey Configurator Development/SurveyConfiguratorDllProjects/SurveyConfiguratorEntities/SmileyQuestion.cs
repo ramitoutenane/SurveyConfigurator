@@ -77,11 +77,11 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public override bool Equals(object pObj)
+        public override bool Equals(object pObject)
         {
             try
             {
-                return Equals(pObj as SmileyQuestion);
+                return Equals(pObject as SmileyQuestion);
             }
             catch (Exception pError)
             {
@@ -90,13 +90,13 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public bool Equals(SmileyQuestion pOther)
+        public bool Equals(SmileyQuestion pQuestion)
         {
             try
             {
-                return pOther != null &&
-                       base.Equals(pOther) &&
-                       mNumberOfFaces == pOther.mNumberOfFaces;
+                return pQuestion != null &&
+                       base.Equals(pQuestion) &&
+                       mNumberOfFaces == pQuestion.mNumberOfFaces;
             }
             catch (Exception pError)
             {

@@ -131,7 +131,7 @@ namespace QuestionManaging
                 }
 
                 // if the question inserted to database successfully the temporary id variable should change from -1 
-                if (tInsertedResponse.Value  == ResultValue.Success)
+                if (tInsertedResponse.Value == ResultValue.Success)
                 {
                     // add Question to local questions list 
                     QuestionsList.Add(pQuestion);
@@ -283,7 +283,7 @@ namespace QuestionManaging
                     return true;
 
                 //get the difference set between lists, if the difference count is 0 then they are equal and the list has not been changed
-                return QuestionsList.Except(tOldQuestionsList).Count() == 0;
+                return QuestionsList.Except(tOldQuestionsList).Count() != 0;
 
             }
 
@@ -301,7 +301,7 @@ namespace QuestionManaging
         {
             try
             {
-                if(QuestionListChangedEventHandler != null)
+                if (QuestionListChangedEventHandler != null)
                 {
                     if (mAutoCheckThread == null || !mAutoCheckThread.IsAlive)
                     {
@@ -319,6 +319,10 @@ namespace QuestionManaging
                 ErrorLogger.Log(pError);
             }
         }
+        /// <summary>
+        /// Refresh the interface if the list is changed
+        /// </summary>
+        /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
         private void AutoRefreshThreadWork(int pRefreshInterval)
         {
             try
@@ -326,17 +330,15 @@ namespace QuestionManaging
                 mKeepAutoCheckThreadAlive = true;
                 while (mKeepAutoCheckThreadAlive)
                 {
-                    if (IsConnected() && QuestionListChangedEventHandler != null)
+                    Thread.Sleep(pRefreshInterval);
+                    if (QuestionListChangedEventHandler == null)
+                        break;
+                    if (IsConnected() && QuestionsList != null && IsChanged())
                     {
-                        Thread.Sleep(pRefreshInterval);
-
-                        if (QuestionsList != null && IsChanged())
-                        {
-                            //fire auto refresh event
-                            QuestionListChangedEventHandler();
-                        }
-
+                        //fire auto refresh event
+                        QuestionListChangedEventHandler();
                     }
+
                 }
             }
             catch (Exception pError)
@@ -344,6 +346,9 @@ namespace QuestionManaging
                 ErrorLogger.Log(pError);
             }
         }
+        /// <summary>
+        /// Stop auto refresh thread loop
+        /// </summary>
         public void StopAutoRefresh()
         {
             try
@@ -354,7 +359,7 @@ namespace QuestionManaging
             {
                 ErrorLogger.Log(pError);
             }
-            
+
         }
         #endregion
     }

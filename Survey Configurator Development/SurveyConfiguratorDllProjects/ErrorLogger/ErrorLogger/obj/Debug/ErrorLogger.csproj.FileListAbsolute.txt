@@ -14,4 +14,3 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.csproj.CoreCompileInputs.cache
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.pdb
-C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\ErrorLogger\ErrorLogger\obj\Debug\ErrorLogger.csprojAssemblyReference.cache

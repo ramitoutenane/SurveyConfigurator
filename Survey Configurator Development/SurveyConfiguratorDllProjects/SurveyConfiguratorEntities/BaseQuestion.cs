@@ -87,11 +87,11 @@ namespace SurveyConfiguratorEntities
         /// <returns></returns>
         public abstract BaseQuestion CopyWithNewId(int pId);
 
-        public override bool Equals(object pObj)
+        public override bool Equals(object pObject)
         {
             try
             {
-                return Equals(pObj as BaseQuestion);
+                return Equals(pObject as BaseQuestion);
             }
             catch (Exception pError)
             {
@@ -100,15 +100,15 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public bool Equals(BaseQuestion pOther)
+        public bool Equals(BaseQuestion pQuestion)
         {
             try
             {
-                return pOther != null &&
-                    mId == pOther.mId &&
-                    mText == pOther.mText &&
-                    mOrder == pOther.mOrder &&
-                    Type == pOther.Type;
+                return pQuestion != null &&
+                    mId == pQuestion.mId &&
+                    mText == pQuestion.mText &&
+                    mOrder == pQuestion.mOrder &&
+                    Type == pQuestion.Type;
             }
             catch (Exception pError)
             {

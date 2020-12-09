@@ -77,11 +77,11 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public override bool Equals(object pObj)
+        public override bool Equals(object pObject)
         {
             try
             {
-                return Equals(pObj as StarsQuestion);
+                return Equals(pObject as StarsQuestion);
             }
             catch (Exception pError)
             {
@@ -90,13 +90,13 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public bool Equals(StarsQuestion pOther)
+        public bool Equals(StarsQuestion pQuestion)
         {
             try
             {
-                return pOther != null &&
-                       base.Equals(pOther) &&
-                       nNumberOfStars == pOther.nNumberOfStars;
+                return pQuestion != null &&
+                       base.Equals(pQuestion) &&
+                       nNumberOfStars == pQuestion.nNumberOfStars;
             }
             catch (Exception pError)
             {

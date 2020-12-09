@@ -108,11 +108,11 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public override bool Equals(object pObj)
+        public override bool Equals(object pObject)
         {
             try
             {
-                return Equals(pObj as SliderQuestion);
+                return Equals(pObject as SliderQuestion);
             }
             catch (Exception pError)
             {
@@ -121,16 +121,16 @@ namespace SurveyConfiguratorEntities
             }
         }
 
-        public bool Equals(SliderQuestion pOther)
+        public bool Equals(SliderQuestion pQuestion)
         {
             try
             {
-                return pOther != null &&
-                       base.Equals(pOther) &&
-                       mStartValue == pOther.mStartValue &&
-                       mEndValue == pOther.mEndValue &&
-                       mStartValueCaption == pOther.mStartValueCaption &&
-                       mEndValueCaption == pOther.mEndValueCaption;
+                return pQuestion != null &&
+                       base.Equals(pQuestion) &&
+                       mStartValue == pQuestion.mStartValue &&
+                       mEndValue == pQuestion.mEndValue &&
+                       mStartValueCaption == pQuestion.mStartValueCaption &&
+                       mEndValueCaption == pQuestion.mEndValueCaption;
             }
             catch (Exception pError)
             {

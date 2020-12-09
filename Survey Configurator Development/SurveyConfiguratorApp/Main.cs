@@ -31,6 +31,7 @@ namespace SurveyConfiguratorApp
         private SortMethod mSortMethod;
         private SortOrder mSortOrder;
         private string mCurrentLanguage;
+        private int mAutoRefreshInterval;
         private Dictionary<string, SortMethod> mColumnSortMethod;
         private Dictionary<string, string> mCultureTable;
 
@@ -48,6 +49,14 @@ namespace SurveyConfiguratorApp
                 string tDatabaseUser = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_USER];
                 string tDatabasePassword = ConfigurationManager.AppSettings[ConstantStringResources.cDATABASE_PASSWORD];
                 DatabaseSettings tDatabaseSettings = new DatabaseSettings(tDatabaseServer, tDatabaseName, tDatabaseUser, tDatabasePassword);
+
+                //get refresh interval from configuration file, if invalid or less than 20000 milliseconds then set to 20000 milliseconds
+                string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
+                if (!int.TryParse(tConfigRefreshInterval, out mAutoRefreshInterval) || mAutoRefreshInterval < 20000)
+                {
+                    mAutoRefreshInterval = 20000;
+                    ErrorLogger.Log(ErrorMessages.cREFRESH_INTERVAL_WARNING);
+                }
 
                 //initialize new question manger to manage question repository and connection
                 mQuestionManager = new QuestionManager(tDatabaseSettings);
@@ -542,19 +551,11 @@ namespace SurveyConfiguratorApp
         {
             try
             {
-                //get refresh interval from config file, if invalid or less than 20000 milliseconds then set to 20000 milliseconds
-                string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
-                int tAutoRefreshInterval;
-                if (!int.TryParse(tConfigRefreshInterval, out tAutoRefreshInterval) || tAutoRefreshInterval < 20000)
-                {
-                    tAutoRefreshInterval = 20000;
-                }
-
                 //call auto refresh method from question manager
                 if (mQuestionManager != null)
                 {
                     mQuestionManager.QuestionListChangedEventHandler += new QuestionManager.RefreshListDelegate (ThreadSafeListRefresh);
-                    mQuestionManager.StartAutoRefresh(tAutoRefreshInterval);
+                    mQuestionManager.StartAutoRefresh(mAutoRefreshInterval);
                 }
             }
             catch (Exception pError)

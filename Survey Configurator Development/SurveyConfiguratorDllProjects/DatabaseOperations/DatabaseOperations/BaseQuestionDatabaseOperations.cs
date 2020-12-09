@@ -12,7 +12,6 @@ namespace DatabaseOperations
     {
         #region Variable deceleration
         private readonly string mConnectionString;
-        private bool mConnectionStatus;
 
         #endregion
         #region Constructors
@@ -25,7 +24,6 @@ namespace DatabaseOperations
             try
             {
                 mConnectionString = pConnectionString;
-                mConnectionStatus = IsConnectionAvailable();
             }
             catch (Exception pError)
             {
@@ -49,7 +47,6 @@ namespace DatabaseOperations
                     Password = pDatabaseSettings.DatabasePassword
                 };
                 mConnectionString = tBuilder.ConnectionString;
-                mConnectionStatus = IsConnectionAvailable();
 
             }
             catch (Exception pError)
@@ -164,39 +161,15 @@ namespace DatabaseOperations
         {
             try
             {
-                Task.Run(() => mConnectionStatus = IsConnectionAvailable());
-                return mConnectionStatus;
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return false;
-            }
-        }
-        /// <summary>
-        /// check if database connection is available
-        /// </summary>
-        public bool IsConnectionAvailable()
-        {
-
-            try
-            {
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     // if data base is connected, no SqlException will be raised and true is returned
                     tConnection.Open();
-                    tConnection.Close();
+                    return true;
                 }
-                return true;
             }
-            catch (SqlException)
+            catch
             {
-                // if database is disconnected, SqlException will be raised and false is returned
-                return false;
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
                 return false;
             }
         }
