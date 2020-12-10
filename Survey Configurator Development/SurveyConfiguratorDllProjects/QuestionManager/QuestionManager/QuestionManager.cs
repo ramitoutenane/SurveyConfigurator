@@ -61,17 +61,17 @@ namespace QuestionManaging
                 // select all questions of each question type from database
                 List<SliderQuestion> tSliderList = mSliderSQL.SelectAll();
                 if (tSliderList == null)
-                    return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cREFRESH_FAIL_MESSAGE);
+                    return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cREFRESH_FAIL_MESSAGE);
 
 
                 List<SmileyQuestion> tSmileyList = mSmileySQL.SelectAll();
                 if (tSmileyList == null)
-                    return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cREFRESH_FAIL_MESSAGE);
+                    return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cREFRESH_FAIL_MESSAGE);
 
 
                 List<StarsQuestion> tStarsList = mStarsSQL.SelectAll();
                 if (tStarsList == null)
-                    return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cREFRESH_FAIL_MESSAGE);
+                    return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cREFRESH_FAIL_MESSAGE);
 
 
                 // create new temporary list to merge previous lists,it's initial capacity is equal to the sum of all question lists 
@@ -85,12 +85,12 @@ namespace QuestionManaging
                 // set the value of Questions list to the new created list
                 QuestionsList = tAllQuestion;
                 // sort the Questions list and return it
-                return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cREFRESH_SUCCESS_MESSAGE);
+                return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cREFRESH_SUCCESS_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cREFRESH_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cREFRESH_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -106,12 +106,12 @@ namespace QuestionManaging
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
-                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                    return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
                 }
                 else if (!pQuestion.IsValid())
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_VALIDATION_EXCEPTION));
-                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                    return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
                 }
                 //check question type then add it to database and get it's primary key from SQL insert method
                 switch (pQuestion.Type)
@@ -127,7 +127,7 @@ namespace QuestionManaging
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
-                        return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                        return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
                 }
 
                 // if the question inserted to database successfully the temporary id variable should change from -1 
@@ -135,14 +135,14 @@ namespace QuestionManaging
                 {
                     // add Question to local questions list 
                     QuestionsList.Add(pQuestion);
-                    return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
+                    return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                 }
-                return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
+                return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -156,19 +156,19 @@ namespace QuestionManaging
                 if (pQuestion is null)
                 {
                     ErrorLogger.Log(new ArgumentNullException(ErrorMessages.cQUESTION_NULL_EXCEPTION));
-                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                    return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
                 else if (!pQuestion.IsValid())
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_VALIDATION_EXCEPTION));
-                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                    return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
                 // search for the question in local list 
                 BaseQuestion tQuestionFindResult = QuestionsList.Find(tQuestion => tQuestion.Id == pQuestion.Id);
                 if (tQuestionFindResult == null)
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
-                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                    return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
 
                 Reslut tUpdatedResponse;
@@ -186,20 +186,20 @@ namespace QuestionManaging
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
-                        return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                        return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
                 }
                 // if updated successfully in database update it in local list.
                 if (tUpdatedResponse.Value == ResultValue.Success)
                 {
                     QuestionsList[QuestionsList.FindIndex(tQuestion => tQuestion.Id == pQuestion.Id)] = pQuestion;
-                    return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                    return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                 }
-                return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
+                return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -217,7 +217,7 @@ namespace QuestionManaging
                 if (tQuestionFindResult == null)
                 {
                     ErrorLogger.Log(new ArgumentException(ErrorMessages.cNO_QUESTION_ID));
-                    return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
+                    return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cDELETE_ERROR_MESSAGE);
                 }
                 switch (tQuestionFindResult.Type)
                 {
@@ -232,20 +232,20 @@ namespace QuestionManaging
                         break;
                     default:
                         ErrorLogger.Log(new ArgumentException(ErrorMessages.cQUESTION_TYPE_EXCEPTION));
-                        return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
+                        return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cDELETE_ERROR_MESSAGE);
                 }
                 // if deleted successfully from database then delete it in local list.
                 if (tDeletedResponse.Value == ResultValue.Success)
                 {
                     QuestionsList.RemoveAll(tQuestion => tQuestion.Id == pId);
-                    return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cDELETE_SUCCESS_MESSAGE);
+                    return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cDELETE_SUCCESS_MESSAGE);
                 }
-                return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cDELETE_FAIL_MESSAGE);
+                return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cDELETE_FAIL_MESSAGE);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cDELETE_ERROR_MESSAGE);
             }
         }
 

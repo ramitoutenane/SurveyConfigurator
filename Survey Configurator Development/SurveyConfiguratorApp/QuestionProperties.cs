@@ -2,6 +2,7 @@
 using SurveyConfiguratorEntities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -568,7 +569,7 @@ namespace SurveyConfiguratorApp
             {
                 if (!mQuestionManager.IsConnected())
                 {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }
@@ -597,7 +598,7 @@ namespace SurveyConfiguratorApp
             {
                 if (!mQuestionManager.IsConnected())
                 {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }

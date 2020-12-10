@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseParameters.cs" />
+    <Compile Include="DatabaseOperationsConstants.cs" />
     <Compile Include="IDatabaseOperations.cs" />
     <Compile Include="IDatabaseProcessable.cs" />
     <Compile Include="IDatabaseSelectable.cs" />

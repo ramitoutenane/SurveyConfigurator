@@ -36,7 +36,7 @@ namespace SurveyConfiguratorEntities
         {
             try
             {
-                return new Reslut(ResultValue.Default, ResponseConstantValues.cDEFAULT_STATUS_CODE, "Default response");
+                return new Reslut(ResultValue.Default, ResultConstantValues.cDEFAULT_STATUS_CODE, "Default response");
             }
             catch (Exception pError)
             {

@@ -3,7 +3,7 @@
     /// <summary>
     /// Constant Values to be used to interact with database
     /// </summary>
-    public static class DatabaseParameters
+    public static class DatabaseOperationsConstants
     {
         public const string cPARAMETER_QUESTION_ID = "@id";
         public const string cPARAMETER_QUESTION_TEXT = "@text";
@@ -31,6 +31,9 @@
         public const string cCOLUMN_END_CAPTION = "EndValueCaption";
         public const string cOFFSET = "@offset";
         public const string cLIMIT = "@limit";
+        public const string cINSERT_FAIL = "Failed to insert question to database";
+        public const string cUPDATE_FAIL = "Failed to update question in database";
+        public const string cDELETE_FAIL = "Failed to delete question from database";
 
     }
 }

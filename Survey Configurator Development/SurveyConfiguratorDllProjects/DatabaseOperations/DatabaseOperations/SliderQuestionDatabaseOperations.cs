@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace DatabaseOperations
 {
@@ -78,24 +79,27 @@ namespace DatabaseOperations
                 // we insert general question and check if is inserted we insert slider question, otherwise we exit
                 if (tInsertResponse.Value != ResultValue.Success)
                     return tInsertResponse;
-                string tCommandString = $"INSERT INTO {DatabaseParameters.cTABLE_SLIDER_QUESTION} ({DatabaseParameters.cCOLUMN_QUESTION_ID}, {DatabaseParameters.cCOLUMN_START_VALUE}, {DatabaseParameters.cCOLUMN_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION}, {DatabaseParameters.cCOLUMN_END_CAPTION}) " +
-                    $"OUTPUT INSERTED.{DatabaseParameters.cCOLUMN_QUESTION_ID} VALUES ({DatabaseParameters.cPARAMETER_QUESTION_ID}, {DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}, " +
-                    $"{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE},{DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION},{DatabaseParameters.cPARAMETER_QUESTION_END_CAPTION})";
+                string tCommandString = $"INSERT INTO {DatabaseOperationsConstants.cTABLE_SLIDER_QUESTION} ({DatabaseOperationsConstants.cCOLUMN_QUESTION_ID}, {DatabaseOperationsConstants.cCOLUMN_START_VALUE}, {DatabaseOperationsConstants.cCOLUMN_END_VALUE}, {DatabaseOperationsConstants.cCOLUMN_START_CAPTION}, {DatabaseOperationsConstants.cCOLUMN_END_CAPTION}) " +
+                    $"OUTPUT INSERTED.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} VALUES ({DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}, {DatabaseOperationsConstants.cPARAMETER_QUESTION_START_VALUE}, " +
+                    $"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_VALUE},{DatabaseOperationsConstants.cPARAMETER_QUESTION_START_CAPTION},{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_CAPTION})";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}", pQuestion.StartValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE}", pQuestion.EndValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION}", pQuestion.StartValueCaption);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_CAPTION}", pQuestion.EndValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pQuestion.Id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_START_VALUE}", pQuestion.StartValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_VALUE}", pQuestion.EndValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_START_CAPTION}", pQuestion.StartValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_CAPTION}", pQuestion.EndValueCaption);
                         tConnection.Open();
                         if ((int)tCommand.ExecuteScalar() > 0)
-                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                         else
-                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
+                        {
+                            ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackFrame(true));
+                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
+                        }
                     }
                 }
             }
@@ -105,7 +109,7 @@ namespace DatabaseOperations
                 if (tInsertResponse.Value == ResultValue.Success)
                     mQuestionDatabaseOperation.Delete(pQuestion.Id);
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -123,23 +127,26 @@ namespace DatabaseOperations
                 {
                     return tUpdateResponse;
                 }
-                string tCommandString = $"UPDATE {DatabaseParameters.cTABLE_SLIDER_QUESTION} SET {DatabaseParameters.cCOLUMN_START_VALUE} = {DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}," +
-                    $" {DatabaseParameters.cCOLUMN_END_VALUE} = {DatabaseParameters.cPARAMETER_QUESTION_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION} ={DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION}, " +
-                    $"{DatabaseParameters.cCOLUMN_END_CAPTION} ={DatabaseParameters.cPARAMETER_QUESTION_END_CAPTION} WHERE {DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID} ";
+                string tCommandString = $"UPDATE {DatabaseOperationsConstants.cTABLE_SLIDER_QUESTION} SET {DatabaseOperationsConstants.cCOLUMN_START_VALUE} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_START_VALUE}," +
+                    $" {DatabaseOperationsConstants.cCOLUMN_END_VALUE} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_END_VALUE}, {DatabaseOperationsConstants.cCOLUMN_START_CAPTION} ={DatabaseOperationsConstants.cPARAMETER_QUESTION_START_CAPTION}, " +
+                    $"{DatabaseOperationsConstants.cCOLUMN_END_CAPTION} ={DatabaseOperationsConstants.cPARAMETER_QUESTION_END_CAPTION} WHERE {DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_ID} ";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_VALUE}", pQuestion.StartValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_VALUE}", pQuestion.EndValue);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_START_CAPTION}", pQuestion.StartValueCaption);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_END_CAPTION}", pQuestion.EndValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pQuestion.Id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_START_VALUE}", pQuestion.StartValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_VALUE}", pQuestion.EndValue);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_START_CAPTION}", pQuestion.StartValueCaption);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_CAPTION}", pQuestion.EndValueCaption);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
-                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
+                        {
+                            ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackFrame(true));
+                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
+                        }
                     }
                 }
 
@@ -147,7 +154,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
 
@@ -167,14 +174,14 @@ namespace DatabaseOperations
         {
             try
             {
-                string tQueryString = $"SELECT {DatabaseParameters.cCOLUMN_QUESTION_TEXT}, {DatabaseParameters.cCOLUMN_QUESTION_ORDER}, {DatabaseParameters.cCOLUMN_START_VALUE}, {DatabaseParameters.cCOLUMN_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION}, {DatabaseParameters.cCOLUMN_END_CAPTION}, {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID},{DatabaseParameters.cCOLUMN_TYPE_ID} " +
-                    $"FROM {DatabaseParameters.cTABLE_QUESTION}, {DatabaseParameters.cTABLE_SLIDER_QUESTION} WHERE {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID} AND {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cTABLE_SLIDER_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID}";
+                string tQueryString = $"SELECT {DatabaseOperationsConstants.cCOLUMN_QUESTION_TEXT}, {DatabaseOperationsConstants.cCOLUMN_QUESTION_ORDER}, {DatabaseOperationsConstants.cCOLUMN_START_VALUE}, {DatabaseOperationsConstants.cCOLUMN_END_VALUE}, {DatabaseOperationsConstants.cCOLUMN_START_CAPTION}, {DatabaseOperationsConstants.cCOLUMN_END_CAPTION}, {DatabaseOperationsConstants.cTABLE_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID},{DatabaseOperationsConstants.cCOLUMN_TYPE_ID} " +
+                    $"FROM {DatabaseOperationsConstants.cTABLE_QUESTION}, {DatabaseOperationsConstants.cTABLE_SLIDER_QUESTION} WHERE {DatabaseOperationsConstants.cTABLE_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_ID} AND {DatabaseOperationsConstants.cTABLE_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} = {DatabaseOperationsConstants.cTABLE_SLIDER_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID}";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pId);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pId);
                         tConnection.Open();
                         using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {
@@ -206,19 +213,19 @@ namespace DatabaseOperations
         {
             try
             {
-                string tQueryString = $"SELECT {DatabaseParameters.cCOLUMN_QUESTION_TEXT}, {DatabaseParameters.cCOLUMN_QUESTION_ORDER}, {DatabaseParameters.cCOLUMN_START_VALUE}, {DatabaseParameters.cCOLUMN_END_VALUE}, {DatabaseParameters.cCOLUMN_START_CAPTION}, {DatabaseParameters.cCOLUMN_END_CAPTION}, {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID},{DatabaseParameters.cCOLUMN_TYPE_ID} " +
-                    $"FROM {DatabaseParameters.cTABLE_QUESTION}, {DatabaseParameters.cTABLE_SLIDER_QUESTION} WHERE {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cTABLE_SLIDER_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} " +
-                    $"ORDER BY {DatabaseParameters.cTABLE_QUESTION}.{DatabaseParameters.cCOLUMN_QUESTION_ID} OFFSET {DatabaseParameters.cOFFSET} ROWS";
+                string tQueryString = $"SELECT {DatabaseOperationsConstants.cCOLUMN_QUESTION_TEXT}, {DatabaseOperationsConstants.cCOLUMN_QUESTION_ORDER}, {DatabaseOperationsConstants.cCOLUMN_START_VALUE}, {DatabaseOperationsConstants.cCOLUMN_END_VALUE}, {DatabaseOperationsConstants.cCOLUMN_START_CAPTION}, {DatabaseOperationsConstants.cCOLUMN_END_CAPTION}, {DatabaseOperationsConstants.cTABLE_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID},{DatabaseOperationsConstants.cCOLUMN_TYPE_ID} " +
+                    $"FROM {DatabaseOperationsConstants.cTABLE_QUESTION}, {DatabaseOperationsConstants.cTABLE_SLIDER_QUESTION} WHERE {DatabaseOperationsConstants.cTABLE_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} = {DatabaseOperationsConstants.cTABLE_SLIDER_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} " +
+                    $"ORDER BY {DatabaseOperationsConstants.cTABLE_QUESTION}.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} OFFSET {DatabaseOperationsConstants.cOFFSET} ROWS";
                 // add Fetch clause if limit is larger than 0 which is default value
                 if (pLimit > 0)
-                    tQueryString += $" FETCH NEXT {DatabaseParameters.cLIMIT} ROWS ONLY";
+                    tQueryString += $" FETCH NEXT {DatabaseOperationsConstants.cLIMIT} ROWS ONLY";
 
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tQueryString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cOFFSET}", pOffset);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cLIMIT}", pLimit);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cOFFSET}", pOffset);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cLIMIT}", pLimit);
                         tConnection.Open();
                         using (SqlDataReader tReader = tCommand.ExecuteReader())
                         {

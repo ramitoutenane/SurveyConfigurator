@@ -4,7 +4,7 @@ namespace SurveyConfiguratorEntities
     /// <summary>
     /// Constant Values to be used in creating response objects
     /// </summary>
-    public static class ResponseConstantValues
+    public static class ResultConstantValues
     {
         public const int cDEFAULT_STATUS_CODE = 0;
         public const int cSUCCESS_STATUS_CODE = 1;

@@ -1,6 +1,7 @@
 ﻿using SurveyConfiguratorEntities;
 using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace DatabaseOperations
@@ -65,30 +66,34 @@ namespace DatabaseOperations
         {
             try
             {
-                string tCommandString = $"INSERT INTO {DatabaseParameters.cTABLE_QUESTION} ({DatabaseParameters.cCOLUMN_QUESTION_TEXT}, {DatabaseParameters.cCOLUMN_QUESTION_ORDER}, {DatabaseParameters.cCOLUMN_TYPE_ID}) OUTPUT INSERTED.{DatabaseParameters.cCOLUMN_QUESTION_ID} " +
-                    $"VALUES ({DatabaseParameters.cPARAMETER_QUESTION_TEXT}, {DatabaseParameters.cPARAMETER_QUESTION_ORDER}, {DatabaseParameters.cPARAMETER_QUESTION_TYPE})";
+                string tCommandString = $"INSERT INTO {DatabaseOperationsConstants.cTABLE_QUESTION} ({DatabaseOperationsConstants.cCOLUMN_QUESTION_TEXT}, {DatabaseOperationsConstants.cCOLUMN_QUESTION_ORDER}, {DatabaseOperationsConstants.cCOLUMN_TYPE_ID}) OUTPUT INSERTED.{DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} " +
+                    $"VALUES ({DatabaseOperationsConstants.cPARAMETER_QUESTION_TEXT}, {DatabaseOperationsConstants.cPARAMETER_QUESTION_ORDER}, {DatabaseOperationsConstants.cPARAMETER_QUESTION_TYPE})";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TEXT}", pQuestion.Text);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TYPE}", (int)pQuestion.Type);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_TEXT}", pQuestion.Text);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_TYPE}", (int)pQuestion.Type);
                         tConnection.Open();
                         int tID = (int)tCommand.ExecuteScalar();
                         if (tID > 0)
                         {
                             pQuestion.ChangeId(tID);
-                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                         }
-                        return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cINSERT_FAIL_MESSAGE);
+                        {
+                            ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackFrame(true));
+                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
+                        }
+                            
                     }
                 }
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -100,20 +105,23 @@ namespace DatabaseOperations
         {
             try
             {
-                string tCommandString = $"UPDATE {DatabaseParameters.cTABLE_QUESTION} SET {DatabaseParameters.cCOLUMN_QUESTION_TEXT} = {DatabaseParameters.cPARAMETER_QUESTION_TEXT}, " +
-                    $"{DatabaseParameters.cCOLUMN_QUESTION_ORDER} = {DatabaseParameters.cPARAMETER_QUESTION_ORDER} WHERE {DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID} ";
+                string tCommandString = $"UPDATE {DatabaseOperationsConstants.cTABLE_QUESTION} SET {DatabaseOperationsConstants.cCOLUMN_QUESTION_TEXT} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_TEXT}, " +
+                    $"{DatabaseOperationsConstants.cCOLUMN_QUESTION_ORDER} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_ORDER} WHERE {DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_ID} ";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_TEXT}", pQuestion.Text);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pQuestion.Id);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_TEXT}", pQuestion.Text);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ORDER}", pQuestion.Order);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
-                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cUPDATE_FAIL_MESSAGE);
+                        {
+                            ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackFrame(true));
+                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
+                        }
                     }
                 }
 
@@ -121,7 +129,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -133,24 +141,27 @@ namespace DatabaseOperations
         {
             try
             {
-                string tCommandString = $"DELETE FROM {DatabaseParameters.cTABLE_QUESTION} WHERE {DatabaseParameters.cCOLUMN_QUESTION_ID} = {DatabaseParameters.cPARAMETER_QUESTION_ID}";
+                string tCommandString = $"DELETE FROM {DatabaseOperationsConstants.cTABLE_QUESTION} WHERE {DatabaseOperationsConstants.cCOLUMN_QUESTION_ID} = {DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}";
                 using (SqlConnection tConnection = new SqlConnection(mConnectionString))
                 {
                     using (SqlCommand tCommand = new SqlCommand(tCommandString, tConnection))
                     {
-                        tCommand.Parameters.AddWithValue($"{DatabaseParameters.cPARAMETER_QUESTION_ID}", pId);
+                        tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pId);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResponseConstantValues.cSUCCESS_STATUS_CODE, ResponseConstantValues.cDELETE_SUCCESS_MESSAGE);
+                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cDELETE_SUCCESS_MESSAGE);
                         else
-                            return new Reslut(ResultValue.Fail, ResponseConstantValues.cFAIL_STATUS_CODE, ResponseConstantValues.cDELETE_FAIL_MESSAGE);
+                        {                           
+                            ErrorLogger.Log(DatabaseOperationsConstants.cDELETE_FAIL, new StackFrame(true));
+                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cDELETE_FAIL_MESSAGE);
+                        }
                     }
                 }
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResponseConstantValues.cGENERAL_ERROR_STATUS_CODE, ResponseConstantValues.cDELETE_ERROR_MESSAGE);
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cDELETE_ERROR_MESSAGE);
             }
         }
         /// <summary>

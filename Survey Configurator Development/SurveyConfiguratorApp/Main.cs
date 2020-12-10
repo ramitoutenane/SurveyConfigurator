@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Threading;
 using SurveyConfiguratorEntities;
 using QuestionManaging;
+using System.Diagnostics;
 
 namespace SurveyConfiguratorApp
 {
@@ -121,7 +122,7 @@ namespace SurveyConfiguratorApp
                 //refresh data from source, if refreshed successfully reload data to grid view , show pError otherwise
                 if (!mQuestionManager.IsConnected())
                 {
-                    ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return;
                 }
@@ -290,7 +291,7 @@ namespace SurveyConfiguratorApp
                         Cursor.Current = Cursors.WaitCursor;
                         if (!mQuestionManager.IsConnected())
                         {
-                            ErrorLogger.Log(new Exception(ErrorMessages.cCONNECTION_ERROR));
+                            ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
                             ShowError(Properties.StringResources.CONNECTION_ERROR);
                             return;
                         }
