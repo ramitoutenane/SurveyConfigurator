@@ -22,5 +22,9 @@ namespace SurveyConfiguratorEntities
         public const string cREFRESH_SUCCESS_MESSAGE = "Question list refreshed successfully";
         public const string cREFRESH_FAIL_MESSAGE = "Question list has not been refreshed";
         public const string cREFRESH_ERROR_MESSAGE = "An error occurred while refreshing question list";
+        public const string cREAD_SUCCESS_MESSAGE = "Question list refreshed successfully";
+        public const string cREAD_FAIL_MESSAGE = "Failed to read question";
+        public const string cREAD_NOT_FOUND_MESSAGE = "Question not found";
+        public const string cREAD_ERROR_MESSAGE = "An error occurred while reading question";
     }
 }

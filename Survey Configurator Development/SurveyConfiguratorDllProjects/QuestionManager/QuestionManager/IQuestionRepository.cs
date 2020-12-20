@@ -16,7 +16,14 @@ namespace QuestionManaging
         /// Insert object into repository
         /// </summary>
         /// <param name="pQuestion">Object to be inserted</param>
-        Reslut Insert(BaseQuestion pQuestion);
+        Reslut Create(BaseQuestion pQuestion);
+        /// <summary>
+        /// Read object from repository
+        /// </summary>
+        /// <param name="pId">The id of object to read</param>
+        /// <param name="pQuestion">Object to return selected question</param>
+        /// <returns></returns>
+        Reslut Read(int pId, out BaseQuestion pQuestion);
         /// <summary>
         /// Update object on repository
         /// </summary>
@@ -39,6 +46,14 @@ namespace QuestionManaging
         /// </summary>
         /// <returns>true if connected, false otherwise</returns>
         bool IsConnected();
-
+        /// <summary>
+        /// Start auto refresh thread
+        /// </summary>
+        /// <param name="pRefreshInterval">Time to refresh in millisecond</param>
+        void StartAutoRefresh(int pRefreshInterval);
+        /// <summary>
+        /// Stop auto refresh thread loop
+        /// </summary>
+        void StopAutoRefresh();
     }
 }

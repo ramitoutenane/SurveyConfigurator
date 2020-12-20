@@ -97,7 +97,7 @@ namespace QuestionManaging
         /// Insert question to database and local questions list
         /// </summary>
         /// <param name="pQuestion">The new question to be inserted</param>
-        public Reslut Insert(BaseQuestion pQuestion)
+        public Reslut Create(BaseQuestion pQuestion)
         {
             try
             {
@@ -143,6 +143,30 @@ namespace QuestionManaging
             {
                 ErrorLogger.Log(pError);
                 return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
+            }
+        }
+        /// <summary>
+        /// Read question from repository
+        /// </summary>
+        /// <param name="pId">The id of question to read</param>
+        /// <param name="pQuestion">Object to return selected question</param>
+        /// <returns></returns>
+        public Reslut Read(int pId, out BaseQuestion pQuestion)
+        {
+            try
+            {
+                pQuestion = QuestionsList.FirstOrDefault(tQuestion => tQuestion.Id == pId);
+                if (pQuestion != null)
+                    return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cREAD_SUCCESS_MESSAGE);
+                else
+                    return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cREAD_NOT_FOUND_MESSAGE);
+                
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                pQuestion = null;
+                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cREAD_ERROR_MESSAGE);
             }
         }
         /// <summary>

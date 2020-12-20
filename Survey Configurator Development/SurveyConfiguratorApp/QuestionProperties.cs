@@ -573,7 +573,7 @@ namespace SurveyConfiguratorApp
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }
-                if (mQuestionManager.Insert(pQuestion).Value == ResultValue.Success)
+                if (mQuestionManager.Create(pQuestion).Value == ResultValue.Success)
                     return true;
                 else
                 {
