@@ -91,7 +91,7 @@ namespace DatabaseOperations
                             return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                         else
                         {
-                            ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackFrame(true));
+                            ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackTrace());
                             return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
                         }
                     }
@@ -135,7 +135,7 @@ namespace DatabaseOperations
                             return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
                         {
-                            ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackFrame(true));
+                            ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackTrace());
                             return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
                         }
                     }

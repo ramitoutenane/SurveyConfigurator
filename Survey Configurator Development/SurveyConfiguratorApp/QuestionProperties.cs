@@ -569,7 +569,7 @@ namespace SurveyConfiguratorApp
             {
                 if (!mQuestionManager.IsConnected())
                 {
-                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
+                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackTrace());
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }
@@ -598,7 +598,7 @@ namespace SurveyConfiguratorApp
             {
                 if (!mQuestionManager.IsConnected())
                 {
-                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
+                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackTrace());
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return false;
                 }

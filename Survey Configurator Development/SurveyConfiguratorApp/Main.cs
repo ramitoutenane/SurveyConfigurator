@@ -122,7 +122,7 @@ namespace SurveyConfiguratorApp
                 //refresh data from source, if refreshed successfully reload data to grid view , show pError otherwise
                 if (!mQuestionManager.IsConnected())
                 {
-                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
+                    ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackTrace());
                     ShowError(Properties.StringResources.CONNECTION_ERROR);
                     return;
                 }
@@ -291,7 +291,7 @@ namespace SurveyConfiguratorApp
                         Cursor.Current = Cursors.WaitCursor;
                         if (!mQuestionManager.IsConnected())
                         {
-                            ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackFrame(true));
+                            ErrorLogger.Log(ErrorMessages.cCONNECTION_ERROR, new StackTrace());
                             ShowError(Properties.StringResources.CONNECTION_ERROR);
                             return;
                         }

@@ -52,15 +52,15 @@ public static class ErrorLogger
     /// Log message with stack trace to log file
     /// </summary>
     /// <param name="pMessage">Message to be logged</param>
-    /// <param name="pStackFrame">Stack trace to be logged</param>
-    public static void Log(string pMessage, StackFrame pStackFrame)
+    /// <param name="pStackTrace">Stack trace to be logged</param>
+    public static void Log(string pMessage, StackTrace pStackTrace)
     {
         try
         {
             // format error message to show required data
             StringBuilder tErrorMessage = new StringBuilder();
             tErrorMessage.AppendLine($"Message : {pMessage}");
-            tErrorMessage.AppendLine($"Stack : at {pStackFrame.GetMethod()} in {pStackFrame.GetFileName()}:line {pStackFrame.GetFileLineNumber()} ");
+            tErrorMessage.AppendLine($"Stack : {pStackTrace}");
 
             // log pError
             Log(tErrorMessage.ToString());
