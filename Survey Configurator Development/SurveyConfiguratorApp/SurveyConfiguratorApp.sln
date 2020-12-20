@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionManaging", "..\Surv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyConfiguratorEntities", "..\SurveyConfiguratorDllProjects\SurveyConfiguratorEntities\SurveyConfiguratorEntities.csproj", "{374AC4A3-CAEE-4823-9019-61E38FA1F8D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyConfiguratorWeb", "..\SurveyConfiguratorWeb\SurveyConfiguratorWeb.csproj", "{0B87712A-E6E6-4521-92FA-3E18B92C52E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{374AC4A3-CAEE-4823-9019-61E38FA1F8D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{374AC4A3-CAEE-4823-9019-61E38FA1F8D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{374AC4A3-CAEE-4823-9019-61E38FA1F8D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B87712A-E6E6-4521-92FA-3E18B92C52E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B87712A-E6E6-4521-92FA-3E18B92C52E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B87712A-E6E6-4521-92FA-3E18B92C52E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B87712A-E6E6-4521-92FA-3E18B92C52E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
