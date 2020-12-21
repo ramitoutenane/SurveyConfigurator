@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SurveyConfiguratorEntities.BaseQuestion>
+@using SurveyConfiguratorWeb.Properties
+@using SurveyConfiguratorWeb.Models
+
+
+@{
+    ViewBag.Title = Captions.LIST_PAGE_TITLE;
+}
+
+<h2>@Captions.LIST_PAGE_HEADER</h2>
+
+<div class="container">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th width=54%>
+                            @Captions.QUESTION_TEXT
+                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionText })"><i class="fa fa-sort"></i></a>
+                        </th>
+                        <th width=15%>
+                            @Captions.QUESTION_ORDER
+                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionOrder })"><i class="fa fa-sort"></i></a>
+                        </th>
+                        <th width=15%>
+                            @Captions.QUESTION_TYPE
+                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionType })"><i class="fa fa-sort"></i></a>
+                        </th>
+                        <th width=15%>@Captions.ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Text)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Order)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeString)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="edit" title="@Captions.EDIT" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="delete" title="@Captions.DELETE" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
