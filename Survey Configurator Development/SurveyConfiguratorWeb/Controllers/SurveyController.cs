@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,7 +17,7 @@ namespace SurveyConfiguratorWeb.Controllers
         public SurveyController(IQuestionRepository pQuestionManager)
         {
             try
-            {  
+            {
                 mQuestionManager = pQuestionManager;
                 mQuestionManager.RefreshQuestionList();
             }
@@ -30,12 +31,12 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                if(Session["SortMethod"] == null || Session["SortOrder"] == null)
+                if (Session["SortMethod"] == null || Session["SortOrder"] == null)
                 {
-                    Session["SortMethod"] = SortMethod.ByQuestionID; 
+                    Session["SortMethod"] = SortMethod.ByQuestionID;
                     Session["SortOrder"] = SortOrder.Ascending;
                 }
-                if(pSortMethod != null)
+                if (pSortMethod != null)
                 {
                     SetSortMethod(pSortMethod.Value);
                 }
@@ -63,9 +64,9 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                if(Id == null)
+                if (Id == null)
                     return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
-                    
+
                 BaseQuestion tQuestion;
                 Reslut tReadResult = mQuestionManager.Read(Id.Value, out tQuestion);
                 if (tReadResult.Value == ResultValue.Success)
@@ -79,6 +80,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
             }
         }
+        [HttpGet]
         public ActionResult Create(QuestionType? pQuestionType)
         {
             try
@@ -106,6 +108,107 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(FormCollection pFormData)
+        {
+            try
+            {
+                int tTypeId;
+                if (pFormData == null || pFormData.Count <= 0)
+                {
+                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                }
+
+                if(!int.TryParse(pFormData["Type"], out tTypeId))
+                {
+                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                }
+
+                Reslut tResult = Reslut.DefaultResult();
+                switch (tTypeId)
+                {
+                    case (int)QuestionType.Slider:
+                        tResult = CreateSlider(pFormData);
+                        break;
+                    case (int)QuestionType.Smiley:
+                        tResult = CreateSmiley(pFormData);
+                        break;
+                    case (int)QuestionType.Stars:
+                        tResult = CreateStars(pFormData);
+                        break;
+                    default:
+                        break;
+                }
+                if (tResult.Value == ResultValue.Success)
+                    return View();
+                else
+                {
+                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                }
+
+            }
+            catch (Exception pError)
+            {
+                return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+            }
+        }
+
+        private Reslut CreateStars(FormCollection pFormData)
+        {
+            try
+            {
+                string tText = pFormData["Text"];
+                int tOrder = int.Parse(pFormData["Order"]);
+                int tNumberOfStars = int.Parse(pFormData["NumberOfStars"]);
+
+                StarsQuestion tStarsQuestion = new StarsQuestion(tText, tOrder, tNumberOfStars);
+                return mQuestionManager.Create(tStarsQuestion);
+            }
+            catch
+            {
+                return Reslut.DefaultResult();
+            }
+        }
+
+        private Reslut CreateSmiley(FormCollection pFormData)
+        {
+            try
+            {
+                string tText = pFormData["Text"];
+                int tOrder = int.Parse(pFormData["Order"]);
+                int tNumberOfFaces = int.Parse(pFormData["NumberOfFaces"]);
+
+                SmileyQuestion tSmileyQuestion = new SmileyQuestion(tText, tOrder, tNumberOfFaces);
+                return mQuestionManager.Create(tSmileyQuestion);
+            }
+            catch
+            {
+                return Reslut.DefaultResult();
+            }
+        }
+
+        private Reslut CreateSlider(FormCollection pFormData)
+        {
+            try
+            {
+                string tText = pFormData["Text"];
+                int tOrder = int.Parse(pFormData["Order"]);
+                int tStartValue = int.Parse(pFormData["StartValue"]);
+                int tEndValue = int.Parse(pFormData["EndValue"]);
+                string tStartValueCaption = pFormData["StartValueCaption"];
+                string tEndValueCaption = pFormData["EndValueCaption"];
+
+                SliderQuestion tSliderQuestion = new SliderQuestion(tText, tOrder,tStartValue,tEndValue,tStartValueCaption,tEndValueCaption);
+                return mQuestionManager.Create(tSliderQuestion);
+            }
+            catch
+            {
+                return Reslut.DefaultResult();
+            }
+        }
+
         #region Sort questions list
         /// <summary>
         /// Toggle SortOrder between Ascending and Descending
@@ -114,7 +217,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                
+
                 if ((Session["SortOrder"] as SortOrder?) == SortOrder.Ascending)
                     Session["SortOrder"] = SortOrder.Descending;
                 else

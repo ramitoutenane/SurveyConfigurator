@@ -11,7 +11,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.StartValue, Captions.QUESTION_START_VALUE, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-        @Html.EditorFor(model => model.StartValue, new { htmlAttributes = new { @class = "form-control", min = QuestionValidationValues.cSTART_VALUE_MIN, max = QuestionValidationValues.cEND_VALUE_MAX} })
+        @Html.EditorFor(model => model.StartValue, new { htmlAttributes = new { @class = "form-control", min = QuestionValidationValues.cSTART_VALUE_MIN, max = QuestionValidationValues.cEND_VALUE_MAX } })
         @Html.ValidationMessageFor(model => model.StartValue, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -29,3 +29,4 @@
         @Html.ValidationMessageFor(model => model.EndValue, "", new { @class = "text-danger" })
     </div>
 </div>
+@Html.Hidden("Type", (int)QuestionType.Slider)

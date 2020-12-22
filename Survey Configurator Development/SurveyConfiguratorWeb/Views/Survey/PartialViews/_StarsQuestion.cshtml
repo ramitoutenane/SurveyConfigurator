@@ -2,10 +2,11 @@
 @using SurveyConfiguratorWeb.Properties
 @using SurveyConfiguratorEntities
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NumberOfStars,Captions.QUESTION_STARS_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NumberOfStars, new { htmlAttributes = new { @class = "form-control", min = QuestionValidationValues.cSTARS_NUMBER_MIN, max = QuestionValidationValues.cSTARS_NUMBER_MAX } })
-            @Html.ValidationMessageFor(model => model.NumberOfStars, "", new { @class = "text-danger" })
-        </div>
+<div class="form-group">
+    @Html.LabelFor(model => model.NumberOfStars, Captions.QUESTION_STARS_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.NumberOfStars, new { htmlAttributes = new { @class = "form-control", min = QuestionValidationValues.cSTARS_NUMBER_MIN, max = QuestionValidationValues.cSTARS_NUMBER_MAX } })
+        @Html.ValidationMessageFor(model => model.NumberOfStars, "", new { @class = "text-danger" })
     </div>
+</div>
+@Html.Hidden("Type", (int)QuestionType.Stars)
