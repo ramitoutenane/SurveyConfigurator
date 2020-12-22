@@ -197,9 +197,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Survey\Index.cshtml" />
     <Content Include="Views\Survey\Edit.cshtml" />
-    <Content Include="Views\Survey\_EditSmiley.cshtml" />
-    <Content Include="Views\Survey\_EditStars.cshtml" />
-    <Content Include="Views\Survey\_EditSlider.cshtml" />
+    <Content Include="Views\Survey\PartialViews\_EditSmiley.cshtml" />
+    <Content Include="Views\Survey\PartialViews\_EditStars.cshtml" />
+    <Content Include="Views\Survey\PartialViews\_EditSlider.cshtml" />
+    <Content Include="Views\Survey\CreateSlider.cshtml" />
+    <Content Include="Views\Survey\CreateStars.cshtml" />
+    <Content Include="Views\Survey\CreateSmiley.cshtml" />
+    <Content Include="Views\Survey\PartialViews\_CreateBaseQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

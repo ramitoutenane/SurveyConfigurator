@@ -76,6 +76,31 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
             }
         }
+        public ActionResult Create(QuestionType pQuestionType)
+        {
+            try
+            {
+                switch (pQuestionType)
+                {
+                    case QuestionType.Slider:
+                        return View("CreateSlider");
+                        break;
+                    case QuestionType.Stars:
+                        return View("CreateStars");
+                        break;
+                    case QuestionType.Smiley:
+                        return View("CreateSmiley");
+                        break;
+                    default:
+                        return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                        break;
+                }
+            }
+            catch (Exception pError)
+            {
+                return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+            }
+        }
         #region Sort questions list
         /// <summary>
         /// Toggle SortOrder between Ascending and Descending

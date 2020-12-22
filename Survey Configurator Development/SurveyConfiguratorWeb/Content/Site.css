@@ -5,41 +5,31 @@
     background: #f5f5f5;
 }
 
+.page-title{
+    font-size: xx-large;
+    padding: 10px;
+    margin: 0;
+}
 .container {
     padding :0;
 }
 .table-responsive {
-    margin: 30px 0;
+    margin: 10px 0;
 }
 
-.table-wrapper {
+.table-wrapper, .form-horizontal {
     width: 100%;
-    max-height: 1000px;
     background: #fff;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
 }
 
-.table-title {
-    padding-bottom: 10px;
-    margin: 0;
-    margin-bottom: 10px;
+.dropdown{
+    float: right;
+    margin: 20px 40px 20px 20px;
 }
 
-    .table-title .add-new {
-        float: right;
-        height: 40px;
-        font-weight: bold;
-        font-size: 12px;
-        min-width: 100px;
-        border-radius: 50px;
-        line-height: 13px;
-    }
-
-        .table-title .add-new i {
-            margin-right: 4px;
-        }
 
 table.table tr th {
     background-color: #f0f0f0;
@@ -105,5 +95,6 @@ table.table td i {
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 300px;
+    resize:none;
 }

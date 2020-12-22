@@ -129,14 +129,38 @@
   <data name="EDIT" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EDIT_PAGE_HEADER" xml:space="preserve">
+    <value>Edit Question</value>
+  </data>
+  <data name="EDIT_PAGE_TITLE" xml:space="preserve">
+    <value>Edit Question</value>
+  </data>
   <data name="LIST_PAGE_HEADER" xml:space="preserve">
     <value>Survey Questions</value>
   </data>
   <data name="LIST_PAGE_TITLE" xml:space="preserve">
     <value>Survey Questions List</value>
   </data>
+  <data name="QUESTION_END_CAPTION" xml:space="preserve">
+    <value>End Value Caption</value>
+  </data>
+  <data name="QUESTION_END_VALUE" xml:space="preserve">
+    <value>End Value</value>
+  </data>
+  <data name="QUESTION_FACES_NUMBER" xml:space="preserve">
+    <value>Number of Faces</value>
+  </data>
   <data name="QUESTION_ORDER" xml:space="preserve">
     <value>Order</value>
+  </data>
+  <data name="QUESTION_STARS_NUMBER" xml:space="preserve">
+    <value>Number of Stars</value>
+  </data>
+  <data name="QUESTION_START_CAPTION" xml:space="preserve">
+    <value>Start Value Caption</value>
+  </data>
+  <data name="QUESTION_START_VALUE" xml:space="preserve">
+    <value>Start Value</value>
   </data>
   <data name="QUESTION_TEXT" xml:space="preserve">
     <value>Question</value>

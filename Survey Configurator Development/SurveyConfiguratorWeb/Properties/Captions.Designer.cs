@@ -97,6 +97,24 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Question.
+        /// </summary>
+        public static string EDIT_PAGE_HEADER {
+            get {
+                return ResourceManager.GetString("EDIT_PAGE_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Question.
+        /// </summary>
+        public static string EDIT_PAGE_TITLE {
+            get {
+                return ResourceManager.GetString("EDIT_PAGE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Survey Questions.
         /// </summary>
         public static string LIST_PAGE_HEADER {
@@ -115,11 +133,65 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Value Caption.
+        /// </summary>
+        public static string QUESTION_END_CAPTION {
+            get {
+                return ResourceManager.GetString("QUESTION_END_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Value.
+        /// </summary>
+        public static string QUESTION_END_VALUE {
+            get {
+                return ResourceManager.GetString("QUESTION_END_VALUE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Faces.
+        /// </summary>
+        public static string QUESTION_FACES_NUMBER {
+            get {
+                return ResourceManager.GetString("QUESTION_FACES_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order.
         /// </summary>
         public static string QUESTION_ORDER {
             get {
                 return ResourceManager.GetString("QUESTION_ORDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Stars.
+        /// </summary>
+        public static string QUESTION_STARS_NUMBER {
+            get {
+                return ResourceManager.GetString("QUESTION_STARS_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Value Caption.
+        /// </summary>
+        public static string QUESTION_START_CAPTION {
+            get {
+                return ResourceManager.GetString("QUESTION_START_CAPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Value.
+        /// </summary>
+        public static string QUESTION_START_VALUE {
+            get {
+                return ResourceManager.GetString("QUESTION_START_VALUE", resourceCulture);
             }
         }
         

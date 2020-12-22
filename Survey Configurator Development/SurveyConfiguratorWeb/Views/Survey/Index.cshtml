@@ -1,22 +1,27 @@
 ﻿@model IEnumerable<SurveyConfiguratorEntities.BaseQuestion>
 @using SurveyConfiguratorWeb.Properties
 @using SurveyConfiguratorWeb.Models
+@using SurveyConfiguratorEntities
 
 
 @{
     ViewBag.Title = Captions.LIST_PAGE_TITLE;
 }
-
-<h2>@Captions.LIST_PAGE_HEADER</h2>
-
 <div class="container">
+    <div class="page-title"> @Captions.LIST_PAGE_HEADER</div>
     <div class="table-responsive">
         <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </div>
+            <div class="row">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle add-new" type="button" data-toggle="dropdown">
+                        <i class="fa fa-plus"></i> Add New
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Slider})">Slider Question</a></li>
+                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Stars})">Stars Question</a></li>
+                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Smiley})">Smiley Question</a></li>
+                    </ul>
                 </div>
             </div>
             <table class="table table-striped table-hover table-bordered">

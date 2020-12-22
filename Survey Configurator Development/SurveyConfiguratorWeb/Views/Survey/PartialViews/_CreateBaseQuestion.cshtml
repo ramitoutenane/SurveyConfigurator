@@ -1,0 +1,18 @@
+﻿@model SurveyConfiguratorEntities.BaseQuestion
+@using SurveyConfiguratorWeb.Properties
+@using SurveyConfiguratorEntities
+<div class="form-group">
+    @Html.LabelFor(model => model.Text, Captions.QUESTION_TEXT, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(model => model.Text, 6, 50, new { maxlength = QuestionValidationValues.cQUESTION_TEXT_LENGTH, @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Order, Captions.QUESTION_ORDER, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+    </div>
+</div>

@@ -1,63 +1,59 @@
 ﻿@model SurveyConfiguratorEntities.BaseQuestion
+@using SurveyConfiguratorWeb.Properties
 @using SurveyConfiguratorEntities
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Captions.EDIT_PAGE_TITLE;
 }
-
-<h2>Edit</h2>
+<div class="page-title">@Captions.EDIT_PAGE_HEADER</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, Captions.QUESTION_TEXT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Text, 6, 50, new { maxlength = QuestionValidationValues.cQUESTION_TEXT_LENGTH, @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order,Captions.QUESTION_ORDER, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type,Captions.QUESTION_TYPE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+        @switch (Model.Type)
+        {
+            case SurveyConfiguratorEntities.QuestionType.Smiley:
+                @Html.Partial("PartialViews/_EditSmiley", Model);
+                break;
+            case SurveyConfiguratorEntities.QuestionType.Stars:
+                @Html.Partial("PartialViews/_EditStars", Model);
+                break;
+            case SurveyConfiguratorEntities.QuestionType.Slider:
+                @Html.Partial("PartialViews/_EditSlider", Model);
+                break;
+        }
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="button" value="Cancel" class="btn btn-danger" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Order, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-        </div>
-    </div>
-    @switch (Model.Type)
-    {
-        case SurveyConfiguratorEntities.QuestionType.Smiley:
-            @Html.Partial("_EditSmiley", Model);
-            break;
-        case SurveyConfiguratorEntities.QuestionType.Stars:
-            @Html.Partial("_EditStars", Model); 
-            break;
-        case SurveyConfiguratorEntities.QuestionType.Slider:
-            @Html.Partial("_EditSlider", Model); 
-            break;
-    }
-
-    @Html.HiddenFor(model => model.Id)
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
