@@ -1,31 +1,23 @@
 ﻿@model SurveyConfiguratorEntities.StarsQuestion
-
+@using SurveyConfiguratorWeb.Properties
 @{
-    ViewBag.Title = "CreateStars";
+    ViewBag.Title = Captions.CREATE_QUESTION;
 }
 
-<h2>CreateStars</h2>
+<h2>@Captions.CREATE_QUESTION : @Captions.STARS_QUESTION </h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.Partial("PartialViews/_CreateBaseQuestion", Model)
-    <div class="form-group">
-        @Html.LabelFor(model => model.NumberOfStars, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NumberOfStars, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NumberOfStars, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="btn-group col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-success" />
-            <input type="button" value="Cancel" class="btn btn-danger" />
-        </div>
-    </div>
+    @Html.Partial("PartialViews/_BaseQuestion", Model)
+
+    @Html.Partial("PartialViews/_StarsQuestion", Model)
+
+    @Html.Partial("PartialViews/_FormButtons", Model)
 </div>
 }
+

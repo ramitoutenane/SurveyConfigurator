@@ -72,9 +72,27 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add New.
         /// </summary>
-        public static string ADD {
+        public static string ADD_BUTTON {
             get {
-                return ResourceManager.GetString("ADD", resourceCulture);
+                return ResourceManager.GetString("ADD_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CANCEL_BUTTON {
+            get {
+                return ResourceManager.GetString("CANCEL_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Question.
+        /// </summary>
+        public static string CREATE_QUESTION {
+            get {
+                return ResourceManager.GetString("CREATE_QUESTION", resourceCulture);
             }
         }
         
@@ -99,18 +117,18 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Edit Question.
         /// </summary>
-        public static string EDIT_PAGE_HEADER {
+        public static string EDIT_PAGE_TITLE {
             get {
-                return ResourceManager.GetString("EDIT_PAGE_HEADER", resourceCulture);
+                return ResourceManager.GetString("EDIT_PAGE_TITLE", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Edit Question.
         /// </summary>
-        public static string EDIT_PAGE_TITLE {
+        public static string EDIT_QUESTION {
             get {
-                return ResourceManager.GetString("EDIT_PAGE_TITLE", resourceCulture);
+                return ResourceManager.GetString("EDIT_QUESTION", resourceCulture);
             }
         }
         
@@ -214,6 +232,42 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SAVE_BUTTON {
+            get {
+                return ResourceManager.GetString("SAVE_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slider Question.
+        /// </summary>
+        public static string SLIDER_QUESTION {
+            get {
+                return ResourceManager.GetString("SLIDER_QUESTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smiley Question.
+        /// </summary>
+        public static string SMILEY_QUESTION {
+            get {
+                return ResourceManager.GetString("SMILEY_QUESTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stars Question.
+        /// </summary>
+        public static string STARS_QUESTION {
+            get {
+                return ResourceManager.GetString("STARS_QUESTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slider.
         /// </summary>
         public static string TYPE_SLIDER {
@@ -237,15 +291,6 @@ namespace SurveyConfiguratorWeb.Properties {
         public static string TYPE_STARS {
             get {
                 return ResourceManager.GetString("TYPE_STARS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to View.
-        /// </summary>
-        public static string VIEW {
-            get {
-                return ResourceManager.GetString("VIEW", resourceCulture);
             }
         }
     }

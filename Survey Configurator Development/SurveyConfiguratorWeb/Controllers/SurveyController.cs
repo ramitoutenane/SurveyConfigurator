@@ -59,12 +59,15 @@ namespace SurveyConfiguratorWeb.Controllers
             }
         }
 
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int? Id)
         {
             try
             {
+                if(Id == null)
+                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                    
                 BaseQuestion tQuestion;
-                Reslut tReadResult = mQuestionManager.Read(Id, out tQuestion);
+                Reslut tReadResult = mQuestionManager.Read(Id.Value, out tQuestion);
                 if (tReadResult.Value == ResultValue.Success)
                     return View(tQuestion);
                 else
@@ -76,11 +79,13 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
             }
         }
-        public ActionResult Create(QuestionType pQuestionType)
+        public ActionResult Create(QuestionType? pQuestionType)
         {
             try
             {
-                switch (pQuestionType)
+                if (pQuestionType == null)
+                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                switch (pQuestionType.Value)
                 {
                     case QuestionType.Slider:
                         return View("CreateSlider");

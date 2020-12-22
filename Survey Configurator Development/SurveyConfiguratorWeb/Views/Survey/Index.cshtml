@@ -3,10 +3,10 @@
 @using SurveyConfiguratorWeb.Models
 @using SurveyConfiguratorEntities
 
-
 @{
     ViewBag.Title = Captions.LIST_PAGE_TITLE;
 }
+
 <div class="container">
     <div class="page-title"> @Captions.LIST_PAGE_HEADER</div>
     <div class="table-responsive">
@@ -14,13 +14,13 @@
             <div class="row">
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle add-new" type="button" data-toggle="dropdown">
-                        <i class="fa fa-plus"></i> Add New
+                        <i class="fa fa-plus"></i> @Captions.ADD_BUTTON
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Slider})">Slider Question</a></li>
-                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Stars})">Stars Question</a></li>
-                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Smiley})">Smiley Question</a></li>
+                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Slider})">@Captions.SLIDER_QUESTION</a></li>
+                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Stars})">@Captions.STARS_QUESTION</a></li>
+                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Smiley})">@Captions.SMILEY_QUESTION</a></li>
                     </ul>
                 </div>
             </div>
@@ -28,16 +28,16 @@
                 <thead>
                     <tr>
                         <th width=54%>
-                            @Captions.QUESTION_TEXT
-                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionText })"><i class="fa fa-sort"></i></a>
+                            
+                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionText })">@Captions.QUESTION_TEXT<i class="fa fa-sort"></i></a>
                         </th>
                         <th width=15%>
-                            @Captions.QUESTION_ORDER
-                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionOrder })"><i class="fa fa-sort"></i></a>
+                            
+                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionOrder })">@Captions.QUESTION_ORDER<i class="fa fa-sort"></i></a>
                         </th>
                         <th width=15%>
-                            @Captions.QUESTION_TYPE
-                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionType })"><i class="fa fa-sort"></i></a>
+                           
+                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionType })">@Captions.QUESTION_TYPE<i class="fa fa-sort"></i></a>
                         </th>
                         <th width=15%>@Captions.ACTIONS</th>
                     </tr>

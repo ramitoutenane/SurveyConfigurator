@@ -120,8 +120,14 @@
   <data name="ACTIONS" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="ADD" xml:space="preserve">
+  <data name="ADD_BUTTON" xml:space="preserve">
     <value>Add New</value>
+  </data>
+  <data name="CANCEL_BUTTON" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CREATE_QUESTION" xml:space="preserve">
+    <value>Add New Question</value>
   </data>
   <data name="DELETE" xml:space="preserve">
     <value>Delete</value>
@@ -129,10 +135,10 @@
   <data name="EDIT" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="EDIT_PAGE_HEADER" xml:space="preserve">
+  <data name="EDIT_PAGE_TITLE" xml:space="preserve">
     <value>Edit Question</value>
   </data>
-  <data name="EDIT_PAGE_TITLE" xml:space="preserve">
+  <data name="EDIT_QUESTION" xml:space="preserve">
     <value>Edit Question</value>
   </data>
   <data name="LIST_PAGE_HEADER" xml:space="preserve">
@@ -168,6 +174,18 @@
   <data name="QUESTION_TYPE" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="SAVE_BUTTON" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SLIDER_QUESTION" xml:space="preserve">
+    <value>Slider Question</value>
+  </data>
+  <data name="SMILEY_QUESTION" xml:space="preserve">
+    <value>Smiley Question</value>
+  </data>
+  <data name="STARS_QUESTION" xml:space="preserve">
+    <value>Stars Question</value>
+  </data>
   <data name="TYPE_SLIDER" xml:space="preserve">
     <value>Slider</value>
   </data>
@@ -176,8 +194,5 @@
   </data>
   <data name="TYPE_STARS" xml:space="preserve">
     <value>Stars</value>
-  </data>
-  <data name="VIEW" xml:space="preserve">
-    <value>View</value>
   </data>
 </root>
