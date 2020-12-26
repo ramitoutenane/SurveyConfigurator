@@ -4,20 +4,21 @@
     ViewBag.Title = Captions.CREATE_QUESTION;
 }
 
-<h2>@Captions.CREATE_QUESTION : @Captions.STARS_QUESTION </h2>
+<div class="page-header"> @Captions.CREATE_QUESTION : @Captions.STARS_QUESTION</div>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @Html.Partial("PartialViews/_BaseQuestion", Model)
+        @Html.Partial("PartialViews/_BaseQuestion", Model)
 
-    @Html.Partial("PartialViews/_StarsQuestion", Model)
+        @Html.Partial("PartialViews/_StarsQuestion", Model)
 
-    @Html.Partial("PartialViews/_FormButtons", Model)
-</div>
+        @Html.Partial("PartialViews/_FormButtons", Model)
+    </div>
 }
 

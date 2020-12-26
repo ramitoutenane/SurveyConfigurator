@@ -16,31 +16,31 @@ namespace QuestionManaging
         /// Insert object into repository
         /// </summary>
         /// <param name="pQuestion">Object to be inserted</param>
-        Reslut Create(BaseQuestion pQuestion);
+        Result Create(BaseQuestion pQuestion);
         /// <summary>
         /// Read object from repository
         /// </summary>
         /// <param name="pId">The id of object to read</param>
         /// <param name="pQuestion">Object to return selected question</param>
         /// <returns></returns>
-        Reslut Read(int pId, out BaseQuestion pQuestion);
+        Result Read(int pId, out BaseQuestion pQuestion);
         /// <summary>
         /// Update object on repository
         /// </summary>
         /// <param name="pQuestion">The new object to be update</param>
         /// <returns>true if inserted, false otherwise</return 
-        Reslut Update(BaseQuestion pQuestion);
+        Result Update(BaseQuestion pQuestion);
         /// <summary>
         /// Delete object from repository
         /// </summary>
         /// <param name="pId">The id of object to be deleted</param>
         /// <returns>true if updated, false otherwise</return
-        Reslut Delete(int pId);
+        Result Delete(int pId);
         /// <summary>
         /// Synchronize local list with latest version from source
         /// </summary>
         /// <returns>The new refreshed List </returns>
-        Reslut RefreshQuestionList();
+        Result RefreshQuestionList();
         /// <summary>
         /// Check if source connection is available
         /// </summary>

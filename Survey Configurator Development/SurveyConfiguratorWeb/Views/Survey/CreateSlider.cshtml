@@ -4,8 +4,7 @@
     ViewBag.Title = Captions.CREATE_QUESTION;
 }
 
-<h2>@Captions.CREATE_QUESTION : @Captions.SLIDER_QUESTION </h2>
-
+<div class="page-header"> @Captions.CREATE_QUESTION : @Captions.SLIDER_QUESTION</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

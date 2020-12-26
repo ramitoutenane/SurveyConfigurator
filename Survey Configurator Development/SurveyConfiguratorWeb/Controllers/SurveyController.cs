@@ -1,11 +1,15 @@
 ﻿using QuestionManaging;
 using SurveyConfiguratorEntities;
 using SurveyConfiguratorWeb.Models;
+using SurveyConfiguratorWeb.Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,16 +18,34 @@ namespace SurveyConfiguratorWeb.Controllers
     public class SurveyController : Controller
     {
         private IQuestionRepository mQuestionManager;
+        private int mAutoRefreshInterval;
+        private bool mListChanged;
         public SurveyController(IQuestionRepository pQuestionManager)
         {
             try
             {
+
                 mQuestionManager = pQuestionManager;
-                mQuestionManager.RefreshQuestionList();
+                mAutoRefreshInterval = 5000;
+                /*
+                //get refresh interval from configuration file, if invalid or less than 20000 milliseconds then set to 20000 milliseconds
+                string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
+                if (!int.TryParse(tConfigRefreshInterval, out mAutoRefreshInterval) || mAutoRefreshInterval < 20000)
+                {
+                    mAutoRefreshInterval = 20000;
+                    ErrorLogger.Log(ErrorMessages.cREFRESH_INTERVAL_WARNING);
+                }*/
+
+                Result tResult = mQuestionManager.RefreshQuestionList();
+                if (tResult.Value == ResultValue.Success)
+                    mListChanged = true;
+                else
+                    mListChanged = false;
+                StartAutoRefreshThread();
             }
             catch (Exception pError)
             {
-
+                ErrorLogger.Log(pError);
             }
 
         }
@@ -49,166 +71,211 @@ namespace SurveyConfiguratorWeb.Controllers
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                    return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
                 }
 
 
             }
             catch (Exception pError)
             {
-                return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
             }
         }
-
+        [HttpGet]
         public ActionResult Edit(int? Id)
         {
             try
             {
                 if (Id == null)
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                    return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.INVALID_QUESTION_ID_TITLE, ErrorMessage = Errors.INVALID_QUESTION_ID_MESSAGE });
 
                 BaseQuestion tQuestion;
-                Reslut tReadResult = mQuestionManager.Read(Id.Value, out tQuestion);
+                Result tReadResult = mQuestionManager.Read(Id.Value, out tQuestion);
                 if (tReadResult.Value == ResultValue.Success)
                     return View(tQuestion);
+                else if (tReadResult.Value == ResultValue.Error)
+                {
+                    return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
+                }
                 else
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
-
+                    return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.QUESTION_NOT_FOUND_TITLE, ErrorMessage = Errors.QUESTION_NOT_FOUND_MESSAGE });
             }
             catch (Exception pError)
             {
-                return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
+            }
+        }
+        [HttpPost]
+        public ActionResult Edit(BaseQuestion pQuestion)
+        {
+            try
+            {
+                //validate slider question start value less than end value
+                if (pQuestion.Type == QuestionType.Slider)
+                    ValidateSlider(pQuestion as SliderQuestion);
+                if (ModelState.IsValid)
+                {
+                    Result tResult = mQuestionManager.Update(pQuestion);
+                    if (tResult.Value == ResultValue.Success)
+                        return RedirectToAction("Index");
+                    else
+                    {
+                        ViewBag.MessageTitle = Errors.UPDATE_ERROR_TITLE;
+                        ViewBag.Message = Errors.UPDATE_ERROR_MESSAGE;
+                    }
+                }
+                return View(pQuestion);
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
         [HttpGet]
-        public ActionResult Create(QuestionType? pQuestionType)
+        public ActionResult Create([Bind(Prefix = "QuestionType")] QuestionType? pQuestionType)
         {
             try
             {
                 if (pQuestionType == null)
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                    return View(ConstantStringResources.cERROR_VIEW,
+                        new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
                 switch (pQuestionType.Value)
                 {
                     case QuestionType.Slider:
-                        return View("CreateSlider");
-                        break;
+                        return View(ConstantStringResources.cCREATE_SLIDER_VIEW);
                     case QuestionType.Stars:
-                        return View("CreateStars");
-                        break;
+                        return View(ConstantStringResources.cCREATE_STARS_VIEW);
                     case QuestionType.Smiley:
-                        return View("CreateSmiley");
-                        break;
+                        return View(ConstantStringResources.cCREATE_SMILEY_VIEW);
                     default:
-                        return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
-                        break;
+                        return View(ConstantStringResources.cERROR_VIEW,
+                            new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
                 }
             }
             catch (Exception pError)
             {
-                return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection pFormData)
+        public ActionResult Create(BaseQuestion pQuestion)
         {
             try
             {
-                int tTypeId;
-                if (pFormData == null || pFormData.Count <= 0)
+                //validate slider question start value less than end value
+                if (pQuestion.Type == QuestionType.Slider)
+                    ValidateSlider(pQuestion as SliderQuestion);
+                if (ModelState.IsValid)
                 {
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                    Result tResult = mQuestionManager.Create(pQuestion);
+                    if (tResult.Value == ResultValue.Success)
+                        return RedirectToAction("Index");
+                    else
+                    {
+                        ViewBag.MessageTitle = Errors.INSERT_ERROR_TITLE;
+                        ViewBag.Message = Errors.INSERT_ERROR_MESSAGE;
+                    }
                 }
-
-                if(!int.TryParse(pFormData["Type"], out tTypeId))
+                switch (pQuestion.Type)
                 {
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
-                }
-
-                Reslut tResult = Reslut.DefaultResult();
-                switch (tTypeId)
-                {
-                    case (int)QuestionType.Slider:
-                        tResult = CreateSlider(pFormData);
-                        break;
-                    case (int)QuestionType.Smiley:
-                        tResult = CreateSmiley(pFormData);
-                        break;
-                    case (int)QuestionType.Stars:
-                        tResult = CreateStars(pFormData);
-                        break;
+                    case QuestionType.Stars:
+                        return View(ConstantStringResources.cCREATE_STARS_VIEW, pQuestion);
+                    case QuestionType.Smiley:
+                        return View(ConstantStringResources.cCREATE_SMILEY_VIEW, pQuestion);
+                    case QuestionType.Slider:
+                        return View(ConstantStringResources.cCREATE_SLIDER_VIEW, pQuestion);
                     default:
-                        break;
+                        return View(ConstantStringResources.cERROR_VIEW,
+                            new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
                 }
-                if (tResult.Value == ResultValue.Success)
-                    return View();
-                else
-                {
-                    return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
-                }
-
             }
             catch (Exception pError)
             {
-                return View("Error", new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
-
-        private Reslut CreateStars(FormCollection pFormData)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int pId)
         {
             try
             {
-                string tText = pFormData["Text"];
-                int tOrder = int.Parse(pFormData["Order"]);
-                int tNumberOfStars = int.Parse(pFormData["NumberOfStars"]);
-
-                StarsQuestion tStarsQuestion = new StarsQuestion(tText, tOrder, tNumberOfStars);
-                return mQuestionManager.Create(tStarsQuestion);
+                Result tResult = mQuestionManager.Delete(pId);
+                if (tResult.Value == ResultValue.Success)
+                    return RedirectToAction("Index");
+                else
+                {
+                    ViewBag.MessageTitle = Errors.DELETE_ERROR_TITLE;
+                    ViewBag.Message = Errors.DELETE_ERROR_MESSAGE;
+                    var tModel = SortQuestionsList(mQuestionManager.QuestionsList);
+                    return View("Index", tModel);
+                }
             }
-            catch
+            catch (Exception pError)
             {
-                return Reslut.DefaultResult();
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
-
-        private Reslut CreateSmiley(FormCollection pFormData)
+        public ActionResult QuestionList()
         {
             try
             {
-                string tText = pFormData["Text"];
-                int tOrder = int.Parse(pFormData["Order"]);
-                int tNumberOfFaces = int.Parse(pFormData["NumberOfFaces"]);
-
-                SmileyQuestion tSmileyQuestion = new SmileyQuestion(tText, tOrder, tNumberOfFaces);
-                return mQuestionManager.Create(tSmileyQuestion);
+                if (mListChanged) {
+                    mListChanged = false;
+                    return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
+                }
+                else
+                    return new HttpStatusCodeResult(304);
             }
-            catch
+            catch (Exception pError)
             {
-                return Reslut.DefaultResult();
+                ErrorLogger.Log(pError);
+                return new HttpStatusCodeResult(500);
             }
         }
-
-        private Reslut CreateSlider(FormCollection pFormData)
+        [NonAction]
+        private void ValidateSlider(SliderQuestion pSliderQuestion)
         {
             try
             {
-                string tText = pFormData["Text"];
-                int tOrder = int.Parse(pFormData["Order"]);
-                int tStartValue = int.Parse(pFormData["StartValue"]);
-                int tEndValue = int.Parse(pFormData["EndValue"]);
-                string tStartValueCaption = pFormData["StartValueCaption"];
-                string tEndValueCaption = pFormData["EndValueCaption"];
-
-                SliderQuestion tSliderQuestion = new SliderQuestion(tText, tOrder,tStartValue,tEndValue,tStartValueCaption,tEndValueCaption);
-                return mQuestionManager.Create(tSliderQuestion);
+                //add start value less than end value validation to model
+                //all other validations are set using data annotation attributes
+                if (pSliderQuestion.StartValue >= pSliderQuestion.EndValue)
+                    ModelState.AddModelError(nameof(SliderQuestion.StartValue), Errors.START_LARGER_THAN_END_ERROR);
             }
-            catch
+            catch (Exception pError)
             {
-                return Reslut.DefaultResult();
+                ErrorLogger.Log(pError);
             }
         }
-
+        private void StartAutoRefreshThread()
+        {
+            try
+            {
+                //call auto refresh method from question manager
+                if (mQuestionManager != null)
+                {
+                    QuestionManager tQuestionManager = mQuestionManager as QuestionManager;
+                    tQuestionManager.QuestionListChangedEventHandler += new QuestionManager.RefreshListDelegate(QuestionListChanged);
+                    mQuestionManager.StartAutoRefresh(mAutoRefreshInterval);
+                }
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+        }
+        private void QuestionListChanged()
+        {
+            mListChanged = true;
+        }
         #region Sort questions list
         /// <summary>
         /// Toggle SortOrder between Ascending and Descending
@@ -294,5 +361,6 @@ namespace SurveyConfiguratorWeb.Controllers
             }
         }
         #endregion
+      
     }
 }

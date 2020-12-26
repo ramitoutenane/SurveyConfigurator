@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SurveyConfiguratorEntities
 {
@@ -15,6 +16,10 @@ namespace SurveyConfiguratorEntities
         public readonly QuestionType Type;
         #endregion
         #region Constructor
+        public BaseQuestion(QuestionType pType)
+        {
+            Type = pType;
+        }
         /// <summary>
         /// Question constructor to initialize common data between question types
         /// </summary>
@@ -38,19 +43,23 @@ namespace SurveyConfiguratorEntities
         }
         #endregion
         #region Properties definition
+        [Required(ErrorMessageResourceType =typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_QUESTION_ERROR")]
+        [MaxLength(QuestionValidationValues.cQUESTION_TEXT_LENGTH,ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "QUESTION_LENGTH_ERROR")]
+        [DataType(DataType.MultilineText)]
         public string Text
         {
             get => mText;
             set { mText = value; }
         }
-
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_ORDER_ERROR")]
+        [Range(QuestionValidationValues.cQUESTION_ORDER_MIN,int.MaxValue,ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "ORDER_ERROR")]
         public int Order
         {
             get => mOrder;
             set { mOrder = value; }
         }
 
-        public int Id { get => mId; }
+        public int Id { get => mId; set { mId = value; } }
         public string TypeString { get => Type.ToString(); }
         #endregion
         #region Methods
@@ -75,17 +84,6 @@ namespace SurveyConfiguratorEntities
                 return false;
             }
         }
-        /// <summary>
-        /// Change current question id
-        /// </summary>
-        /// <param name="pId">the new id</param>
-        public void ChangeId(int pId) => mId = pId;
-        /// <summary>
-        /// Get a copy of the current question with new id
-        /// </summary>
-        /// <param name="pId">the new id</param>
-        /// <returns></returns>
-        public abstract BaseQuestion CopyWithNewId(int pId);
 
         public override bool Equals(object pObject)
         {

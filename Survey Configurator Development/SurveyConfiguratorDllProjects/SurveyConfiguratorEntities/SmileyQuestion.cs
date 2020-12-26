@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SurveyConfiguratorEntities
 {
@@ -11,6 +12,7 @@ namespace SurveyConfiguratorEntities
         private int mNumberOfFaces;
         #endregion
         #region Constructor
+        public SmileyQuestion():base(QuestionType.Smiley){}
         /// <summary>
         /// Smiley question constructor to initialize new smiley question
         /// </summary>
@@ -31,6 +33,8 @@ namespace SurveyConfiguratorEntities
         }
         #endregion
         #region Properties definition
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_FACES_NUMBER_ERROR")]
+        [Range(QuestionValidationValues.cFACES_NUMBER_MIN, QuestionValidationValues.cFACES_NUMBER_MAX, ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "FACES_NUMBER_ERROR")]
         public int NumberOfFaces
         {
             get => mNumberOfFaces;
@@ -57,23 +61,6 @@ namespace SurveyConfiguratorEntities
             {
                 ErrorLogger.Log(pError);
                 return false;
-            }
-        }
-        /// <summary>
-        /// Get a copy of the current question with new id
-        /// </summary>
-        /// <param name="pId">the new id</param>
-        /// <returns></returns>
-        public override BaseQuestion CopyWithNewId(int pId)
-        {
-            try
-            {
-                return new SmileyQuestion(Text, Order, NumberOfFaces, pId);
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return null;
             }
         }
 

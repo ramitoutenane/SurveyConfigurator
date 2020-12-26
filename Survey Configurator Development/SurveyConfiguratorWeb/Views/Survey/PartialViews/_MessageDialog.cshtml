@@ -1,0 +1,24 @@
+﻿@using SurveyConfiguratorWeb.Properties
+<div class="modal fade" id="MessageDialog" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@ViewBag.MessageTitle</h4>
+            </div>
+            <div class="modal-body">
+                <p>@ViewBag.Message</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Captions.CLOSE</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var tMessage = "@ViewBag.Message"
+    if (tMessage != '') {
+        $("#MessageDialog").modal();
+    }
+</script>

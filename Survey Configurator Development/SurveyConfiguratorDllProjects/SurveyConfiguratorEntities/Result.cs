@@ -5,7 +5,7 @@ namespace SurveyConfiguratorEntities
     /// <summary>
     /// Class to return operation response and status
     /// </summary>
-    public class Reslut
+    public class Result
     {
         #region Variable deceleration
         private ResultValue mValue;
@@ -19,7 +19,7 @@ namespace SurveyConfiguratorEntities
         /// <param name="pStatus">ResponseStatus value</param>
         /// <param name="pStatusCode">Response status code</param>
         /// <param name="pStatusMessage">Response status message</param>
-        public Reslut(ResultValue pStatus, int pStatusCode, string pStatusMessage)
+        public Result(ResultValue pStatus, int pStatusCode, string pStatusMessage)
         {
             mValue = pStatus;
             mResultCode = pStatusCode;
@@ -32,11 +32,11 @@ namespace SurveyConfiguratorEntities
         public string ResultMessage { get => mResultMessage;}
         #endregion
         #region Method
-        public static Reslut DefaultResult()
+        public static Result DefaultResult()
         {
             try
             {
-                return new Reslut(ResultValue.Default, ResultConstantValues.cDEFAULT_STATUS_CODE, "Default response");
+                return new Result(ResultValue.Default, ResultConstantValues.cDEFAULT_STATUS_CODE, "Default response");
             }
             catch (Exception pError)
             {

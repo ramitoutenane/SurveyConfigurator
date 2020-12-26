@@ -8,35 +8,35 @@
 }
 
 <div class="container">
-    <div class="page-title"> @Captions.LIST_PAGE_HEADER</div>
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="row">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle add-new" type="button" data-toggle="dropdown">
-                        <i class="fa fa-plus"></i> @Captions.ADD_BUTTON
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Slider})">@Captions.SLIDER_QUESTION</a></li>
-                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Stars})">@Captions.STARS_QUESTION</a></li>
-                        <li><a href="@Url.Action("Create",new {pQuestionType = QuestionType.Smiley})">@Captions.SMILEY_QUESTION</a></li>
-                    </ul>
-                </div>
+    <div class="page-header"> @Captions.LIST_PAGE_HEADER</div>
+    <div class="table-wrapper">
+        <div class="row">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle add-new" type="button" data-toggle="dropdown">
+                    <i class="fa fa-plus"></i> @Captions.ADD_BUTTON
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("Create",new {QuestionType = QuestionType.Slider})">@Captions.SLIDER_QUESTION</a></li>
+                    <li><a href="@Url.Action("Create",new {QuestionType = QuestionType.Stars})">@Captions.STARS_QUESTION</a></li>
+                    <li><a href="@Url.Action("Create",new {QuestionType = QuestionType.Smiley})">@Captions.SMILEY_QUESTION</a></li>
+                </ul>
             </div>
+        </div>
+        <div class="table-container" id="TableContainer">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
                         <th width=54%>
-                            
+
                             <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionText })">@Captions.QUESTION_TEXT<i class="fa fa-sort"></i></a>
                         </th>
                         <th width=15%>
-                            
+
                             <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionOrder })">@Captions.QUESTION_ORDER<i class="fa fa-sort"></i></a>
                         </th>
                         <th width=15%>
-                           
+
                             <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionType })">@Captions.QUESTION_TYPE<i class="fa fa-sort"></i></a>
                         </th>
                         <th width=15%>@Captions.ACTIONS</th>
@@ -57,7 +57,7 @@
                             </td>
                             <td>
                                 <a href="@Url.Action("Edit", new { id = item.Id })" class="edit" title="@Captions.EDIT" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                <a href="@Url.Action("Delete", new { id = item.Id })" class="delete" title="@Captions.DELETE" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                                <a href="#" onclick="ShowDeleteDialog(@item.Id);" class="delete" title="@Captions.DELETE" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
                         </tr>
                     }
@@ -66,3 +66,10 @@
         </div>
     </div>
 </div>
+@Html.Partial("PartialViews/_DeleteConfirmation")
+<script>
+    function ShowDeleteDialog(pQuestionId) {
+        $("#pId").val(pQuestionId);
+        $("#DeleteConfirmation").modal();
+    }
+</script>

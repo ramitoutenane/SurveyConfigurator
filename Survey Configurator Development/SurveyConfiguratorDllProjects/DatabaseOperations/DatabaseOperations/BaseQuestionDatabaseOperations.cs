@@ -62,7 +62,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public Reslut Insert(BaseQuestion pQuestion)
+        public Result Insert(BaseQuestion pQuestion)
         {
             try
             {
@@ -79,12 +79,12 @@ namespace DatabaseOperations
                         int tID = (int)tCommand.ExecuteScalar();
                         if (tID > 0)
                         {
-                            pQuestion.ChangeId(tID);
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            pQuestion.Id = tID;
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                         }
                         {
                             ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
                         }
                             
                     }
@@ -93,7 +93,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public Reslut Update(BaseQuestion pQuestion)
+        public Result Update(BaseQuestion pQuestion)
         {
             try
             {
@@ -116,11 +116,11 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pQuestion.Id);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
                         {
                             ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
                         }
                     }
                 }
@@ -129,7 +129,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -137,7 +137,7 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
-        public Reslut Delete(int pId)
+        public Result Delete(int pId)
         {
             try
             {
@@ -149,11 +149,11 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_ID}", pId);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cDELETE_SUCCESS_MESSAGE);
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cDELETE_SUCCESS_MESSAGE);
                         else
                         {                           
                             ErrorLogger.Log(DatabaseOperationsConstants.cDELETE_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cDELETE_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cDELETE_FAIL_MESSAGE);
                         }
                     }
                 }
@@ -161,7 +161,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cDELETE_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cDELETE_ERROR_MESSAGE);
             }
         }
         /// <summary>

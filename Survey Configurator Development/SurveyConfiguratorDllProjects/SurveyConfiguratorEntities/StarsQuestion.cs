@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SurveyConfiguratorEntities
 {
@@ -11,6 +12,7 @@ namespace SurveyConfiguratorEntities
         private int nNumberOfStars;
         #endregion
         #region Constructor
+        public StarsQuestion() : base(QuestionType.Stars) { }
         /// <summary>
         /// Stars question constructor to initialize new stars question
         /// </summary>
@@ -31,7 +33,8 @@ namespace SurveyConfiguratorEntities
         }
         #endregion
         #region Properties definition
-
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_STARS_NUMBER_ERROR")]
+        [Range(QuestionValidationValues.cSTARS_NUMBER_MIN, QuestionValidationValues.cSTARS_NUMBER_MAX, ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "STARS_NUMBER_ERROR")]
         public int NumberOfStars
         {
             get => nNumberOfStars;
@@ -57,23 +60,6 @@ namespace SurveyConfiguratorEntities
             catch
             {
                 return false;
-            }
-        }
-        /// <summary>
-        /// Get a copy of the current question with new id
-        /// </summary>
-        /// <param name="id">the new id</param>
-        /// <returns></returns>
-        public override BaseQuestion CopyWithNewId(int id)
-        {
-            try
-            {
-                return new StarsQuestion(Text, Order, NumberOfStars, id);
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return null;
             }
         }
 

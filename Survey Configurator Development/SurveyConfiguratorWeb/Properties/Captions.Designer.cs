@@ -88,6 +88,15 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CLOSE {
+            get {
+                return ResourceManager.GetString("CLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add New Question.
         /// </summary>
         public static string CREATE_QUESTION {
@@ -102,6 +111,24 @@ namespace SurveyConfiguratorWeb.Properties {
         public static string DELETE {
             get {
                 return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete question?.
+        /// </summary>
+        public static string DELETE_CONFIRMATION_MESSAGE {
+            get {
+                return ResourceManager.GetString("DELETE_CONFIRMATION_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Question.
+        /// </summary>
+        public static string DELETE_CONFIRMATION_TITLE {
+            get {
+                return ResourceManager.GetString("DELETE_CONFIRMATION_TITLE", resourceCulture);
             }
         }
         

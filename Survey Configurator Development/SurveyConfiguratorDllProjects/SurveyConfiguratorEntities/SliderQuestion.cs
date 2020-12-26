@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SurveyConfiguratorEntities
 {
@@ -15,6 +16,7 @@ namespace SurveyConfiguratorEntities
         private string mEndValueCaption;
         #endregion
         #region Constructor
+        public SliderQuestion() : base(QuestionType.Slider) { }
         /// <summary>
         /// Slider question constructor to initialize new slider question
         /// </summary>
@@ -41,22 +43,29 @@ namespace SurveyConfiguratorEntities
         }
         #endregion
         #region Properties definition
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_START_VALUE_ERROR")]
+        [Range(QuestionValidationValues.cSTART_VALUE_MIN, QuestionValidationValues.cEND_VALUE_MAX - 1, ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "START_VALUE_ERROR")]
         public int StartValue
         {
             get => mStartValue;
             set { mStartValue = value; }
         }
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_END_VALUE_ERROR")]
+        [Range(QuestionValidationValues.cSTART_VALUE_MIN + 1, QuestionValidationValues.cEND_VALUE_MAX, ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "END_VALUE_ERROR")]
         public int EndValue
         {
             get => mEndValue;
             set { mEndValue = value; }
         }
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_START_CAPTION_ERROR")]
+        [MaxLength(QuestionValidationValues.cSTART_CAPTION_LENGTH, ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "START_CAPTION_LENGTH_ERROR")]
         public string StartValueCaption
         {
             get => mStartValueCaption;
             set { mStartValueCaption = value; }
         }
-
+        [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_END_CAPTION_ERROR")]
+        [MaxLength(QuestionValidationValues.cEND_CAPTION_LENGTH, ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "END_CAPTION_LENGTH_ERROR")]
         public string EndValueCaption
         {
             get => mEndValueCaption;
@@ -88,23 +97,6 @@ namespace SurveyConfiguratorEntities
             catch
             {
                 return false;
-            }
-        }
-        /// <summary>
-        /// Get a copy of the current question with new id
-        /// </summary>
-        /// <param name="pId">the new id</param>
-        /// <returns></returns>
-        public override BaseQuestion CopyWithNewId(int pId)
-        {
-            try
-            {
-                return new SliderQuestion(Text, Order, StartValue, EndValue, StartValueCaption, EndValueCaption, pId);
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return null;
             }
         }
 

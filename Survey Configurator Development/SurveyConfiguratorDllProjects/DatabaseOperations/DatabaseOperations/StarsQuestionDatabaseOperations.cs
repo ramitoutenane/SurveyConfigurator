@@ -66,9 +66,9 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be inserted</param>
         /// <returns>inserted question id</returns>
-        public Reslut Insert(StarsQuestion pQuestion)
+        public Result Insert(StarsQuestion pQuestion)
         {
-            Reslut tInsertResponse = Reslut.DefaultResult();
+            Result tInsertResponse = Result.DefaultResult();
             try
             {
                 // insert general question into question table and get question id to be used as foreign key
@@ -88,10 +88,10 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_STARS_NUMBER}", pQuestion.NumberOfStars);
                         tConnection.Open();
                         if ((int)tCommand.ExecuteScalar() > 0)
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                         else{
                             ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
                         }
                     }
                 }
@@ -102,7 +102,7 @@ namespace DatabaseOperations
                 if (tInsertResponse.Value == ResultValue.Success)
                     mQuestionDatabaseOperation.Delete(pQuestion.Id);
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -110,12 +110,12 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question
-        public Reslut Update(StarsQuestion pQuestion)
+        public Result Update(StarsQuestion pQuestion)
         {
             try
             {
                 // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
-                Reslut tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
+                Result tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
                 if (tUpdateResponse.Value != ResultValue.Success)
                 {
                     return tUpdateResponse;
@@ -129,11 +129,11 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_STARS_NUMBER}", pQuestion.NumberOfStars);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
                         {
                             ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
                         }
                     }
                 }
@@ -142,7 +142,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -151,7 +151,7 @@ namespace DatabaseOperations
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
         // because table has on delete
-        public Reslut Delete(int id) => mQuestionDatabaseOperation.Delete(id);
+        public Result Delete(int id) => mQuestionDatabaseOperation.Delete(id);
         /// <summary>
         /// Select specific question from the repository
         /// </summary>

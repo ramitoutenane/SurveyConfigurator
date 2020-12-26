@@ -68,9 +68,9 @@ namespace DatabaseOperations
         #endregion
         #region Methods
 
-        public Reslut Insert(SliderQuestion pQuestion)
+        public Result Insert(SliderQuestion pQuestion)
         {
-            Reslut tInsertResponse = Reslut.DefaultResult();
+            Result tInsertResponse = Result.DefaultResult();
             try
             {
                 // insert general question into question table and get question id to be used as foreign key
@@ -94,11 +94,11 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_CAPTION}", pQuestion.EndValueCaption);
                         tConnection.Open();
                         if ((int)tCommand.ExecuteScalar() > 0)
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                         else
                         {
                             ErrorLogger.Log(DatabaseOperationsConstants.cINSERT_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
                         }
                     }
                 }
@@ -109,7 +109,7 @@ namespace DatabaseOperations
                 if (tInsertResponse.Value == ResultValue.Success)
                     mQuestionDatabaseOperation.Delete(pQuestion.Id);
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cINSERT_ERROR_MESSAGE);
             }
         }
         /// <summary>
@@ -117,12 +117,12 @@ namespace DatabaseOperations
         /// </summary>
         /// <param name="pQuestion">question to be updated</param>
         /// <returns>true if question updated, false otherwise</returns>
-        public Reslut Update(SliderQuestion pQuestion)
+        public Result Update(SliderQuestion pQuestion)
         {
             try
             {
                 // update general question into question table and get update result, if updated continue to update specific question properties, exit from update otherwise
-                Reslut tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
+                Result tUpdateResponse = mQuestionDatabaseOperation.Update(pQuestion);
                 if (tUpdateResponse.Value != ResultValue.Success)
                 {
                     return tUpdateResponse;
@@ -141,11 +141,11 @@ namespace DatabaseOperations
                         tCommand.Parameters.AddWithValue($"{DatabaseOperationsConstants.cPARAMETER_QUESTION_END_CAPTION}", pQuestion.EndValueCaption);
                         tConnection.Open();
                         if (tCommand.ExecuteNonQuery() > 0)
-                            return new Reslut(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
+                            return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                         else
                         {
                             ErrorLogger.Log(DatabaseOperationsConstants.cUPDATE_FAIL, new StackTrace());
-                            return new Reslut(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
+                            return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
                         }
                     }
                 }
@@ -154,7 +154,7 @@ namespace DatabaseOperations
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
-                return new Reslut(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
+                return new Result(ResultValue.Error, ResultConstantValues.cGENERAL_ERROR_STATUS_CODE, ResultConstantValues.cUPDATE_ERROR_MESSAGE);
             }
         }
 
@@ -164,7 +164,7 @@ namespace DatabaseOperations
         /// <param name="data">The id of question to be deleted</param>
         /// <returns>true if question deleted, false otherwise</returns>
         // because table has on delete cascade constraint, just delete general question
-        public Reslut Delete(int pId) => mQuestionDatabaseOperation.Delete(pId);
+        public Result Delete(int pId) => mQuestionDatabaseOperation.Delete(pId);
         /// <summary>
         /// Select specific question from the repository
         /// </summary>
