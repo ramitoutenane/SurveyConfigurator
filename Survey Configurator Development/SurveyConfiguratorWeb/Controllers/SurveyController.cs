@@ -1,4 +1,5 @@
-﻿using QuestionManaging;
+﻿using Newtonsoft.Json;
+using QuestionManaging;
 using SurveyConfiguratorEntities;
 using SurveyConfiguratorWeb.Models;
 using SurveyConfiguratorWeb.Properties;
@@ -19,29 +20,14 @@ namespace SurveyConfiguratorWeb.Controllers
     {
         private IQuestionRepository mQuestionManager;
         private int mAutoRefreshInterval;
-        private bool mListChanged;
         public SurveyController(IQuestionRepository pQuestionManager)
         {
             try
             {
 
                 mQuestionManager = pQuestionManager;
-                mAutoRefreshInterval = 5000;
-                /*
-                //get refresh interval from configuration file, if invalid or less than 20000 milliseconds then set to 20000 milliseconds
-                string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
-                if (!int.TryParse(tConfigRefreshInterval, out mAutoRefreshInterval) || mAutoRefreshInterval < 20000)
-                {
-                    mAutoRefreshInterval = 20000;
-                    ErrorLogger.Log(ErrorMessages.cREFRESH_INTERVAL_WARNING);
-                }*/
+                mQuestionManager.RefreshQuestionList();
 
-                Result tResult = mQuestionManager.RefreshQuestionList();
-                if (tResult.Value == ResultValue.Success)
-                    mListChanged = true;
-                else
-                    mListChanged = false;
-                StartAutoRefreshThread();
             }
             catch (Exception pError)
             {
@@ -49,36 +35,19 @@ namespace SurveyConfiguratorWeb.Controllers
             }
 
         }
-        public ActionResult Index(SortMethod? pSortMethod)
+        public ActionResult Index()
         {
             try
             {
-                if (Session["SortMethod"] == null || Session["SortOrder"] == null)
-                {
-                    Session["SortMethod"] = SortMethod.ByQuestionID;
-                    Session["SortOrder"] = SortOrder.Ascending;
-                }
-                if (pSortMethod != null)
-                {
-                    SetSortMethod(pSortMethod.Value);
-                }
 
-                ResultValue pResultValue = mQuestionManager.RefreshQuestionList().Value;
-                if (pResultValue == ResultValue.Success)
-                {
-                    var tModel = SortQuestionsList(mQuestionManager.QuestionsList);
-                    return View(tModel);
-                }
-                else
-                {
-                    return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
-                }
-
+                var tModel = mQuestionManager.QuestionsList;
+                return View(tModel);
 
             }
             catch (Exception pError)
             {
-                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = "", ErrorMessage = "" });
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
         [HttpGet]
@@ -213,7 +182,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 {
                     ViewBag.MessageTitle = Errors.DELETE_ERROR_TITLE;
                     ViewBag.Message = Errors.DELETE_ERROR_MESSAGE;
-                    var tModel = SortQuestionsList(mQuestionManager.QuestionsList);
+                    var tModel = mQuestionManager.QuestionsList;
                     return View("Index", tModel);
                 }
             }
@@ -223,21 +192,44 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
-        public ActionResult QuestionList()
+        public ActionResult QuestionList([Bind(Prefix = "Hash")] string pClientHash)
         {
             try
             {
-                if (mListChanged) {
-                    mListChanged = false;
+                Result tResult = mQuestionManager.RefreshQuestionList();
+                if(tResult.Value != ResultValue.Success)
+                    return new HttpStatusCodeResult(500);
+                if (pClientHash == null)
                     return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
-                }
-                else
+
+                string pServerHash = CreateMD5(JsonConvert.SerializeObject(mQuestionManager.QuestionsList));
+                if (pServerHash == pClientHash)
                     return new HttpStatusCodeResult(304);
+                else
+                    return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
                 return new HttpStatusCodeResult(500);
+            }
+        }
+        [NonAction]
+        private string CreateMD5(string pInput)
+        {
+            // Use input string to calculate MD5 hash
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] tInputBytes = System.Text.Encoding.ASCII.GetBytes(pInput);
+                byte[] tHashBytes = md5.ComputeHash(tInputBytes);
+
+                // Convert the byte array to hexadecimal string
+                StringBuilder tStringBuilder = new StringBuilder();
+                for (int i = 0; i < tHashBytes.Length; i++)
+                {
+                    tStringBuilder.Append(tHashBytes[i].ToString("X2"));
+                }
+                return tStringBuilder.ToString();
             }
         }
         [NonAction]
@@ -255,112 +247,6 @@ namespace SurveyConfiguratorWeb.Controllers
                 ErrorLogger.Log(pError);
             }
         }
-        private void StartAutoRefreshThread()
-        {
-            try
-            {
-                //call auto refresh method from question manager
-                if (mQuestionManager != null)
-                {
-                    QuestionManager tQuestionManager = mQuestionManager as QuestionManager;
-                    tQuestionManager.QuestionListChangedEventHandler += new QuestionManager.RefreshListDelegate(QuestionListChanged);
-                    mQuestionManager.StartAutoRefresh(mAutoRefreshInterval);
-                }
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-            }
-        }
-        private void QuestionListChanged()
-        {
-            mListChanged = true;
-        }
-        #region Sort questions list
-        /// <summary>
-        /// Toggle SortOrder between Ascending and Descending
-        /// </summary>
-        private void ToggleSortOrder()
-        {
-            try
-            {
 
-                if ((Session["SortOrder"] as SortOrder?) == SortOrder.Ascending)
-                    Session["SortOrder"] = SortOrder.Descending;
-                else
-                    Session["SortOrder"] = SortOrder.Ascending;
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-            }
-
-        }
-        /// <summary>
-        /// Change list sort method
-        /// </summary>
-        /// <param name="pNewSortMethod">list Sort Method</param>
-        private void SetSortMethod(SortMethod pNewSortMethod)
-        {
-            try
-            {
-                // if the new sort method is the same as old one , just toggle sort order, else change sort method to new one with Ascending order
-                SortMethod? tSortMethod = Session["SortMethod"] as SortMethod?;
-                if (tSortMethod == pNewSortMethod)
-                    ToggleSortOrder();
-                else
-                {
-                    Session["SortOrder"] = SortOrder.Ascending;
-                    Session["SortMethod"] = pNewSortMethod;
-                }
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-            }
-
-        }
-        /// <summary>
-        ///  Sort Items list according to given order and method
-        /// </summary>
-        public IEnumerable<BaseQuestion> SortQuestionsList(IEnumerable<BaseQuestion> pQuestionsList)
-        {
-            try
-            {
-                // initialize temporary list with old list capacity to avoid list resizing.
-                IEnumerable<BaseQuestion> tSortedList = new List<BaseQuestion>(pQuestionsList.Count());
-                //Sort Items list according to given ordering method using linq
-                SortMethod? tSortMethod = Session["SortMethod"] as SortMethod?;
-                SortOrder? tSortOrder = Session["SortOrder"] as SortOrder?;
-                switch (tSortMethod)
-                {
-                    case SortMethod.ByQuestionID:
-                        tSortedList = pQuestionsList.OrderBy(Item => Item.Id).ToList();
-                        break;
-                    case SortMethod.ByQuestionOrder:
-                        tSortedList = pQuestionsList.OrderBy(Item => Item.Order).ToList();
-                        break;
-                    case SortMethod.ByQuestionText:
-                        tSortedList = pQuestionsList.OrderBy(Item => Item.Text).ToList();
-                        break;
-                    case SortMethod.ByQuestionType:
-                        tSortedList = pQuestionsList.OrderBy(Item => Item.Type).ToList();
-                        break;
-                }
-                // temporary ordered list is sorted in ascending order, if the required order is descending then reverse it
-                if (tSortOrder == SortOrder.Descending)
-                {
-                    return tSortedList.Reverse();
-                }
-                return tSortedList;
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return pQuestionsList;
-            }
-        }
-        #endregion
-      
     }
 }

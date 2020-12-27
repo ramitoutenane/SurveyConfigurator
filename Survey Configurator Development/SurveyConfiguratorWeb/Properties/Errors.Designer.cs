@@ -22,7 +22,7 @@ namespace SurveyConfiguratorWeb.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Errors {
+    public class Errors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SurveyConfiguratorWeb.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SurveyConfiguratorWeb.Properties.Errors", typeof(Errors).Assembly);
@@ -51,7 +51,7 @@ namespace SurveyConfiguratorWeb.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while deleting question.
         /// </summary>
-        internal static string DELETE_ERROR_MESSAGE {
+        public static string DELETE_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("DELETE_ERROR_MESSAGE", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Delete Error.
         /// </summary>
-        internal static string DELETE_ERROR_TITLE {
+        public static string DELETE_ERROR_TITLE {
             get {
                 return ResourceManager.GetString("DELETE_ERROR_TITLE", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Something went wrong, Please try again or contact Admin.
         /// </summary>
-        internal static string GENERAL_ERROR_MESSAGE {
+        public static string GENERAL_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("GENERAL_ERROR_MESSAGE", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string GENERAL_ERROR_TITLE {
+        public static string GENERAL_ERROR_TITLE {
             get {
                 return ResourceManager.GetString("GENERAL_ERROR_TITLE", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while inserting question.
         /// </summary>
-        internal static string INSERT_ERROR_MESSAGE {
+        public static string INSERT_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("INSERT_ERROR_MESSAGE", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Insert Error.
         /// </summary>
-        internal static string INSERT_ERROR_TITLE {
+        public static string INSERT_ERROR_TITLE {
             get {
                 return ResourceManager.GetString("INSERT_ERROR_TITLE", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The requested question id is invalid.
         /// </summary>
-        internal static string INVALID_QUESTION_ID_MESSAGE {
+        public static string INVALID_QUESTION_ID_MESSAGE {
             get {
                 return ResourceManager.GetString("INVALID_QUESTION_ID_MESSAGE", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid Id.
         /// </summary>
-        internal static string INVALID_QUESTION_ID_TITLE {
+        public static string INVALID_QUESTION_ID_TITLE {
             get {
                 return ResourceManager.GetString("INVALID_QUESTION_ID_TITLE", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The question type you have selected is invalid.
         /// </summary>
-        internal static string INVALID_TYPE_MESSAGE {
+        public static string INVALID_TYPE_MESSAGE {
             get {
                 return ResourceManager.GetString("INVALID_TYPE_MESSAGE", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid question type.
         /// </summary>
-        internal static string INVALID_TYPE_TITLE {
+        public static string INVALID_TYPE_TITLE {
             get {
                 return ResourceManager.GetString("INVALID_TYPE_TITLE", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The requested question could not be found.
         /// </summary>
-        internal static string QUESTION_NOT_FOUND_MESSAGE {
+        public static string QUESTION_NOT_FOUND_MESSAGE {
             get {
                 return ResourceManager.GetString("QUESTION_NOT_FOUND_MESSAGE", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Question Not Found.
         /// </summary>
-        internal static string QUESTION_NOT_FOUND_TITLE {
+        public static string QUESTION_NOT_FOUND_TITLE {
             get {
                 return ResourceManager.GetString("QUESTION_NOT_FOUND_TITLE", resourceCulture);
             }
@@ -171,16 +171,25 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start value must be less than End value.
         /// </summary>
-        internal static string START_LARGER_THAN_END_ERROR {
+        public static string START_LARGER_THAN_END_ERROR {
             get {
                 return ResourceManager.GetString("START_LARGER_THAN_END_ERROR", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while refreshing table, Try refreshing page.
+        /// </summary>
+        public static string TABLE_ERROR {
+            get {
+                return ResourceManager.GetString("TABLE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while updating question.
         /// </summary>
-        internal static string UPDATE_ERROR_MESSAGE {
+        public static string UPDATE_ERROR_MESSAGE {
             get {
                 return ResourceManager.GetString("UPDATE_ERROR_MESSAGE", resourceCulture);
             }
@@ -189,7 +198,7 @@ namespace SurveyConfiguratorWeb.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Update Error.
         /// </summary>
-        internal static string UPDATE_ERROR_TITLE {
+        public static string UPDATE_ERROR_TITLE {
             get {
                 return ResourceManager.GetString("UPDATE_ERROR_TITLE", resourceCulture);
             }

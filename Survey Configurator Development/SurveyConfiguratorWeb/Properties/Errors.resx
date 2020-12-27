@@ -156,6 +156,9 @@
   <data name="START_LARGER_THAN_END_ERROR" xml:space="preserve">
     <value>Start value must be less than End value</value>
   </data>
+  <data name="TABLE_ERROR" xml:space="preserve">
+    <value>An error occurred while refreshing table, Try refreshing page</value>
+  </data>
   <data name="UPDATE_ERROR_MESSAGE" xml:space="preserve">
     <value>An error occurred while updating question</value>
   </data>

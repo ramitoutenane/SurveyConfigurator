@@ -8,7 +8,7 @@
 }
 
 <div class="container">
-    <div class="page-header"> @Captions.LIST_PAGE_HEADER</div>
+    <div class="page-header"> @Captions.LIST_PAGE_HEADER </div>
     <div class="table-wrapper">
         <div class="row">
             <div class="dropdown">
@@ -23,51 +23,38 @@
                 </ul>
             </div>
         </div>
+        <div class="loader" id="loader"></div>
+        <div class="alert alert-danger hidden" id="TableError" role="alert">
+            @Errors.TABLE_ERROR
+        </div>
         <div class="table-container" id="TableContainer">
-            <table class="table table-striped table-hover table-bordered">
+            <table id="QuestionTable" class="table table-striped table-hover table-bordered hidden">
                 <thead>
                     <tr>
-                        <th width=54%>
-
-                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionText })">@Captions.QUESTION_TEXT<i class="fa fa-sort"></i></a>
+                        <th width=54% data-name="text" data-order="desc">
+                            @Captions.QUESTION_TEXT
                         </th>
-                        <th width=15%>
-
-                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionOrder })">@Captions.QUESTION_ORDER<i class="fa fa-sort"></i></a>
+                        <th width=15% data-name="order" data-order="desc">
+                            @Captions.QUESTION_ORDER<i class="fa fa-sort">
                         </th>
-                        <th width=15%>
-
-                            <a href="@Url.Action("Index", new { pSortMethod = SortMethod.ByQuestionType })">@Captions.QUESTION_TYPE<i class="fa fa-sort"></i></a>
+                        <th width=15% data-name="type" data-order="desc">>
+                            @Captions.QUESTION_TYPE<i class="fa fa-sort">
                         </th>
                         <th width=15%>@Captions.ACTIONS</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Text)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Order)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TypeString)
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Edit", new { id = item.Id })" class="edit" title="@Captions.EDIT" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                <a href="#" onclick="ShowDeleteDialog(@item.Id);" class="delete" title="@Captions.DELETE" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                    }
+                <tbody id="QuestionTableBody">
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
 @Html.Partial("PartialViews/_DeleteConfirmation")
+
 <script>
+    GetQuestionList('');
+    StartAutoRefresh(@AutoRefreshInterval.mAutoRefreshInterval);
     function ShowDeleteDialog(pQuestionId) {
         $("#pId").val(pQuestionId);
         $("#DeleteConfirmation").modal();
