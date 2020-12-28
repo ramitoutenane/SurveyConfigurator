@@ -14,9 +14,7 @@ namespace SurveyConfiguratorWeb.Models
         public const string cAUTO_REFRESH_INTERVAL = "AutoRefreshInterval";
         public const string cARABIC_CULTURE = "ar";
         public const string cENGLISH_CULTURE = "en";
+        public const string cSESSION_KEY_LANGUAGE = "language";
         public const string cERROR_VIEW = "ErrorView";
-        public const string cCREATE_SLIDER_VIEW = "CreateSlider";
-        public const string cCREATE_STARS_VIEW = "CreateStars";
-        public const string cCREATE_SMILEY_VIEW = "CreateSmiley";
     }
 }

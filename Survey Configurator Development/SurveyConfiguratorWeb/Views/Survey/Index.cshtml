@@ -11,6 +11,15 @@
     <div class="page-header"> @Captions.LIST_PAGE_HEADER </div>
     <div class="table-wrapper">
         <div class="row">
+            <div class="sort-dropdown">
+                <span>@Captions.SORT:</span>
+                <select onchange="SortTable(this)">
+                    <option disabled selected>@Captions.SORT</option>
+                    <option value="Text">@Captions.QUESTION_TEXT</option>
+                    <option value="Order">@Captions.QUESTION_ORDER</option>
+                    <option value="Type">@Captions.QUESTION_TYPE</option>
+                </select>
+            </div>
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle add-new" type="button" data-toggle="dropdown">
                     <i class="fa fa-plus"></i> @Captions.ADD_BUTTON
@@ -35,10 +44,10 @@
                             @Captions.QUESTION_TEXT
                         </th>
                         <th width=15% data-name="order" data-order="desc">
-                            @Captions.QUESTION_ORDER<i class="fa fa-sort">
+                            @Captions.QUESTION_ORDER
                         </th>
-                        <th width=15% data-name="type" data-order="desc">>
-                            @Captions.QUESTION_TYPE<i class="fa fa-sort">
+                        <th width=15% data-name="type" data-order="desc">
+                            @Captions.QUESTION_TYPE
                         </th>
                         <th width=15%>@Captions.ACTIONS</th>
                     </tr>

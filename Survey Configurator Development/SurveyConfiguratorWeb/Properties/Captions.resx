@@ -123,6 +123,9 @@
   <data name="ADD_BUTTON" xml:space="preserve">
     <value>Add New</value>
   </data>
+  <data name="ARABIC_LANGUAGE" xml:space="preserve">
+    <value>عربي</value>
+  </data>
   <data name="CANCEL_BUTTON" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="EDIT_QUESTION" xml:space="preserve">
     <value>Edit Question</value>
+  </data>
+  <data name="ENGLISH_LANGUAGE" xml:space="preserve">
+    <value>Eng</value>
   </data>
   <data name="LIST_PAGE_HEADER" xml:space="preserve">
     <value>Survey Questions</value>
@@ -178,7 +184,7 @@
     <value>Start Value</value>
   </data>
   <data name="QUESTION_TEXT" xml:space="preserve">
-    <value>Question</value>
+    <value>Question Text</value>
   </data>
   <data name="QUESTION_TYPE" xml:space="preserve">
     <value>Type</value>
@@ -191,6 +197,9 @@
   </data>
   <data name="SMILEY_QUESTION" xml:space="preserve">
     <value>Smiley Question</value>
+  </data>
+  <data name="SORT" xml:space="preserve">
+    <value>Sort By</value>
   </data>
   <data name="STARS_QUESTION" xml:space="preserve">
     <value>Stars Question</value>

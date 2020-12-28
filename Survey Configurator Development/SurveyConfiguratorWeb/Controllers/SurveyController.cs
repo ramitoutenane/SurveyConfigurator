@@ -19,7 +19,6 @@ namespace SurveyConfiguratorWeb.Controllers
     public class SurveyController : Controller
     {
         private IQuestionRepository mQuestionManager;
-        private int mAutoRefreshInterval;
         public SurveyController(IQuestionRepository pQuestionManager)
         {
             try
@@ -27,7 +26,7 @@ namespace SurveyConfiguratorWeb.Controllers
 
                 mQuestionManager = pQuestionManager;
                 mQuestionManager.RefreshQuestionList();
-
+             
             }
             catch (Exception pError)
             {
@@ -39,7 +38,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-
+                ApplySesstionLanguage();
                 var tModel = mQuestionManager.QuestionsList;
                 return View(tModel);
 
@@ -55,6 +54,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                ApplySesstionLanguage();
                 if (Id == null)
                     return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.INVALID_QUESTION_ID_TITLE, ErrorMessage = Errors.INVALID_QUESTION_ID_MESSAGE });
 
@@ -80,6 +80,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                ApplySesstionLanguage();
                 //validate slider question start value less than end value
                 if (pQuestion.Type == QuestionType.Slider)
                     ValidateSlider(pQuestion as SliderQuestion);
@@ -107,17 +108,18 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                ApplySesstionLanguage();
                 if (pQuestionType == null)
                     return View(ConstantStringResources.cERROR_VIEW,
                         new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
                 switch (pQuestionType.Value)
                 {
                     case QuestionType.Slider:
-                        return View(ConstantStringResources.cCREATE_SLIDER_VIEW);
+                        return View(new SliderQuestion());
                     case QuestionType.Stars:
-                        return View(ConstantStringResources.cCREATE_STARS_VIEW);
+                        return View(new StarsQuestion());
                     case QuestionType.Smiley:
-                        return View(ConstantStringResources.cCREATE_SMILEY_VIEW);
+                        return View(new SmileyQuestion());
                     default:
                         return View(ConstantStringResources.cERROR_VIEW,
                             new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
@@ -136,6 +138,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                ApplySesstionLanguage();
                 //validate slider question start value less than end value
                 if (pQuestion.Type == QuestionType.Slider)
                     ValidateSlider(pQuestion as SliderQuestion);
@@ -150,18 +153,7 @@ namespace SurveyConfiguratorWeb.Controllers
                         ViewBag.Message = Errors.INSERT_ERROR_MESSAGE;
                     }
                 }
-                switch (pQuestion.Type)
-                {
-                    case QuestionType.Stars:
-                        return View(ConstantStringResources.cCREATE_STARS_VIEW, pQuestion);
-                    case QuestionType.Smiley:
-                        return View(ConstantStringResources.cCREATE_SMILEY_VIEW, pQuestion);
-                    case QuestionType.Slider:
-                        return View(ConstantStringResources.cCREATE_SLIDER_VIEW, pQuestion);
-                    default:
-                        return View(ConstantStringResources.cERROR_VIEW,
-                            new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
-                }
+                return View(pQuestion);
             }
             catch (Exception pError)
             {
@@ -175,6 +167,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                ApplySesstionLanguage();
                 Result tResult = mQuestionManager.Delete(pId);
                 if (tResult.Value == ResultValue.Success)
                     return RedirectToAction("Index");
@@ -196,13 +189,14 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                
                 Result tResult = mQuestionManager.RefreshQuestionList();
-                if(tResult.Value != ResultValue.Success)
+                if (tResult.Value != ResultValue.Success)
                     return new HttpStatusCodeResult(500);
                 if (pClientHash == null)
                     return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
 
-                string pServerHash = CreateMD5(JsonConvert.SerializeObject(mQuestionManager.QuestionsList));
+                string pServerHash = MD5CheckSum(JsonConvert.SerializeObject(mQuestionManager.QuestionsList));
                 if (pServerHash == pClientHash)
                     return new HttpStatusCodeResult(304);
                 else
@@ -214,8 +208,26 @@ namespace SurveyConfiguratorWeb.Controllers
                 return new HttpStatusCodeResult(500);
             }
         }
+        public ActionResult SetLanguage([Bind(Prefix = "Language")] string pSelectedCalture)
+        {
+            try
+            {
+                ApplySesstionLanguage();
+                if (ChangeCulture(pSelectedCalture))
+                {
+                    Session[ConstantStringResources.cSESSION_KEY_LANGUAGE] = pSelectedCalture;
+                    return RedirectToAction("Index");
+                }
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
+            }
+        }
         [NonAction]
-        private string CreateMD5(string pInput)
+        private string MD5CheckSum(string pInput)
         {
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
@@ -243,6 +255,37 @@ namespace SurveyConfiguratorWeb.Controllers
                     ModelState.AddModelError(nameof(SliderQuestion.StartValue), Errors.START_LARGER_THAN_END_ERROR);
             }
             catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+        }
+        [NonAction]
+        private bool ChangeCulture(string pSelectedCalture)
+        {
+            try
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(pSelectedCalture);
+                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(pSelectedCalture);
+                return true;
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return false;
+            }
+
+        }
+        [NonAction]
+        private void ApplySesstionLanguage()
+        {
+            try
+            {
+                if (Session[ConstantStringResources.cSESSION_KEY_LANGUAGE] != null)
+                {
+                    ChangeCulture(Session[ConstantStringResources.cSESSION_KEY_LANGUAGE].ToString());
+                }
+            }
+            catch(Exception pError)
             {
                 ErrorLogger.Log(pError);
             }

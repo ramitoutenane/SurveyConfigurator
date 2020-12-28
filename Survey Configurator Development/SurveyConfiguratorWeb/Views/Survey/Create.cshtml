@@ -1,0 +1,35 @@
+﻿@model SurveyConfiguratorEntities.BaseQuestion
+@using SurveyConfiguratorWeb.Properties
+@{
+    ViewBag.Title = Captions.CREATE_QUESTION;
+}
+
+<div class="page-header"> @Captions.CREATE_QUESTION : @Captions.STARS_QUESTION</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+    @Html.Partial("PartialViews/_BaseQuestion", Model)
+
+    @switch (Model.Type)
+    {
+        case SurveyConfiguratorEntities.QuestionType.Smiley:
+            @Html.Partial("PartialViews/_SmileyQuestion", Model);
+            break;
+        case SurveyConfiguratorEntities.QuestionType.Stars:
+            @Html.Partial("PartialViews/_StarsQuestion", Model);
+            break;
+        case SurveyConfiguratorEntities.QuestionType.Slider:
+            @Html.Partial("PartialViews/_SliderQuestion", Model);
+            break;
+    }
+
+    @Html.Partial("PartialViews/_FormButtons", Model)
+</div>
+}
+

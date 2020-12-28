@@ -4,7 +4,9 @@
     color: #566787;
     background: #f5f5f5;
 }
-
+.btn-group{
+    padding: 10px 100 px;
+}
 .navbar .container {
     padding: 0 20px;
 }
@@ -22,6 +24,11 @@
     padding: 0;
 }
 
+.language {
+    display: inline-block;
+    float: right;
+    padding: 15px;
+}
 .table-container {
     max-height: 450px;
     overflow-y: auto;
@@ -43,7 +50,13 @@
 }
 
 .dropdown {
+    display: inline-block;
     float: right;
+    margin: 20px 40px 20px 20px;
+}
+.sort-dropdown {
+    display: inline-block;
+    float: left;
     margin: 20px 40px 20px 20px;
 }
 
@@ -99,6 +112,7 @@ table.table td a {
 table.table td i {
     font-size: 19px;
 }
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

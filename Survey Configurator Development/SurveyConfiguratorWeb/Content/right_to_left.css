@@ -1,0 +1,26 @@
+﻿* {
+    direction: rtl;
+}
+th{
+    text-align:right;
+}
+.dropdown {
+    display: inline-block;
+    float: left;
+    margin: 20px 40px 20px 20px;
+}
+
+.sort-dropdown {
+    display: inline-block;
+    float: right;
+    margin: 20px 40px 20px 20px;
+}
+.nav-link{
+    float: right;
+}
+.language{
+    float: left;
+}
+.form-horizontal{
+    direction: rtl;
+}

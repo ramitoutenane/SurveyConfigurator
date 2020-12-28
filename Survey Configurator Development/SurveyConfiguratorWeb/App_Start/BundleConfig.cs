@@ -25,6 +25,8 @@ namespace SurveyConfiguratorWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/right_to_left").Include(
+                     "~/Content/right_to_left.css"));
             bundles.Add(new ScriptBundle("~/bundles/script").Include(
             "~/Scripts/script.js"));
         }

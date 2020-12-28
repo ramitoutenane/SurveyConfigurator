@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using SurveyConfiguratorWeb.Properties
+@using SurveyConfiguratorWeb.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,12 +15,23 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/script")
+    @if (System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft == true)
+    {
+        @Styles.Render("~/Content/right_to_left")
+    }
 
 </head>
-<body>
+<body lang="ar">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            @Html.ActionLink("Questions List", "Index", "Survey", new { area = "" }, new { @class = "navbar-brand" })
+            <span class="nav-link">@Html.ActionLink(Captions.LIST_PAGE_HEADER, "Index", "Survey", new { area = "" }, new { @class = "navbar-brand" })</span>
+            <div class="language">
+                <select onchange="ChangeLanguage(this)">
+                    <option value=@ConstantStringResources.cENGLISH_CULTURE>@Captions.ENGLISH_LANGUAGE</option>
+                    <option value=@ConstantStringResources.cARABIC_CULTURE>@Captions.ARABIC_LANGUAGE</option>
+                </select>
+            </div>
+
         </div>
     </div>
     <div class="container body-content">

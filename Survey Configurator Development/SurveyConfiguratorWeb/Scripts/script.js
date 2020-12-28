@@ -1,23 +1,17 @@
 ﻿let Data = {};
 let SortedData = {};
-
+let SortOption = null;
 
 function GetQuestionList(pHash) {
-    $("#loader").removeClass("hidden")
-    $("#TableError").addClass("hidden");
-    $("#QuestionTable").addClass("hidden");
     $.ajax({
         url: '/Survey/QuestionList?Hash=' + pHash,
         type: 'GET',
         contentType: 'application/json',
         success: function (data) {
             if (data != null) {
-                $("#loader").removeClass("hidden")
-                $("#QuestionTable").addClass("hidden");
                 Data = data;
-                PopulateTable(data);
+                SortTable(SortOption);
             }
-
         },
         error: function () {
             ShowTableError();
@@ -26,6 +20,11 @@ function GetQuestionList(pHash) {
 }
 
 function PopulateTable(pData) {
+    if (pData == null)
+        return;
+    $("#loader").removeClass("hidden")
+    $("#TableError").addClass("hidden");
+    $("#QuestionTable").addClass("hidden");
     let tTableBody = $("#QuestionTableBody")[0];
     tTableBody.innerHTML = '';
     for (let i = 0; i < pData.length; i++) {
@@ -43,10 +42,7 @@ function PopulateTable(pData) {
         tTableBody.innerHTML += tRow;
     }
     $("#loader").addClass("hidden")
-    $("#TableError").addClass("hidden");
     $("#QuestionTable").removeClass("hidden");
-
-
 };
 
 function ShowTableError() {
@@ -64,24 +60,22 @@ function StartAutoRefresh(pInterval) {
     }, pInterval);
 }
 
-$('th').on('click', function () {
-    console.log("clicked")
-    let tColumn = $(this).data('name')
-    let tOrder = $(this).data('order')
-    let tLabel = $(this).html()
-    tLabel = tLabel.substring(0, tLabel.length - 1)
 
-    if (tOrder == 'desc') {
-        $(this).data('order', "asc")
-        SortedData = Data.sort((a, b) => a[tColumn] > b[tColumn] ? 1 : -1)
-        tLabel += '&#9660'
-
-    } else {
-        $(this).data('order', "desc")
-        SortedData = Data.sort((a, b) => a[tColumn] < b[tColumn] ? 1 : -1)
-        tLabel += '&#9650'
-
+function SortTable(pSortOption) {
+    if (pSortOption == null)
+         PopulateTable(Data);
+    else {
+        $("#QuestionTable").addClass("hidden");
+        $("#loader").removeClass("hidden")
+        SortOption = pSortOption;
+        tSortMethod = SortOption.value
+        SortedData = Data.sort((a, b) => a[tSortMethod] - b[tSortMethod])
+        PopulateTable(SortedData)
     }
-    $(this).html(tLabel)
-    PopulateTable(SortedData)
-})
+}
+
+function ChangeLanguage(pSelectedLanguageOption) {
+    if (pSelectedLanguageOption != null && pSelectedLanguageOption.value != null) {
+        document.location.href = `/Survey/SetLanguage?Language=${pSelectedLanguageOption.value}`;
+    }
+}

@@ -79,6 +79,15 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عربي.
+        /// </summary>
+        public static string ARABIC_LANGUAGE {
+            get {
+                return ResourceManager.GetString("ARABIC_LANGUAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CANCEL_BUTTON {
@@ -156,6 +165,15 @@ namespace SurveyConfiguratorWeb.Properties {
         public static string EDIT_QUESTION {
             get {
                 return ResourceManager.GetString("EDIT_QUESTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eng.
+        /// </summary>
+        public static string ENGLISH_LANGUAGE {
+            get {
+                return ResourceManager.GetString("ENGLISH_LANGUAGE", resourceCulture);
             }
         }
         
@@ -241,7 +259,7 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to Question Text.
         /// </summary>
         public static string QUESTION_TEXT {
             get {
@@ -282,6 +300,15 @@ namespace SurveyConfiguratorWeb.Properties {
         public static string SMILEY_QUESTION {
             get {
                 return ResourceManager.GetString("SMILEY_QUESTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort By.
+        /// </summary>
+        public static string SORT {
+            get {
+                return ResourceManager.GetString("SORT", resourceCulture);
             }
         }
         

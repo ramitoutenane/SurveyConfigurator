@@ -131,8 +131,11 @@
   <data name="titleLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="titleLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
   <data name="titleLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>734, 41</value>
+    <value>895, 47</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="titleLabel.TabIndex" type="System.Int32, mscorlib">
@@ -159,20 +162,32 @@
   <data name="QuestionTextColumn.HeaderText" xml:space="preserve">
     <value>Question</value>
   </data>
+  <data name="QuestionTextColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
   <data name="QuestionTypeColumn.HeaderText" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="QuestionTypeColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
   <data name="QuestionOrderColumn.HeaderText" xml:space="preserve">
     <value>Order</value>
+  </data>
+  <data name="QuestionOrderColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <metadata name="questionBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <data name="questionDataGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 41</value>
+    <value>15, 47</value>
+  </data>
+  <data name="questionDataGridView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="questionDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>710, 375</value>
+    <value>868, 434</value>
   </data>
   <data name="questionDataGridView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -196,10 +211,13 @@
     <value>NoControl</value>
   </data>
   <data name="addButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 425</value>
+    <value>15, 492</value>
+  </data>
+  <data name="addButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="addButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 27</value>
+    <value>115, 31</value>
   </data>
   <data name="addButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -226,10 +244,13 @@
     <value>NoControl</value>
   </data>
   <data name="editButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>112, 425</value>
+    <value>137, 492</value>
+  </data>
+  <data name="editButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="editButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 27</value>
+    <value>121, 31</value>
   </data>
   <data name="editButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -256,10 +277,13 @@
     <value>NoControl</value>
   </data>
   <data name="deleteButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 425</value>
+    <value>265, 492</value>
+  </data>
+  <data name="deleteButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="deleteButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 27</value>
+    <value>117, 31</value>
   </data>
   <data name="deleteButton.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -286,10 +310,13 @@
     <value>NoControl</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>689, 426</value>
+    <value>842, 493</value>
+  </data>
+  <data name="refreshButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="refreshButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>33, 28</value>
+    <value>40, 32</value>
   </data>
   <data name="refreshButton.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -313,10 +340,13 @@
     <value>عربي</value>
   </data>
   <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>626, 426</value>
+    <value>765, 493</value>
+  </data>
+  <data name="languageComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
   </data>
   <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 27</value>
+    <value>69, 30</value>
   </data>
   <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -336,14 +366,17 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>ar</value>
+  </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 19</value>
+    <value>11, 22</value>
   </data>
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>734, 461</value>
+    <value>895, 525</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
@@ -2336,13 +2369,13 @@
 </value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>750, 500</value>
+    <value>913, 572</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>750, 500</value>
+    <value>913, 572</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Survey Configurator</value>

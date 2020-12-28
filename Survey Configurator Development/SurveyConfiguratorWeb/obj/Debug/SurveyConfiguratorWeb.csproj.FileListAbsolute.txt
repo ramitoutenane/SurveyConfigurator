@@ -228,3 +228,7 @@ C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Dev
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.pdb
 C:\Users\MohamedRami\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Properties.Errors.resources
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Properties.Errors.resources
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\ar\SurveyConfiguratorWeb.resources.dll
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Properties.Captions.ar.resources
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\ar\SurveyConfiguratorWeb.resources.dll
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Properties.Errors.ar.resources
