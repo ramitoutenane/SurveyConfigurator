@@ -126,6 +126,9 @@
   <data name="ARABIC_LANGUAGE" xml:space="preserve">
     <value>عربي</value>
   </data>
+  <data name="ASCENDING" xml:space="preserve">
+    <value>تصاعدي</value>
+  </data>
   <data name="CANCEL_BUTTON" xml:space="preserve">
     <value>الغاء</value>
   </data>
@@ -135,6 +138,9 @@
   <data name="CREATE_QUESTION" xml:space="preserve">
     <value>إضافة سؤال جديد</value>
   </data>
+  <data name="DEFAULT" xml:space="preserve">
+    <value>افتراضي</value>
+  </data>
   <data name="DELETE" xml:space="preserve">
     <value>حذف</value>
   </data>
@@ -143,6 +149,9 @@
   </data>
   <data name="DELETE_CONFIRMATION_TITLE" xml:space="preserve">
     <value>حذف السؤال</value>
+  </data>
+  <data name="DESCENDING" xml:space="preserve">
+    <value>تنازلي</value>
   </data>
   <data name="EDIT" xml:space="preserve">
     <value>تعديل</value>
@@ -178,10 +187,10 @@
     <value>عدد النجوم</value>
   </data>
   <data name="QUESTION_START_CAPTION" xml:space="preserve">
-    <value>قيمة البداية</value>
+    <value>عنوان قيمة البداية</value>
   </data>
   <data name="QUESTION_START_VALUE" xml:space="preserve">
-    <value>عنوان قيمة البداية</value>
+    <value>قيمة البداية</value>
   </data>
   <data name="QUESTION_TEXT" xml:space="preserve">
     <value>نص السؤال</value>

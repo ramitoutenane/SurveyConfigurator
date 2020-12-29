@@ -14,10 +14,13 @@
             <div class="sort-dropdown">
                 <span>@Captions.SORT:</span>
                 <select onchange="SortTable(this)">
-                    <option disabled selected>@Captions.SORT</option>
-                    <option value="Text">@Captions.QUESTION_TEXT</option>
-                    <option value="Order">@Captions.QUESTION_ORDER</option>
-                    <option value="Type">@Captions.QUESTION_TYPE</option>
+                    <option selected value="default">@Captions.DEFAULT</option>
+                    <option value="Text" data-order="asc">@Captions.QUESTION_TEXT (@Captions.ASCENDING)</option>
+                    <option value="Text" data-order="desc">@Captions.QUESTION_TEXT (@Captions.DESCENDING)</option>
+                    <option value="Order" data-order="asc">@Captions.QUESTION_ORDER (@Captions.ASCENDING)</option>
+                    <option value="Order" data-order="desc">@Captions.QUESTION_ORDER (@Captions.DESCENDING)</option>
+                    <option value="Type" data-order="asc">@Captions.QUESTION_TYPE (@Captions.ASCENDING)</option>
+                    <option value="Type" data-order="desc">@Captions.QUESTION_TYPE (@Captions.DESCENDING)</option>
                 </select>
             </div>
             <div class="dropdown">

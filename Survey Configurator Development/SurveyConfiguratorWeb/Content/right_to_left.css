@@ -1,5 +1,6 @@
 ﻿* {
     direction: rtl;
+    text-align: right;
 }
 th{
     text-align:right;
@@ -20,7 +21,4 @@ th{
 }
 .language{
     float: left;
-}
-.form-horizontal{
-    direction: rtl;
 }

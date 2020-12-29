@@ -122,3 +122,4 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CopyComplete
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\bin\Debug\ar\SurveyConfiguratorEntities.resources.dll

@@ -25,9 +25,7 @@
 }
 
 .language {
-    display: inline-block;
     float: right;
-    padding: 15px;
 }
 .table-container {
     max-height: 450px;
@@ -40,7 +38,7 @@
     }
 
 
-.table-wrapper, .form-horizontal {
+.table-wrapper, .form-wrapper {
     width: 100%;
     background: #fff;
     margin: 10px 0;

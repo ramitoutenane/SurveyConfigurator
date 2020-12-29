@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using QuestionManaging;
-using SurveyConfiguratorApp;
 using SurveyConfiguratorEntities;
+using SurveyConfiguratorWeb.Models;
 using System;
 using System.Configuration;
 using System.Web.Mvc;
@@ -23,7 +23,7 @@ namespace SurveyConfiguratorWeb
 
                 var tBuilder = new ContainerBuilder();
                 tBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
-                tBuilder.RegisterType<QuestionManager>().As<IQuestionRepository>().WithParameter("pDatabaseSettings", tDatabaseSettings).InstancePerRequest();
+                tBuilder.RegisterType<QuestionManager>().As<IQuestionRepository>().WithParameter("pDatabaseSettings", tDatabaseSettings).SingleInstance();
 
                 var pContainer = tBuilder.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(pContainer));

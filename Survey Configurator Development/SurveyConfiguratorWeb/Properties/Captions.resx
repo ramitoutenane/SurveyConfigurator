@@ -126,6 +126,9 @@
   <data name="ARABIC_LANGUAGE" xml:space="preserve">
     <value>عربي</value>
   </data>
+  <data name="ASCENDING" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
   <data name="CANCEL_BUTTON" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -135,6 +138,9 @@
   <data name="CREATE_QUESTION" xml:space="preserve">
     <value>Add New Question</value>
   </data>
+  <data name="DEFAULT" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="DELETE" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -143,6 +149,9 @@
   </data>
   <data name="DELETE_CONFIRMATION_TITLE" xml:space="preserve">
     <value>Delete Question</value>
+  </data>
+  <data name="DESCENDING" xml:space="preserve">
+    <value>Descending</value>
   </data>
   <data name="EDIT" xml:space="preserve">
     <value>Edit</value>

@@ -6,30 +6,29 @@
 
 <div class="page-header"> @Captions.CREATE_QUESTION : @Captions.STARS_QUESTION</div>
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
-    @Html.Partial("PartialViews/_BaseQuestion", Model)
-
-    @switch (Model.Type)
+<div class="form-wrapper">
+    @using (Html.BeginForm())
     {
-        case SurveyConfiguratorEntities.QuestionType.Smiley:
-            @Html.Partial("PartialViews/_SmileyQuestion", Model);
-            break;
-        case SurveyConfiguratorEntities.QuestionType.Stars:
-            @Html.Partial("PartialViews/_StarsQuestion", Model);
-            break;
-        case SurveyConfiguratorEntities.QuestionType.Slider:
-            @Html.Partial("PartialViews/_SliderQuestion", Model);
-            break;
+        @Html.AntiForgeryToken()
+
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.Partial("PartialViews/_BaseQuestion", Model)
+
+            @switch (Model.Type)
+            {
+                case SurveyConfiguratorEntities.QuestionType.Smiley:
+                    @Html.Partial("PartialViews/_SmileyQuestion", Model);
+                    break;
+                case SurveyConfiguratorEntities.QuestionType.Stars:
+                    @Html.Partial("PartialViews/_StarsQuestion", Model);
+                    break;
+                case SurveyConfiguratorEntities.QuestionType.Slider:
+                    @Html.Partial("PartialViews/_SliderQuestion", Model);
+                    break;
+            }
+            @Html.Partial("PartialViews/_FormButtons", Model)
+        </div>
     }
-
-    @Html.Partial("PartialViews/_FormButtons", Model)
 </div>
-}
-

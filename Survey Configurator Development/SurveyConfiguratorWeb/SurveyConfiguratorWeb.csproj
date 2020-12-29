@@ -157,7 +157,6 @@
     </Compile>
     <Compile Include="Models\AutoRefreshInterval.cs" />
     <Compile Include="Models\ConstantStringResources.cs" />
-    <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\QuestionModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,6 +179,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Errors.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\ValidationMessages.ar.Designer.cs">
+      <DependentUpon>ValidationMessages.ar.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\Shared\ValidationMessages.Designer.cs">
+      <DependentUpon>ValidationMessages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +242,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\question-list.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
@@ -377,6 +387,14 @@
     <EmbeddedResource Include="Properties\Errors.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\ValidationMessages.ar.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.ar.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\ValidationMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

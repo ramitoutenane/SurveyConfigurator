@@ -21,16 +21,25 @@
     }
 
 </head>
-<body lang="ar">
+<body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <span class="nav-link">@Html.ActionLink(Captions.LIST_PAGE_HEADER, "Index", "Survey", new { area = "" }, new { @class = "navbar-brand" })</span>
-            <div class="language">
-                <select onchange="ChangeLanguage(this)">
-                    <option value=@ConstantStringResources.cENGLISH_CULTURE>@Captions.ENGLISH_LANGUAGE</option>
-                    <option value=@ConstantStringResources.cARABIC_CULTURE>@Captions.ARABIC_LANGUAGE</option>
-                </select>
-            </div>
+
+            <span class="language">
+                @{
+                    switch (Session[ConstantStringResources.cSESSION_KEY_LANGUAGE])
+                    {
+                        case ConstantStringResources.cARABIC_CULTURE:
+                            <span class="nav-link">@Html.ActionLink(Captions.ENGLISH_LANGUAGE, "SetLanguage", "Survey", new { Language = ConstantStringResources.cENGLISH_CULTURE }, new { @class = "navbar-brand" })</span>
+                            break;
+                        default:
+                            <span class="nav-link">@Html.ActionLink(Captions.ARABIC_LANGUAGE, "SetLanguage", "Survey", new { Language = ConstantStringResources.cARABIC_CULTURE }, new { @class = "navbar-brand" })</span>
+                            break;
+                    }
+
+                }
+            </span>
 
         </div>
     </div>

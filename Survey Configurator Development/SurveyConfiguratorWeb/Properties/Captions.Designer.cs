@@ -88,6 +88,15 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ascending.
+        /// </summary>
+        public static string ASCENDING {
+            get {
+                return ResourceManager.GetString("ASCENDING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CANCEL_BUTTON {
@@ -115,6 +124,15 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string DEFAULT {
+            get {
+                return ResourceManager.GetString("DEFAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string DELETE {
@@ -138,6 +156,15 @@ namespace SurveyConfiguratorWeb.Properties {
         public static string DELETE_CONFIRMATION_TITLE {
             get {
                 return ResourceManager.GetString("DELETE_CONFIRMATION_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descending.
+        /// </summary>
+        public static string DESCENDING {
+            get {
+                return ResourceManager.GetString("DESCENDING", resourceCulture);
             }
         }
         

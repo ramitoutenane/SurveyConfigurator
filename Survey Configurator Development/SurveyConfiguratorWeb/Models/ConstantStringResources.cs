@@ -16,5 +16,6 @@ namespace SurveyConfiguratorWeb.Models
         public const string cENGLISH_CULTURE = "en";
         public const string cSESSION_KEY_LANGUAGE = "language";
         public const string cERROR_VIEW = "ErrorView";
+        public const string cINDEX_ACTION = "Index";
     }
 }

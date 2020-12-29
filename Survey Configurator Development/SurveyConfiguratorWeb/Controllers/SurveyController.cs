@@ -18,7 +18,24 @@ namespace SurveyConfiguratorWeb.Controllers
 {
     public class SurveyController : Controller
     {
+
         private IQuestionRepository mQuestionManager;
+        protected override void OnActionExecuting(ActionExecutingContext pFilterContext)
+        {
+            try
+            {
+                ApplySessionLanguage();
+            }
+            catch(Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
+            finally
+            {
+                base.OnActionExecuting(pFilterContext);
+            }
+
+        }
         public SurveyController(IQuestionRepository pQuestionManager)
         {
             try
@@ -26,7 +43,7 @@ namespace SurveyConfiguratorWeb.Controllers
 
                 mQuestionManager = pQuestionManager;
                 mQuestionManager.RefreshQuestionList();
-             
+
             }
             catch (Exception pError)
             {
@@ -38,7 +55,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                ApplySesstionLanguage();
                 var tModel = mQuestionManager.QuestionsList;
                 return View(tModel);
 
@@ -50,16 +66,15 @@ namespace SurveyConfiguratorWeb.Controllers
             }
         }
         [HttpGet]
-        public ActionResult Edit(int? Id)
+        public ActionResult Edit([Bind(Prefix = "Id")] int? pId)
         {
             try
             {
-                ApplySesstionLanguage();
-                if (Id == null)
+                if (pId == null)
                     return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.INVALID_QUESTION_ID_TITLE, ErrorMessage = Errors.INVALID_QUESTION_ID_MESSAGE });
 
                 BaseQuestion tQuestion;
-                Result tReadResult = mQuestionManager.Read(Id.Value, out tQuestion);
+                Result tReadResult = mQuestionManager.Read(pId.Value, out tQuestion);
                 if (tReadResult.Value == ResultValue.Success)
                     return View(tQuestion);
                 else if (tReadResult.Value == ResultValue.Error)
@@ -80,7 +95,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                ApplySesstionLanguage();
                 //validate slider question start value less than end value
                 if (pQuestion.Type == QuestionType.Slider)
                     ValidateSlider(pQuestion as SliderQuestion);
@@ -88,7 +102,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 {
                     Result tResult = mQuestionManager.Update(pQuestion);
                     if (tResult.Value == ResultValue.Success)
-                        return RedirectToAction("Index");
+                        return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
                     else
                     {
                         ViewBag.MessageTitle = Errors.UPDATE_ERROR_TITLE;
@@ -108,7 +122,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                ApplySesstionLanguage();
                 if (pQuestionType == null)
                     return View(ConstantStringResources.cERROR_VIEW,
                         new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
@@ -138,7 +151,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                ApplySesstionLanguage();
                 //validate slider question start value less than end value
                 if (pQuestion.Type == QuestionType.Slider)
                     ValidateSlider(pQuestion as SliderQuestion);
@@ -146,7 +158,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 {
                     Result tResult = mQuestionManager.Create(pQuestion);
                     if (tResult.Value == ResultValue.Success)
-                        return RedirectToAction("Index");
+                        return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
                     else
                     {
                         ViewBag.MessageTitle = Errors.INSERT_ERROR_TITLE;
@@ -167,16 +179,15 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                ApplySesstionLanguage();
                 Result tResult = mQuestionManager.Delete(pId);
                 if (tResult.Value == ResultValue.Success)
-                    return RedirectToAction("Index");
+                    return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
                 else
                 {
                     ViewBag.MessageTitle = Errors.DELETE_ERROR_TITLE;
                     ViewBag.Message = Errors.DELETE_ERROR_MESSAGE;
                     var tModel = mQuestionManager.QuestionsList;
-                    return View("Index", tModel);
+                    return View(ConstantStringResources.cINDEX_ACTION, tModel);
                 }
             }
             catch (Exception pError)
@@ -189,7 +200,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                
                 Result tResult = mQuestionManager.RefreshQuestionList();
                 if (tResult.Value != ResultValue.Success)
                     return new HttpStatusCodeResult(500);
@@ -212,11 +222,10 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                ApplySesstionLanguage();
                 if (ChangeCulture(pSelectedCalture))
                 {
                     Session[ConstantStringResources.cSESSION_KEY_LANGUAGE] = pSelectedCalture;
-                    return RedirectToAction("Index");
+                    return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
                 }
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
@@ -229,11 +238,12 @@ namespace SurveyConfiguratorWeb.Controllers
         [NonAction]
         private string MD5CheckSum(string pInput)
         {
+            try { 
             // Use input string to calculate MD5 hash
-            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            using (System.Security.Cryptography.MD5 tMD5 = System.Security.Cryptography.MD5.Create())
             {
                 byte[] tInputBytes = System.Text.Encoding.ASCII.GetBytes(pInput);
-                byte[] tHashBytes = md5.ComputeHash(tInputBytes);
+                byte[] tHashBytes = tMD5.ComputeHash(tInputBytes);
 
                 // Convert the byte array to hexadecimal string
                 StringBuilder tStringBuilder = new StringBuilder();
@@ -242,6 +252,11 @@ namespace SurveyConfiguratorWeb.Controllers
                     tStringBuilder.Append(tHashBytes[i].ToString("X2"));
                 }
                 return tStringBuilder.ToString();
+            }
+            }catch(Exception pError)
+            {
+                ErrorLogger.Log(pError);
+                return String.Empty;
             }
         }
         [NonAction]
@@ -276,7 +291,7 @@ namespace SurveyConfiguratorWeb.Controllers
 
         }
         [NonAction]
-        private void ApplySesstionLanguage()
+        private void ApplySessionLanguage()
         {
             try
             {
@@ -290,6 +305,5 @@ namespace SurveyConfiguratorWeb.Controllers
                 ErrorLogger.Log(pError);
             }
         }
-
     }
 }
