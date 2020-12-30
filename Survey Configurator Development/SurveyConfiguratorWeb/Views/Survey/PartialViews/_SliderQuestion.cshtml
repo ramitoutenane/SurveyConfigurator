@@ -2,6 +2,7 @@
 @using SurveyConfiguratorWeb.Properties
 @using SurveyConfiguratorEntities
 @using SurveyConfiguratorWeb.Models
+https://github.com/ramitoutenane/SurveyConfigurator
 <div class="form-group">
     @Html.LabelFor(model => model.StartValueCaption, Captions.QUESTION_START_CAPTION, htmlAttributes: new { @class = "control-label" })
     <div>
@@ -12,7 +13,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.StartValue, Captions.QUESTION_START_VALUE, htmlAttributes: new { @class = "control-label" })
     <div>
-        @Html.EditorFor(model => model.StartValue, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.EditorFor(model => model.StartValue, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.StartValue, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -26,7 +27,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.EndValue, Captions.QUESTION_END_VALUE, htmlAttributes: new { @class = "control-label" })
     <div>
-        @Html.EditorFor(model => model.EndValue, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.EditorFor(model => model.EndValue, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.EndValue, "", new { @class = "text-danger" })
     </div>
 </div>
