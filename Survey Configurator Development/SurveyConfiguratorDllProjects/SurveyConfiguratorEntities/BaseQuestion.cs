@@ -19,6 +19,7 @@ namespace SurveyConfiguratorEntities
         public BaseQuestion(QuestionType pType)
         {
             Type = pType;
+            Order = QuestionValidationValues.cQUESTION_ORDER_MIN;
         }
         /// <summary>
         /// Question constructor to initialize common data between question types

@@ -121,7 +121,7 @@
     <value>حدث خطأ أثناء حذف السؤال</value>
   </data>
   <data name="DELETE_ERROR_TITLE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>خطأ أثناء حذف</value>
   </data>
   <data name="GENERAL_ERROR_MESSAGE" xml:space="preserve">
     <value>حدث خطأ في النظام , يرجى التواصل مع مسؤول النظام</value>
@@ -133,25 +133,25 @@
     <value>حدث خطأ أثناء إضافة السؤال</value>
   </data>
   <data name="INSERT_ERROR_TITLE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>خطأ أثناء الإضافة</value>
   </data>
   <data name="INVALID_QUESTION_ID_MESSAGE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>رقم السؤال الذي اخترته غير صحيح</value>
   </data>
   <data name="INVALID_QUESTION_ID_TITLE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>رقم السؤال خاطئ</value>
   </data>
   <data name="INVALID_TYPE_MESSAGE" xml:space="preserve">
     <value>نوع السؤال الذي اخترته غير صحيح</value>
   </data>
   <data name="INVALID_TYPE_TITLE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>نوع السؤال خاطئ</value>
   </data>
   <data name="QUESTION_NOT_FOUND_MESSAGE" xml:space="preserve">
     <value>السؤال المطلوب غير متوفر</value>
   </data>
   <data name="QUESTION_NOT_FOUND_TITLE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>غير متوفر</value>
   </data>
   <data name="START_LARGER_THAN_END_ERROR" xml:space="preserve">
     <value>قيمة البداية يجب أن تكون أقل من قيمة النهاية</value>
@@ -163,6 +163,6 @@
     <value>حدث خطأ أثناء تعديل السؤال</value>
   </data>
   <data name="UPDATE_ERROR_TITLE" xml:space="preserve">
-    <value>خطأ</value>
+    <value>خطأ أثناء التحديث</value>
   </data>
 </root>

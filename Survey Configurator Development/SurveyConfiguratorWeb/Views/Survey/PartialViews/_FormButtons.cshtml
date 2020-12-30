@@ -1,7 +1,8 @@
 ﻿@using SurveyConfiguratorWeb.Properties
+@using SurveyConfiguratorWeb.Models 
 <div class="form-group">
     <div class="btn-group">
         <input type="submit" value="@Captions.SAVE_BUTTON" class="btn btn-success" />
-        <input type="button" value="@Captions.CANCEL_BUTTON" class="btn btn-danger" onclick="location.href = '@Url.Action("Index")'"  />
+        <input type="button" value="@Captions.CANCEL_BUTTON" class="btn btn-danger" onclick="location.href = '@Url.Action(ConstantStringResources.cINDEX_ACTION)'"  />
     </div>
 </div>

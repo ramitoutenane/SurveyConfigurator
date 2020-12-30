@@ -118,54 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EMPTY_END_CAPTION_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك عنوان قيمة النهاية فارغ</value>
   </data>
   <data name="EMPTY_END_VALUE_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك قيمة النهاية فارغة</value>
   </data>
   <data name="EMPTY_FACES_NUMBER_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك عدد الوجوه فارغ</value>
   </data>
   <data name="EMPTY_ORDER_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك ترتيب السؤال فارغ</value>
   </data>
   <data name="EMPTY_QUESTION_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك نص السؤال فارغ</value>
   </data>
   <data name="EMPTY_STARS_NUMBER_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك عدد النجوم فارغ</value>
   </data>
   <data name="EMPTY_START_CAPTION_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك عنوان  قيمة البداية فارغ</value>
   </data>
   <data name="EMPTY_START_VALUE_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>لا يمكن ترك قيمة البداية فارغة</value>
   </data>
   <data name="END_CAPTION_LENGTH_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن يكون طول النص بين 1 و 25</value>
   </data>
   <data name="END_VALUE_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن تكون قيمة النهاية بين قيمة البداية و 100</value>
   </data>
   <data name="FACES_NUMBER_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن يكون عدد الوجوه بين 2 و 5</value>
   </data>
   <data name="ORDER_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يحب أن يكون ترتيب السؤال أكبر من 0</value>
   </data>
   <data name="QUESTION_LENGTH_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن يكون طول النص بين 1 و 100</value>
   </data>
   <data name="STARS_NUMBER_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن يكون عدد الوجوه بين 1 و 10</value>
   </data>
   <data name="START_CAPTION_LENGTH_ERROR" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن يكون طول النص بين 1 و 25</value>
   </data>
   <data name="START_VALUE_ERROR" xml:space="preserve">
-    <value>عربي</value>
-  </data>
-  <data name="String" xml:space="preserve">
-    <value>عربي</value>
+    <value>يجب أن تكون قيمة النهاية بين 1 و قيمة النهاية</value>
   </data>
 </root>

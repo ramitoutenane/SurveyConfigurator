@@ -196,7 +196,7 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eng.
+        ///   Looks up a localized string similar to English.
         /// </summary>
         public static string ENGLISH_LANGUAGE {
             get {
@@ -309,6 +309,15 @@ namespace SurveyConfiguratorWeb.Properties {
         public static string SAVE_BUTTON {
             get {
                 return ResourceManager.GetString("SAVE_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string SEARCH {
+            get {
+                return ResourceManager.GetString("SEARCH", resourceCulture);
             }
         }
         

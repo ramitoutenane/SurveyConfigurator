@@ -14,7 +14,7 @@ namespace SurveyConfiguratorWeb.Models
                 if (pModelType.Equals(typeof(BaseQuestion)))
                 {
                     Type tQuestionType = null;
-                    int tTypeId = (int)pBindingContext.ValueProvider.GetValue("TypeId").ConvertTo(typeof(int));
+                    int tTypeId = (int)pBindingContext.ValueProvider.GetValue(ConstantStringResources.cTYPE_ID).ConvertTo(typeof(int));
                     switch (tTypeId)
                     {
                         case (int)QuestionType.Slider:

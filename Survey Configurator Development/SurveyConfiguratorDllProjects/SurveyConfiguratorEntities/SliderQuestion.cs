@@ -16,7 +16,11 @@ namespace SurveyConfiguratorEntities
         private string mEndValueCaption;
         #endregion
         #region Constructor
-        public SliderQuestion() : base(QuestionType.Slider) { }
+        public SliderQuestion() : base(QuestionType.Slider) 
+        {
+            StartValue = QuestionValidationValues.cSTART_VALUE_MIN;
+            EndValue = QuestionValidationValues.cEND_VALUE_MAX;
+        }
         /// <summary>
         /// Slider question constructor to initialize new slider question
         /// </summary>

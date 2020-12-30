@@ -12,7 +12,10 @@ namespace SurveyConfiguratorEntities
         private int nNumberOfStars;
         #endregion
         #region Constructor
-        public StarsQuestion() : base(QuestionType.Stars) { }
+        public StarsQuestion() : base(QuestionType.Stars) 
+        {
+            NumberOfStars = QuestionValidationValues.cSTARS_NUMBER_MIN;
+        }
         /// <summary>
         /// Stars question constructor to initialize new stars question
         /// </summary>

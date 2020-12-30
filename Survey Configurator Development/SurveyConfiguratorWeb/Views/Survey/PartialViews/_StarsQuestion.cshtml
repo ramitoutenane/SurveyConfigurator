@@ -9,4 +9,4 @@
         @Html.ValidationMessageFor(model => model.NumberOfStars, "", new { @class = "text-danger" })
     </div>
 </div>
-@Html.Hidden("TypeId", (int)QuestionType.Stars)
+@Html.Hidden(ConstantStringResources.cTYPE_ID, (int)QuestionType.Stars)

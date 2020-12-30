@@ -163,7 +163,7 @@
     <value>تعديل سؤال</value>
   </data>
   <data name="ENGLISH_LANGUAGE" xml:space="preserve">
-    <value>Eng</value>
+    <value>English</value>
   </data>
   <data name="LIST_PAGE_HEADER" xml:space="preserve">
     <value>قائمة الاسئلة</value>
@@ -200,6 +200,9 @@
   </data>
   <data name="SAVE_BUTTON" xml:space="preserve">
     <value>حفظ</value>
+  </data>
+  <data name="SEARCH" xml:space="preserve">
+    <value>بحث</value>
   </data>
   <data name="SLIDER_QUESTION" xml:space="preserve">
     <value>شريط تمرير</value>

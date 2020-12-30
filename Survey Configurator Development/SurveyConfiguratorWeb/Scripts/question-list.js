@@ -1,13 +1,15 @@
 ﻿let Data = {};
 let SortedData = {};
 let SortOption = null;
+let AutoRefresh = null;
 
 function StartAutoRefresh(pInterval) {
     if (pInterval == null || isNaN(pInterval))
         pInterval = 20000;
-    window.setInterval(function () {
+    AutoRefresh = setInterval(function () {
         let tHash = md5((JSON.stringify(Data))).toUpperCase();
         GetQuestionList(tHash);
+        console.log("aaa");
     }, pInterval);
 }
 
@@ -43,7 +45,7 @@ function PopulateTable(pData) {
                         <td>${pData[i].Order}</td>
                         <td>${pData[i].TypeString}</td>
                         <td>
-                            <a href="/Survey/Edit/${pData[i].Id}" class="edit"  data-toggle="tooltip" > <i class="material-icons">&#xE254;</i></a >
+                            <a href="/Survey/Edit/${pData[i].Id}" class="edit" data-toggle="tooltip" > <i class="material-icons">&#xE254;</i></a >
                             <a href="#" onclick= ShowDeleteDialog(${pData[i].Id}); class="delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -58,6 +60,8 @@ function ShowTableError() {
     $("#TableError").removeClass("hidden");
     $("#loader").addClass("hidden")
     $("#QuestionTable").addClass("hidden");
+    if(AutoRefresh != null)
+        clearInterval(AutoRefresh);
 }
 
 function SortTable(pSortOption) {
@@ -72,8 +76,6 @@ function SortTable(pSortOption) {
         tSortMethod = SortOption.value
         tOrder = $(SortOption).children("option:selected").data('order')
         SortedData = Data;
-        console.log(tSortMethod);
-        console.log(tOrder);
         if (tOrder == 'asc') {
             SortedData.sort((a, b) => a[tSortMethod] > b[tSortMethod] ? 1 : -1)
         } else {
@@ -82,3 +84,53 @@ function SortTable(pSortOption) {
         PopulateTable(SortedData)
     }
 }
+
+/*
+$(document).ready(function () {
+    $('#QuestionSearchBox')[0].onkeyup = function () {
+        val = $('#QuestionSearchBox')[0].value;
+        if (val == '') {
+            PopulateTable(SortedData);
+        }
+    };
+});
+
+function FilterQuestionList(pValue, pData) {
+    let tFilteredData = [];
+    pValue = pValue.toLowerCase();
+    for (let i = 0; i < pData.length; i++) {
+        let tQuestion = pData[i];
+        let tText = tQuestion.Text.toString().toLowerCase();
+        let tOrder = tQuestion.Order.toString().toLowerCase();
+        let tType = tQuestion.Type.toString().toLowerCase();
+
+        if (tText.includes(pValue)) {
+            tFilteredData.push(tQuestion);
+            continue;
+
+        }
+        if (tOrder.includes(pValue)) {
+            tFilteredData.push(tQuestion);
+            continue;
+        }
+        if (tType.includes(pValue)) {
+            tFilteredData.push(tQuestion);
+            continue;
+        }
+    }
+    return tFilteredData;
+}
+
+function UpdateQuestionTable() {
+    if (SortedData != null && SortedData.length > 0) {
+        let tValue = $('#QuestionSearchBox')[0].value;
+        if (tValue == '')
+            PopulateTable(SortedData);
+        else {
+            let tFilteredData = FilterQuestionList(tValue, SortedData);
+            PopulateTable(tFilteredData);
+        }
+    }
+    return false;
+}
+*/

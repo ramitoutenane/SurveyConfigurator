@@ -12,7 +12,10 @@ namespace SurveyConfiguratorEntities
         private int mNumberOfFaces;
         #endregion
         #region Constructor
-        public SmileyQuestion():base(QuestionType.Smiley){}
+        public SmileyQuestion():base(QuestionType.Smiley)
+        {
+            NumberOfFaces = QuestionValidationValues.cFACES_NUMBER_MIN;
+        }
         /// <summary>
         /// Smiley question constructor to initialize new smiley question
         /// </summary>

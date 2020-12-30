@@ -1,6 +1,7 @@
 ﻿@model SurveyConfiguratorEntities.SliderQuestion
 @using SurveyConfiguratorWeb.Properties
 @using SurveyConfiguratorEntities
+@using SurveyConfiguratorWeb.Models
 <div class="form-group">
     @Html.LabelFor(model => model.StartValueCaption, Captions.QUESTION_START_CAPTION, htmlAttributes: new { @class = "control-label" })
     <div>
@@ -29,4 +30,4 @@
         @Html.ValidationMessageFor(model => model.EndValue, "", new { @class = "text-danger" })
     </div>
 </div>
-@Html.Hidden("TypeId", (int)QuestionType.Slider)
+@Html.Hidden(ConstantStringResources.cTYPE_ID, (int)QuestionType.Slider)

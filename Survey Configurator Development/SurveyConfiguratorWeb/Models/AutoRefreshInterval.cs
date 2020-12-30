@@ -11,11 +11,17 @@ namespace SurveyConfiguratorWeb.Models
         public static readonly int mAutoRefreshInterval;
         static AutoRefreshInterval()
         {
-            string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
-            if (!int.TryParse(tConfigRefreshInterval, out mAutoRefreshInterval) || mAutoRefreshInterval < 20000)
+            try
             {
-                mAutoRefreshInterval = 20000;
-                ErrorLogger.Log(QuestionManaging.ErrorMessages.cREFRESH_INTERVAL_WARNING);
+                string tConfigRefreshInterval = ConfigurationManager.AppSettings[ConstantStringResources.cAUTO_REFRESH_INTERVAL];
+                if (!int.TryParse(tConfigRefreshInterval, out mAutoRefreshInterval) || mAutoRefreshInterval < 20000)
+                {
+                    mAutoRefreshInterval = 20000;
+                    ErrorLogger.Log(QuestionManaging.ErrorMessages.cREFRESH_INTERVAL_WARNING);
+                }
+            }catch(Exception pError)
+            {
+                ErrorLogger.Log(pError);
             }
         }
     }

@@ -10,6 +10,12 @@
 <div class="container">
     <div class="page-header"> @Captions.LIST_PAGE_HEADER </div>
     <div class="table-wrapper">
+            <div class="search-container" hidden>
+                <form onsubmit="event.preventDefault();">
+                    <input type="text" placeholder=@Captions.SEARCH name="search" id="QuestionSearchBox">
+                    <button type="submit" onclick="UpdateQuestionTable();"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
         <div class="row">
             <div class="sort-dropdown">
                 <span>@Captions.SORT:</span>
@@ -29,9 +35,9 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="@Url.Action("Create",new {QuestionType = QuestionType.Slider})">@Captions.SLIDER_QUESTION</a></li>
-                    <li><a href="@Url.Action("Create",new {QuestionType = QuestionType.Stars})">@Captions.STARS_QUESTION</a></li>
-                    <li><a href="@Url.Action("Create",new {QuestionType = QuestionType.Smiley})">@Captions.SMILEY_QUESTION</a></li>
+                    <li><a href="@Url.Action(ConstantStringResources.cCREATE_ACTION,new RouteValueDictionary { { ConstantStringResources.cACTION_PREFIX_QuestionType, QuestionType.Slider } })">@Captions.SLIDER_QUESTION</a></li>
+                    <li><a href="@Url.Action(ConstantStringResources.cCREATE_ACTION,new RouteValueDictionary { { ConstantStringResources.cACTION_PREFIX_QuestionType, QuestionType.Stars } })">@Captions.STARS_QUESTION</a></li>
+                    <li><a href="@Url.Action(ConstantStringResources.cCREATE_ACTION,new RouteValueDictionary { { ConstantStringResources.cACTION_PREFIX_QuestionType, QuestionType.Smiley } })">@Captions.SMILEY_QUESTION</a></li>
                 </ul>
             </div>
         </div>

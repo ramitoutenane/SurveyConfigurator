@@ -16,34 +16,15 @@ using System.Web.Mvc;
 
 namespace SurveyConfiguratorWeb.Controllers
 {
-    public class SurveyController : Controller
+    public class SurveyController : BaseController
     {
-
         private IQuestionRepository mQuestionManager;
-        protected override void OnActionExecuting(ActionExecutingContext pFilterContext)
-        {
-            try
-            {
-                ApplySessionLanguage();
-            }
-            catch(Exception pError)
-            {
-                ErrorLogger.Log(pError);
-            }
-            finally
-            {
-                base.OnActionExecuting(pFilterContext);
-            }
-
-        }
         public SurveyController(IQuestionRepository pQuestionManager)
         {
             try
             {
-
                 mQuestionManager = pQuestionManager;
                 mQuestionManager.RefreshQuestionList();
-
             }
             catch (Exception pError)
             {
@@ -57,7 +38,6 @@ namespace SurveyConfiguratorWeb.Controllers
             {
                 var tModel = mQuestionManager.QuestionsList;
                 return View(tModel);
-
             }
             catch (Exception pError)
             {
@@ -66,7 +46,7 @@ namespace SurveyConfiguratorWeb.Controllers
             }
         }
         [HttpGet]
-        public ActionResult Edit([Bind(Prefix = "Id")] int? pId)
+        public ActionResult Edit([Bind(Prefix = ConstantStringResources.cACTION_PREFIX_ID)] int? pId)
         {
             try
             {
@@ -118,7 +98,7 @@ namespace SurveyConfiguratorWeb.Controllers
             }
         }
         [HttpGet]
-        public ActionResult Create([Bind(Prefix = "QuestionType")] QuestionType? pQuestionType)
+        public ActionResult Create([Bind(Prefix = ConstantStringResources.cACTION_PREFIX_QuestionType)] QuestionType? pQuestionType)
         {
             try
             {
@@ -196,7 +176,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
-        public ActionResult QuestionList([Bind(Prefix = "Hash")] string pClientHash)
+        public ActionResult QuestionList([Bind(Prefix = ConstantStringResources.cACTION_PREFIX_HASH)] string pClientHash)
         {
             try
             {
@@ -218,14 +198,14 @@ namespace SurveyConfiguratorWeb.Controllers
                 return new HttpStatusCodeResult(500);
             }
         }
-        public ActionResult SetLanguage([Bind(Prefix = "Language")] string pSelectedCalture)
+        public ActionResult SetLanguage([Bind(Prefix = ConstantStringResources.cACTION_PREFIX_LANGUAGE)] string pSelectedCalture)
         {
             try
             {
                 if (ChangeCulture(pSelectedCalture))
                 {
                     Session[ConstantStringResources.cSESSION_KEY_LANGUAGE] = pSelectedCalture;
-                    return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
+                    return Redirect(Request.UrlReferrer.ToString());
                 }
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
@@ -238,22 +218,24 @@ namespace SurveyConfiguratorWeb.Controllers
         [NonAction]
         private string MD5CheckSum(string pInput)
         {
-            try { 
-            // Use input string to calculate MD5 hash
-            using (System.Security.Cryptography.MD5 tMD5 = System.Security.Cryptography.MD5.Create())
+            try
             {
-                byte[] tInputBytes = System.Text.Encoding.ASCII.GetBytes(pInput);
-                byte[] tHashBytes = tMD5.ComputeHash(tInputBytes);
-
-                // Convert the byte array to hexadecimal string
-                StringBuilder tStringBuilder = new StringBuilder();
-                for (int i = 0; i < tHashBytes.Length; i++)
+                // Use input string to calculate MD5 hash
+                using (System.Security.Cryptography.MD5 tMD5 = System.Security.Cryptography.MD5.Create())
                 {
-                    tStringBuilder.Append(tHashBytes[i].ToString("X2"));
+                    byte[] tInputBytes = System.Text.Encoding.ASCII.GetBytes(pInput);
+                    byte[] tHashBytes = tMD5.ComputeHash(tInputBytes);
+
+                    // Convert the byte array to hexadecimal string
+                    StringBuilder tStringBuilder = new StringBuilder();
+                    for (int i = 0; i < tHashBytes.Length; i++)
+                    {
+                        tStringBuilder.Append(tHashBytes[i].ToString("X2"));
+                    }
+                    return tStringBuilder.ToString();
                 }
-                return tStringBuilder.ToString();
             }
-            }catch(Exception pError)
+            catch (Exception pError)
             {
                 ErrorLogger.Log(pError);
                 return String.Empty;
@@ -270,37 +252,6 @@ namespace SurveyConfiguratorWeb.Controllers
                     ModelState.AddModelError(nameof(SliderQuestion.StartValue), Errors.START_LARGER_THAN_END_ERROR);
             }
             catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-            }
-        }
-        [NonAction]
-        private bool ChangeCulture(string pSelectedCalture)
-        {
-            try
-            {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(pSelectedCalture);
-                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(pSelectedCalture);
-                return true;
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return false;
-            }
-
-        }
-        [NonAction]
-        private void ApplySessionLanguage()
-        {
-            try
-            {
-                if (Session[ConstantStringResources.cSESSION_KEY_LANGUAGE] != null)
-                {
-                    ChangeCulture(Session[ConstantStringResources.cSESSION_KEY_LANGUAGE].ToString());
-                }
-            }
-            catch(Exception pError)
             {
                 ErrorLogger.Log(pError);
             }

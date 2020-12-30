@@ -167,3 +167,33 @@ textarea {
         transform: rotate(360deg);
     }
 }
+
+.search-container {
+    width:100%;
+}
+
+    .search-container form {
+        margin: 0 20px 0 0;
+        text-align: right;
+    }
+.search-container input[type=text] {
+    padding: 6px;
+    font-size: 1em;
+    max-width:100%;
+    width:93%;
+    border-radius: 5px;
+}
+
+    .search-container button {
+        width: 6%;
+        padding: 6px 10px;
+        background: #ddd;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+.search-container button:hover {
+        background: #ccc;
+    }
+
