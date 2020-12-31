@@ -233,5 +233,3 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\ar\SurveyConfiguratorEntities.resources.dll
-C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Views.Shared.ValidationMessages.resources
-C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Views.Shared.ValidationMessages.ar.resources

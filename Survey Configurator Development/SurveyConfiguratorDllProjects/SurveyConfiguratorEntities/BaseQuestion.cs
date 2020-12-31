@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace SurveyConfiguratorEntities
 {
@@ -50,7 +51,7 @@ namespace SurveyConfiguratorEntities
         public string Text
         {
             get => mText;
-            set { mText = value; }
+            set {mText = value;}
         }
         [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_ORDER_ERROR")]
         [Range(QuestionValidationValues.cQUESTION_ORDER_MIN,int.MaxValue,ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "ORDER_ERROR")]

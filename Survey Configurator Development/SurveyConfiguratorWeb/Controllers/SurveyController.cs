@@ -32,7 +32,7 @@ namespace SurveyConfiguratorWeb.Controllers
             }
 
         }
-        public ActionResult Index()
+        public ActionResult Home()
         {
             try
             {
@@ -82,7 +82,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 {
                     Result tResult = mQuestionManager.Update(pQuestion);
                     if (tResult.Value == ResultValue.Success)
-                        return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
+                        return RedirectToAction(ConstantStringResources.cHOME_ACTION);
                     else
                     {
                         ViewBag.MessageTitle = Errors.UPDATE_ERROR_TITLE;
@@ -138,7 +138,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 {
                     Result tResult = mQuestionManager.Create(pQuestion);
                     if (tResult.Value == ResultValue.Success)
-                        return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
+                        return RedirectToAction(ConstantStringResources.cHOME_ACTION);
                     else
                     {
                         ViewBag.MessageTitle = Errors.INSERT_ERROR_TITLE;
@@ -161,13 +161,13 @@ namespace SurveyConfiguratorWeb.Controllers
             {
                 Result tResult = mQuestionManager.Delete(pId);
                 if (tResult.Value == ResultValue.Success)
-                    return RedirectToAction(ConstantStringResources.cINDEX_ACTION);
+                    return RedirectToAction(ConstantStringResources.cHOME_ACTION);
                 else
                 {
                     ViewBag.MessageTitle = Errors.DELETE_ERROR_TITLE;
                     ViewBag.Message = Errors.DELETE_ERROR_MESSAGE;
                     var tModel = mQuestionManager.QuestionsList;
-                    return View(ConstantStringResources.cINDEX_ACTION, tModel);
+                    return View(ConstantStringResources.cHOME_ACTION, tModel);
                 }
             }
             catch (Exception pError)

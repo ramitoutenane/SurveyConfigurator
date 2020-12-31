@@ -181,16 +181,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Errors.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\ValidationMessages.ar.Designer.cs">
-      <DependentUpon>ValidationMessages.ar.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\ValidationMessages.Designer.cs">
-      <DependentUpon>ValidationMessages.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -323,7 +313,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\ErrorView.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Survey\Index.cshtml" />
+    <Content Include="Views\Survey\Home.cshtml" />
     <Content Include="Views\Survey\Edit.cshtml" />
     <Content Include="Views\Survey\PartialViews\_SmileyQuestion.cshtml" />
     <Content Include="Views\Survey\PartialViews\_StarsQuestion.cshtml" />
@@ -389,14 +379,6 @@
     <EmbeddedResource Include="Properties\Errors.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Errors.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\ValidationMessages.ar.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationMessages.ar.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\ValidationMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

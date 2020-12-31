@@ -17,16 +17,14 @@ namespace SurveyConfiguratorWeb.Models
         public const string cENGLISH_CULTURE = "en";
         public const string cSESSION_KEY_LANGUAGE = "language";
         public const string cSURVEY_CONTROLLER = "Survey";
-        public const string cINDEX_ACTION = "Index";
+        public const string cHOME_ACTION = "Home";
         public const string cCREATE_ACTION = "Create";
         public const string cDELETE_ACTION = "Delete";
         public const string cSET_LANGUAGE_ACTION = "SetLanguage";
         public const string cERROR_VIEW = "ErrorView";
         public const string cACTION_PREFIX_ID = "id";
-        public const string cACTION_PREFIX_HASH = "index";
+        public const string cACTION_PREFIX_HASH = "Hash";
         public const string cACTION_PREFIX_LANGUAGE = "language"; 
         public const string cACTION_PREFIX_QuestionType = "question_type";
-
-        
     }
 }

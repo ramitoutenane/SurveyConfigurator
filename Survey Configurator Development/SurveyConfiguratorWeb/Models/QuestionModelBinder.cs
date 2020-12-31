@@ -1,6 +1,7 @@
 ﻿
 using SurveyConfiguratorEntities;
 using System;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace SurveyConfiguratorWeb.Models
@@ -13,6 +14,9 @@ namespace SurveyConfiguratorWeb.Models
             {
                 if (pModelType.Equals(typeof(BaseQuestion)))
                 {
+                    string tText = pControllerContext.HttpContext.Request.Form["Text"];
+                    tText = Regex.Replace(tText, @"\r\n?", "\n");
+
                     Type tQuestionType = null;
                     int tTypeId = (int)pBindingContext.ValueProvider.GetValue(ConstantStringResources.cTYPE_ID).ConvertTo(typeof(int));
                     switch (tTypeId)
