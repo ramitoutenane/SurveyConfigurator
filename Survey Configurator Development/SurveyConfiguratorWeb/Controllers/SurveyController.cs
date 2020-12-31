@@ -75,9 +75,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                //validate slider question start value less than end value
-                if (pQuestion.Type == QuestionType.Slider)
-                    ValidateSlider(pQuestion as SliderQuestion);
                 if (ModelState.IsValid)
                 {
                     Result tResult = mQuestionManager.Update(pQuestion);
@@ -131,9 +128,6 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                //validate slider question start value less than end value
-                if (pQuestion.Type == QuestionType.Slider)
-                    ValidateSlider(pQuestion as SliderQuestion);
                 if (ModelState.IsValid)
                 {
                     Result tResult = mQuestionManager.Create(pQuestion);
@@ -239,21 +233,6 @@ namespace SurveyConfiguratorWeb.Controllers
             {
                 ErrorLogger.Log(pError);
                 return String.Empty;
-            }
-        }
-        [NonAction]
-        private void ValidateSlider(SliderQuestion pSliderQuestion)
-        {
-            try
-            {
-                //add start value less than end value validation to model
-                //all other validations are set using data annotation attributes
-                if (pSliderQuestion.StartValue >= pSliderQuestion.EndValue)
-                    ModelState.AddModelError(nameof(SliderQuestion.StartValue), Errors.START_LARGER_THAN_END_ERROR);
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
             }
         }
     }

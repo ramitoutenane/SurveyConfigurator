@@ -147,6 +147,9 @@
   <data name="INVALID_TYPE_TITLE" xml:space="preserve">
     <value>Invalid question type</value>
   </data>
+  <data name="QUESTION_LENGTH_ERROR" xml:space="preserve">
+    <value>Question text length must be between 1 and 100</value>
+  </data>
   <data name="QUESTION_NOT_FOUND_MESSAGE" xml:space="preserve">
     <value>The requested question could not be found</value>
   </data>

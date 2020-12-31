@@ -151,6 +151,15 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question text length must be between 1 and 100.
+        /// </summary>
+        public static string QUESTION_LENGTH_ERROR {
+            get {
+                return ResourceManager.GetString("QUESTION_LENGTH_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The requested question could not be found.
         /// </summary>
         public static string QUESTION_NOT_FOUND_MESSAGE {

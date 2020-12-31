@@ -153,9 +153,6 @@
   <data name="ORDER_ERROR" xml:space="preserve">
     <value>Question order must be larger than 0</value>
   </data>
-  <data name="QUESTION_LENGTH_ERROR" xml:space="preserve">
-    <value>Question text length must be between 1 and 100</value>
-  </data>
   <data name="STARS_NUMBER_ERROR" xml:space="preserve">
     <value>Number of stars must between 1 and 10</value>
   </data>

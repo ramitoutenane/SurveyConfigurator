@@ -147,6 +147,9 @@
   <data name="INVALID_TYPE_TITLE" xml:space="preserve">
     <value>نوع السؤال خاطئ</value>
   </data>
+  <data name="QUESTION_LENGTH_ERROR" xml:space="preserve">
+    <value>يجب أن يكون طول النص بين 1 و 100</value>
+  </data>
   <data name="QUESTION_NOT_FOUND_MESSAGE" xml:space="preserve">
     <value>السؤال المطلوب غير متوفر</value>
   </data>

@@ -46,12 +46,23 @@ namespace SurveyConfiguratorEntities
         #endregion
         #region Properties definition
         [Required(ErrorMessageResourceType =typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_QUESTION_ERROR")]
-        [MaxLength(QuestionValidationValues.cQUESTION_TEXT_LENGTH,ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "QUESTION_LENGTH_ERROR")]
         [DataType(DataType.MultilineText)]
         public string Text
         {
             get => mText;
-            set {mText = value;}
+            set {
+                try
+                {
+                    string tText = Regex.Replace(value, @"\r\n?", "\n");
+                    mText = tText;
+                }
+                catch(Exception pError)
+                {
+                    ErrorLogger.Log(pError);
+                    mText = value;
+                }
+                
+            }
         }
         [Required(ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "EMPTY_ORDER_ERROR")]
         [Range(QuestionValidationValues.cQUESTION_ORDER_MIN,int.MaxValue,ErrorMessageResourceType = typeof(Properties.ValidationMessages), ErrorMessageResourceName = "ORDER_ERROR")]

@@ -169,15 +169,6 @@ namespace SurveyConfiguratorEntities.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question text length must be between 1 and 100.
-        /// </summary>
-        internal static string QUESTION_LENGTH_ERROR {
-            get {
-                return ResourceManager.GetString("QUESTION_LENGTH_ERROR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Number of stars must between 1 and 10.
         /// </summary>
         internal static string STARS_NUMBER_ERROR {

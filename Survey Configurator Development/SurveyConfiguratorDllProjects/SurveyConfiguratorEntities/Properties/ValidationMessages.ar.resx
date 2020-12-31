@@ -153,9 +153,6 @@
   <data name="ORDER_ERROR" xml:space="preserve">
     <value>يحب أن يكون ترتيب السؤال أكبر من 0</value>
   </data>
-  <data name="QUESTION_LENGTH_ERROR" xml:space="preserve">
-    <value>يجب أن يكون طول النص بين 1 و 100</value>
-  </data>
   <data name="STARS_NUMBER_ERROR" xml:space="preserve">
     <value>يجب أن يكون عدد الوجوه بين 1 و 10</value>
   </data>
