@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using QuestionManaging;
 using SurveyConfiguratorEntities;
+using SurveyConfiguratorWeb.Helpers;
 using SurveyConfiguratorWeb.Models;
 using SurveyConfiguratorWeb.Properties;
 using System;
@@ -24,7 +25,6 @@ namespace SurveyConfiguratorWeb.Controllers
             try
             {
                 mQuestionManager = pQuestionManager;
-                mQuestionManager.RefreshQuestionList();
             }
             catch (Exception pError)
             {
@@ -36,8 +36,7 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
-                var tModel = mQuestionManager.QuestionsList;
-                return View(tModel);
+                return View();
             }
             catch (Exception pError)
             {
@@ -180,7 +179,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 if (pClientHash == null)
                     return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
 
-                string pServerHash = MD5CheckSum(JsonConvert.SerializeObject(mQuestionManager.QuestionsList));
+                string pServerHash = Helper.MD5CheckSum(JsonConvert.SerializeObject(mQuestionManager.QuestionsList));
                 if (pServerHash == pClientHash)
                     return new HttpStatusCodeResult(304);
                 else
@@ -192,11 +191,12 @@ namespace SurveyConfiguratorWeb.Controllers
                 return new HttpStatusCodeResult(500);
             }
         }
+
         public ActionResult SetLanguage([Bind(Prefix = ConstantStringResources.cACTION_PREFIX_LANGUAGE)] string pSelectedCalture)
         {
             try
             {
-                if (ChangeCulture(pSelectedCalture))
+                if (Helper.ChangeCulture(pSelectedCalture))
                 {
                     Session[ConstantStringResources.cSESSION_KEY_LANGUAGE] = pSelectedCalture;
                     return Redirect(Request.UrlReferrer.ToString());
@@ -207,32 +207,6 @@ namespace SurveyConfiguratorWeb.Controllers
             {
                 ErrorLogger.Log(pError);
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
-            }
-        }
-        [NonAction]
-        private string MD5CheckSum(string pInput)
-        {
-            try
-            {
-                // Use input string to calculate MD5 hash
-                using (System.Security.Cryptography.MD5 tMD5 = System.Security.Cryptography.MD5.Create())
-                {
-                    byte[] tInputBytes = System.Text.Encoding.ASCII.GetBytes(pInput);
-                    byte[] tHashBytes = tMD5.ComputeHash(tInputBytes);
-
-                    // Convert the byte array to hexadecimal string
-                    StringBuilder tStringBuilder = new StringBuilder();
-                    for (int i = 0; i < tHashBytes.Length; i++)
-                    {
-                        tStringBuilder.Append(tHashBytes[i].ToString("X2"));
-                    }
-                    return tStringBuilder.ToString();
-                }
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return String.Empty;
             }
         }
     }

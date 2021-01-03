@@ -156,6 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Models\AutoRefreshInterval.cs" />
     <Compile Include="Models\ConstantStringResources.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />

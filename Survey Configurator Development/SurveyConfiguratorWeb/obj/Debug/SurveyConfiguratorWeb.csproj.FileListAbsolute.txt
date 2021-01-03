@@ -221,6 +221,7 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\ar\SurveyConfiguratorApp.resources.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\en\SurveyConfiguratorApp.resources.dll
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\ar\SurveyConfiguratorEntities.resources.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.csprojAssemblyReference.cache
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Properties.Captions.resources
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.Properties.Errors.resources
@@ -232,4 +233,3 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.csproj.CopyComplete
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\obj\Debug\SurveyConfiguratorWeb.pdb
-C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorWeb\bin\ar\SurveyConfiguratorEntities.resources.dll

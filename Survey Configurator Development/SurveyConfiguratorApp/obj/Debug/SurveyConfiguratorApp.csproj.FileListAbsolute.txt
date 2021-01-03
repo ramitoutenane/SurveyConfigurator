@@ -106,6 +106,7 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\bin\Debug\ErrorLogger.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\bin\Debug\QuestionManager.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\bin\Debug\SurveyConfiguratorEntities.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\bin\Debug\ar\SurveyConfiguratorEntities.resources.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csprojAssemblyReference.cache
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Main.resources
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.Properties.Resources.resources
@@ -122,4 +123,3 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.csproj.CopyComplete
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.exe
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\obj\Debug\SurveyConfiguratorApp.pdb
-C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorApp\bin\Debug\ar\SurveyConfiguratorEntities.resources.dll

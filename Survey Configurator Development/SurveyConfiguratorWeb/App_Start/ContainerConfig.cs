@@ -23,7 +23,7 @@ namespace SurveyConfiguratorWeb
 
                 var tBuilder = new ContainerBuilder();
                 tBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
-                tBuilder.RegisterType<QuestionManager>().As<IQuestionRepository>().WithParameter("pDatabaseSettings", tDatabaseSettings).SingleInstance();
+                tBuilder.RegisterType<QuestionManager>().As<IQuestionRepository>().WithParameter("pDatabaseSettings", tDatabaseSettings).SingleInstance().OnActivating(tType => tType.Instance.RefreshQuestionList());
 
                 var pContainer = tBuilder.Build();
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(pContainer));

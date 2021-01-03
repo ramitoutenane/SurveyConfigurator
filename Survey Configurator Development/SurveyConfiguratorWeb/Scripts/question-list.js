@@ -9,7 +9,6 @@ function StartAutoRefresh(pInterval) {
     AutoRefresh = setInterval(function () {
         let tHash = md5((JSON.stringify(Data))).toUpperCase();
         GetQuestionList(tHash);
-        console.log("aaa");
     }, pInterval);
 }
 
@@ -65,7 +64,7 @@ function ShowTableError() {
 }
 
 function SortTable(pSortOption) {
-    if (pSortOption == null || pSortOption.value == "Default") {
+    if (pSortOption == null || pSortOption.value == "default") {
         SortOption = pSortOption;
         PopulateTable(Data);
     }

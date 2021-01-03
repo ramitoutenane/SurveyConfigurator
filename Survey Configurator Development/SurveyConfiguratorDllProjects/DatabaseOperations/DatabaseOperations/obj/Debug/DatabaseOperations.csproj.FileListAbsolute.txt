@@ -24,9 +24,9 @@ C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Developm
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\SurveyConfiguratorEntities.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\ErrorLogger.pdb
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\SurveyConfiguratorEntities.pdb
+C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\ar\SurveyConfiguratorEntities.resources.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.csprojAssemblyReference.cache
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.csproj.CoreCompileInputs.cache
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.csproj.CopyComplete
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.dll
 C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\obj\Debug\DatabaseOperations.pdb
-C:\Users\m.ramy\Documents\GitHub\SurveyConfigurator\Survey Configurator Development\SurveyConfiguratorDllProjects\DatabaseOperations\DatabaseOperations\bin\Debug\ar\SurveyConfiguratorEntities.resources.dll
