@@ -169,7 +169,10 @@ namespace SurveyConfiguratorWeb.Controllers
         {
             try
             {
+                if(mQuestionManager.IsConnected())
                     return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
+                else
+                    return new HttpStatusCodeResult(500);
             }
             catch (Exception pError)
             {

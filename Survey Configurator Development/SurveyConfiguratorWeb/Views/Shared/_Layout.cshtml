@@ -43,11 +43,10 @@
         </div>
     </div>
     <div class="container body-content">
+        @Html.Partial("PartialViews/_ErrorMessageBox")
         @RenderBody()
         <hr />
     </div>
-
-    @Html.Partial("PartialViews/_MessageDialog")
     @Scripts.Render("~/bundles/hub")
     <script src="~/signalr/hubs"></script>
     @RenderSection("scripts", required: false)

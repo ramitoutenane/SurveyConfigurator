@@ -1,0 +1,13 @@
+﻿@using SurveyConfiguratorWeb.Properties
+<div class="alert alert-danger hidden" role="alert" id="ErrorMessage">
+    <p>@ViewBag.Message</p>
+</div>
+<script>
+    var tMessage = "@ViewBag.Message"
+    if (tMessage != '') {
+        $("#ErrorMessage").removeClass("hidden");
+        setTimeout(function () {
+            $("#ErrorMessage").addClass("hidden");
+        }, 10000)
+    }
+</script>

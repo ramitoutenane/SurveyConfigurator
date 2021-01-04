@@ -344,7 +344,7 @@
     <Content Include="Views\Survey\PartialViews\_SliderQuestion.cshtml" />
     <Content Include="Views\Survey\PartialViews\_BaseQuestion.cshtml" />
     <Content Include="Views\Survey\PartialViews\_FormButtons.cshtml" />
-    <Content Include="Views\Survey\PartialViews\_MessageDialog.cshtml" />
+    <Content Include="Views\Survey\PartialViews\_ErrorMessageBox.cshtml" />
     <Content Include="Views\Survey\PartialViews\_DeleteConfirmation.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
