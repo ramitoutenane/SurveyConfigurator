@@ -151,7 +151,7 @@
     <value>يجب أن يكون عدد الوجوه بين 2 و 5</value>
   </data>
   <data name="ORDER_ERROR" xml:space="preserve">
-    <value>يحب أن يكون ترتيب السؤال أكبر من 0</value>
+    <value>يحب أن يكون ترتيب السؤال بين 0 و 2,147,483,647</value>
   </data>
   <data name="STARS_NUMBER_ERROR" xml:space="preserve">
     <value>يجب أن يكون عدد الوجوه بين 1 و 10</value>

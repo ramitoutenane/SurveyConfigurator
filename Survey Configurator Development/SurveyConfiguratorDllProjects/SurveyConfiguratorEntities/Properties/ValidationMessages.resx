@@ -151,7 +151,7 @@
     <value>Number of faces must between 2 and 5</value>
   </data>
   <data name="ORDER_ERROR" xml:space="preserve">
-    <value>Question order must be larger than 0</value>
+    <value>Question order must be beteen 0 and 2,147,483,647</value>
   </data>
   <data name="STARS_NUMBER_ERROR" xml:space="preserve">
     <value>Number of stars must between 1 and 10</value>

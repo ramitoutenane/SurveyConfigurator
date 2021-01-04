@@ -22,7 +22,7 @@ namespace SurveyConfiguratorEntities.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ValidationMessages {
+    public class ValidationMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SurveyConfiguratorEntities.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SurveyConfiguratorEntities.Properties.ValidationMessages", typeof(ValidationMessages).Assembly);
@@ -51,7 +51,7 @@ namespace SurveyConfiguratorEntities.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to End caption text can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_END_CAPTION_ERROR {
+        public static string EMPTY_END_CAPTION_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_END_CAPTION_ERROR", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to End value can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_END_VALUE_ERROR {
+        public static string EMPTY_END_VALUE_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_END_VALUE_ERROR", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Number of  faces can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_FACES_NUMBER_ERROR {
+        public static string EMPTY_FACES_NUMBER_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_FACES_NUMBER_ERROR", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Question order can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_ORDER_ERROR {
+        public static string EMPTY_ORDER_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_ORDER_ERROR", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Question text can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_QUESTION_ERROR {
+        public static string EMPTY_QUESTION_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_QUESTION_ERROR", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Number of stars can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_STARS_NUMBER_ERROR {
+        public static string EMPTY_STARS_NUMBER_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_STARS_NUMBER_ERROR", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start caption text can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_START_CAPTION_ERROR {
+        public static string EMPTY_START_CAPTION_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_START_CAPTION_ERROR", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start value can&apos;t be empty.
         /// </summary>
-        internal static string EMPTY_START_VALUE_ERROR {
+        public static string EMPTY_START_VALUE_ERROR {
             get {
                 return ResourceManager.GetString("EMPTY_START_VALUE_ERROR", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to End Caption Length must be between 1 and 25.
         /// </summary>
-        internal static string END_CAPTION_LENGTH_ERROR {
+        public static string END_CAPTION_LENGTH_ERROR {
             get {
                 return ResourceManager.GetString("END_CAPTION_LENGTH_ERROR", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to End value must be between Start value and 100.
         /// </summary>
-        internal static string END_VALUE_ERROR {
+        public static string END_VALUE_ERROR {
             get {
                 return ResourceManager.GetString("END_VALUE_ERROR", resourceCulture);
             }
@@ -153,16 +153,16 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Number of faces must between 2 and 5.
         /// </summary>
-        internal static string FACES_NUMBER_ERROR {
+        public static string FACES_NUMBER_ERROR {
             get {
                 return ResourceManager.GetString("FACES_NUMBER_ERROR", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question order must be larger than 0.
+        ///   Looks up a localized string similar to Question order must be beteen 0 and 2,147,483,647.
         /// </summary>
-        internal static string ORDER_ERROR {
+        public static string ORDER_ERROR {
             get {
                 return ResourceManager.GetString("ORDER_ERROR", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Number of stars must between 1 and 10.
         /// </summary>
-        internal static string STARS_NUMBER_ERROR {
+        public static string STARS_NUMBER_ERROR {
             get {
                 return ResourceManager.GetString("STARS_NUMBER_ERROR", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start caption length must be between 1 and 25.
         /// </summary>
-        internal static string START_CAPTION_LENGTH_ERROR {
+        public static string START_CAPTION_LENGTH_ERROR {
             get {
                 return ResourceManager.GetString("START_CAPTION_LENGTH_ERROR", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace SurveyConfiguratorEntities.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start value must be between 1 and End value.
         /// </summary>
-        internal static string START_VALUE_ERROR {
+        public static string START_VALUE_ERROR {
             get {
                 return ResourceManager.GetString("START_VALUE_ERROR", resourceCulture);
             }

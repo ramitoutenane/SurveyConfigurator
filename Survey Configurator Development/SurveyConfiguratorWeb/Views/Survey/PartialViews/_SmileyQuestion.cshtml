@@ -5,13 +5,10 @@
 <div class="form-group">
     @Html.LabelFor(model => model.NumberOfFaces, Captions.QUESTION_FACES_NUMBER, htmlAttributes: new { @class = "control-label" })
     <div>
-        @Html.EditorFor(model => model.NumberOfFaces, new { htmlAttributes = new { @class = "form-control", min = QuestionValidationValues.cFACES_NUMBER_MIN, max = QuestionValidationValues.cFACES_NUMBER_MAX } })
+        @Html.EditorFor(model => model.NumberOfFaces, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.NumberOfFaces, "", new { @class = "text-danger" })
     </div>
 </div>
 @Html.Hidden("TypeId", (int)QuestionType.Smiley)
 
-@Html.ValidationMessageFor(model => model.NumberOfFaces, "", new { @class = "text-danger" })
-    </div>
-</div>
 @Html.Hidden(ConstantStringResources.cTYPE_ID, (int)QuestionType.Smiley)

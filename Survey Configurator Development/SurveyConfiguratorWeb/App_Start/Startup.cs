@@ -1,7 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using System;
-using System.Threading.Tasks;
 
 [assembly: OwinStartup(typeof(SurveyConfiguratorWeb.Startup))]
 
@@ -11,7 +10,14 @@ namespace SurveyConfiguratorWeb
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
+            try
+            {
+                app.MapSignalR();
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
 }
 
 <div class="container">
-    <div class="page-header"> @Captions.LIST_PAGE_HEADER </div>
+    <div class="page-header"> @Captions.LIST_PAGE_HEADER : @Session.SessionID </div>
     <div class="table-wrapper">
             <div class="search-container" hidden>
                 <form onsubmit="event.preventDefault();">
@@ -48,13 +48,13 @@
             <table id="QuestionTable" class="table table-striped table-hover table-bordered hidden">
                 <thead>
                     <tr>
-                        <th width=54% data-name="text" data-order="desc">
+                        <th width=54% data-name="text">
                             @Captions.QUESTION_TEXT
                         </th>
-                        <th width=15% data-name="order" data-order="desc">
+                        <th width=15% data-name="order">
                             @Captions.QUESTION_ORDER
                         </th>
-                        <th width=15% data-name="type" data-order="desc">
+                        <th width=15% data-name="type">
                             @Captions.QUESTION_TYPE
                         </th>
                         <th width=15%>@Captions.ACTIONS</th>

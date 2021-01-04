@@ -1,20 +1,9 @@
-﻿using Microsoft.AspNet.SignalR;
-using Newtonsoft.Json;
-using QuestionManaging;
+﻿using QuestionManaging;
 using SurveyConfiguratorEntities;
 using SurveyConfiguratorWeb.Helpers;
-using SurveyConfiguratorWeb.Hubs;
 using SurveyConfiguratorWeb.Models;
 using SurveyConfiguratorWeb.Properties;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SurveyConfiguratorWeb.Controllers
@@ -56,6 +45,7 @@ namespace SurveyConfiguratorWeb.Controllers
 
                 BaseQuestion tQuestion;
                 Result tReadResult = mQuestionManager.Read(pId.Value, out tQuestion);
+
                 if (tReadResult.Value == ResultValue.Success)
                     return View(tQuestion);
                 else if (tReadResult.Value == ResultValue.Error)
@@ -79,6 +69,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     Result tResult = mQuestionManager.Update(pQuestion);
+
                     if (tResult.Value == ResultValue.Success)
                         return RedirectToAction(ConstantStringResources.cHOME_ACTION);
                     else
@@ -103,6 +94,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 if (pQuestionType == null)
                     return View(ConstantStringResources.cERROR_VIEW,
                         new ErrorViewModel() { ErrorTitle = Errors.INVALID_TYPE_TITLE, ErrorMessage = Errors.INVALID_TYPE_MESSAGE });
+
                 switch (pQuestionType.Value)
                 {
                     case QuestionType.Slider:
@@ -132,6 +124,7 @@ namespace SurveyConfiguratorWeb.Controllers
                 if (ModelState.IsValid)
                 {
                     Result tResult = mQuestionManager.Create(pQuestion);
+
                     if (tResult.Value == ResultValue.Success)
                         return RedirectToAction(ConstantStringResources.cHOME_ACTION);
                     else
@@ -155,6 +148,7 @@ namespace SurveyConfiguratorWeb.Controllers
             try
             {
                 Result tResult = mQuestionManager.Delete(pId);
+
                 if (tResult.Value == ResultValue.Success)
                     return RedirectToAction(ConstantStringResources.cHOME_ACTION);
                 else
