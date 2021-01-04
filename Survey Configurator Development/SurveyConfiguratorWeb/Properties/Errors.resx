@@ -147,6 +147,9 @@
   <data name="INVALID_TYPE_TITLE" xml:space="preserve">
     <value>Invalid question type</value>
   </data>
+  <data name="NUMBER_VALIDATION_ERROR" xml:space="preserve">
+    <value>You must enter a valid integer</value>
+  </data>
   <data name="QUESTION_LENGTH_ERROR" xml:space="preserve">
     <value>Question text length must be between 1 and 100</value>
   </data>

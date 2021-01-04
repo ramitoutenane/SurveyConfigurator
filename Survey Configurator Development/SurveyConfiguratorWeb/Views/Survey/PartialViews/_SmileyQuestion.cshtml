@@ -5,7 +5,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.NumberOfFaces, Captions.QUESTION_FACES_NUMBER, htmlAttributes: new { @class = "control-label" })
     <div>
-        @Html.EditorFor(model => model.NumberOfFaces, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.NumberOfFaces, new { htmlAttributes = new { @class = "form-control", data_val_number = Errors.NUMBER_VALIDATION_ERROR } })
         @Html.ValidationMessageFor(model => model.NumberOfFaces, "", new { @class = "text-danger" })
     </div>
 </div>

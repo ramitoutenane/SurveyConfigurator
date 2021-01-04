@@ -20,7 +20,6 @@ namespace SurveyConfiguratorWeb.Models
                     if (tText.Length > QuestionValidationValues.cQUESTION_TEXT_LENGTH)
                         pBindingContext.ModelState.AddModelError(nameof(BaseQuestion.Text), Errors.START_LARGER_THAN_END_ERROR);
 
-
                     Type tQuestionType = null;
                     int tTypeId = (int)pBindingContext.ValueProvider.GetValue(ConstantStringResources.cTYPE_ID)?.ConvertTo(typeof(int));
                     switch (tTypeId)

@@ -151,6 +151,15 @@ namespace SurveyConfiguratorWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter a valid integer.
+        /// </summary>
+        public static string NUMBER_VALIDATION_ERROR {
+            get {
+                return ResourceManager.GetString("NUMBER_VALIDATION_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question text length must be between 1 and 100.
         /// </summary>
         public static string QUESTION_LENGTH_ERROR {
