@@ -27,7 +27,7 @@
 
             <span class="language">
                 @{
-                    switch (Session[ConstantStringResources.cSESSION_KEY_LANGUAGE])
+                    switch (Session[ConstantStringResources.cSESSION_KEY_LANGUAGE]) 
                     {
                         case ConstantStringResources.cARABIC_CULTURE:
                             <span class="nav-link">@Html.ActionLink(Captions.ENGLISH_LANGUAGE, ConstantStringResources.cSET_LANGUAGE_ACTION, ConstantStringResources.cSURVEY_CONTROLLER, new { Language = ConstantStringResources.cENGLISH_CULTURE }, new { @class = "navbar-brand" })</span>
