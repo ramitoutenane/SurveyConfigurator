@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using QuestionManaging;
 using SurveyConfiguratorEntities;
 using SurveyConfiguratorWeb.Helpers;
+using SurveyConfiguratorWeb.Hubs;
 using SurveyConfiguratorWeb.Models;
 using SurveyConfiguratorWeb.Properties;
 using System;
@@ -169,20 +171,10 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
-        public ActionResult QuestionList([Bind(Prefix = ConstantStringResources.cACTION_PREFIX_HASH)] string pClientHash)
+        public ActionResult QuestionList()
         {
             try
             {
-                Result tResult = mQuestionManager.RefreshQuestionList();
-                if (tResult.Value != ResultValue.Success)
-                    return new HttpStatusCodeResult(500);
-                if (pClientHash == null)
-                    return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
-
-                string pServerHash = Helper.MD5CheckSum(JsonConvert.SerializeObject(mQuestionManager.QuestionsList));
-                if (pServerHash == pClientHash)
-                    return new HttpStatusCodeResult(304);
-                else
                     return Json(mQuestionManager.QuestionsList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception pError)
@@ -209,5 +201,6 @@ namespace SurveyConfiguratorWeb.Controllers
                 return View(ConstantStringResources.cERROR_VIEW, new ErrorViewModel() { ErrorTitle = Errors.GENERAL_ERROR_TITLE, ErrorMessage = Errors.GENERAL_ERROR_MESSAGE });
             }
         }
+
     }
 }

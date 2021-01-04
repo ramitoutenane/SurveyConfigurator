@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using SurveyConfiguratorWeb.Hubs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,31 +11,6 @@ namespace SurveyConfiguratorWeb.Helpers
 {
     public static class Helper
     {
-        public static string MD5CheckSum(string pInput)
-        {
-            try
-            {
-                // Use input string to calculate MD5 hash
-                using (System.Security.Cryptography.MD5 tMD5 = System.Security.Cryptography.MD5.Create())
-                {
-                    byte[] tInputBytes = System.Text.Encoding.ASCII.GetBytes(pInput);
-                    byte[] tHashBytes = tMD5.ComputeHash(tInputBytes);
-
-                    // Convert the byte array to hexadecimal string
-                    StringBuilder tStringBuilder = new StringBuilder();
-                    for (int i = 0; i < tHashBytes.Length; i++)
-                    {
-                        tStringBuilder.Append(tHashBytes[i].ToString("X2"));
-                    }
-                    return tStringBuilder.ToString();
-                }
-            }
-            catch (Exception pError)
-            {
-                ErrorLogger.Log(pError);
-                return String.Empty;
-            }
-        }
         public static bool ChangeCulture(string pSelectedCalture)
         {
             try
@@ -46,6 +23,21 @@ namespace SurveyConfiguratorWeb.Helpers
             {
                 ErrorLogger.Log(pError);
                 return false;
+            }
+
+        }
+
+
+        public static void SendChangeNotification()
+        {
+            try
+            {
+                var QuestionListHubContext = GlobalHost.ConnectionManager.GetHubContext<QuestionListHub>();
+                QuestionListHubContext.Clients.All.UpdateQuestionList();
+            }
+            catch (Exception pError)
+            {
+                ErrorLogger.Log(pError);
             }
 
         }

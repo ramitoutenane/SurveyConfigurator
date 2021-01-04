@@ -27,9 +27,14 @@ namespace SurveyConfiguratorWeb
                       "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/right_to_left").Include(
                      "~/Content/right_to_left.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/script").Include(
             "~/Scripts/script.js",
-            "~/Scripts/question-list.js"));
+            "~/Scripts/question-table-operations.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/hub").Include(
+                "~/Scripts/jquery.signalR-2.4.1.min.js",
+                "~/Scripts/question-list-hub.js"));
         }
     }
 }

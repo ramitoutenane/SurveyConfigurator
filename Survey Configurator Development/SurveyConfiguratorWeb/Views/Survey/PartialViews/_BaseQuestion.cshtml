@@ -12,7 +12,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Text, Captions.QUESTION_TEXT, htmlAttributes: new { @class = "control-label" })
     <div">
-        @Html.TextAreaFor(model => model.Text, 6, 50, new { maxlength = 10, @class = "form-control" })
+        @Html.TextAreaFor(model => model.Text, 6, 50, new { maxlength = QuestionValidationValues.cQUESTION_TEXT_LENGTH, @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
 </div>
 

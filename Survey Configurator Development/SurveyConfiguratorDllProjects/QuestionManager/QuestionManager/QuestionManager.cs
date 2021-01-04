@@ -135,6 +135,8 @@ namespace QuestionManaging
                 {
                     // add Question to local questions list 
                     QuestionsList.Add(pQuestion);
+                    //fire auto refresh event
+                    InvokeQuestionListChangeEvent();
                     return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cINSERT_SUCCESS_MESSAGE);
                 }
                 return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cINSERT_FAIL_MESSAGE);
@@ -216,6 +218,8 @@ namespace QuestionManaging
                 if (tUpdatedResponse.Value == ResultValue.Success)
                 {
                     QuestionsList[QuestionsList.FindIndex(tQuestion => tQuestion.Id == pQuestion.Id)] = pQuestion;
+                    //fire auto refresh event
+                    InvokeQuestionListChangeEvent();
                     return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cUPDATE_SUCCESS_MESSAGE);
                 }
                 return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cUPDATE_FAIL_MESSAGE);
@@ -262,6 +266,8 @@ namespace QuestionManaging
                 if (tDeletedResponse.Value == ResultValue.Success)
                 {
                     QuestionsList.RemoveAll(tQuestion => tQuestion.Id == pId);
+                    //fire auto refresh event
+                    InvokeQuestionListChangeEvent();
                     return new Result(ResultValue.Success, ResultConstantValues.cSUCCESS_STATUS_CODE, ResultConstantValues.cDELETE_SUCCESS_MESSAGE);
                 }
                 return new Result(ResultValue.Fail, ResultConstantValues.cFAIL_STATUS_CODE, ResultConstantValues.cDELETE_FAIL_MESSAGE);
@@ -384,6 +390,14 @@ namespace QuestionManaging
                 ErrorLogger.Log(pError);
             }
 
+        }
+        /// <summary>
+        /// Fire auto refresh event
+        /// </summary>
+        private void InvokeQuestionListChangeEvent()
+        {
+            if (QuestionListChangedEventHandler != null)
+                QuestionListChangedEventHandler();
         }
         #endregion
     }

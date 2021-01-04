@@ -69,11 +69,3 @@
 
 @Html.Partial("PartialViews/_DeleteConfirmation")
 
-<script>
-    GetQuestionList('');
-    StartAutoRefresh(@AutoRefreshInterval.mAutoRefreshInterval);
-    function ShowDeleteDialog(pQuestionId) {
-        $("#pId").val(pQuestionId);
-        $("#DeleteConfirmation").modal();
-    }
-</script>

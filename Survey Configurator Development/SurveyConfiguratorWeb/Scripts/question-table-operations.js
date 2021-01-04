@@ -3,32 +3,6 @@ let SortedData = {};
 let SortOption = null;
 let AutoRefresh = null;
 
-function StartAutoRefresh(pInterval) {
-    if (pInterval == null || isNaN(pInterval))
-        pInterval = 20000;
-    AutoRefresh = setInterval(function () {
-        let tHash = md5((JSON.stringify(Data))).toUpperCase();
-        GetQuestionList(tHash);
-    }, pInterval);
-}
-
-function GetQuestionList(pHash) {
-    $.ajax({
-        url: '/Survey/QuestionList?Hash=' + pHash,
-        type: 'GET',
-        contentType: 'application/json',
-        success: function (data) {
-            if (data != null) {
-                Data = data;
-                SortTable(SortOption);
-            }
-        },
-        error: function () {
-            ShowTableError();
-        }
-    });
-}
-
 function PopulateTable(pData) {
     if (pData == null)
         return;
